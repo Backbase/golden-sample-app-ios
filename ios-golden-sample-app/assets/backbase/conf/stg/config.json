@@ -1,0 +1,18 @@
+{
+    "backbase": {
+        "serverURL": "https://app.prd.sdbxaz.azure.backbaseservices.com",
+        "version": "6.1.5",
+        "identity": {
+            "baseURL": "https://identity.prd.sdbxaz.azure.backbaseservices.com",
+            "realm": "customer",
+            "clientId": "mobile-client",
+            "applicationKey": "customer"
+        }
+    },
+    "security": {
+        "allowedDomains": [
+            "*"
+        ]
+    },
+    "bankTimeZone": "Europe/Amsterdam"
+}
