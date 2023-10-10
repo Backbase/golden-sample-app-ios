@@ -64,8 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: Backbase SDK methods
 private extension AppDelegate {
     func setupBackbaseSDK() {
-        // TODO create the variants
-        let config = Variants.configuration["CONFIG_PATH"] as? String ?? "assets/backbase/conf/default/config.json"
+
+        let config = "config.json"
         do {
             try Backbase.initialize(config, forceDecryption: false)
         } catch {
