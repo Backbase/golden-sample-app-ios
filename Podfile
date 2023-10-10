@@ -23,7 +23,7 @@ source 'https://cdn.cocoapods.org/'
 use_frameworks!
 inhibit_all_warnings!
 
-target 'ios-golden-sample-app' do
+target 'GoldenSampleApp' do
   # App dependency
   # pod 'RetailUSApp', '5.6.0'
   # # Backbase design system

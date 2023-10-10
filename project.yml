@@ -1,0 +1,45 @@
+name: ios-golden-sample-app
+options:
+  bundleIdPrefix: com.backbase
+  deploymentTarget:
+    iOS: 15.0
+targets:
+  GoldenSampleApp:
+    type: application
+    platform: iOS
+    deploymentTarget:
+      iOS: 15.0
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.backbase.golden-sample-app
+        MARKETING_VERSION: 0.0.1
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleName: GoldenSampleApp
+        UILaunchStoryboardName: LaunchScreen
+    sources:
+      - path: Sources
+        excludes: Info.plist
+        createIntermediateGroups: true
+  GoldenSampleAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    info:
+      path: Tests/Info.plist
+    codeSign: false
+    # dependencies:
+    #   - path: GoldenSampleApp
+    #     link: true
+    sources:
+      - path: Tests
+        excludes: Info.plist
+        createIntermediateGroups: true
+    scheme:
+      gatherCoverageData: true
+      testTargets: 
+        - name: GoldenSampleAppTests
+          parallelizable: false
+          randomExecutionOrder: true
+

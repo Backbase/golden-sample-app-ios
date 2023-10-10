@@ -12,7 +12,8 @@ ios/
 vendor/
 
 ## Ignore project files as we generate them with xcodegen (https://github.com/yonaskolb/XcodeGen)
-*.xcworkspace/xcuserdata/xcuserdata
+*.xcworkspace
+*.xcodeproj
 
 ## Various settings
 *.pbxuser
