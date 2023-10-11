@@ -8,12 +8,12 @@
 import Foundation
 
 struct ProductKindAggregatedBalanceItem: Equatable {
-    let amount: Float?
+    let amount: Double?
     let numberOfAccounts: Int?
     let productKindName: String?
     
     init(
-        amount: Float?,
+        amount: Double?,
         numberOfAccounts: Int?,
         productKindName: String?
     ) {
