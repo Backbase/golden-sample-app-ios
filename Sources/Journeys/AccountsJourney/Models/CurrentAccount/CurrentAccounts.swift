@@ -8,9 +8,13 @@
 import Foundation
 
 struct CurrentAccounts: Equatable {
+    /// List of current accounts
     let product: [CurrentAccount]
+    /// The label/name that is used for the respective product kind.
     let name: String?
+    /// The aggregated balance of this group of products.
     let aggregatedBalance: AggregatedBalance?
+    /// Extra parameters
     let additions: [String: String]
     
     /// Create a new `CurrentAccounts` object.

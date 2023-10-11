@@ -8,10 +8,15 @@
 import Foundation
 
 struct CustomProducts: Equatable {
+    /// A list of custom products.
     let products: [GeneralAccount]
+    /// label/name that is used for this particular group of custom products.
     let name: String?
+    /// The id of this group of custom products.
     let id: Int
+    /// The aggregated balance of this group of products.
     let aggregatedBalance: AggregatedBalance?
+    /// Extra information.
     let additions: [String: String]?
     
     /// Create a new `CustomProducts` object.
