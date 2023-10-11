@@ -11,7 +11,7 @@ targets:
       iOS: 15.0
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.backbase.golden-sample-app
+        PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp
         MARKETING_VERSION: 0.0.1
     info:
       path: Sources/Info.plist
@@ -23,6 +23,10 @@ targets:
       - path: Sources
         excludes: Info.plist
         createIntermediateGroups: true
+      - path: Sources/assets
+        type: group
+      - path: Sources/assets/backbase
+        type: group
   GoldenSampleAppTests:
     type: bundle.unit-test
     platform: iOS

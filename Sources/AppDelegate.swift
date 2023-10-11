@@ -65,9 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 private extension AppDelegate {
     func setupBackbaseSDK() {
 
-        let config = "config.json"
         do {
-            try Backbase.initialize(config, forceDecryption: false)
+            try Backbase.initialize("config.json", forceDecryption: false)
         } catch {
             fatalError("Backbase MSDK initialization failed: \(error.localizedDescription)")
         }
