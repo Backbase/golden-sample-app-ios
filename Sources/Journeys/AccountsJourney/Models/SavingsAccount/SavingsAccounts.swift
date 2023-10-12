@@ -15,7 +15,7 @@ struct SavingsAccounts: Equatable {
     /// The aggregated balance of this group of products.
     let aggregatedBalance: AggregatedBalance?
     /// Extra parameters
-    let additions: [String: String]
+    let additions: [String: String]?
     
     /// Creates a `SavingsAccounts` item
     /// - Parameters:
@@ -27,7 +27,7 @@ struct SavingsAccounts: Equatable {
         product: [SavingsAccount],
         name: String?,
         aggregatedBalance: AggregatedBalance?,
-        additions: [String : String]
+        additions: [String : String]?
     ) {
         self.product = product
         self.name = name

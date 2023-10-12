@@ -128,14 +128,6 @@ import Foundation
      let interestDetails: InterestDetails?
     /// This property is to accommodate additional country specific fields like Sort Code in UK.
      let bankBranchCode: String?
-    /// Credit limit for the account
-     let creditLimit: String?
-    /// Available balance
-     let availableBalance: String?
-    /// The minimum payment set a percentage of balance, or a fixed cash amount.
-     let minimumPayment: Double?
-    /// Minimum Payment Due Date shown on your monthly statement to remain in good standing.
-     let minimumPaymentDueDate: Date?
     
     /// Create a new `Loan` object.
     /// - Parameters:
@@ -189,10 +181,6 @@ import Foundation
     ///   - cardDetails: Card details
     ///   - interestDetails: Interest Details
     ///   - bankBranchCode: This property is to accommodate additional country specific fields like Sort Code in UK.
-    ///   - creditLimit: Credit limit for the account
-    ///   - availableBalance: Available balance
-    ///   - minimumPayment: The minimum payment set a percentage of balance, or a fixed cash amount.
-    ///   - minimumPaymentDueDate: Minimum Payment Due Date shown on your monthly statement to remain in good standing.
      init(
         bookedBalance: String? = nil,
         principalAmount: Double? = nil,
@@ -242,11 +230,7 @@ import Foundation
         externalAccountStatus: String? = nil,
         cardDetails: CardDetails? = nil,
         interestDetails: InterestDetails? = nil,
-        bankBranchCode: String? = nil,
-        creditLimit: String? = nil,
-        availableBalance: String? = nil,
-        minimumPayment: Double? = nil,
-        minimumPaymentDueDate: Date? = nil
+        bankBranchCode: String? = nil
     ) {
         self.bookedBalance = bookedBalance
         self.principalAmount = principalAmount
@@ -297,18 +281,5 @@ import Foundation
         self.cardDetails = cardDetails
         self.interestDetails = interestDetails
         self.bankBranchCode = bankBranchCode
-        self.creditLimit = creditLimit
-        self.availableBalance = availableBalance
-        self.minimumPayment = minimumPayment
-        self.minimumPaymentDueDate = minimumPaymentDueDate
-    }
-    
-    internal func isLoan(_ loanState: LoanState) -> Bool {
-        
-        if case .unknownState = loanState, state?.state == nil {
-            return true
-        }
-        
-        return state?.state?.lowercased() == loanState.rawValue.lowercased()
     }
 }

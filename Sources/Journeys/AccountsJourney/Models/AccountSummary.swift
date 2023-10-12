@@ -43,4 +43,5 @@ struct AccountSummary: Equatable {
         self.investmentAccounts = investmentAccounts
         self.additions = additions
     }
+    
 }

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AccountsUseCase {
-    func getAccountSummary(_ completion: @escaping(Result<AccountSummary, Error>) -> Void)
+    func getAccountSummary(_ completion: @escaping(Result<AccountSummary, ErrorResponse>) -> Void)
 }

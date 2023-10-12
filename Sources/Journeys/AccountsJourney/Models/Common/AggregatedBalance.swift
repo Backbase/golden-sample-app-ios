@@ -11,13 +11,13 @@ struct AggregatedBalance: Equatable {
     let currency: String?
     let value: String?
     let productKindAggregatedBalanceItem: [ProductKindAggregatedBalanceItem]?
-    let additions: [String: String]
+    let additions: [String: String]?
     
     init(
         currency: String?,
         value: String?,
-        productKindAggregatedBalanceItem: [ProductKindAggregatedBalanceItem]?,
-        additions: [String : String]
+        productKindAggregatedBalanceItem: [ProductKindAggregatedBalanceItem]? = nil,
+        additions: [String : String]?
     ) {
         self.currency = currency
         self.value = value

@@ -33,6 +33,7 @@ target 'GoldenSampleApp' do
   pod 'IdentityAuthenticationJourney'
   pod 'BusinessWorkspacesJourney'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
+  pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver', '~> 1.2.1'
 
 end

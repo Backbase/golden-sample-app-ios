@@ -13,7 +13,7 @@ struct CustomProducts: Equatable {
     /// label/name that is used for this particular group of custom products.
     let name: String?
     /// The id of this group of custom products.
-    let id: Int
+    let id: Int?
     /// The aggregated balance of this group of products.
     let aggregatedBalance: AggregatedBalance?
     /// Extra information.
@@ -29,7 +29,7 @@ struct CustomProducts: Equatable {
     init(
         products: [GeneralAccount],
         name: String?,
-        id: Int,
+        id: Int?,
         aggregatedBalance: AggregatedBalance?,
         additions: [String : String]?
     ) {
