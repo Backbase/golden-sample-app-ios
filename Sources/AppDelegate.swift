@@ -135,7 +135,7 @@ private extension AppDelegate {
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in
             { [weak self] workspace in
                 didSelect?(navigationController)(workspace)
-                self?.window?.rootViewController = ViewController()
+                self?.window?.rootViewController = AccountsJourney.build()
                 self?.window?.makeKeyAndVisible()
             }
         }
@@ -152,6 +152,8 @@ private extension AppDelegate {
         }
         return UserRepository(storageComponent: storage)
     }
+    
+//    func get
 
     func getAccessControlClient() -> AccessControlClient3Gen2.UsersAPI {
         if let dbsClient = Backbase.registered(client: UsersAPI.self), let client = dbsClient as? UsersAPI {

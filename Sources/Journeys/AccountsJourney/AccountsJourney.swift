@@ -5,11 +5,16 @@
 //  Created by George Nyakundi on 12/10/2023.
 //
 
-import Foundation
+import UIKit
 
 struct AccountsJourney {
-    enum Error: Swift.Error {
-        case invalidResponse
-        case emptyResponse
+    
+    static func build() -> UIViewController {
+        let viewModel = AccountsJourneyViewModel()
+        let viewController = AccountsViewController()
+        
+        viewController.bind(viewModel: viewModel)
+        return viewController
+        
     }
 }
