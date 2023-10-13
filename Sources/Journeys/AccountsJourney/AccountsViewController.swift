@@ -8,21 +8,22 @@
 import UIKit
 import Combine
 
-final class AccountsViewController: ViewController {
+final class AccountsViewController: UIViewController {
     
     private var viewModel: AccountsJourneyViewModel?
+    private let input: PassthroughSubject<AccountsJourneyViewModel.Input, Never> = .init()
     
-    private var cancellables: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLabel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        view.backgroundColor = .white
-        view.addSubview(label)
-        label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        input.send(.viewDidAppear)
     }
     
     
@@ -35,21 +36,29 @@ final class AccountsViewController: ViewController {
         return label
     }()
     
+    private func setupLabel() {
+        view.backgroundColor = .white
+        view.addSubview(label)
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
     func bind(viewModel: AccountsJourneyViewModel) {
         self.viewModel = viewModel
-    
-        cancellables = viewModel.accountSummarySubject.sink {[weak self] completion in
-            switch completion {
-            case .finished:
-                self?.label.text = "Finished loading"
-            case let .failure(error):
-                self?.label.text = error.localizedDescription
-            }
-        } receiveValue: { [weak self ] accountSummary in
-            self?.label.text = "I"
-            print(accountSummary)
-        }
-
+        
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+                switch event {
+                case let .fetchDidFail(error):
+                    self?.label.text = error.localizedDescription
+                case let .fetchDidSucceed(accountSummary):
+                    self?.label.text = accountSummary.currentAccounts?.name
+                }
+            }.store(in: &cancellables)
     }
 
 }

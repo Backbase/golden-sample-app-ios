@@ -10,6 +10,17 @@ import Resolver
 import Combine
 
 final class AccountsJourneyViewModel {
+    
+    enum Input {
+        case viewDidAppear
+        case viewDidRefresh
+    }
+    
+    enum Output {
+        case fetchDidFail(error: Error)
+        case fetchDidSucceed(accountSummary: AccountSummary)
+    }
+    
     // MARK: - Private
     
     private lazy var accountsUsecase: AccountsUseCase = {
@@ -19,17 +30,28 @@ final class AccountsJourneyViewModel {
         return usecase
     }()
     
-    let accountSummarySubject =  CurrentValueSubject<AccountSummary?, Error>(nil)
+    private var cancellables = Set<AnyCancellable>()
+    private let output: PassthroughSubject<Output, Never> = .init()
     
-    func getAccountSummary() {
+    func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output,Never> {
+        input.sink {[weak self] event in
+            switch event {
+            case .viewDidAppear, .viewDidRefresh:
+                self?.getAccountSummary()
+            }
+        }.store(in: &cancellables)
+        
+        return output.eraseToAnyPublisher()
+    }
+    
+    private func getAccountSummary() {
         
         accountsUsecase.getAccountSummary {[weak self] result in
             switch result {
             case let .success(accountsSummaryResponse):
-                self?.accountSummarySubject.value = accountsSummaryResponse
-                self?.accountSummarySubject.send(completion: .finished)
+                self?.output.send(.fetchDidSucceed(accountSummary: accountsSummaryResponse))
             case let .failure(errorResponse):
-                self?.accountSummarySubject.send(completion: .failure(errorResponse.error!))
+                self?.output.send(.fetchDidFail(error: errorResponse.error!))
             }
         }
     }
