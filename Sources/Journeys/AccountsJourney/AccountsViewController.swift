@@ -30,7 +30,7 @@ final class AccountsViewController: UIViewController {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "HELLO WORLD!"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 48)
         label.textAlignment = .center
         return label
@@ -56,7 +56,7 @@ final class AccountsViewController: UIViewController {
                 case let .fetchDidFail(error):
                     self?.label.text = error.localizedDescription
                 case let .fetchDidSucceed(accountSummary):
-                    self?.label.text = accountSummary.currentAccounts?.name
+                    self?.label.text = accountSummary.currentAccounts?.product[0].accountHolderNames ?? ""
                 }
             }.store(in: &cancellables)
     }
