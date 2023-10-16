@@ -87,10 +87,11 @@ PODS:
 
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
+  - Backbase (>= 9.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney
-  - Resolver (~> 1.2.1)
+  - Resolver (= 1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
 
 SPEC REPOS:
@@ -148,6 +149,6 @@ SPEC CHECKSUMS:
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: a705c825f529d5346cb9abcf410ff4dcdafb4fb4
+PODFILE CHECKSUM: 46335cf6a33756f6f3b8ebb92fa6502ed556700f
 
 COCOAPODS: 1.13.0

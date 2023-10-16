@@ -4,6 +4,44 @@ options:
   deploymentTarget:
     iOS: 15.0
 targets:
+  AccountsJourney:
+    type: framework
+    platform: iOS
+    deploymentTarget:
+      iOS: 15.0
+    info:
+      path: Sources/AccountsJourney/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+    settings:
+      base:
+        SUPPORTS_MACCATALYST: NO
+        MARKETING_VERSION: 0.0.1
+        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
+    sources:
+      - path: Sources/AccountsJourney
+        excludes:
+          - Info.plist
+        createIntermediateGroups: true
+  GoldenAccountsUseCase:
+    type: framework
+    platform: iOS
+    deploymentTarget:
+      iOS: 15.0
+    info:
+      path: Sources/GoldenAccountsUseCase/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+    settings:
+      base:
+        SUPPORTS_MACCATALYST: NO
+        MARKETING_VERSION: 0.0.1
+        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
+    sources:
+      - path: Sources/GoldenAccountsUseCase
+        excludes:
+          - Info.plist
+        createIntermediateGroups: true
   GoldenSampleApp:
     type: application
     platform: iOS
@@ -14,36 +52,71 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp
         MARKETING_VERSION: 0.0.1
     info:
-      path: Sources/Info.plist
+      path: Sources/GoldenSampleApp/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleName: GoldenSampleApp
         UILaunchStoryboardName: LaunchScreen
     sources:
-      - path: Sources
+      - path: Sources/GoldenSampleApp
         excludes: Info.plist
         createIntermediateGroups: true
-      - path: Sources/assets
-        type: group
-      - path: Sources/assets/backbase
-        type: group
-  GoldenSampleAppTests:
-    type: bundle.unit-test
+    dependencies:
+      - target: GoldenAccountsUseCase
+        embed: true
+      - target: AccountsJourney
+        embed: true
+  GoldenSampleAllTests:
+    type: framework
     platform: iOS
     info:
-      path: Tests/Info.plist
+      path: Tests/GoldenSampleAllTests/Info.plist
     codeSign: false
-    # dependencies:
-    #   - path: GoldenSampleApp
-    #     link: true
-    sources:
-      - path: Tests
-        excludes: Info.plist
-        createIntermediateGroups: true
+    settings:
+      base:
+        MARKETING_VERSION: 0.0.1
+    dependencies:
+      - target: AccountsJourney
+        link: false
+      - target: GoldenAccountsUseCase
+        link: false
     scheme:
       gatherCoverageData: true
       testTargets: 
-        - name: GoldenSampleAppTests
+        - name: AccountsJourneyUnitTests
           parallelizable: false
           randomExecutionOrder: true
+        - name: GoldenAccountsUseCaseUnitTests
+          parallelizable: false
+          randomExecutionOrder: true
+
+  AccountsJourneyUnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    info:
+      path: Tests/AccountsJourney/UnitTests/Info.plist
+    codeSign: false
+    dependencies:
+      - target: AccountsJourney
+        link: true
+    sources:
+      - path: Tests/AccountsJourney/UnitTests
+        excludes: Info.plist
+        createIntermediateGroups: true
+  
+  GoldenAccountsUseCaseUnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    info:
+      path: Tests/GoldenAccountsUseCase/UnitTests/Info.plist
+    codeSign: false
+    dependencies:
+      - target: AccountsJourney
+        link: true
+      - target: GoldenAccountsUseCase
+        link: true
+    sources:
+      - path: Tests/GoldenAccountsUseCase/UnitTests
+        excludes: Info.plist
+        createIntermediateGroups: true
 

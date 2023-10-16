@@ -23,20 +23,41 @@ source 'https://cdn.cocoapods.org/'
 use_frameworks!
 inhibit_all_warnings!
 
-target 'GoldenSampleApp' do
-  # App dependency
-  # pod 'RetailUSApp', '5.6.0'
-  # # Backbase design system
-  # pod 'DesignSystem'
+$resolverVersion = '1.2.1'
+$backbaseVersion = '>= 9.0'
 
+abstract_target 'Common' do
+  pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase'
   pod 'IdentityAuthenticationJourney'
   pod 'BusinessWorkspacesJourney'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
-  pod 'Resolver', '~> 1.2.1'
+  pod 'Resolver',  $resolverVersion
+  
+  target 'AccountsJourney' do
+  end
+  
+  target 'GoldenAccountsUseCase' do
+  end
 
+  target 'GoldenSampleApp' do
+    use_frameworks!
+  end
 end
+
+abstract_target 'Tests' do 
+  pod 'Backbase', $backbaseVersion
+  pod 'Resolver', $resolverVersion
+  
+
+  target 'AccountsJourneyUnitTests' do 
+  end
+
+  target 'GoldenAccountsUseCaseUnitTests' do 
+  end
+end
+
 
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
