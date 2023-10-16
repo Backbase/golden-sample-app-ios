@@ -2,7 +2,7 @@
 //  AccountsJourneyError.swift
 //  GoldenSampleApp
 //
-//  Created by George Nyakundi on 12/10/2023.
+//  Created by Backbase R&D B.V. on 12/10/2023.
 //
 
 import Foundation

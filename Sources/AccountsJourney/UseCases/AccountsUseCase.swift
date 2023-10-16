@@ -2,7 +2,7 @@
 //  AccountsUseCase.swift
 //  GoldenSampleApp
 //
-//  Created by George Nyakundi on 11/10/2023.
+//  Created by Backbase R&D B.V. on 11/10/2023.
 //
 
 import Foundation

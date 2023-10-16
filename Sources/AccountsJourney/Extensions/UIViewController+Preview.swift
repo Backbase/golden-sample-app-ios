@@ -2,7 +2,7 @@
 //  UIViewController+Preview.swift
 //  GoldenSampleApp
 //
-//  Created by George Nyakundi on 13/10/2023.
+//  Created by Backbase R&D B.V. on 13/10/2023.
 //
 
 #if DEBUG
