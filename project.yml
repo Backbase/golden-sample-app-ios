@@ -23,6 +23,11 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+    scheme:
+      testTargets:
+        - AccountsJourneyUnitTests
+      gatherCoverageData: true
+
   GoldenAccountsUseCase:
     type: framework
     platform: iOS
@@ -42,6 +47,14 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+    scheme:
+      testTargets:
+        - GoldenAccountsUseCaseUnitTests
+      gatherCoverageData: true
+    dependencies:
+      - target: AccountsJourney
+        link: true
+
   GoldenSampleApp:
     type: application
     platform: iOS
