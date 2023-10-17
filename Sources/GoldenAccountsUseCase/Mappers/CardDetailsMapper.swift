@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.CardDetails {
-    func toDomainModel() -> AccountsJourney.CardDetails {
+    public func toDomainModel() -> AccountsJourney.CardDetails {
         AccountsJourney.CardDetails(
             additions: self.additions,
             cardProvider: self.cardProvider,

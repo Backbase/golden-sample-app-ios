@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.TermDeposit {
-    func toDomainModel() -> AccountsJourney.TermDeposit {
+   public func toDomainModel() -> AccountsJourney.TermDeposit {
         AccountsJourney.TermDeposit(
             bookedBalance: self.bookedBalance,
             principalAmount: self.principalAmount,

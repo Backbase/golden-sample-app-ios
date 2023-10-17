@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.DebitCard {
-    func toDomainModel() -> AccountsJourney.DebitCard {
+    public func toDomainModel() -> AccountsJourney.DebitCard {
         AccountsJourney.DebitCard(
             number: self.number,
             urgentTransferAllowed: self.urgentTransferAllowed,
@@ -54,7 +54,7 @@ extension ArrangementsClient2Gen2.DebitCard {
 
 
 extension ArrangementsClient2Gen2.DebitCardItem {
-    func toDomainModel() -> AccountsJourney.DebitCardItem {
+    public func toDomainModel() -> AccountsJourney.DebitCardItem {
         AccountsJourney.DebitCardItem(
             number: self.number,
             expiryDate: self.expiryDate,
@@ -69,7 +69,7 @@ extension ArrangementsClient2Gen2.DebitCardItem {
 
 
 extension ArrangementsClient2Gen2.DebitCardProductKinds {
-    func toDomainModel() -> AccountsJourney.DebitCards {
+    public func toDomainModel() -> AccountsJourney.DebitCards {
         AccountsJourney.DebitCards(
             products: self.products.map { $0.toDomainModel() },
             name: self.name,

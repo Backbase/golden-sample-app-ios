@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.BaseProduct {
-    func toDomainModel() -> AccountsJourney.BaseProduct {
+    public func toDomainModel() -> AccountsJourney.BaseProduct {
         AccountsJourney.BaseProduct(
             identifier: self.id,
             name: self.name,

@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.CurrentAccount {
-    func toDomainModel() -> AccountsJourney.CurrentAccount {
+    public func toDomainModel() -> AccountsJourney.CurrentAccount {
         AccountsJourney.CurrentAccount(
             bookedBalance: self.bookedBalance,
             availableBalance: self.availableBalance,
@@ -74,7 +74,7 @@ extension ArrangementsClient2Gen2.CurrentAccount {
 
 
 extension ArrangementsClient2Gen2.CurrentAccountProductKinds {
-    func toDomainModel() -> AccountsJourney.CurrentAccounts {
+    public func toDomainModel() -> AccountsJourney.CurrentAccounts {
         AccountsJourney.CurrentAccounts(
             product: self.products.map { $0.toDomainModel()},
             name: self.name,

@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.TimeUnit {
-    func toDomainModel() -> AccountsJourney.TimeUnit {
+    public func toDomainModel() -> AccountsJourney.TimeUnit {
         switch self {
         case .d:
             return .day

@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.MaskableAttribute {
-    func toDomainModel() -> AccountsJourney.MaskableAttribute {
+    public func toDomainModel() -> AccountsJourney.MaskableAttribute {
         AccountsJourney.MaskableAttribute(rawValue: self.rawValue) ?? .bban
     }
 }

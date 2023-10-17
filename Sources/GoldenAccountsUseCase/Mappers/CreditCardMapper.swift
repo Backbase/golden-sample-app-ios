@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.CreditCard {
-    func toDomainModel() -> AccountsJourney.CreditCard {
+    public func toDomainModel() -> AccountsJourney.CreditCard {
         AccountsJourney.CreditCard(
             bookedBalance: self.bookedBalance,
             availableBalance: self.availableBalance,
@@ -64,7 +64,7 @@ extension ArrangementsClient2Gen2.CreditCard {
 }
 
 extension ArrangementsClient2Gen2.CreditCardProductKinds {
-    func toDomainModel() -> AccountsJourney.CreditCards {
+    public func toDomainModel() -> AccountsJourney.CreditCards {
         AccountsJourney.CreditCards(
             products: self.products.map { $0.toDomainModel() },
             name: self.name,

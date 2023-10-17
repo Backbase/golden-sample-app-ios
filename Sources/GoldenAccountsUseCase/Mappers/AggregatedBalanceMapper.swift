@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.SummaryAggregatedBalance {
-    func toDomainModel() -> AccountsJourney.AggregatedBalance {
+    public func toDomainModel() -> AccountsJourney.AggregatedBalance {
         AccountsJourney.AggregatedBalance(
             currency: self.currency,
             value: self.value,

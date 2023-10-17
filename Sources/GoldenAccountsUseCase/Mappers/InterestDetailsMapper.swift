@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.InterestDetails {
-    func toDomainModel() -> AccountsJourney.InterestDetails {
+    public func toDomainModel() -> AccountsJourney.InterestDetails {
         AccountsJourney.InterestDetails(
             additions: self.additions,
             lastYearAccruedInterest: self.lastYearAccruedInterest,

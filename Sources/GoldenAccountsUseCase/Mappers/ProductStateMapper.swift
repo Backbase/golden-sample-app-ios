@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.StateItem {
-    func toDomainModel() -> AccountsJourney.ProductState {
+    public func toDomainModel() -> AccountsJourney.ProductState {
         AccountsJourney.ProductState(
             externalStateId: self.externalStateId,
             state: self.state,

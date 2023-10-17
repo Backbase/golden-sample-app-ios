@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.ProductSummary {
-    func toDomainModel() -> AccountsJourney.AccountsSummary {
+    public func toDomainModel() -> AccountsJourney.AccountsSummary {
         AccountsJourney.AccountsSummary(
             customProducts:
                 self.customProductKinds.map { $0.toDomainModel() },

@@ -11,7 +11,7 @@ import ArrangementsClient2Gen2
 
 
 extension ArrangementsClient2Gen2.Loan {
-    func toDomainModel() -> AccountsJourney.Loan {
+    public func toDomainModel() -> AccountsJourney.Loan {
         AccountsJourney.Loan(
             bookedBalance: self.bookedBalance,
             principalAmount: self.principalAmount,
@@ -67,7 +67,7 @@ extension ArrangementsClient2Gen2.Loan {
 }
 
 extension ArrangementsClient2Gen2.LoanProductKinds {
-    func toDomainModel() -> AccountsJourney.Loans {
+    public func toDomainModel() -> AccountsJourney.Loans {
         AccountsJourney.Loans(
             products: self.products.map { $0.toDomainModel() },
             name: self.name,
