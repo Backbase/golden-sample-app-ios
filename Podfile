@@ -1,12 +1,9 @@
-platform :ios, '14.0'
+platform :ios, '15.0'
 
 # The following JFrog artifactory repositories should include
 # - https://repo.backbase.com/api/pods/ios3/ (backbase-pods3)
 # - https://repo.backbase.com/api/pods/ios-retail3/ (backbase-pods-retail3)
-# - https://repo.backbase.com/api/pods/ios-identity/ (ios-identity)
-# - https://repo.backbase.com/api/pods/ios-mobile-notifications/ (ios-mobile-notifications)
-# - https://repo.backbase.com/api/pods/ios-engagement-channels/ (ios-engagement-channels)
-# - https://repo.backbase.com/api/pods/ios-mitek-misnap/ (backbase-pods-mitek-misnap)
+# - https://repo.backbase.com/api/pods/ios-identity/ (backbase-pods-identity)
 # - https://repo.backbase.com/api/pods/ios-business/ (backbase-pods-business)
 # - https://repo.backbase.com/api/pods/design-ios/ (backbase-pods-design)
 plugin 'cocoapods-art', sources: %w[
@@ -72,40 +69,10 @@ post_install do |installer_representation|
     end
 
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       # Our frameworks are built with library evolution support enabled,
       # and they are linked against dependencies with the same setting.
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
     end
-    # update_vg_parallax_pod()
   end
-
-  # Fix swiftinterface files for Xcode 12
-  frameworks = ['RetailAccountsAndTransactionsJourney',
-                'RetailAccountsAndTransactionsJourneyAccountsUseCase',
-                'RetailAccountsAndTransactionsJourneyTransactionsUseCase',
-                'RetailCardsManagementJourney',
-                'RetailCardsManagementJourneyCardsUseCase',
-                'BusinessWorkspacesJourney',
-                'BusinessWorkspacesJourneyWorkspacesUseCase2',
-                'BusinessJourneyCommon',
-                'BusinessDesign']
-  frameworks.each do |framework|
-    directory = File.join(installer_representation.config.project_pods_root, framework)
-    Dir[ File.join(directory, '**', '*') ].reject { |p| File.directory? p
-      if File.extname(p) == '.swiftinterface'
-        puts("Updating " + p)
-        system("sed -i '' 's/import _Concurrency//g' #{p}")
-        system("sed -i '' 's/@_Concurrency\.MainActor(unsafe) //g' #{p}")
-      end
-    }
-  end
-end
-# Temporary fix for this dependency to import correctly one of it's subdependencies
-def update_vg_parallax_pod
-  filename = [Dir.pwd, "Pods", "VGParallaxHeader", "VGParallaxHeader", "UIScrollView+VGParallaxHeader.m"].join("/")
-  File.chmod(0700, filename)
-  text = File.read(filename)
-  new_contents = text.gsub("#import <PureLayout.h>", "#import <PureLayout/PureLayout.h>")
-  File.open(filename, "w") {|file| file.puts new_contents }
 end
