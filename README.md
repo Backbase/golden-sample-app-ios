@@ -1,6 +1,5 @@
 # Golden Sample iOS App
 
-
 ## Overview
 This sample provides examples of the code structure, configuration, and best practices for building iOS application on the Backbase platform.
 
