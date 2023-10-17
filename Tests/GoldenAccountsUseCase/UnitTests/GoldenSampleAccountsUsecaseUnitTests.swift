@@ -148,4 +148,73 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
         XCTAssertEqual(sut.toDomainModel(), expectedOutcome)
     }
     
+    func test_GeneralAccount_toDomainModel_mapping() {
+        let sut = ArrangementsClient2Gen2.GeneralAccount.Builder(
+            debitCardsItems: [
+                .Builder()
+                .set(number: "CardNumber")
+                .set(cardStatus: "Active")
+                .set(expiryDate: "Future")
+                .set(cardId: "AwesomeId")
+                .set(cardholderName: "It's Mine")
+                .set(cardType: "Flashy Card")
+                .set(additions: [:])
+                .build()
+            ]).set(name: "General Account")
+            .build()
+        
+        let expectedDebitCard = AccountsJourney.DebitCardItem(number: "CardNumber", expiryDate: "Future", cardId: "AwesomeId", cardholderName: "It's Mine", cardType: "Flashy Card", cardStatus: "Active", additions: [:])
+        
+        let expectedOutcome = AccountsJourney.GeneralAccount(debitCardsItems: [expectedDebitCard], name: "General Account")
+        
+        XCTAssertEqual(sut.toDomainModel(), expectedOutcome)
+    }
+    
+    func test_CreditCard_toDomainModel_mapping() {
+        let sut = ArrangementsClient2Gen2.CreditCard.Builder()
+            .set(id: "credit-card-id")
+            .set(name: "Awesome Card")
+            .set(visible: true)
+            .build()
+        
+        let expectedOutcome = AccountsJourney.CreditCard(bookedBalance: nil, availableBalance: nil, creditLimit: nil, number: nil, currency: nil, urgentTransferAllowed: nil, cardNumber: nil, creditCardAccountNumber: nil, bankBranchCode2: nil, validThru: nil, applicableInterestRate: nil, remainingCredit: nil, outstandingPayment: nil, minimumPayment: nil, minimumPaymentDueDate: nil, accountInterestRate: nil, accountHolderNames: nil, creditLimitUsage: nil, creditLimitInterestRate: nil, accruedInterest: nil, additions: nil, identifier: "credit-card-id", unmaskableAttributes: nil, name: "Awesome Card", displayName: nil, externalTransferAllowed: nil, crossCurrencyAllowed: nil, productKindName: nil, productTypeName: nil, bankAlias: nil, sourceId: nil, visible: true, accountOpeningDate: nil, lastUpdateDate: nil, userPreferences: nil, state: nil, parentId: nil, subArrangements: nil, financialInstitutionId: nil, lastSyncDate: nil, cardDetails: nil, interestDetails: nil, reservedAmount: nil, remainingPeriodicTransfers: nil, nextClosingDate: nil, overdueSince: nil, externalAccountStatus: nil)
+        
+        XCTAssertEqual(sut.toDomainModel(), expectedOutcome)
+    }
+    
+    func test_CardDetails_toDomainModel_mapping() {
+        let sut = ArrangementsClient2Gen2.CardDetails.Builder(cardProvider: "AwesomeBank")
+            .set(latePaymentFee: "Nothing to pay")
+            .set(additions: [:])
+            .set(statementBalance: 3.0)
+            .build()
+        
+        let expectedOutcome = AccountsJourney.CardDetails(additions: [:], cardProvider: "AwesomeBank", secured: nil, availableCashCredit: nil, cashCreditLimit: nil, lastPaymentDate: nil, lastPaymentAmount: nil, latePaymentFee: "Nothing to pay", previousStatementDate: nil, previousStatementBalance: nil, statementBalance: 3.0)
+        
+        XCTAssertEqual(sut.toDomainModel(), expectedOutcome)
+    }
+    
+    func test_BaseProduct_toDomainModel_mapping() {
+        let sut = ArrangementsClient2Gen2.BaseProduct.Builder()
+            .set(id: "Base-id")
+            .set(name: "Some Product")
+            .set(visible: false)
+            .set(displayName: "Don't show anything")
+            .build()
+        let expectedOutcome = AccountsJourney.BaseProduct(identifier: "Base-id", name: "Some Product", displayName: "Don't show anything", externalTransferAllowed: nil, crossCurrencyAllowed: nil, productKindName: nil, productTypeName: nil, bankAlias: nil, sourceId: nil, visible: false, accountOpeningDate: nil, lastUpdateDate: nil, userPreferences: nil, state: nil, parentId: nil, subArrangements: nil, financialInstitutionId: nil, lastSyncDate: nil, additions: nil, cardDetails: nil, bankBranchCode2: nil, nextClosingDate: nil, interestDetails: nil, externalAccountStatus: nil, remainingPeriodicTransfers: nil, reservedAmount: nil, overdueSince: nil)
+        
+        XCTAssertEqual(sut.toDomainModel(), expectedOutcome)
+    }
+    
+    func test_SummaryAggregatedBalance_toDomainModel_mapping() {
+        let sut = ArrangementsClient2Gen2.SummaryAggregatedBalance.Builder()
+            .set(value: "10,000")
+            .set(currency: "KES")
+            .set(additions: [:])
+            .build()
+
+        let expectedOutput = AccountsJourney.AggregatedBalance(currency: "KES", value: "10,000", additions: [:])
+        XCTAssertEqual(sut.toDomainModel(), expectedOutput)
+    }
+    
 }
