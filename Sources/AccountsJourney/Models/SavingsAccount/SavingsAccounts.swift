@@ -7,31 +7,33 @@
 
 import Foundation
 
-public struct SavingsAccounts: Equatable {
-    /// List of savings accounts
-    public let product: [SavingsAccount]
-    /// the label/name of the saving account
-    public let name: String?
-    /// The aggregated balance of this group of products.
-    public let aggregatedBalance: AggregatedBalance?
-    /// Extra parameters
-    public let additions: [String: String]?
-    
-    /// Creates a `SavingsAccounts` item
-    /// - Parameters:
-    ///   - product: List of savings accounts
-    ///   - name: the label/name of the saving account
-    ///   - aggregatedBalance: The aggregated balance of this group of products.
-    ///   - additions: Extra parameters
-    public init(
-        product: [SavingsAccount],
-        name: String?,
-        aggregatedBalance: AggregatedBalance?,
-        additions: [String : String]?
-    ) {
-        self.product = product
-        self.name = name
-        self.aggregatedBalance = aggregatedBalance
-        self.additions = additions
+extension AccountsJourney {
+    public struct SavingsAccounts: Equatable {
+        /// List of savings accounts
+        public let product: [SavingsAccount]
+        /// the label/name of the saving account
+        public let name: String?
+        /// The aggregated balance of this group of products.
+        public let aggregatedBalance: AggregatedBalance?
+        /// Extra parameters
+        public let additions: [String: String]?
+        
+        /// Creates a `SavingsAccounts` item
+        /// - Parameters:
+        ///   - product: List of savings accounts
+        ///   - name: the label/name of the saving account
+        ///   - aggregatedBalance: The aggregated balance of this group of products.
+        ///   - additions: Extra parameters
+        public init(
+            product: [SavingsAccount],
+            name: String?,
+            aggregatedBalance: AggregatedBalance?,
+            additions: [String : String]?
+        ) {
+            self.product = product
+            self.name = name
+            self.aggregatedBalance = aggregatedBalance
+            self.additions = additions
+        }
     }
 }

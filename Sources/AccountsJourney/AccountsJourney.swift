@@ -7,9 +7,9 @@
 
 import UIKit
 
-struct AccountsJourney {
+public struct AccountsJourney {
     
-    static func build() -> UIViewController {
+    public static func build() -> UIViewController {
         let viewModel = AccountsJourneyViewModel()
         let viewController = AccountsViewController()
         

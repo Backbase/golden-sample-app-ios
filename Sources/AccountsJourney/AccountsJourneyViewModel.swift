@@ -18,7 +18,7 @@ final class AccountsJourneyViewModel {
     
     enum Output {
         case fetchDidFail(error: Error)
-        case fetchDidSucceed(accountSummary: AccountsSummary)
+        case fetchDidSucceed(accountSummary: AccountsJourney.AccountsSummary)
     }
     
     // MARK: - Private

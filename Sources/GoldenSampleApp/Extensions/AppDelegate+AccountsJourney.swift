@@ -8,10 +8,12 @@
 import Foundation
 import Backbase
 import Resolver
+import AccountsJourney
+import GoldenAccountsUseCase
 
 extension AppDelegate {
     func setupAccountsJourney() {
-        Resolver.register { GoldenSampleAppAccountSummaryUseCase(client: self.productSummaryClient) as AccountsUseCase }
+        Resolver.register { GoldenSampleAppAccountsUseCase(client: self.productSummaryClient) as AccountsUseCase }
     }
     
     func clientFactory<T: DBSClient>(_ client: T, _ path: String) -> T {

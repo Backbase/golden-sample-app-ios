@@ -10,16 +10,16 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 import ClientCommonGen2
 
-final class GoldenSampleAppAccountsUseCase: AccountsUseCase {
+public final class GoldenSampleAppAccountsUseCase: AccountsUseCase {
     
     private let client: ArrangementsClient2Gen2.ProductSummaryAPIProtocol
     
     // MARK: - Init
-    init(client: ProductSummaryAPIProtocol) {
+    public init(client: ProductSummaryAPIProtocol) {
         self.client = client
     }
     
-    func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsJourney.ErrorResponse>) -> Void) {
+    public func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsJourney.ErrorResponse>) -> Void) {
         
         let call = try? self.client.getProductSummaryCall(
             params: ProductSummaryAPI.GetProductSummaryRequestParams.Builder().build())
@@ -30,7 +30,7 @@ final class GoldenSampleAppAccountsUseCase: AccountsUseCase {
                 guard let productSummary = response.body else {
                     return completion(
                         .failure(
-                            ErrorResponse(
+                            AccountsJourney.ErrorResponse(
                                 statusCode: response.statusCode,
                                 data: nil,
                                 error: AccountsJourneyError.invalidResponse
@@ -39,20 +39,9 @@ final class GoldenSampleAppAccountsUseCase: AccountsUseCase {
                     )
                 }
                 
-                guard let body = response.body else {
-                    return completion(
-                        .failure(
-                            ErrorResponse(
-                                statusCode: response.statusCode,
-                                data: nil,
-                                error: AccountsJourneyError.emptyResponse
-                            )
-                        )
-                    )
-                }
-                completion(.success(body.toDomainModel()))
+                completion(.success(productSummary.toDomainModel()))
             case let .failure(error):
-                completion(.failure(ErrorResponse(error: error)))
+                completion(.failure(AccountsJourney.ErrorResponse(error: error)))
             }
         })
     }
