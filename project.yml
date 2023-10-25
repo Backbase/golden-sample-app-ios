@@ -10,7 +10,7 @@ targets:
     deploymentTarget:
       iOS: 15.0
     info:
-      path: Sources/AccountsJourney/Info.plist
+      path: accounts-journey/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
     settings:
@@ -19,7 +19,7 @@ targets:
         MARKETING_VERSION: 0.0.1
         BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
     sources:
-      - path: Sources/AccountsJourney
+      - path: accounts-journey
         excludes:
           - Info.plist
         createIntermediateGroups: true
@@ -34,7 +34,7 @@ targets:
     deploymentTarget:
       iOS: 15.0
     info:
-      path: Sources/GoldenAccountsUseCase/Info.plist
+      path: accounts-use-case/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
     settings:
@@ -43,7 +43,7 @@ targets:
         MARKETING_VERSION: 0.0.1
         BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
     sources:
-      - path: Sources/GoldenAccountsUseCase
+      - path: accounts-use-case
         excludes:
           - Info.plist
         createIntermediateGroups: true
@@ -65,13 +65,13 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp
         MARKETING_VERSION: 0.0.1
     info:
-      path: Sources/GoldenSampleApp/Info.plist
+      path: app/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleName: GoldenSampleApp
         UILaunchStoryboardName: LaunchScreen
     sources:
-      - path: Sources/GoldenSampleApp
+      - path: app
         excludes: Info.plist
         createIntermediateGroups: true
     dependencies:
@@ -83,7 +83,7 @@ targets:
     type: framework
     platform: iOS
     info:
-      path: Tests/GoldenSampleAllTests/Info.plist
+      path: tests/all-tests/Info.plist
     codeSign: false
     settings:
       base:
@@ -107,13 +107,13 @@ targets:
     type: bundle.unit-test
     platform: iOS
     info:
-      path: Tests/AccountsJourney/UnitTests/Info.plist
+      path: tests/accounts-journey/unit-tests/Info.plist
     codeSign: false
     dependencies:
       - target: AccountsJourney
         link: true
     sources:
-      - path: Tests/AccountsJourney/UnitTests
+      - path: tests/accounts-journey/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
   
@@ -121,7 +121,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     info:
-      path: Tests/GoldenAccountsUseCase/UnitTests/Info.plist
+      path: tests/accounts-use-case/unit-tests/Info.plist
     codeSign: false
     dependencies:
       - target: AccountsJourney
@@ -129,7 +129,7 @@ targets:
       - target: GoldenAccountsUseCase
         link: true
     sources:
-      - path: Tests/GoldenAccountsUseCase/UnitTests
+      - path: tests/accounts-use-case/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
 

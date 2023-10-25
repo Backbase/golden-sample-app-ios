@@ -13,8 +13,8 @@ Pod::Spec.new do |s|
     # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
     s.source = { git: 'https://github.com/backbase/golden-sample-app-ios' }
   
-    s.source_files = 'Sources/GoldenAccountsUseCase/**/*'
-    s.exclude_files = 'Sources/GoldenAccountsUseCase/Info.plist'
+    s.source_files = 'accounts-use-case/**/*'
+    s.exclude_files = 'accounts-use-case/Info.plist'
   
     # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
     s.vendored_frameworks = 'GoldenAccountsUseCase.xcframework'
