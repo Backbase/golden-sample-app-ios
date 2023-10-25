@@ -13,7 +13,7 @@ import GoldenAccountsUseCase
 
 extension AppDelegate {
     func setupAccountsJourney() {
-        Resolver.register { GoldenSampleAppAccountsUseCase(client: self.productSummaryClient) as AccountsUseCase }
+        Resolver.register { AccountsSummaryUseCaseImp(client: self.productSummaryClient) as AccountsUseCase }
     }
     
     func clientFactory<T: DBSClient>(_ client: T, _ path: String) -> T {

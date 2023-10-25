@@ -10,7 +10,7 @@ import UIKit
 public struct AccountsJourney {
     
     public static func build() -> UIViewController {
-        let viewModel = AccountsJourneyViewModel()
+        let viewModel = AccountsListViewModel()
         let viewController = AccountsViewController()
         
         viewController.bind(viewModel: viewModel)

@@ -9,7 +9,7 @@ import Foundation
 import Resolver
 import Combine
 
-final class AccountsJourneyViewModel {
+final class AccountsListViewModel {
     
     enum Input {
         case viewDidAppear
@@ -51,7 +51,7 @@ final class AccountsJourneyViewModel {
             case let .success(accountsSummaryResponse):
                 self?.output.send(.fetchDidSucceed(accountSummary: accountsSummaryResponse))
             case let .failure(errorResponse):
-                self?.output.send(.fetchDidFail(error: errorResponse.error! as! Error))
+                self?.output.send(.fetchDidFail(error: errorResponse.error!))
             }
         }
     }

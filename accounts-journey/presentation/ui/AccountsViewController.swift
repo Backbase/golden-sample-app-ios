@@ -11,8 +11,8 @@ import BackbaseDesignSystem
 
 final class AccountsViewController: UIViewController {
     
-    private var viewModel: AccountsJourneyViewModel?
-    private let input: PassthroughSubject<AccountsJourneyViewModel.Input, Never> = .init()
+    private var viewModel: AccountsListViewModel?
+    private let input: PassthroughSubject<AccountsListViewModel.Input, Never> = .init()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -76,7 +76,7 @@ final class AccountsViewController: UIViewController {
     }
     
     
-    func bind(viewModel: AccountsJourneyViewModel) {
+    func bind(viewModel: AccountsListViewModel) {
         self.viewModel = viewModel
         
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
