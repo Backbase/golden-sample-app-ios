@@ -1,0 +1,36 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Setup the project"
+  lane :setup do
+    xcodegen
+    pods_update
+  end
+
+
+  # --- Cocoapod dependencies
+
+  desc 'Update cocoapods and repo-art automatically if pod install fails'
+  lane :pods_update do
+    error_callback = lambda { |_|
+      pod_repo_art_update
+      cocoapods(repo_update: true)
+    }
+    cocoapods(error_callback: error_callback)
+  end
+end

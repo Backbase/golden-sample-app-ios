@@ -11,6 +11,9 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+  - ArrangementsClient2Gen2 (1.2.1):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - Backbase (10.1.0):
     - BackbaseSDKSwiftWrapper (~> 1.1.0)
   - BackbaseCountryCore (1.1.0)
@@ -83,10 +86,12 @@ PODS:
   - SnapKit (5.6.0)
 
 DEPENDENCIES:
+  - ArrangementsClient2Gen2 (~> 1.2.1)
+  - Backbase (>= 9.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney
-  - Resolver (~> 1.2.1)
+  - Resolver (= 1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
 
 SPEC REPOS:
@@ -121,6 +126,7 @@ SPEC CHECKSUMS:
   AccessControlClient2: 9fb741b81ded6bcfb7cdac9c6f9c528a519fe840
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
   Backbase: c4bb5f58383c0d738257eb3d54d8c123068049a8
   BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
   BackbaseDesignSystem: 21cff9609c4e942f3f8157b054ac0f591c911a5b
@@ -143,6 +149,6 @@ SPEC CHECKSUMS:
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: 0e4f485ac682677b211b68997082c70d9be0cfd7
+PODFILE CHECKSUM: a57a6853ba3a4f1b63ab7378ffcaa8d7a339bd0f
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0

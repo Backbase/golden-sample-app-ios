@@ -1,0 +1,68 @@
+//
+//  AppDelegate.swift
+//  ios-golden-sample-app
+//
+//  Created by Backbase on 29/06/2023.
+//
+
+import UIKit
+import Resolver
+import Backbase
+import IdentityAuthenticationJourney
+import BusinessWorkspacesJourney
+import BusinessWorkspacesJourneyWorkspacesUseCase2
+import BusinessJourneyCommon
+import RetailFeatureFilterUseCase
+import RetailFeatureFilterAccessControlEntitlementsUseCase
+import AccessControlClient3Gen2
+import ArrangementsClient2Gen2
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    var window: UIWindow?
+    
+    // MARK: Properties
+    lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
+    // MARK: Identity Journey properties
+
+    lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
+        let usecase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
+        Backbase.register(authClient: usecase)
+
+        Resolver.register { Authentication.Configuration() }
+        Resolver.register { usecase as AuthenticationUseCase }
+
+        return usecase
+    }()
+
+    lazy var authenticationConfiguration: Authentication.Configuration = {
+        var config = Authentication.Configuration()
+        config.login.autoLoginEnabled = true
+        return config
+    }()
+
+    lazy var navCoordinator: AuthenticationNavigationCoordinator = { [weak self] in
+        guard let window = self?.window else { fatalError("Failed to get window") }
+        return Authentication.NavigationCoordinator(window: window)
+    }()
+
+    // MARK: Default methods
+
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        let window = UIWindow()
+        window.rootViewController = UIViewController()
+        window.makeKeyAndVisible()
+        self.window = window
+
+        setupBackbaseSDK()
+        setupIdentityJourney()
+        setupWorkspacesJourney()
+        setupAccountsJourney()
+        return true
+    }
+}
+
+
