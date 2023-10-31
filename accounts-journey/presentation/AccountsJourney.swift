@@ -11,7 +11,7 @@ public struct AccountsJourney {
     
     public static func build() -> UIViewController {
         let viewModel = AccountsListViewModel()
-        let viewController = AccountsViewController()
+        let viewController = AccountsListViewController()
         
         viewController.bind(viewModel: viewModel)
         return viewController
