@@ -17,6 +17,8 @@ struct AccountUiModel {
     let balance: String?
     /// State of account
     let state: String?
+    /// IBAN of account
+    let iban: String?
     /// Visibility status
     let isVisible: Bool?
     /// Name of the icon
@@ -27,6 +29,7 @@ struct AccountUiModel {
         name: String? = nil,
         balance: String? = nil,
         state: String? = nil,
+        iban: String? = nil,
         isVisible: Bool? = nil,
         iconName: String? = nil
     ) {
@@ -34,6 +37,7 @@ struct AccountUiModel {
         self.name = name
         self.balance = balance
         self.state = state
+        self.iban = iban
         self.isVisible = isVisible
         self.iconName = iconName
     }

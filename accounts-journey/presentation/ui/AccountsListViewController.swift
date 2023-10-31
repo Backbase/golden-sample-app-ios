@@ -17,61 +17,39 @@ final class AccountsListViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     private let refreshControl = UIRefreshControl()
-    
-    private lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.alwaysBounceVertical = true
-        
-        view.refreshControl = refreshControl
-        view.contentInset = .init(top: DesignSystem.shared.spacer.sm, left: 0, bottom: 0, right: 0)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
+  
     private func setupView() {
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
-        view.addSubview(scrollView)
-        setupConstraints()
     }
     
-    private func setupConstraints() {
-        let safeArea = view.safeAreaLayoutGuide
+    private lazy var accountsListTableView: UITableView = {
+       let table = UITableView()
+        table.separatorStyle = .none
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = .clear
+        table.dataSource = viewModel
         
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 0),
-            scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 0),
-            scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
-            scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 0),
-        ])
-    }
+        table.registerCell(AccountListItemTableCell.self)
+        
+        return table
+    }()
     
     
     func bind(viewModel: AccountsListViewModel) {
         self.viewModel = viewModel
         
-        let output = viewModel.transform(input: input.eraseToAnyPublisher())
-        output
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] event in
-                self?.refreshControl.endRefreshing()
-                switch event {
-                case let .fetchDidFail(error):
-                    print("Error \(error)")
-                case let .fetchDidSucceed(accountSummary):
-                    let currentAccounts = accountSummary.currentAccounts?.name ?? "Current Accounts"
-                    let currentAccountsBalance = accountSummary.currentAccounts?.aggregatedBalance?.value ?? "0"
-                    
-                }
-            }.store(in: &cancellables)
+        let _ = viewModel.transform(input: input.eraseToAnyPublisher())
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        title = "This should be the title"
+        title = "My Accounts"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+//        accountsListTableView.beginUpdates()
+//        accountsListTableView.beginUpdates()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,13 +58,28 @@ final class AccountsListViewController: UIViewController {
         input.send(.viewDidAppear)
     }
     
-
+    override func loadView() {
+        super.loadView()
+        view.addSubview(accountsListTableView)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            accountsListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        ])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 }
 
 #if DEBUG
 import SwiftUI
 
-struct AccountsViewPreview: PreviewProvider {
+struct AccountsListViewPreview: PreviewProvider {
     static var previews: some View {
         AccountsListViewController().toPreview()
     }
