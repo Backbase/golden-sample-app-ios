@@ -17,6 +17,7 @@ final class AccountsListViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     private let refreshControl = UIRefreshControl()
+    
   
     private func setupView() {
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
@@ -48,8 +49,11 @@ final class AccountsListViewController: UIViewController {
         title = "My Accounts"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-//        accountsListTableView.beginUpdates()
-//        accountsListTableView.beginUpdates()
+        viewModel?.refreshAction = {
+            self.accountsListTableView.reloadData()
+        }
+        viewModel?.processData()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -8,6 +8,6 @@
 import Foundation
 
 struct AccountsUiModel {
-    var header: String?
+    var header: String
     var products: [AccountUiModel]
 }

@@ -81,7 +81,7 @@ extension ArrangementsClient2Gen2.SavingsAccount {
 extension ArrangementsClient2Gen2.SavingsAccountProductKinds {
     public func toDomainModel() -> AccountsJourney.SavingsAccounts {
         AccountsJourney.SavingsAccounts(
-            product: self.products.map { $0.toDomainModel() },
+            products: self.products.map { $0.toDomainModel() },
             name: self.name,
             aggregatedBalance: self.aggregatedBalance?.toDomainModel(),
             additions: self.additions
