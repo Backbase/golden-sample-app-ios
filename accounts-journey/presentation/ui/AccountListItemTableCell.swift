@@ -109,6 +109,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     }
     
     func setup(_ account: AccountUiModel?) {
+        
         if let name = account?.name {
             accountNameLabel.text = name
         }
@@ -122,6 +123,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         
         if let accountBalance = account?.balance {
             accountBalanceLabel.text = accountBalance
+            
         }
         
         configure()

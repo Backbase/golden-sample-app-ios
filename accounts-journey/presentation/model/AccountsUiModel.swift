@@ -10,4 +10,9 @@ import Foundation
 struct AccountsUiModel {
     var header: String
     var products: [AccountUiModel]
+    
+    init(header: String = "", products: [AccountUiModel] = []) {
+        self.header = header
+        self.products = products
+    }
 }

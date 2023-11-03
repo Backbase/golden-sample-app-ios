@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BackbaseDesignSystem
 
 
 struct AccountUiModel {
@@ -31,7 +32,7 @@ struct AccountUiModel {
         state: String? = nil,
         iban: String? = nil,
         isVisible: Bool? = nil,
-        iconName: String? = nil
+        iconName: String? = DesignSystem.Assets.icAccountBalanceWallet
     ) {
         self.id = id
         self.name = name

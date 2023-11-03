@@ -9,6 +9,18 @@ import Foundation
 import Resolver
 import Combine
 
+struct AccountListScreenState {
+    let isLoading: Bool = false
+    let accountSummary: [String] = []
+    let errorIcon: String = ""
+}
+
+enum AccountListEvent {
+    case getAccounts
+    case refresh
+    case search(String)
+}
+
 final class AccountsListViewModel: NSObject, ObservableObject {
     
     @Published private(set) var accountsSummaryUIModel: AccountSummaryUiModel?
@@ -56,152 +68,13 @@ final class AccountsListViewModel: NSObject, ObservableObject {
             switch result {
             case let .success(accountsSummaryResponse):
                 self?.output.send(.fetchDidSucceed(accountSummary: accountsSummaryResponse))
-                self?.accountsSummaryUIModel = self?.toUIModel(accountsSummaryResponse)
+                self?.accountsSummaryUIModel = accountsSummaryResponse.toMapUI()
             case let .failure(errorResponse):
                 self?.output.send(.fetchDidFail(error: errorResponse.error!))
             }
         }
     }
     
-}
-
-extension AccountsListViewModel  {
-    func toUIModel(_ accountSummaryResponse: AccountsJourney.AccountsSummary ) -> AccountSummaryUiModel {
-        var accountSummaryUIModel = AccountSummaryUiModel()
-        
-        if !accountSummaryResponse.customProducts.isEmpty {
-            accountSummaryUIModel.customProducts = accountSummaryResponse.customProducts.map {
-                return AccountsUiModel(
-                    header: $0.name ?? "",
-                    products: $0.products.map {
-                        return AccountUiModel(
-                            id: $0.identifier,
-                            name: $0.name,
-                            balance: $0.bookedBalance,
-                            state: $0.state?.state,
-                            iban: $0.bban ?? $0.bban ?? $0.bic,
-                            isVisible: $0.visible,
-                            iconName: nil
-                        )
-                    })
-            }
-        }
-        
-        if let currentAccounts = accountSummaryResponse.currentAccounts {
-            accountSummaryUIModel.currentAccounts = AccountsUiModel(
-                header: currentAccounts.name ?? "",
-                products: currentAccounts.products.map {
-                    return AccountUiModel(
-                        id: $0.identifier,
-                        name: $0.name,
-                        balance: $0.bookedBalance,
-                        state: $0.state?.state,
-                        iban: $0.bban ?? $0.bban ?? $0.bic,
-                        isVisible: $0.visible,
-                        iconName: ""
-                    )
-                })
-        }
-        
-        
-        if let savingsAccounts = accountSummaryResponse.savingsAccounts {
-            accountSummaryUIModel.savingAccounts = AccountsUiModel(
-                header: savingsAccounts.name ?? "",
-                products:  savingsAccounts.products.map {
-                    return AccountUiModel(
-                        id: $0.identifier,
-                        name: $0.name,
-                        balance: $0.bookedBalance,
-                        state: $0.state?.state,
-                        iban: $0.iban,
-                        isVisible: $0.visible,
-                        iconName: nil
-                    )
-                })
-        }
-        
-        if let termDeposits = accountSummaryResponse.termDeposits {
-            accountSummaryUIModel.termDeposits = AccountsUiModel(
-                header: termDeposits.name ?? "",
-                products: termDeposits.products.map {
-                    return AccountUiModel(
-                        id: $0.identifier,
-                        name: $0.name,
-                        balance: $0.bookedBalance,
-                        state: $0.state?.state,
-                        iban: $0.iban,
-                        isVisible: $0.visible,
-                        iconName: nil
-                    )
-                })
-        }
-        
-        if let loans = accountSummaryResponse.loans {
-            accountSummaryUIModel.loans = AccountsUiModel(
-                header: loans.name ?? "" ,
-                products: loans.products.map {
-                    return AccountUiModel(
-                        id: $0.identifier,
-                        name: $0.name,
-                        balance: $0.bookedBalance,
-                        state: $0.state?.state,
-                        iban: $0.iban,
-                        isVisible: $0.visible,
-                        iconName: nil
-                    )
-                })
-        }
-        
-        if let creditCards = accountSummaryResponse.creditCards {
-            accountSummaryUIModel.creditCards = AccountsUiModel(
-                header: creditCards.name ?? "",
-                products: creditCards.products.map {
-                    return AccountUiModel(
-                        id: $0.identifier,
-                        name: $0.name,
-                        balance: $0.bookedBalance,
-                        state: $0.state?.state,
-                        iban: $0.number,
-                        isVisible: $0.visible,
-                        iconName: nil
-                    )
-                })
-        }
-        
-        if let debitCards = accountSummaryResponse.debitCards {
-            accountSummaryUIModel.debitCards = AccountsUiModel(
-                header: debitCards.name ?? "",
-                products: debitCards.products.map {
-                    return AccountUiModel(
-                        id: $0.identifier,
-                        name: $0.name,
-                        balance: String($0.reservedAmount ?? 0),
-                        state: $0.state?.state,
-                        iban: $0.number,
-                        isVisible: $0.visible,
-                        iconName: nil
-                    )
-                })
-        }
-        
-        if let investmentAccounts = accountSummaryResponse.investmentAccounts {
-            accountSummaryUIModel.investmentAccounts = AccountsUiModel(
-                header: investmentAccounts.name ?? "",
-                products:investmentAccounts.products.map {
-                return AccountUiModel(
-                    id: $0.identifier,
-                    name: $0.name,
-                    balance: $0.currentInvestmentValue,
-                    state: $0.state?.state,
-                    iban: $0.iban,
-                    isVisible: $0.visible,
-                    iconName: nil
-                )
-            } )
-            
-        }
-        return accountSummaryUIModel
-    }
 }
 
 extension AccountsListViewModel: UITableViewDataSource {
@@ -221,7 +94,6 @@ extension AccountsListViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
-        
         
         let sec = allAccounts[indexPath.section]
         let accountItem = sec.products[indexPath.row]

@@ -15,13 +15,20 @@ final class AccountsListViewController: UIViewController {
     private let input: PassthroughSubject<AccountsListViewModel.Input, Never> = .init()
     
     private var cancellables = Set<AnyCancellable>()
-    
-    private let refreshControl = UIRefreshControl()
-    
-  
+   
     private func setupView() {
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
     }
+    
+//    private let refreshControl = UIRefreshControl()
+    
+    private lazy var accountsSearchTextView: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Search for accounts"
+        textField.adjustsFontForContentSizeCategory = true
+        return textField
+    }()
     
     private lazy var accountsListTableView: UITableView = {
        let table = UITableView()
@@ -29,6 +36,8 @@ final class AccountsListViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .clear
         table.dataSource = viewModel
+        table.tableHeaderView = accountsSearchTextView
+//        table.refreshControl = refreshControl
         
         table.registerCell(AccountListItemTableCell.self)
         
@@ -68,10 +77,10 @@ final class AccountsListViewController: UIViewController {
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            accountsListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            accountsListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: DesignSystem.shared.spacer.md),
+            accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -DesignSystem.shared.spacer.md)
         ])
     }
     
