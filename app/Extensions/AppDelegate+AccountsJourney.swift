@@ -14,6 +14,7 @@ import GoldenAccountsUseCase
 extension AppDelegate {
     func setupAccountsJourney() {
         Resolver.register { AccountsSummaryUseCaseImp(client: self.productSummaryClient) as AccountsUseCase }
+        Resolver.register { AccountsJourney.Configuration() }
     }
     
     func clientFactory<T: DBSClient>(_ client: T, _ path: String) -> T {

@@ -25,7 +25,7 @@ final class AccountsListViewController: UIViewController {
     private lazy var accountsSearchTextView: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Search for accounts"
+        textField.placeholder = "Search accounts"
         textField.adjustsFontForContentSizeCategory = true
         return textField
     }()
@@ -37,9 +37,12 @@ final class AccountsListViewController: UIViewController {
         table.backgroundColor = .clear
         table.dataSource = viewModel
         table.tableHeaderView = accountsSearchTextView
-//        table.refreshControl = refreshControl
-        
+        table.backgroundColor = DesignSystem.shared.colors.foundation.default
         table.registerCell(AccountListItemTableCell.self)
+        // TODO: - Fix me
+        table.estimatedRowHeight = 100
+        
+        //        table.refreshControl = refreshControl
         
         return table
     }()
@@ -57,6 +60,7 @@ final class AccountsListViewController: UIViewController {
         setupView()
         title = "My Accounts"
         navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = DesignSystem.shared.colors.foundation.default
         
         viewModel?.refreshAction = {
             self.accountsListTableView.reloadData()
@@ -80,10 +84,18 @@ final class AccountsListViewController: UIViewController {
             accountsListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: DesignSystem.shared.spacer.md),
             accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
             accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: DesignSystem.shared.spacer.md),
-            accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -DesignSystem.shared.spacer.md)
+            accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
+            accountsSearchTextView.leadingAnchor.constraint(equalTo: accountsListTableView.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            accountsSearchTextView.trailingAnchor.constraint(equalTo: accountsListTableView.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            accountsSearchTextView.topAnchor.constraint(equalTo: accountsListTableView.topAnchor, constant: DesignSystem.shared.spacer.md)
+            
         ])
     }
     
+    struct Constants {
+        static let iconSize: CGSize = .init(width: 32, height: 32)
+        static let mdPadding = DesignSystem.shared.spacer.md
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }

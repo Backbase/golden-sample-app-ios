@@ -13,22 +13,17 @@ public struct AccountsListRowItem {
     /// DTO that enables providing styleable text on an `AccountsListRowItem`
     public enum StyleableText {
         case text(String, Style<UILabel>?)
-    }
-    
-    /// DTO that enables providing styleable icon on an `AccountsListRowItem`
-    public enum StyleableIcon {
-        /// Icon with associated style
-        case icon(String, Style<IconView>?)
+        case currency(Currency, StyleSelector<(String, String),UILabel>)
     }
     
     /// Unique identifier
     public let id: String?
     /// Account styleable icon
-    public let accountIcon: StyleableIcon?
+    public let accountIcon: AccountIconInfo?
     /// Account name styleable text
     public let accountName: StyleableText?
-    /// Account iban styleable text
-    public let ibanLabel: StyleableText?
+    /// Account state styleable text
+    public let stateLabel: StyleableText?
     /// Account balance styleable text
     public let accountBalance: StyleableText?
 }

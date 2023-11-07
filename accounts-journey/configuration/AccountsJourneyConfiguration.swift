@@ -6,9 +6,71 @@
 //
 
 import Foundation
+import Resolver
+import BackbaseDesignSystem
 
 extension AccountsJourney {
-    struct AccountsJourneyConfiguration {
+    public struct Configuration {
+        /// Create a new strings object with default values
+        public init() {
+            // no code required
+        }
+        
+        /// Configuration of styles used in the Accounts Screen
+        public var design = Design()
+        
+        public var strings = Strings()
+        
+        var accountRowProvider: (AccountUiModel) -> AccountsListRowItem = { item in
+            let configuration = Resolver.resolve(AccountsJourney.Configuration.self)
+            
+            var accountName: AccountsListRowItem.StyleableText? = .text(item.name ?? "", configuration.design.styles.accountName)
+            
+            
+            var stateText: String?
+            if configuration.isAccountClosed(item) {
+                stateText = configuration.strings.closedAccountSubtitle()
+            } else if configuration.isAccountInactive(item) {
+                stateText = configuration.strings.inactiveAccountSubtitle()
+            }
+            let accountState: AccountsListRowItem.StyleableText?
+            if let stateText {
+                accountState = .text(stateText, configuration.design.styles.accountState)
+            } else {
+                accountState = nil
+            }
+            
+            let amountBalance: AccountsListRowItem.StyleableText?
+            if let balance = item.balance {
+                let currencyStyleSelector: StyleSelector<(String, String), UILabel> = { values in
+                    return { label in
+                        configuration.design.styles.currencyFormatter(values)(label)
+                        configuration.design.styles.accountBalance(label)
+                    }
+                    
+                }
+                amountBalance = .currency(balance, currencyStyleSelector)
+            } else {
+                amountBalance = .text("", nil)
+            }
+            let accountIcon = item.iconName
+            return AccountsListRowItem(
+                id: item.id,
+                accountIcon: accountIcon,
+                accountName: accountName,
+                stateLabel: accountState,
+                accountBalance: amountBalance
+            )
+            
+        }
+        
+        var isAccountInactive: (AccountUiModel) -> Bool = { account in
+            account.state?.lowercased() == "inactive"
+        }
+        
+        var isAccountClosed: (AccountUiModel) -> Bool = { account in
+            account.state?.lowercased() == "closed"
+        }
         
     }
 }

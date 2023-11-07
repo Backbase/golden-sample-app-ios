@@ -23,6 +23,8 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+      - path: assets
+        createIntermediateGroups: true
     scheme:
       testTargets:
         - AccountsJourneyUnitTests

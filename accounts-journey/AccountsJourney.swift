@@ -17,3 +17,5 @@ public struct AccountsJourney {
         
     }
 }
+
+final class AccountsJourneyBundleToken { }

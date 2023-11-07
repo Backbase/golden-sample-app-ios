@@ -15,6 +15,9 @@ Pod::Spec.new do |s|
   
     s.source_files = 'accounts-journey/**/*'
     s.exclude_files = 'accounts-journey/Info.plist'
+    
+    # ――― Assets ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+    s.ios.resource_bundle = { "AccountsJourneyAssets" => ["assets/*.xcassets", "assets/*.lproj/*.strings", "assets/*.lproj/*.stringsdict", "assets/*.xcstrings"]}
   
     # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
     s.vendored_frameworks = 'AccountsJourney.xcframework'

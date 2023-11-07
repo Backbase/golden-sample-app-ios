@@ -41,6 +41,7 @@ tools
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+sample.json
 
 ## Obj-C/Swift specific
 *.hmap

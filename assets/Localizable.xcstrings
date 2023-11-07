@@ -1,0 +1,138 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "accountsJourney.accounts.labels.active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.closed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closed"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.inactive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactive"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.creditCards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credit Cards"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.currentAccounts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Accounts"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.debitCards" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debit Cards"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.generalAccounts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General Accounts"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.investmentAccounts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Investment Accounts"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.loans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loans"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.savingsAccounts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Savings Accounts"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.section.title.termDeposits" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Term Deposits"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.labels.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Accounts"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -7,9 +7,12 @@
 
 import Foundation
 import BackbaseDesignSystem
+import Resolver
 
 extension AccountsJourney.AccountsSummary {
+    
     func toMapUI() -> AccountSummaryUiModel {
+        
         var accountSummaryUiModel = AccountSummaryUiModel()
         if !self.customProducts.isEmpty {
             accountSummaryUiModel.customProducts =  self.customProducts.map {
@@ -52,35 +55,25 @@ private func formatState(_ productState: AccountsJourney.ProductState?, number: 
     return nil
 }
 
-private func formatCurrency(currency: String?, amount: String?) -> String? {
-    var options = DesignSystem.Formatting.Options()
-//    options.formattingStyle = .currencyISOCode
-    options.customCode = currency
-    options.showsPlusSign = true
-    options.abbreviator = DesignSystem.shared.formatting.abbreviators.default
-    
-    let formatter = DesignSystem.Formatting.makeFormatter()
-    let formattedAmount = formatter.format(amount: Decimal(string: amount ?? "0.00") ?? 0, options: options)
-    return formattedAmount
-}
-
 extension AccountsJourney.CustomProducts {
     func mapToUi() -> AccountsUiModel {
+        
         var accountsUiModel = AccountsUiModel()
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             accountsUiModel = AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.generalAccountTitle(),
                 products: self.products.map {
                     AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.bookedBalance,
-                            amount: $0.currency
+                        balance: Currency(
+                            amount: $0.bookedBalance,
+                            currencyCode: $0.currency
                         ),
-                        state: formatState($0.state, number: $0.bban ?? $0.iban ?? $0.bic),
-                        iban: $0.iban ?? $0.bban ?? $0.bic,
-                        isVisible: $0.visible
+                        state: formatState($0.state, number: $0.iban),
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.general)
                     )
                 })
         }
@@ -91,19 +84,20 @@ extension AccountsJourney.CustomProducts {
 extension AccountsJourney.CurrentAccounts {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.currentAccountTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.bookedBalance,
-                            amount: $0.currency
+                        balance: Currency(
+                            amount: $0.bookedBalance,
+                            currencyCode: $0.currency
                         ),
                         state: formatState($0.state, number: $0.bban ?? $0.iban ?? $0.bic),
-                        iban: $0.bban ?? $0.iban ?? $0.bic,
-                        isVisible: $0.visible
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.current)
                     )
                 })
         } else {
@@ -115,19 +109,20 @@ extension AccountsJourney.CurrentAccounts {
 extension AccountsJourney.SavingsAccounts {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.savingsAccountTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.bookedBalance,
-                            amount: $0.currency
+                        balance: Currency(
+                            amount: $0.bookedBalance,
+                            currencyCode: $0.currency
                         ),
                         state: formatState($0.state, number: $0.bban ?? $0.iban ?? $0.bic),
-                        iban: $0.bban ?? $0.iban ?? $0.bic,
-                        isVisible: $0.visible
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.savings)
                     )
                 })
         } else {
@@ -139,19 +134,20 @@ extension AccountsJourney.SavingsAccounts {
 extension AccountsJourney.TermDeposits {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.termDepositTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.bookedBalance,
-                            amount: $0.currency
+                        balance: Currency(
+                            amount: $0.bookedBalance,
+                            currencyCode: $0.currency
                         ),
                         state: formatState($0.state, number: $0.bban ?? $0.iban),
-                        iban: $0.bban ?? $0.iban ,
-                        isVisible: $0.visible
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.termDeposit)
                     )
                 })
         } else {
@@ -163,19 +159,20 @@ extension AccountsJourney.TermDeposits {
 extension AccountsJourney.Loans {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.loanAccountTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.bookedBalance,
-                            amount: $0.currency
+                        balance: Currency(
+                            amount: $0.bookedBalance,
+                            currencyCode: $0.currency
                         ),
                         state: formatState($0.state, number: $0.bban ?? $0.iban),
-                        iban: $0.bban ?? $0.iban ,
-                        isVisible: $0.visible
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.loan)
                     )
                 })
         } else {
@@ -187,19 +184,20 @@ extension AccountsJourney.Loans {
 extension AccountsJourney.CreditCards {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.creditCardTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.bookedBalance,
-                            amount: $0.currency
+                        balance: Currency(
+                            amount: $0.bookedBalance,
+                            currencyCode: $0.currency
                         ),
-                        state: $0.state?.state,
-                        iban: $0.number ,
-                        isVisible: $0.visible
+                        state: formatState($0.state, number: $0.number),
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.creditCard)
                     )
                 })
         } else {
@@ -211,19 +209,20 @@ extension AccountsJourney.CreditCards {
 extension AccountsJourney.DebitCards {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.debitCardTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance:  formatCurrency(
-                            currency: nil,
-                            amount:String($0.reservedAmount ?? 0)
+                        balance:  Currency(
+                            amount: String($0.reservedAmount ?? 0),
+                            currencyCode: nil
                         ),
                         state: formatState($0.state, number: $0.number),
-                        iban: $0.number ,
-                        isVisible: $0.visible
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.debitCard)
                     )
                 })
         } else {
@@ -235,19 +234,20 @@ extension AccountsJourney.DebitCards {
 extension AccountsJourney.InvestmentAccounts {
     func mapToUi() -> AccountsUiModel? {
         if !self.products.isEmpty {
+            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUiModel(
-                header: self.name ?? "",
+                header: config.strings.investmentAccountTitle(),
                 products: self.products.map {
                     return AccountUiModel(
                         id: $0.identifier,
                         name: $0.name,
-                        balance: formatCurrency(
-                            currency: $0.currency,
-                            amount:String($0.reservedAmount ?? 0)
+                        balance: Currency(
+                            amount: String($0.reservedAmount ?? 0),
+                            currencyCode: nil
                         ),
                         state: formatState($0.state, number: $0.iban ?? $0.bban),
-                        iban: $0.iban ?? $0.bban ,
-                        isVisible: $0.visible
+                        isVisible: $0.visible,
+                        iconName: config.design.accountIcon(.investment)
                     )
                 })
         } else {
