@@ -54,31 +54,7 @@ extension AccountsJourney.Design {
         public var navigationBar: Style<UINavigationBar> = { navigationBar in
             navigationBar.prefersLargeTitles = true
         }
-        
-        /// Style applied to background and tint colors.
-        public var closedAccountIconBadge: Style<UIView> = { view in
-            view.tintColor = UIColor(
-                light: DesignSystem.shared.colors.danger.darker,
-                dark: DesignSystem.shared.colors.danger.lightest)
-            view.backgroundColor = UIColor(
-                light: DesignSystem.shared.colors.danger.lightest,
-                dark: DesignSystem.shared.colors.danger.darkest)
-            view.clipsToBounds = true
-            view.layer.cornerRadius = DesignSystem.shared.cornerRadius.small
-        }
-        
-        /// Style applied to background and tint colors.
-        public var inactiveAccountIconBadge: Style<UIView> = { view in
-            view.tintColor = UIColor(
-                light: DesignSystem.shared.colors.neutrals.neutral100,
-                dark: DesignSystem.shared.colors.neutrals.neutral20)
-            view.backgroundColor = UIColor(
-                light: DesignSystem.shared.colors.neutrals.neutral50,
-                dark: DesignSystem.shared.colors.neutrals.neutral60)
-            view.clipsToBounds = true
-            view.layer.cornerRadius = DesignSystem.shared.cornerRadius.small
-        }
-        
+    
         public var currencyFormatter: StyleSelector<(String, String), UILabel> = { values in
             return { label in
                 let (amount, currencyCode) = values

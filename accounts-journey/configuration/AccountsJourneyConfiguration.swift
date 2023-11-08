@@ -32,6 +32,8 @@ extension AccountsJourney {
                 stateText = configuration.strings.closedAccountSubtitle()
             } else if configuration.isAccountInactive(item) {
                 stateText = configuration.strings.inactiveAccountSubtitle()
+            } else {
+                stateText = item.state
             }
             let accountState: AccountsListRowItem.StyleableText?
             if let stateText {

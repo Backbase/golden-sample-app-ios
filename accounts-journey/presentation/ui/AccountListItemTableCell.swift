@@ -22,6 +22,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
             bottom: paddingValue,
             right: paddingValue
         )
+        configuration.design.styles.accountIconView(iconView)
         return iconView
     }()
     
@@ -73,9 +74,11 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         )
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = DesignSystem.shared.spacer.sm
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
+        stackView.spacing = DesignSystem.shared.spacer.xs
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.setCustomSpacing(DesignSystem.shared.spacer.md, after: accountIconView)
+        stackView.setCustomSpacing(DesignSystem.shared.spacer.md, after: accountDetailsStack)
         return stackView
     }()
     
@@ -104,27 +107,19 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            accountIconView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            accountIconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            accountIconView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: DesignSystem.shared.spacer.md),
+            
+            accountIconView.widthAnchor.constraint(equalToConstant: 40),
+            accountIconView.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     
     func setup(_ account: AccountUiModel?) {
-        
-//        if let name = account?.name {
-//            accountNameLabel.text = name
-//        }
-//        if let state = account?.state {
-//            stateLabel.text = state
-//        }
-        
-//        if let iconName = account?.iconName {
-//            accountIconView.image = UIImage(named: iconName)
-//        }
-        
-//        if let accountBalance = account?.balance {
-////            accountBalanceLabel.text = accountBalance
-//            
-//        }
+
         if let account {
             let row = configuration.accountRowProvider(account)
             setup(accountIconView, with: row.accountIcon)
@@ -159,7 +154,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         }
         icon.isHidden = false
         icon.image = accountIconInfo.icon
-//        style(accountIconView)
         
         if let iconBackgroundColor = accountIconInfo.backgroundColor {
             icon.backgroundColor = iconBackgroundColor

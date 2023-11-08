@@ -15,9 +15,11 @@ extension AccountsJourney {
             // no code required
         }
         
-        
         /// accountsJourney.accounts.labels.title
         public var screenTitle = localized(key: "labels.title")
+        
+        /// accountsJourney.accounts.labels.searchText
+        public var searchText = localized(key: "labels.searchText")
         
         /// accountsJourney.accounts.labels.section.title.creditCards
         public var creditCardTitle = localized(key: "labels.section.title.creditCards")

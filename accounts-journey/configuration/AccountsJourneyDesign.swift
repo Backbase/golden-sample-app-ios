@@ -17,9 +17,6 @@ extension AccountsJourney {
         /// Accounts list shimmer view image
         var shimmerImage = UIImage.named("AccountsLoading", in: .accountsJourney)
         
-        /// An "X" image (badge) shown on top of the Account icon.
-        var closedAccountIconBadge = UIImage.named(DesignSystem.Assets.icClose, in: .design)
-        
         var accountIcon: (AccountsJourney.AccountType) -> AccountIconInfo? = { accountType in
             switch accountType {
             case .creditCard:

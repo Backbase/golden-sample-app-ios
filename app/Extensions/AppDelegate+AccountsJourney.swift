@@ -30,7 +30,7 @@ extension AppDelegate {
             try? Backbase.register(client: client)
             guard let dbsClient = Backbase.registered(client: T.self),
                   let client = dbsClient as? T else {
-                fatalError("Failed to retrieve \(T.self) cliet")
+                fatalError("Failed to retrieve \(T.self) client")
             }
             return client
         }

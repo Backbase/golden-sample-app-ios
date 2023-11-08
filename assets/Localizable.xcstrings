@@ -34,6 +34,17 @@
         }
       }
     },
+    "accountsJourney.accounts.labels.searchText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for account"
+          }
+        }
+      }
+    },
     "accountsJourney.accounts.labels.section.title.creditCards" : {
       "extractionState" : "manual",
       "localizations" : {
