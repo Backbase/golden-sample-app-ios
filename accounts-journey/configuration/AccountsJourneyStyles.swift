@@ -31,6 +31,15 @@ extension AccountsJourney.Design {
                 light: DesignSystem.shared.colors.charts.two.default.light,
                 dark:DesignSystem.shared.colors.charts.two.lightest.dark
             )
+            
+            let width = view.widthAnchor.constraint(equalToConstant: DesignSystem.shared.sizer.xl)
+            width.priority  = UILayoutPriority(rawValue: 999)
+            let height = view.heightAnchor.constraint(equalToConstant: DesignSystem.shared.sizer.xl)
+            height.priority = UILayoutPriority(rawValue: 999)
+            NSLayoutConstraint.activate([
+                width,
+                height
+            ])
         }
         /// Style applied to account name
         public var accountName: Style<UILabel> = { label in

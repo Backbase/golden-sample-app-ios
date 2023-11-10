@@ -23,9 +23,12 @@ enum AccountListEvent {
 
 final class AccountsListViewModel: NSObject, ObservableObject {
     
-    @Published var allAccounts = [AccountsUiModel]()
+    @Published var allAccounts = [AccountUiModel]()
+    var filteredAccounts = [AccountUiModel]()
     
     var refreshAction : (() -> Void)?
+    
+    
 
     // MARK: - Private
     
@@ -55,7 +58,7 @@ final class AccountsListViewModel: NSObject, ObservableObject {
             case let .success(accountsSummaryResponse):
                 self?.allAccounts = accountsSummaryResponse.toMapUI().generateList(query: query)
                 self?.refreshAction?()
-            case let .failure(errorResponse):
+            case .failure(_):
                 break
             }
         }
@@ -65,27 +68,43 @@ final class AccountsListViewModel: NSObject, ObservableObject {
 
 extension AccountsListViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        self.allAccounts.count
+//        self.allAccounts.count
+        1
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sec = self.allAccounts[section]
-        return sec.header
-    }
+//    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let sec = self.allAccounts[section]
+//        return sec.header
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sec = self.allAccounts[section]
-        return sec.products.count
+        
+        self.allAccounts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
         
-        let sec = self.allAccounts[indexPath.section]
-        let accountItem = sec.products[indexPath.row]
+//        let sec = self.allAccounts[indexPath.section]
+        let accountItem = self.allAccounts[indexPath.row]
+        accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
         
         accountListCell.setup(accountItem)
         return accountListCell
+    }
+    
+    func rowPosition(for indexPath: IndexPath) -> CellPosition {
+        let sectionRows = self.allAccounts
+        if sectionRows.count < 2 {
+            return .full
+        }
+        if indexPath.row == 0 {
+            return .beginning
+        }
+        if indexPath.row == sectionRows.count - 1 {
+            return .end
+        }
+        return .middle
     }
    
 }

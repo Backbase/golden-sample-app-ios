@@ -13,17 +13,24 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     
     var configuration: AccountsJourney.Configuration = Resolver.resolve()
     
-    private lazy var accountIconView: IconView = {
-        let iconView = IconView()
-        let paddingValue = DesignSystem.shared.sizer.sm
-        iconView.padding = UIEdgeInsets(
-            top: paddingValue,
-            left: paddingValue,
-            bottom: paddingValue,
-            right: paddingValue
-        )
-        configuration.design.styles.accountIconView(iconView)
-        return iconView
+    private let containerStackView: UIStackView = {
+        let stackView = UIStackView(frame: .zero)
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = DesignSystem.shared.sizer.sm
+        stackView.backgroundColor = .clear
+        return stackView
+    }()
+    
+    private let infoStackView: UIStackView = {
+        let stackView = UIStackView(frame: .zero)
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = DesignSystem.shared.sizer.xs
+        return stackView
     }()
     
     private lazy var accountNameLabel: UILabel = {
@@ -36,7 +43,8 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         return label
     }()
     
-    private lazy var stateLabel: UILabel = {
+    
+    private lazy var accountStateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -44,16 +52,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         label.textColor = .black
         label.textAlignment = .left
         return label
-    }()
-
-    private lazy var accountDetailsStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [accountNameLabel, stateLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = DesignSystem.shared.spacer.sm
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        return stackView
     }()
     
     private lazy var accountBalanceLabel: UILabel = {
@@ -66,19 +64,21 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         return label
     }()
     
-    private lazy var mainStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            accountIconView,
-            accountDetailsStack,
-            accountBalanceLabel]
-        )
+    
+    private lazy var accountIconView: IconView = {
+        let iconView = IconView()
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        configuration.design.styles.accountIconView(iconView)
+        return iconView
+    }()
+    
+    private lazy var accountDetailsStack: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [accountNameLabel, accountStateLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = DesignSystem.shared.spacer.xs
+        stackView.axis = .vertical
+        stackView.spacing = DesignSystem.shared.spacer.sm
         stackView.distribution = .fill
-        stackView.alignment = .center
-        stackView.setCustomSpacing(DesignSystem.shared.spacer.md, after: accountIconView)
-        stackView.setCustomSpacing(DesignSystem.shared.spacer.md, after: accountDetailsStack)
+        stackView.alignment = .fill
         return stackView
     }()
     
@@ -86,37 +86,52 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        
+        setupSubviews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {
-        addSubviews()
-        layoutViews()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        accountNameLabel.text = ""
+        accountStateLabel.text = ""
+        accountBalanceLabel.text = ""
+        selectionStyle  = .default
     }
     
-    private func addSubviews() {
-        contentView.subviews.forEach { $0.removeFromSuperview()}
-        contentView.addSubview(mainStack)
-    }
-    
-    private func layoutViews() {
+    private func setupSubviews() {
+        contentView.addSubview(containerStackView)
+        contentView.backgroundColor = .clear
+        backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+        containerStackView.addArrangedSubview(accountIconView)
+        containerStackView.addArrangedSubview(infoStackView)
+        infoStackView.addArrangedSubview(accountNameLabel)
+        infoStackView.addArrangedSubview(accountStateLabel)
+        infoStackView.addArrangedSubview(accountBalanceLabel)
+        
         NSLayoutConstraint.activate([
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainStack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            accountIconView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            accountIconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            accountIconView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: DesignSystem.shared.spacer.md),
-            
-            accountIconView.widthAnchor.constraint(equalToConstant: 40),
-            accountIconView.heightAnchor.constraint(equalToConstant: 40),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: DesignSystem.shared.spacer.md),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -DesignSystem.shared.spacer.md)
         ])
     }
+    
+    func setupSelectedViewCornerRadius(position: CellPosition) {
+        let view = UIView()
+        let color = UIColor(light: DesignSystem.shared.colors.primary.lightest, dark: DesignSystem.shared.colors.primary.darkest)
+        view.backgroundColor = color
+        view.layer.cornerRadius = DesignSystem.shared.cornerRadius.large
+        view.layer.maskedCorners = position.maskedCorners
+        selectedBackgroundView = view
+        
+        layer.cornerRadius = DesignSystem.shared.cornerRadius.large
+        layer.maskedCorners = position.maskedCorners
+    }
+    
     
     func setup(_ account: AccountUiModel?) {
 
@@ -124,12 +139,9 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
             let row = configuration.accountRowProvider(account)
             setup(accountIconView, with: row.accountIcon)
             setup(accountNameLabel, with: row.accountName)
-            setup(stateLabel, with: row.stateLabel)
+            setup(accountStateLabel, with: row.stateLabel)
             setup(accountBalanceLabel, with: row.accountBalance)
         }
-       
-        
-        configure()
     }
     
     private func setup(_ label: UILabel, with styleableText: AccountsListRowItem.StyleableText?) {
@@ -157,6 +169,42 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         
         if let iconBackgroundColor = accountIconInfo.backgroundColor {
             icon.backgroundColor = iconBackgroundColor
+        }
+    }
+}
+
+
+internal enum CellPosition {
+    case beginning
+    case end
+    case middle
+    case full
+    
+    internal var cornerRadius: CGFloat {
+        self == .middle ? 0 : DesignSystem.shared.cornerRadius.large
+    }
+    
+    internal var maskedCorners: CACornerMask {
+        switch self {
+        case .beginning:
+            return [
+                .layerMinXMinYCorner,
+                .layerMaxXMinYCorner
+            ]
+        case .end:
+            return [
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner
+            ]
+        case .middle:
+            return []
+        case .full:
+            return [
+                .layerMinXMinYCorner,
+                .layerMaxXMinYCorner,
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner
+            ]
         }
     }
 }

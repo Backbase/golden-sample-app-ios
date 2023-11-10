@@ -17,31 +17,24 @@ final class AccountsListViewController: UIViewController {
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private var cancellables = Set<AnyCancellable>()
     
-    //    private let refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
     
-    private lazy var accountsSearchTextView: TextInput = {
-        let textField = TextInput()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textField.placeholder = configuration.strings.searchText()
-        textField.textField.adjustsFontForContentSizeCategory = true
-        DesignSystem.shared.styles.searchInput(textField)
-        return textField
-    }()
+    private let searchController = UISearchController(searchResultsController: nil)
     
-    private lazy var accountsListTableView: UITableView = {
-        let table = UITableView()
-        table.separatorStyle = .none
+    private var stateView: StateView?
+   
+    private lazy var accountsListTableView: RoundedTableView = {
+        let table = RoundedTableView(frame:.zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.clipsToBounds = true
+        table.separatorStyle = .none
         table.backgroundColor = .clear
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: DesignSystem.shared.spacer.lg, right: 0)
+        table.showsVerticalScrollIndicator = false
+        table.alwaysBounceVertical = false
         table.dataSource = viewModel
-        table.tableHeaderView = accountsSearchTextView
         table.registerCell(AccountListItemTableCell.self)
-        DesignSystem.shared.styles.tableView(table)
-        // TODO: - Fix me
-        table.estimatedRowHeight = 80
-        table.rowHeight = UITableView.automaticDimension
-        
-        //        table.refreshControl = refreshControl
+        table.refreshControl = refreshControl
         
         return table
     }()
@@ -53,16 +46,16 @@ final class AccountsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupSearchController()
         
         viewModel?.refreshAction = {
             self.accountsListTableView.reloadData()
         }
         
-        accountsSearchTextView.textPublisher
-            .sink {[weak self] in
-                self?.viewModel?.onEvent(.search($0))
-            }
-            .store(in: &cancellables)
+        searchController.textPublisher.sink { [weak self] in
+            self?.viewModel?.onEvent(.search($0))
+        }.store(in: &cancellables)
+        
     }
     
     private func setupView() {
@@ -76,7 +69,6 @@ final class AccountsListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         viewModel?.onEvent(.getAccounts)
     }
     
@@ -90,19 +82,97 @@ final class AccountsListViewController: UIViewController {
             accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
             accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: DesignSystem.shared.spacer.md),
             accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
-            accountsSearchTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: DesignSystem.shared.spacer.md),
-            accountsSearchTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor,constant: -DesignSystem.shared.spacer.md),
-            accountsSearchTextView.topAnchor.constraint(equalTo: accountsListTableView.topAnchor),
         ])
     }
+    
+    private func setupSearchController() {
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.searchBar.placeholder = configuration.strings.searchText()
+        
+        self.navigationItem.searchController = searchController
+        self.definesPresentationContext = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
 }
+//
+//#if DEBUG
+//import SwiftUI
+//
+//struct AccountsListViewPreview: PreviewProvider {
+//    static var previews: some View {
+//        AccountsListViewController().toPreview()
+//    }
+//}
+//#endif
 
-#if DEBUG
-import SwiftUI
-
-struct AccountsListViewPreview: PreviewProvider {
-    static var previews: some View {
-        AccountsListViewController().toPreview()
+class RoundedTableView: UITableView {
+    private var tableViewBackView: Card?
+    private var tableContentObserver: NSKeyValueObservation?
+    private var topConstraint: NSLayoutConstraint?
+    private var bottomConstraint: NSLayoutConstraint?
+    
+    let placeHolderHeader = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    internal override init(frame: CGRect = .zero, style: UITableView.Style = .plain) {
+        super.init(frame: frame, style: style)
+        // Default views (Needed for the background view)
+        tableHeaderView = placeHolderHeader
+        tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
+    }
+    
+    override var isHidden: Bool {
+        willSet {
+            if newValue {
+                tableViewBackView?.removeFromSuperview()
+            } else {
+                adjustTableViewBackView()
+            }
+        }
+    }
+    
+    override var tableFooterView: UIView? {
+        didSet {
+            adjustTableViewBackView()
+        }
+    }
+    
+    override var tableHeaderView: UIView? {
+        didSet {
+            adjustTableViewBackView()
+        }
+    }
+    
+    private func adjustTableViewBackView() {
+        
+        if tableViewBackView?.superview != nil {
+            tableViewBackView?.removeFromSuperview()
+        }
+        
+        let backViewCard = Card()
+        DesignSystem.shared.styles.cardView(backViewCard)
+        backViewCard.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+        
+        guard let superView = superview, let footer = tableFooterView, let header = tableHeaderView else { return }
+        
+        superView.insertSubview(backViewCard, belowSubview: self)
+        
+        backViewCard.translatesAutoresizingMaskIntoConstraints = false
+        backViewCard.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        backViewCard.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        
+        topConstraint = backViewCard.topAnchor.constraint(equalTo: header.topAnchor)
+        topConstraint?.isActive = true
+        
+        bottomConstraint = backViewCard.bottomAnchor.constraint(equalTo: footer.topAnchor)
+        bottomConstraint?.isActive = true
+        
+        self.tableViewBackView = backViewCard
     }
 }
-#endif
+

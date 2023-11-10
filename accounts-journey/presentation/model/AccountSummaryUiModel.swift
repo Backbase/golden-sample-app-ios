@@ -34,30 +34,35 @@ struct AccountSummaryUiModel {
         self.investmentAccounts = investmentAccounts
     }
     
-    func generateList(query: String = "") -> [AccountsUiModel] {
-        var result = [AccountsUiModel]()
+    func generateList(query: String = "") -> [AccountUiModel] {
+        var result = [AccountUiModel]()
         
-        result.append(contentsOf: filter(accounts: currentAccounts, query: query))
-        result.append(contentsOf: filter(accounts: savingAccounts, query: query))
-        result.append(contentsOf: filter(accounts: termDeposits, query: query))
-        result.append(contentsOf: filter(accounts: loans, query: query))
-        result.append(contentsOf: filter(accounts: creditCards, query: query))
-        result.append(contentsOf: filter(accounts: debitCards, query: query))
-        result.append(contentsOf: filter(accounts: investmentAccounts, query: query))
+        result.append(contentsOf: filter(
+            accounts: currentAccounts?.products, query: query))
+        result.append(contentsOf: filter(
+            accounts: savingAccounts?.products, query: query))
+        result.append(contentsOf: filter(
+            accounts: termDeposits?.products, query: query))
+        result.append(contentsOf: filter(
+            accounts: loans?.products, query: query))
+        result.append(contentsOf: filter(
+            accounts: creditCards?.products, query: query))
+        result.append(contentsOf: filter(
+            accounts: debitCards?.products, query: query))
+        result.append(contentsOf: filter(
+            accounts: investmentAccounts?.products, query: query))
         customProducts?.forEach {
-            result.append(contentsOf: filter(accounts: $0, query: query))
+            result.append(contentsOf: filter(accounts: $0.products, query: query))
         }
         
         return result
     }
     
-    private func filter(accounts: AccountsUiModel?, query: String) -> [AccountsUiModel] {
+    private func filter(accounts: [AccountUiModel]?, query: String) -> [AccountUiModel] {
         let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
         if let accounts {
-            let products = q.isEmpty ? accounts.products : accounts.products.filter { $0.name!.lowercased().contains(q) }
-            let accountsUIModel = AccountsUiModel(header: accounts.header, products: products)
-            return [accountsUIModel]
+            return q.isEmpty ? accounts : accounts.filter { $0.name!.lowercased().contains(q) }
         }
         
         return []
