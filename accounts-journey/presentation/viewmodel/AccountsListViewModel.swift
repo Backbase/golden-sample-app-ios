@@ -8,12 +8,7 @@
 import Foundation
 import Resolver
 import Combine
-
-struct AccountListScreenState {
-    let isLoading: Bool = false
-    let accountSummary: [String] = []
-    let errorIcon: String = ""
-}
+import BackbaseDesignSystem
 
 enum AccountListEvent {
     case getAccounts
@@ -21,78 +16,131 @@ enum AccountListEvent {
     case search(String)
 }
 
+extension AccountListEvent: Equatable {}
+
 final class AccountsListViewModel: NSObject, ObservableObject {
     
+    enum ScreenState {
+        case idle
+        case loading
+        case loaded
+        case emptyResults(StateViewConfiguration)
+        case hasError(StateViewConfiguration)
+    }
+    
     @Published var allAccounts = [AccountUiModel]()
+    private var cancellables = Set<AnyCancellable>()
+    
+    @Published var hasError = false
     var filteredAccounts = [AccountUiModel]()
     
-    var refreshAction : (() -> Void)?
+    private let screenStateSubject = CurrentValueSubject<ScreenState, Never>(.idle)
     
-    
+    var screenStatePublisher: AnyPublisher<ScreenState, Never> {
+        screenStateSubject.eraseToAnyPublisher()
+    }
 
+    var reloadListAction : (() -> Void)?
+    var startRefreshingAction: (() -> Void)?
+    var endRefreshingAction: (() -> Void)?
+    var isSearching: Bool = false
+    
     // MARK: - Private
     
-    private lazy var accountsUsecase: AccountsUseCase = {
-        guard let usecase = Resolver.optional(AccountsUseCase.self) else {
+    private lazy var accountsUseCase: AccountsUseCase = {
+        guard let useCase = Resolver.optional(AccountsUseCase.self) else {
             fatalError("AccountsUseCase needed to continue")
         }
-        return usecase
+        return useCase
     }()
     
     
     func onEvent(_ event: AccountListEvent) {
         switch event {
         case .getAccounts:
-            getAccountSummary()
+            getAccountSummary(fromEvent: .getAccounts)
         case .refresh:
-            getAccountSummary()
-        case .search(let string):
-            getAccountSummary(query: string)
+            getAccountSummary(fromEvent: .refresh)
+        case .search(let searchString):
+            filterAccountsWith(query: searchString)
         }
     }
     
-    private func getAccountSummary(query: String = "") {
+    func getAccountSummary(fromEvent event: AccountListEvent,  query: String = "") {
+        if event == .refresh {
+            self.startRefreshingAction?()
+        }
         
-        accountsUsecase.getAccountSummary {[weak self] result in
+        screenStateSubject.send(.loading)
+        
+        accountsUseCase.getAccountSummary {[weak self] result in
+            guard let self else { return }
+            
+            if event == .refresh {
+                self.endRefreshingAction?()
+            }
+            
             switch result {
             case let .success(accountsSummaryResponse):
-                self?.allAccounts = accountsSummaryResponse.toMapUI().generateList(query: query)
-                self?.refreshAction?()
-            case .failure(_):
+                self.allAccounts = accountsSummaryResponse.toMapUI().generateList()
+                
+                if self.allAccounts.isEmpty {
+                    self.screenStateSubject.send(
+                        .emptyResults(
+                            self.stateViewConfiguration(
+                                for: .noAccounts
+                            )
+                        )
+                    )
+                } else {
+                    self.screenStateSubject.send(.loaded)
+                }
+                
+            case let .failure(errorResponse):
+                self.screenStateSubject.send(
+                    .hasError(
+                        self.stateViewConfiguration(
+                            for: .loadingFailure(errorResponse)
+                        )
+                    )
+                )
                 break
             }
         }
+    }
+    
+    private func filterAccountsWith(query: String = "") {
+        self.filteredAccounts = allAccounts
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        self.filteredAccounts = q.isEmpty ? allAccounts : allAccounts.filter {
+            $0.name!.lowercased().contains(q)
+        }
+        reloadListAction?()
     }
     
 }
 
 extension AccountsListViewModel: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-//        self.allAccounts.count
         1
     }
-//    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let sec = self.allAccounts[section]
-//        return sec.header
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        self.allAccounts.count
+        isSearching ? self.filteredAccounts.count:  self.allAccounts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
         
-//        let sec = self.allAccounts[indexPath.section]
-        let accountItem = self.allAccounts[indexPath.row]
+        let accountItem = isSearching ? self.filteredAccounts[indexPath.row] : self.allAccounts[indexPath.row]
         accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
         
         accountListCell.setup(accountItem)
         return accountListCell
     }
-    
+}
+
+extension AccountsListViewModel {
     func rowPosition(for indexPath: IndexPath) -> CellPosition {
         let sectionRows = self.allAccounts
         if sectionRows.count < 2 {
@@ -106,5 +154,5 @@ extension AccountsListViewModel: UITableViewDataSource {
         }
         return .middle
     }
-   
 }
+

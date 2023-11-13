@@ -17,7 +17,8 @@ struct AccountSummaryUiModel {
     var debitCards: AccountsUiModel?
     var investmentAccounts: AccountsUiModel?
     
-    init(customProducts: [AccountsUiModel]? = nil, currentAccounts: AccountsUiModel? = nil,
+    init(customProducts: [AccountsUiModel]? = nil, 
+         currentAccounts: AccountsUiModel? = nil,
          savingAccounts: AccountsUiModel? = nil,
          termDeposits: AccountsUiModel? = nil,
          loans: AccountsUiModel? = nil,
@@ -34,37 +35,34 @@ struct AccountSummaryUiModel {
         self.investmentAccounts = investmentAccounts
     }
     
-    func generateList(query: String = "") -> [AccountUiModel] {
+    func generateList() -> [AccountUiModel] {
         var result = [AccountUiModel]()
         
-        result.append(contentsOf: filter(
-            accounts: currentAccounts?.products, query: query))
-        result.append(contentsOf: filter(
-            accounts: savingAccounts?.products, query: query))
-        result.append(contentsOf: filter(
-            accounts: termDeposits?.products, query: query))
-        result.append(contentsOf: filter(
-            accounts: loans?.products, query: query))
-        result.append(contentsOf: filter(
-            accounts: creditCards?.products, query: query))
-        result.append(contentsOf: filter(
-            accounts: debitCards?.products, query: query))
-        result.append(contentsOf: filter(
-            accounts: investmentAccounts?.products, query: query))
+        if let currentAccountProducts = currentAccounts?.products {
+            result.append(contentsOf: currentAccountProducts)
+        }
+        if let savingsAccountProducts = savingAccounts?.products {
+            result.append(contentsOf: savingsAccountProducts)
+        }
+        if let termDepositProducts = termDeposits?.products {
+            result.append(contentsOf: termDepositProducts)
+        }
+        if let loanProducts = loans?.products {
+            result.append(contentsOf: loanProducts)
+        }
+        if let creditCardsProducts = creditCards?.products {
+            result.append(contentsOf: creditCardsProducts)
+        }
+        if let debitCardsProducts = debitCards?.products {
+            result.append(contentsOf: debitCardsProducts)
+        }
+        if let investmentAccountsProducts = investmentAccounts?.products {
+            result.append(contentsOf: investmentAccountsProducts)
+        }
+        
         customProducts?.forEach {
-            result.append(contentsOf: filter(accounts: $0.products, query: query))
+            result.append(contentsOf: $0.products)
         }
-        
         return result
-    }
-    
-    private func filter(accounts: [AccountUiModel]?, query: String) -> [AccountUiModel] {
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        
-        if let accounts {
-            return q.isEmpty ? accounts : accounts.filter { $0.name!.lowercased().contains(q) }
-        }
-        
-        return []
     }
 }

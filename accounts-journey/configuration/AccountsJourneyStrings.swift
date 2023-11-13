@@ -54,6 +54,34 @@ extension AccountsJourney {
         /// accountsJourney.accounts.labels.inactive
         public var inactiveAccountSubtitle = localized(key: "labels.inactive")
         
+        /// accountsJourney.accounts.errors.{error}.title
+        public var errorTitle: ErrorFormatter<LocalizedString> = { error in
+            switch error {
+            case .noAccounts:
+                localized(key: "errors.noAccounts.title")
+            default:
+                localized(key: "errors.generic.title")
+            }
+        }
+        /// accountsJourney.accounts.errors.{error}.subtitle
+        public var errorSubtitle: ErrorFormatter<LocalizedString> = { error in
+            switch error {
+            case .noAccounts:
+                localized(key: "errors.noAccounts.subtitle")
+            default:
+                localized(key: "errors.generic.subtitle")
+            }
+        }
+        /// accountsJourney.accounts.errors.{error}.actionButton.title
+        public var errorRetryButtonTitle: ErrorFormatter<LocalizedString?> = { error in
+            switch error {
+            case .loadingFailure:
+                return localized(key: "errors.loadingFailure.actionButton")
+            default:
+                return nil
+            }
+        }
+        
         // MARK: - Private
         
         private static func localized(key: String) -> LocalizedString {

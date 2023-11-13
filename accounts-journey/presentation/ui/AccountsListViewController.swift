@@ -17,7 +17,11 @@ final class AccountsListViewController: UIViewController {
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private var cancellables = Set<AnyCancellable>()
     
-    private let refreshControl = UIRefreshControl()
+    private var refreshControl: UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        return refreshControl
+    }
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -47,28 +51,13 @@ final class AccountsListViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupSearchController()
-        
-        viewModel?.refreshAction = {
-            self.accountsListTableView.reloadData()
-        }
-        
-        searchController.textPublisher.sink { [weak self] in
-            self?.viewModel?.onEvent(.search($0))
-        }.store(in: &cancellables)
-        
-    }
-    
-    private func setupView() {
-        view.backgroundColor = DesignSystem.shared.colors.foundation.default
-        title = configuration.strings.screenTitle()
-        
-        if let bar = navigationController?.navigationBar {
-            configuration.design.styles.navigationBar(bar)
-        }
+        setupViewModel()
+        setupBindings()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         viewModel?.onEvent(.getAccounts)
     }
     
@@ -85,94 +74,104 @@ final class AccountsListViewController: UIViewController {
         ])
     }
     
+    @objc func handleRefreshControl() {
+        viewModel?.onEvent(.refresh)
+    }
+    
+    private func setupBindings() {
+        viewModel?
+            .screenStatePublisher
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: {[weak self] state in
+                switch state {
+                case .idle:
+                    return
+                case .loading:
+                    self?.beginRefreshing()
+                case .loaded:
+                    self?.endRefreshing()
+                    self?.accountsListTableView.reloadData()
+                    // TODO:
+                    // Show TableView
+                    // Hide loading view
+                    // Hide StateView
+                case let .hasError(stateViewConfig):
+                    // Show Error View
+                    self?.showStateView(stateViewConfig)
+                case let .emptyResults(stateViewConfig):
+                    // Show Empty View
+                    self?.showStateView(stateViewConfig)
+                }
+            })
+            .store(in: &cancellables)
+    }
+    
     private func setupSearchController() {
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.searchBar.placeholder = configuration.strings.searchText()
-        
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = false
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    private func setupView() {
+        view.backgroundColor = DesignSystem.shared.colors.foundation.default
+        title = configuration.strings.screenTitle()
+        
+        if let bar = navigationController?.navigationBar {
+            configuration.design.styles.navigationBar(bar)
+        }
+    }
+    
+    private func setupViewModel() {
+        
+        viewModel?.reloadListAction = {
+            self.accountsListTableView.reloadData()
+        }
+        
+        searchController.textPublisher.sink { [weak self] in
+            self?.viewModel?.onEvent(.search($0))
+            self?.viewModel?.isSearching = self?.searchController.isActive ?? false
+        }.store(in: &cancellables)
+    }
+    
+    private func beginRefreshing() {
+        self.accountsListTableView.refreshControl?.isHidden = false
+        self.accountsListTableView.refreshControl?.beginRefreshing()
+    }
+    private func endRefreshing() {
+        self.accountsListTableView.refreshControl?.isHidden = true
+        self.accountsListTableView.refreshControl?.endRefreshing()
+    }
+    
+    private func showStateView(_ configuration: StateViewConfiguration) {
+        stateView = StateView(
+            params: StateViewInitParams(
+                configuration: configuration,
+                bundles: .accountsJourney ?? .design ?? .main
+            )
+        )
+        
+        guard let stateView else { return }
+        stateView.accessibilityIdentifier = "AccountsListStateView"
+        // HIDE TABLE
+        accountsListTableView.isHidden = true
+        // Add state view to the view hierarchy
+        view.addSubview(stateView)
+        // Specify StateView Constraints
+        NSLayoutConstraint.activate([
+            stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    private func removeStateView() {
+        if stateView != nil {
+            stateView?.removeFromSuperview()
+            stateView = nil
+        }
+    }
+    
 }
-//
-//#if DEBUG
-//import SwiftUI
-//
-//struct AccountsListViewPreview: PreviewProvider {
-//    static var previews: some View {
-//        AccountsListViewController().toPreview()
-//    }
-//}
-//#endif
-
-class RoundedTableView: UITableView {
-    private var tableViewBackView: Card?
-    private var tableContentObserver: NSKeyValueObservation?
-    private var topConstraint: NSLayoutConstraint?
-    private var bottomConstraint: NSLayoutConstraint?
-    
-    let placeHolderHeader = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    internal override init(frame: CGRect = .zero, style: UITableView.Style = .plain) {
-        super.init(frame: frame, style: style)
-        // Default views (Needed for the background view)
-        tableHeaderView = placeHolderHeader
-        tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
-    }
-    
-    override var isHidden: Bool {
-        willSet {
-            if newValue {
-                tableViewBackView?.removeFromSuperview()
-            } else {
-                adjustTableViewBackView()
-            }
-        }
-    }
-    
-    override var tableFooterView: UIView? {
-        didSet {
-            adjustTableViewBackView()
-        }
-    }
-    
-    override var tableHeaderView: UIView? {
-        didSet {
-            adjustTableViewBackView()
-        }
-    }
-    
-    private func adjustTableViewBackView() {
-        
-        if tableViewBackView?.superview != nil {
-            tableViewBackView?.removeFromSuperview()
-        }
-        
-        let backViewCard = Card()
-        DesignSystem.shared.styles.cardView(backViewCard)
-        backViewCard.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
-        
-        guard let superView = superview, let footer = tableFooterView, let header = tableHeaderView else { return }
-        
-        superView.insertSubview(backViewCard, belowSubview: self)
-        
-        backViewCard.translatesAutoresizingMaskIntoConstraints = false
-        backViewCard.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        backViewCard.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        topConstraint = backViewCard.topAnchor.constraint(equalTo: header.topAnchor)
-        topConstraint?.isActive = true
-        
-        bottomConstraint = backViewCard.bottomAnchor.constraint(equalTo: footer.topAnchor)
-        bottomConstraint?.isActive = true
-        
-        self.tableViewBackView = backViewCard
-    }
-}
-

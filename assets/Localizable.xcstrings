@@ -1,6 +1,61 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "accountsJourney.accounts.errors.generic.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.errors.generic.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohhh Shooot"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.errors.loadingFailure.actionButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong happened"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.errors.noAccounts.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact customer care"
+          }
+        }
+      }
+    },
+    "accountsJourney.accounts.errors.noAccounts.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No accounts"
+          }
+        }
+      }
+    },
     "accountsJourney.accounts.labels.active" : {
       "extractionState" : "manual",
       "localizations" : {
