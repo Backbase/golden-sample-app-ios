@@ -10,6 +10,7 @@ import Resolver
 import Combine
 import BackbaseDesignSystem
 
+
 enum AccountListEvent {
     case getAccounts
     case refresh
@@ -29,21 +30,10 @@ final class AccountsListViewModel: NSObject, ObservableObject {
     }
     
     @Published var allAccounts = [AccountUiModel]()
+    
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var hasError = false
-    var filteredAccounts = [AccountUiModel]()
-    
-    private let screenStateSubject = CurrentValueSubject<ScreenState, Never>(.idle)
-    
-    var screenStatePublisher: AnyPublisher<ScreenState, Never> {
-        screenStateSubject.eraseToAnyPublisher()
-    }
-
-    var reloadListAction : (() -> Void)?
-    var startRefreshingAction: (() -> Void)?
-    var endRefreshingAction: (() -> Void)?
-    var isSearching: Bool = false
+    var screenStateSubject = CurrentValueSubject<ScreenState, Never>(.idle)
     
     // MARK: - Private
     
@@ -62,13 +52,15 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         case .refresh:
             getAccountSummary(fromEvent: .refresh)
         case .search(let searchString):
-            filterAccountsWith(query: searchString)
+            getAccountSummary(fromEvent: .search(searchString))
         }
     }
     
-    func getAccountSummary(fromEvent event: AccountListEvent,  query: String = "") {
-        if event == .refresh {
-            self.startRefreshingAction?()
+    func getAccountSummary(fromEvent event: AccountListEvent) {
+        var query = ""
+        
+        if case let .search(searchString) = event {
+            query = searchString
         }
         
         screenStateSubject.send(.loading)
@@ -76,13 +68,9 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         accountsUseCase.getAccountSummary {[weak self] result in
             guard let self else { return }
             
-            if event == .refresh {
-                self.endRefreshingAction?()
-            }
-            
             switch result {
             case let .success(accountsSummaryResponse):
-                self.allAccounts = accountsSummaryResponse.toMapUI().generateList()
+                self.allAccounts = accountsSummaryResponse.toMapUI().generateList(query: query)
                 
                 if self.allAccounts.isEmpty {
                     self.screenStateSubject.send(
@@ -104,18 +92,8 @@ final class AccountsListViewModel: NSObject, ObservableObject {
                         )
                     )
                 )
-                break
             }
         }
-    }
-    
-    private func filterAccountsWith(query: String = "") {
-        self.filteredAccounts = allAccounts
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        self.filteredAccounts = q.isEmpty ? allAccounts : allAccounts.filter {
-            $0.name!.lowercased().contains(q)
-        }
-        reloadListAction?()
     }
     
 }
@@ -126,15 +104,15 @@ extension AccountsListViewModel: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isSearching ? self.filteredAccounts.count:  self.allAccounts.count
+        return allAccounts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
         
-        let accountItem = isSearching ? self.filteredAccounts[indexPath.row] : self.allAccounts[indexPath.row]
-        accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
+        let accountItem = allAccounts[indexPath.row]
         
+        accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
         accountListCell.setup(accountItem)
         return accountListCell
     }
@@ -142,7 +120,7 @@ extension AccountsListViewModel: UITableViewDataSource {
 
 extension AccountsListViewModel {
     func rowPosition(for indexPath: IndexPath) -> CellPosition {
-        let sectionRows = self.allAccounts
+        let sectionRows = allAccounts
         if sectionRows.count < 2 {
             return .full
         }

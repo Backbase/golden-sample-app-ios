@@ -26,7 +26,7 @@ final class AccountsListViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     private var stateView: StateView?
-   
+    
     private lazy var accountsListTableView: RoundedTableView = {
         let table = RoundedTableView(frame:.zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,6 @@ final class AccountsListViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupSearchController()
-        setupViewModel()
         setupBindings()
     }
     
@@ -69,7 +68,7 @@ final class AccountsListViewController: UIViewController {
         NSLayoutConstraint.activate([
             accountsListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: DesignSystem.shared.spacer.md),
             accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
-            accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: DesignSystem.shared.spacer.md),
+            accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
         ])
     }
@@ -79,31 +78,33 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupBindings() {
+        searchController
+            .textPublisher
+            .removeDuplicates()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] in
+                self?.viewModel?.onEvent(.search($0))
+            }.store(in: &cancellables)
+        
         viewModel?
-            .screenStatePublisher
+            .screenStateSubject
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {[weak self] state in
+                self?.removeStateView()
                 switch state {
                 case .idle:
                     return
                 case .loading:
-                    self?.beginRefreshing()
+                    return
                 case .loaded:
-                    self?.endRefreshing()
+                    self?.accountsListTableView.isHidden = false
                     self?.accountsListTableView.reloadData()
-                    // TODO:
-                    // Show TableView
-                    // Hide loading view
-                    // Hide StateView
-                case let .hasError(stateViewConfig):
-                    // Show Error View
-                    self?.showStateView(stateViewConfig)
-                case let .emptyResults(stateViewConfig):
-                    // Show Empty View
+                case let .hasError(stateViewConfig), let .emptyResults(stateViewConfig):
                     self?.showStateView(stateViewConfig)
                 }
             })
             .store(in: &cancellables)
+        
     }
     
     private func setupSearchController() {
@@ -113,6 +114,9 @@ final class AccountsListViewController: UIViewController {
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = false
         self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.searchController.searchBar.delegate = self
+        
+        searchController.searchBar.backgroundColor = DesignSystem.shared.colors.foundation.default
     }
     
     private func setupView() {
@@ -122,27 +126,7 @@ final class AccountsListViewController: UIViewController {
         if let bar = navigationController?.navigationBar {
             configuration.design.styles.navigationBar(bar)
         }
-    }
-    
-    private func setupViewModel() {
-        
-        viewModel?.reloadListAction = {
-            self.accountsListTableView.reloadData()
-        }
-        
-        searchController.textPublisher.sink { [weak self] in
-            self?.viewModel?.onEvent(.search($0))
-            self?.viewModel?.isSearching = self?.searchController.isActive ?? false
-        }.store(in: &cancellables)
-    }
-    
-    private func beginRefreshing() {
-        self.accountsListTableView.refreshControl?.isHidden = false
-        self.accountsListTableView.refreshControl?.beginRefreshing()
-    }
-    private func endRefreshing() {
-        self.accountsListTableView.refreshControl?.isHidden = true
-        self.accountsListTableView.refreshControl?.endRefreshing()
+       
     }
     
     private func showStateView(_ configuration: StateViewConfiguration) {
@@ -169,9 +153,24 @@ final class AccountsListViewController: UIViewController {
     
     private func removeStateView() {
         if stateView != nil {
-            stateView?.removeFromSuperview()
-            stateView = nil
+            UIView.animate(
+                withDuration: 0.2,
+                animations: {[weak self] in
+                    self?.stateView?.alpha = 0.0
+                },
+                completion: {[weak self](value: Bool) in
+                    self?.stateView?.removeFromSuperview()
+                    self?.stateView = nil
+            })
+
+            
         }
     }
     
+}
+
+extension AccountsListViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel?.onEvent(.search(""))
+    }
 }

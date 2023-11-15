@@ -173,7 +173,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     }
 }
 
-
 internal enum CellPosition {
     case beginning
     case end
