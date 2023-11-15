@@ -2,7 +2,7 @@
 //  AccountsJourneyStyles.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 06/11/2023.
+//  Created by Backbase R&D B.V. on 06/11/2023.
 //
 
 import UIKit

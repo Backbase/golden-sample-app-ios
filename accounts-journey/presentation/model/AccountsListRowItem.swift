@@ -2,7 +2,7 @@
 //  AccountsListRowItem.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 31/10/2023.
+//  Created by Backbase R&D B.V. on 31/10/2023.
 //
 
 import Foundation

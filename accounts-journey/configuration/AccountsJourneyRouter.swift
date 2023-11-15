@@ -2,7 +2,7 @@
 //  AccountsJourneyRouter.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 07/11/2023.
+//  Created by Backbase R&D B.V. on 07/11/2023.
 //
 
 import UIKit

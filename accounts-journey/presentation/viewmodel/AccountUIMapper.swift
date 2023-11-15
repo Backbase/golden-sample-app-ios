@@ -2,7 +2,7 @@
 //  AccountUIMapper.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 03/11/2023.
+//  Created by Backbase R&D B.V. on 03/11/2023.
 //
 
 import Foundation

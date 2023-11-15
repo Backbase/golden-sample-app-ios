@@ -2,7 +2,7 @@
 //  AccountsUiModel.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 26/10/2023.
+//  Created by Backbase R&D B.V. on 26/10/2023.
 //
 
 import Foundation

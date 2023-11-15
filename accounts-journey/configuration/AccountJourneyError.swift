@@ -2,7 +2,7 @@
 //  AccountJourneyError.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 13/11/2023.
+//  Created by Backbase R&D B.V. on 13/11/2023.
 //
 
 
