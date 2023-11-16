@@ -11,37 +11,37 @@ import Resolver
 
 extension AccountsJourney.AccountsSummary {
     
-    func toMapUI() -> AccountSummaryUiModel {
+    func toMapUI() -> AccountSummaryUIModel {
         
-        var accountSummaryUiModel = AccountSummaryUiModel()
+        var accountSummaryUIModel = AccountSummaryUIModel()
         if !self.customProducts.isEmpty {
-            accountSummaryUiModel.customProducts =  self.customProducts.map {
+            accountSummaryUIModel.customProducts =  self.customProducts.map {
                 $0.mapToUi()
             }
         }
         if let currentAccounts = self.currentAccounts {
-            accountSummaryUiModel.currentAccounts = currentAccounts.mapToUi()
+            accountSummaryUIModel.currentAccounts = currentAccounts.mapToUi()
         }
         if let savingsAccounts = self.savingsAccounts {
-            accountSummaryUiModel.savingAccounts = savingsAccounts.mapToUi()
+            accountSummaryUIModel.savingAccounts = savingsAccounts.mapToUi()
         }
         if let termDeposits = self.termDeposits {
-            accountSummaryUiModel.termDeposits = termDeposits.mapToUi()
+            accountSummaryUIModel.termDeposits = termDeposits.mapToUi()
         }
         if let loans = self.loans {
-            accountSummaryUiModel.loans = loans.mapToUi()
+            accountSummaryUIModel.loans = loans.mapToUi()
         }
         if let creditCards = self.creditCards {
-            accountSummaryUiModel.creditCards = creditCards.mapToUi()
+            accountSummaryUIModel.creditCards = creditCards.mapToUi()
         }
         if let debitCards = self.debitCards {
-            accountSummaryUiModel.debitCards = debitCards.mapToUi()
+            accountSummaryUIModel.debitCards = debitCards.mapToUi()
         }
         if let investmentAccounts = self.investmentAccounts {
-            accountSummaryUiModel.investmentAccounts = investmentAccounts.mapToUi()
+            accountSummaryUIModel.investmentAccounts = investmentAccounts.mapToUi()
         }
         
-        return accountSummaryUiModel
+        return accountSummaryUIModel
     }
 }
 private func formatState(_ productState: AccountsJourney.ProductState?, number: String?) -> String? {
@@ -52,43 +52,43 @@ private func formatState(_ productState: AccountsJourney.ProductState?, number: 
             return state
         }
     }
-    return nil
+    return number ?? nil
 }
 
 extension AccountsJourney.CustomProducts {
-    func mapToUi() -> AccountsUiModel {
+    func mapToUi() -> AccountsUIModel {
         
-        var accountsUiModel = AccountsUiModel()
+        var accountsUIModel = AccountsUIModel()
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            accountsUiModel = AccountsUiModel(
+            accountsUIModel = AccountsUIModel(
                 header: config.strings.generalAccountTitle(),
                 products: self.products.map {
-                    AccountUiModel(
+                    AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(
                             amount: $0.bookedBalance,
                             currencyCode: $0.currency
                         ),
-                        state: formatState($0.state, number: $0.iban),
+                        state: formatState($0.state, number: $0.productKindName),
                         isVisible: $0.visible,
                         iconName: config.design.accountIcon(.general)
                     )
                 })
         }
-        return accountsUiModel
+        return accountsUIModel
     }
 }
 
 extension AccountsJourney.CurrentAccounts {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.currentAccountTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(
@@ -107,13 +107,13 @@ extension AccountsJourney.CurrentAccounts {
 }
 
 extension AccountsJourney.SavingsAccounts {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.savingsAccountTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(
@@ -132,13 +132,13 @@ extension AccountsJourney.SavingsAccounts {
 }
 
 extension AccountsJourney.TermDeposits {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.termDepositTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(
@@ -157,13 +157,13 @@ extension AccountsJourney.TermDeposits {
 }
 
 extension AccountsJourney.Loans {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.loanAccountTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(
@@ -182,13 +182,13 @@ extension AccountsJourney.Loans {
 }
 
 extension AccountsJourney.CreditCards {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.creditCardTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(
@@ -207,13 +207,13 @@ extension AccountsJourney.CreditCards {
 }
 
 extension AccountsJourney.DebitCards {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.debitCardTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance:  Currency(
@@ -232,13 +232,13 @@ extension AccountsJourney.DebitCards {
 }
 
 extension AccountsJourney.InvestmentAccounts {
-    func mapToUi() -> AccountsUiModel? {
+    func mapToUi() -> AccountsUIModel? {
         if !self.products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
-            return AccountsUiModel(
+            return AccountsUIModel(
                 header: config.strings.investmentAccountTitle(),
                 products: self.products.map {
-                    return AccountUiModel(
+                    return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
                         balance: Currency(

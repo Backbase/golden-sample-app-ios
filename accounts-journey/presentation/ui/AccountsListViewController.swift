@@ -30,13 +30,8 @@ final class AccountsListViewController: UIViewController {
     private let loadingView = LoadingView()
     
     private lazy var accountsListTableView: RoundedTableView = {
-        let table = RoundedTableView(frame:.zero, style: .plain)
+        let table = RoundedTableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.clipsToBounds = true
-        table.separatorStyle = .none
-        table.backgroundColor = .clear
-        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: DesignSystem.shared.spacer.lg, right: 0)
-        table.showsVerticalScrollIndicator = false
         table.alwaysBounceVertical = false
         table.dataSource = viewModel
         table.registerCell(AccountListItemTableCell.self)
@@ -116,7 +111,6 @@ final class AccountsListViewController: UIViewController {
                 case let .hasError(stateViewConfig), let .emptyResults(stateViewConfig):
                     self?.hideLoadingView()
                     self?.showStateView(stateViewConfig)
-                    
                 }
             })
             .store(in: &cancellables)
@@ -132,7 +126,7 @@ final class AccountsListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
         
-        searchController.searchBar.backgroundColor = DesignSystem.shared.colors.foundation.default
+        configuration.design.styles.searchBar(searchController.searchBar)
     }
     
     private func setupView() {
@@ -142,7 +136,6 @@ final class AccountsListViewController: UIViewController {
         if let bar = navigationController?.navigationBar {
             configuration.design.styles.navigationBar(bar)
         }
-        
     }
     
     private func showLoadingView() {
@@ -152,7 +145,6 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func hideLoadingView(){
-
         loadingView.isHidden = true
         loadingView.stopAnimating()
     }

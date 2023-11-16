@@ -21,7 +21,7 @@ extension AccountsJourney {
         
         public var strings = Strings()
         
-        var accountRowProvider: (AccountUiModel) -> AccountsListRowItem = { item in
+        public var accountRowProvider: (AccountUIModel) -> AccountsListRowItem = { item in
             let configuration = Resolver.resolve(AccountsJourney.Configuration.self)
             
             var accountName: AccountsListRowItem.StyleableText? = .text(item.name ?? "", configuration.design.styles.accountName)
@@ -66,11 +66,11 @@ extension AccountsJourney {
             
         }
         
-        var isAccountInactive: (AccountUiModel) -> Bool = { account in
+        var isAccountInactive: (AccountUIModel) -> Bool = { account in
             account.state?.lowercased() == "inactive"
         }
         
-        var isAccountClosed: (AccountUiModel) -> Bool = { account in
+        var isAccountClosed: (AccountUIModel) -> Bool = { account in
             account.state?.lowercased() == "closed"
         }
         

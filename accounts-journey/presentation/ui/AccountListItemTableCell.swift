@@ -14,7 +14,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     
     var configuration: AccountsJourney.Configuration = Resolver.resolve()
     
-    private let containerStackView: UIStackView = {
+    private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -25,7 +25,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         return stackView
     }()
     
-    private let infoStackView: UIStackView = {
+    private lazy var infoStackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
@@ -39,18 +39,15 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.textAlignment = .left
         return label
     }()
-    
     
     private lazy var accountStateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.textAlignment = .left
         return label
     }()
@@ -60,7 +57,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.textAlignment = .right
         return label
     }()
@@ -137,7 +133,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     }
     
     
-    func setup(_ account: AccountUiModel?) {
+    func setup(_ account: AccountUIModel?) {
 
         if let account {
             let row = configuration.accountRowProvider(account)
@@ -199,8 +195,6 @@ internal enum CellPosition {
                 .layerMinXMaxYCorner,
                 .layerMaxXMaxYCorner
             ]
-        case .middle:
-            return []
         case .full:
             return [
                 .layerMinXMinYCorner,
@@ -208,6 +202,8 @@ internal enum CellPosition {
                 .layerMinXMaxYCorner,
                 .layerMaxXMaxYCorner
             ]
+        default:
+            return []
         }
     }
 }

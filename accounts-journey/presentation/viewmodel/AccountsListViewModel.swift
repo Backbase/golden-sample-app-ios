@@ -28,7 +28,7 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         case hasError(StateViewConfiguration)
     }
     
-    @Published var allAccounts = [AccountUiModel]()
+    @Published var allAccounts = [AccountUIModel]()
     @Published var screenState: ScreenState = .loading
     
     // MARK: - Private

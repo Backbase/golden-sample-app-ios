@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    enum AccountType: CaseIterable {
+    public enum AccountType: CaseIterable {
         case current
         case savings
         case termDeposit

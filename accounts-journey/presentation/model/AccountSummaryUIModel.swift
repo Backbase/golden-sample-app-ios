@@ -1,5 +1,5 @@
 //
-//  AccountSummaryUiModel.swift
+//  AccountSummaryUIModel.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 26/10/2023.
@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct AccountSummaryUiModel {
-    var customProducts: [AccountsUiModel]?
-    var currentAccounts: AccountsUiModel?
-    var savingAccounts: AccountsUiModel?
-    var termDeposits: AccountsUiModel?
-    var loans: AccountsUiModel?
-    var creditCards: AccountsUiModel?
-    var debitCards: AccountsUiModel?
-    var investmentAccounts: AccountsUiModel?
+struct AccountSummaryUIModel {
+    var customProducts: [AccountsUIModel]?
+    var currentAccounts: AccountsUIModel?
+    var savingAccounts: AccountsUIModel?
+    var termDeposits: AccountsUIModel?
+    var loans: AccountsUIModel?
+    var creditCards: AccountsUIModel?
+    var debitCards: AccountsUIModel?
+    var investmentAccounts: AccountsUIModel?
     
-    init(customProducts: [AccountsUiModel]? = nil, 
-         currentAccounts: AccountsUiModel? = nil,
-         savingAccounts: AccountsUiModel? = nil,
-         termDeposits: AccountsUiModel? = nil,
-         loans: AccountsUiModel? = nil,
-         creditCards: AccountsUiModel? = nil,
-         debitCards: AccountsUiModel? = nil,
-         investmentAccounts: AccountsUiModel? = nil) {
+    init(customProducts: [AccountsUIModel]? = nil, 
+         currentAccounts: AccountsUIModel? = nil,
+         savingAccounts: AccountsUIModel? = nil,
+         termDeposits: AccountsUIModel? = nil,
+         loans: AccountsUIModel? = nil,
+         creditCards: AccountsUIModel? = nil,
+         debitCards: AccountsUIModel? = nil,
+         investmentAccounts: AccountsUIModel? = nil) {
         self.customProducts = customProducts
         self.currentAccounts = currentAccounts
         self.savingAccounts = savingAccounts
@@ -35,8 +35,8 @@ struct AccountSummaryUiModel {
         self.investmentAccounts = investmentAccounts
     }
     
-    func generateList(query: String = "") -> [AccountUiModel] {
-        var result = [AccountUiModel]()
+    func generateList(query: String = "") -> [AccountUIModel] {
+        var result = [AccountUIModel]()
         
         result.append(contentsOf: filter(currentAccounts?.products, by: query))
         result.append(contentsOf: filter(savingAccounts?.products, by: query))
@@ -57,9 +57,9 @@ struct AccountSummaryUiModel {
     }
     
     func filter(_
-        products: [AccountUiModel]?,
+        products: [AccountUIModel]?,
         by query: String
-    ) -> [AccountUiModel] {
+    ) -> [AccountUIModel] {
         let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
         if let products {

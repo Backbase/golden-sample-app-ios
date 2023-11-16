@@ -64,6 +64,14 @@ extension AccountsJourney.Design {
             navigationBar.prefersLargeTitles = true
         }
         
+        /// Style applied to searchBar
+        public var searchBar: Style<UISearchBar> = { searchBar in
+            searchBar.searchTextField.textColor = DesignSystem.shared.colors.text.default
+            searchBar.tintColor = DesignSystem.shared.colors.text.default
+
+        }
+        
+        /// Style applied to activityIndicator
         public var activityIndicator: StyleSelector<UIActivityIndicatorView.Style, UIActivityIndicatorView> = { style in
             return { activityIndicator in
                 activityIndicator.style = style

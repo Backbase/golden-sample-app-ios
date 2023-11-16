@@ -8,8 +8,7 @@
 import UIKit
 import BackbaseDesignSystem
 
-
-struct AccountUiModel {
+public struct AccountUIModel {
     /// Unique id
     let id: String?
     /// Account name
@@ -23,7 +22,7 @@ struct AccountUiModel {
     /// Name of the icon
     let iconName: AccountIconInfo?
     
-    init(
+    public init(
         id: String? = nil,
         name: String? = nil,
         balance: Currency? = nil,
@@ -51,12 +50,12 @@ public struct Currency: Equatable {
     /// - Parameters:
     ///   - amount: balance as a string
     ///   - currencyCode: alpha-3 code (complying with ISO 4217) of the currency that qualifies the amount
-    init(amount: String, currencyCode: String) {
+    public init(amount: String, currencyCode: String) {
         self.amount = amount
         self.currencyCode = currencyCode
     }
     
-    init(amount: String?, currencyCode: String?) {
+    public init(amount: String?, currencyCode: String?) {
         if let amount, let currencyCode {
             self.amount = amount
             self.currencyCode = currencyCode

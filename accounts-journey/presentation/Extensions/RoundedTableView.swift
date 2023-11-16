@@ -24,6 +24,13 @@ class RoundedTableView: UITableView {
     
     internal override init(frame: CGRect = .zero, style: UITableView.Style = .plain) {
         super.init(frame: frame, style: style)
+        
+        clipsToBounds = true
+        separatorStyle = .none
+        backgroundColor = .clear
+        contentInset = UIEdgeInsets(top: 0, left: 0, bottom: DesignSystem.shared.spacer.lg, right: 0)
+        showsVerticalScrollIndicator = false
+        alwaysBounceVertical = false
         // Default views (Needed for the background view)
         tableHeaderView = placeHolderHeader
         tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))

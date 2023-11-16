@@ -14,10 +14,7 @@ extension AccountsJourney {
         /// Configuration of styles using in Accounts screen
         var styles = Styles()
         
-        /// Accounts list shimmer view image
-        var shimmerImage = UIImage.named("AccountsLoading", in: .accountsJourney)
-        
-        var accountIcon: (AccountsJourney.AccountType) -> AccountIconInfo? = { accountType in
+        public var accountIcon: (AccountsJourney.AccountType) -> AccountIconInfo? = { accountType in
             switch accountType {
             case .creditCard:
                 return AccountIconInfo(
@@ -78,7 +75,7 @@ extension AccountsJourney {
             }
         }
         
-        static let darkIconBackgroundColor: UIColor = DesignSystem.shared.colors.surfaceSecondary.default
+        public static let darkIconBackgroundColor: UIColor = DesignSystem.shared.colors.surfaceSecondary.default
         
         public var errorIconName: ErrorFormatter<String?> = { error in
             switch error {
