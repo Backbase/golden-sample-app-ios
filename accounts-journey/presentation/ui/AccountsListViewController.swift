@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import Resolver
 import BackbaseDesignSystem
+import SnapKit
 
 final class AccountsListViewController: UIViewController {
     
@@ -26,6 +27,7 @@ final class AccountsListViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     private var stateView: StateView?
+    private let loadingView = LoadingView()
     
     private lazy var accountsListTableView: RoundedTableView = {
         let table = RoundedTableView(frame:.zero, style: .plain)
@@ -63,14 +65,27 @@ final class AccountsListViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view.addSubview(accountsListTableView)
+        view.addSubview(loadingView)
         
-        let safeArea = view.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            accountsListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: DesignSystem.shared.spacer.md),
-            accountsListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
-            accountsListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            accountsListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
-        ])
+        accountsListTableView.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .bottom
+                .equalToSuperview().inset(DesignSystem.shared.spacer.md)
+            make.top.equalToSuperview()
+        }
+        
+        loadingView.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+                .inset(DesignSystem.shared.spacer.md)
+            make
+                .centerY
+                .equalToSuperview()
+        }
     }
     
     @objc func handleRefreshControl() {
@@ -87,20 +102,21 @@ final class AccountsListViewController: UIViewController {
             }.store(in: &cancellables)
         
         viewModel?
-            .screenStateSubject
+            .$screenState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {[weak self] state in
                 self?.removeStateView()
                 switch state {
-                case .idle:
-                    return
                 case .loading:
-                    return
+                    self?.showLoadingView()
                 case .loaded:
+                    self?.hideLoadingView()
                     self?.accountsListTableView.isHidden = false
                     self?.accountsListTableView.reloadData()
                 case let .hasError(stateViewConfig), let .emptyResults(stateViewConfig):
+                    self?.hideLoadingView()
                     self?.showStateView(stateViewConfig)
+                    
                 }
             })
             .store(in: &cancellables)
@@ -108,13 +124,13 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupSearchController() {
-        self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.searchBar.placeholder = configuration.strings.searchText()
-        self.navigationItem.searchController = searchController
-        self.definesPresentationContext = false
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = configuration.strings.searchText()
+        navigationItem.searchController = searchController
+        definesPresentationContext = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
         
         searchController.searchBar.backgroundColor = DesignSystem.shared.colors.foundation.default
     }
@@ -126,7 +142,19 @@ final class AccountsListViewController: UIViewController {
         if let bar = navigationController?.navigationBar {
             configuration.design.styles.navigationBar(bar)
         }
-       
+        
+    }
+    
+    private func showLoadingView() {
+        accountsListTableView.isHidden = true
+        loadingView.isHidden = false
+        loadingView.startAnimating()
+    }
+    
+    private func hideLoadingView(){
+
+        loadingView.isHidden = true
+        loadingView.stopAnimating()
     }
     
     private func showStateView(_ configuration: StateViewConfiguration) {
@@ -143,12 +171,17 @@ final class AccountsListViewController: UIViewController {
         accountsListTableView.isHidden = true
         // Add state view to the view hierarchy
         view.addSubview(stateView)
-        // Specify StateView Constraints
-        NSLayoutConstraint.activate([
-            stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
-            stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
-            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        
+        stateView.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+                .inset(DesignSystem.shared.spacer.md)
+            make
+                .centerY
+                .equalToSuperview()
+        }
     }
     
     private func removeStateView() {
@@ -161,12 +194,9 @@ final class AccountsListViewController: UIViewController {
                 completion: {[weak self](value: Bool) in
                     self?.stateView?.removeFromSuperview()
                     self?.stateView = nil
-            })
-
-            
+                })
         }
     }
-    
 }
 
 extension AccountsListViewController: UISearchBarDelegate {
@@ -174,3 +204,4 @@ extension AccountsListViewController: UISearchBarDelegate {
         viewModel?.onEvent(.search(""))
     }
 }
+

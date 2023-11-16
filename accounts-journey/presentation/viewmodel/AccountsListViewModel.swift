@@ -22,7 +22,6 @@ extension AccountListEvent: Equatable {}
 final class AccountsListViewModel: NSObject, ObservableObject {
     
     enum ScreenState {
-        case idle
         case loading
         case loaded
         case emptyResults(StateViewConfiguration)
@@ -30,10 +29,7 @@ final class AccountsListViewModel: NSObject, ObservableObject {
     }
     
     @Published var allAccounts = [AccountUiModel]()
-    
-    private var cancellables = Set<AnyCancellable>()
-    
-    var screenStateSubject = CurrentValueSubject<ScreenState, Never>(.idle)
+    @Published var screenState: ScreenState = .loading
     
     // MARK: - Private
     
@@ -63,33 +59,32 @@ final class AccountsListViewModel: NSObject, ObservableObject {
             query = searchString
         }
         
-        screenStateSubject.send(.loading)
+        screenState  = .loading
         
         accountsUseCase.getAccountSummary {[weak self] result in
-            guard let self else { return }
+            guard let self else {
+                return
+            }
             
             switch result {
             case let .success(accountsSummaryResponse):
-                self.allAccounts = accountsSummaryResponse.toMapUI().generateList(query: query)
+                allAccounts = accountsSummaryResponse
+                    .toMapUI()
+                    .generateList(query: query)
                 
-                if self.allAccounts.isEmpty {
-                    self.screenStateSubject.send(
-                        .emptyResults(
-                            self.stateViewConfiguration(
-                                for: .noAccounts
-                            )
-                        )
+                if allAccounts.isEmpty {
+                    screenState = .emptyResults(
+                        stateViewConfiguration(
+                            for: .noAccounts)
                     )
                 } else {
-                    self.screenStateSubject.send(.loaded)
+                    screenState = .loaded
                 }
                 
             case let .failure(errorResponse):
-                self.screenStateSubject.send(
-                    .hasError(
-                        self.stateViewConfiguration(
-                            for: .loadingFailure(errorResponse)
-                        )
+                screenState = .hasError(
+                    stateViewConfiguration(
+                        for: .loadingFailure(errorResponse)
                     )
                 )
             }
@@ -119,7 +114,7 @@ extension AccountsListViewModel: UITableViewDataSource {
 }
 
 extension AccountsListViewModel {
-    func rowPosition(for indexPath: IndexPath) -> CellPosition {
+    private func rowPosition(for indexPath: IndexPath) -> CellPosition {
         let sectionRows = allAccounts
         if sectionRows.count < 2 {
             return .full

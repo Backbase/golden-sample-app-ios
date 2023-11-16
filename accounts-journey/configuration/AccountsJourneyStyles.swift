@@ -59,9 +59,15 @@ extension AccountsJourney.Design {
             label.textColor = DesignSystem.shared.colors.text.default
         }
         
-        /// Style applied to navigationbar
+        /// Style applied to navigationBar
         public var navigationBar: Style<UINavigationBar> = { navigationBar in
             navigationBar.prefersLargeTitles = true
+        }
+        
+        public var activityIndicator: StyleSelector<UIActivityIndicatorView.Style, UIActivityIndicatorView> = { style in
+            return { activityIndicator in
+                activityIndicator.style = style
+            }
         }
     
         public var currencyFormatter: StyleSelector<(String, String), UILabel> = { values in

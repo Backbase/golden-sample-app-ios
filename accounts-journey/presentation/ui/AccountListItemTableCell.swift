@@ -7,6 +7,7 @@
 
 import UIKit
 import Resolver
+import SnapKit
 import BackbaseDesignSystem
 
 final class AccountListItemTableCell: UITableViewCell, Reusable {
@@ -99,7 +100,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         accountNameLabel.text = ""
         accountStateLabel.text = ""
         accountBalanceLabel.text = ""
-        selectionStyle  = .default
+        selectionStyle = .none
     }
     
     private func setupSubviews() {
@@ -112,12 +113,15 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         infoStackView.addArrangedSubview(accountStateLabel)
         infoStackView.addArrangedSubview(accountBalanceLabel)
         
-        NSLayoutConstraint.activate([
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: DesignSystem.shared.spacer.md),
-            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: DesignSystem.shared.spacer.md),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
-            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -DesignSystem.shared.spacer.md)
-        ])
+        containerStackView.snp.makeConstraints { make in
+            make
+                .leading
+                .top
+                .trailing
+                .bottom
+                .equalToSuperview().inset(DesignSystem.shared.spacer.md)
+        }
+        
     }
     
     func setupSelectedViewCornerRadius(position: CellPosition) {
