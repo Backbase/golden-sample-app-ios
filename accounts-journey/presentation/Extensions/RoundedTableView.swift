@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 import BackbaseDesignSystem
 
-
 class RoundedTableView: UITableView {
     private var tableViewBackView: Card?
     private var tableContentObserver: NSKeyValueObservation?
@@ -22,7 +21,7 @@ class RoundedTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal override init(frame: CGRect = .zero, style: UITableView.Style = .plain) {
+    override init(frame: CGRect = .zero, style: UITableView.Style = .plain) {
         super.init(frame: frame, style: style)
         
         clipsToBounds = true

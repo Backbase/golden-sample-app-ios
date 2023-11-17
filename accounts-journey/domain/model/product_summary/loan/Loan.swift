@@ -11,14 +11,14 @@ extension AccountsJourney {
     /// Loan account type.
     public struct Loan: Equatable {
         
-        internal enum LoanState: String {
+        enum LoanState: String {
             case active = "Active"
             case inactive = "Inactive"
             case closed = "Closed"
             case unknownState = "" // Not an actual case returned by server, but useful to check if there is no state at all
         }
         
-        internal enum LoanType: String {
+        enum LoanType: String {
             case mortgage = "Mortgage"
             case termLoan = "TermLoan"
             case lineOfCredit = "LineOfCredit"
@@ -35,7 +35,7 @@ extension AccountsJourney {
         public let urgentTransferAllowed: Bool?
         /// The number identifying the contract.
         public let productNumber: String?
-        /// The annualized cost of credit or debt-capital computed as the percentage ratio of interest to the principal.
+        /// The annualised cost of credit or debt-capital computed as the percentage ratio of interest to the principal.
         public let accountInterestRate: Double?
         /// Term unit
         public let termUnit: TimeUnit?
@@ -121,7 +121,7 @@ extension AccountsJourney {
         public let remainingPeriodicTransfers: Double?
         /// The date in which the arrangement has been overdue since.
         public let overdueSince: Date?
-        /// Synchronization statuses an account can have on the provider side after it has been aggregated.
+        /// Synchronisation statuses an account can have on the provider side after it has been aggregated.
         public let externalAccountStatus: String?
         /// Card details
         public let cardDetails: CardDetails?
@@ -178,7 +178,7 @@ extension AccountsJourney {
         ///   - remainingPeriodicTransfers: The limitation in periodic saving transfers or withdrawals. In the case of the US,
         ///   Regulation D enables for a maximum of 6 monthly savings transfers or withdrawals.
         ///   - overdueSince: The date in which the arrangement has been overdue since.
-        ///   - externalAccountStatus: Synchronization statuses an account can have on the provider side after it has been aggregated.
+        ///   - externalAccountStatus: Synchronisation statuses an account can have on the provider side after it has been aggregated.
         ///   - cardDetails: Card details
         ///   - interestDetails: Interest Details
         ///   - bankBranchCode: This property is to accommodate additional country specific fields like Sort Code in UK.

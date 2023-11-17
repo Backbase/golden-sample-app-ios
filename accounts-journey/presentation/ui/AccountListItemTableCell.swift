@@ -132,7 +132,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         layer.maskedCorners = position.maskedCorners
     }
     
-    
     func setup(_ account: AccountUIModel?) {
 
         if let account {
@@ -159,7 +158,10 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         }
     }
     
-    private func setup(_ icon: IconView, with accountIconInfo:AccountIconInfo?) {
+    private func setup(
+        _ icon: IconView,
+        with accountIconInfo: AccountIconInfo?
+    ) {
         guard let accountIconInfo else {
             icon.isHidden = true
             return
@@ -173,17 +175,17 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     }
 }
 
-internal enum CellPosition {
+enum CellPosition {
     case beginning
     case end
     case middle
     case full
     
-    internal var cornerRadius: CGFloat {
+    var cornerRadius: CGFloat {
         self == .middle ? 0 : DesignSystem.shared.cornerRadius.large
     }
     
-    internal var maskedCorners: CACornerMask {
+    var maskedCorners: CACornerMask {
         switch self {
         case .beginning:
             return [
