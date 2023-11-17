@@ -14,30 +14,30 @@ extension AccountsJourney.AccountsSummary {
     func toMapUI() -> AccountSummaryUIModel {
         
         var accountSummaryUIModel = AccountSummaryUIModel()
-        if !self.customProducts.isEmpty {
-            accountSummaryUIModel.customProducts =  self.customProducts.map {
+        if !customProducts.isEmpty {
+            accountSummaryUIModel.customProducts =  customProducts.map {
                 $0.mapToUi()
             }
         }
-        if let currentAccounts = self.currentAccounts {
+        if let currentAccounts {
             accountSummaryUIModel.currentAccounts = currentAccounts.mapToUi()
         }
-        if let savingsAccounts = self.savingsAccounts {
+        if let savingsAccounts {
             accountSummaryUIModel.savingAccounts = savingsAccounts.mapToUi()
         }
-        if let termDeposits = self.termDeposits {
+        if let termDeposits {
             accountSummaryUIModel.termDeposits = termDeposits.mapToUi()
         }
-        if let loans = self.loans {
+        if let loans {
             accountSummaryUIModel.loans = loans.mapToUi()
         }
-        if let creditCards = self.creditCards {
+        if let creditCards {
             accountSummaryUIModel.creditCards = creditCards.mapToUi()
         }
-        if let debitCards = self.debitCards {
+        if let debitCards {
             accountSummaryUIModel.debitCards = debitCards.mapToUi()
         }
-        if let investmentAccounts = self.investmentAccounts {
+        if let investmentAccounts {
             accountSummaryUIModel.investmentAccounts = investmentAccounts.mapToUi()
         }
         
@@ -54,6 +54,3 @@ func formatState(_ productState: AccountsJourney.ProductState?, number: String?)
     }
     return number ?? nil
 }
-
-
-

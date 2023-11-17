@@ -12,11 +12,11 @@ extension AccountsJourney.CustomProducts {
     func mapToUi() -> AccountsUIModel {
         
         var accountsUIModel = AccountsUIModel()
-        if !self.products.isEmpty {
+        if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             accountsUIModel = AccountsUIModel(
                 header: config.strings.generalAccountTitle(),
-                products: self.products.map {
+                products: products.map {
                     AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,

@@ -10,11 +10,11 @@ import Resolver
 
 extension AccountsJourney.Loans {
     func mapToUi() -> AccountsUIModel? {
-        if !self.products.isEmpty {
+        if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
                 header: config.strings.loanAccountTitle(),
-                products: self.products.map {
+                products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,
                         name: $0.name,
