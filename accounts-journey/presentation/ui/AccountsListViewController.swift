@@ -13,7 +13,16 @@ import SnapKit
 
 final class AccountsListViewController: UIViewController {
     
-    private var viewModel: AccountsListViewModel?
+    var viewModel: AccountsListViewModel
+    
+    init(viewModel: AccountsListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private var cancellables = Set<AnyCancellable>()
@@ -33,16 +42,12 @@ final class AccountsListViewController: UIViewController {
         let table = RoundedTableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.alwaysBounceVertical = false
-        table.dataSource = viewModel
+        table.dataSource = self
         table.registerCell(AccountListItemTableCell.self)
         table.refreshControl = refreshControl
         
         return table
     }()
-    
-    func bind(viewModel: AccountsListViewModel) {
-        self.viewModel = viewModel
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +59,7 @@ final class AccountsListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel?.onEvent(.getAccounts)
+        viewModel.onEvent(.getAccounts)
     }
     
     override func loadView() {
@@ -84,7 +89,7 @@ final class AccountsListViewController: UIViewController {
     }
     
     @objc func handleRefreshControl() {
-        viewModel?.onEvent(.refresh)
+        viewModel.onEvent(.refresh)
     }
     
     private func setupBindings() {
@@ -93,10 +98,10 @@ final class AccountsListViewController: UIViewController {
             .removeDuplicates()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] in
-                self?.viewModel?.onEvent(.search($0))
+                self?.viewModel.onEvent(.search($0))
             }.store(in: &cancellables)
         
-        viewModel?
+        viewModel
             .$screenState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {[weak self] state in
@@ -183,7 +188,7 @@ final class AccountsListViewController: UIViewController {
                 animations: {[weak self] in
                     self?.stateView?.alpha = 0.0
                 },
-                completion: {[weak self](value: Bool) in
+                completion: {[weak self] _ in
                     self?.stateView?.removeFromSuperview()
                     self?.stateView = nil
                 })
@@ -193,7 +198,6 @@ final class AccountsListViewController: UIViewController {
 
 extension AccountsListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel?.onEvent(.search(""))
+        viewModel.onEvent(.search(""))
     }
 }
-

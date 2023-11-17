@@ -2,7 +2,7 @@
 //  AccountUIMapper+SavingsAccounts.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 17/11/2023.
+//  Created by Backbase R&D B.V. on 17/11/2023.
 //
 
 import Foundation

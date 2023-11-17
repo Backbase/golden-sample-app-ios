@@ -10,7 +10,6 @@ import Resolver
 import Combine
 import BackbaseDesignSystem
 
-
 enum AccountListEvent {
     case getAccounts
     case refresh
@@ -28,7 +27,7 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         case hasError(StateViewConfiguration)
     }
     
-    @Published var allAccounts = [AccountUIModel]()
+    @Published  private(set) public var allAccounts = [AccountUIModel]()
     @Published var screenState: ScreenState = .loading
     
     // MARK: - Private
@@ -39,7 +38,6 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         }
         return useCase
     }()
-    
     
     func onEvent(_ event: AccountListEvent) {
         switch event {
@@ -92,40 +90,3 @@ final class AccountsListViewModel: NSObject, ObservableObject {
     }
     
 }
-
-extension AccountsListViewModel: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allAccounts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
-        
-        let accountItem = allAccounts[indexPath.row]
-        
-        accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
-        accountListCell.setup(accountItem)
-        return accountListCell
-    }
-}
-
-extension AccountsListViewModel {
-    private func rowPosition(for indexPath: IndexPath) -> CellPosition {
-        let sectionRows = allAccounts
-        if sectionRows.count < 2 {
-            return .full
-        }
-        if indexPath.row == 0 {
-            return .beginning
-        }
-        if indexPath.row == sectionRows.count - 1 {
-            return .end
-        }
-        return .middle
-    }
-}
-
