@@ -10,25 +10,11 @@ import Resolver
 import Combine
 import BackbaseDesignSystem
 
-enum AccountListEvent {
-    case getAccounts
-    case refresh
-    case search(String)
-}
-
-extension AccountListEvent: Equatable {}
-
-final class AccountsListViewModel: NSObject, ObservableObject {
+final class AccountsListViewModel: NSObject {
     
-    enum ScreenState {
-        case loading
-        case loaded
-        case emptyResults(StateViewConfiguration)
-        case hasError(StateViewConfiguration)
-    }
-    
-    @Published  private(set) public var allAccounts = [AccountUIModel]()
-    @Published var screenState: ScreenState = .loading
+    // MARK: - Properties
+    @Published private(set) var allAccounts = [AccountUIModel]()
+    @Published private(set) var screenState: AccountListScreenState = .loading
     
     // MARK: - Private
     
@@ -39,7 +25,8 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         return useCase
     }()
     
-    func onEvent(_ event: AccountListEvent) {
+    // MARK: - Methods
+    func onEvent(_ event: AccountListScreenEvent) {
         switch event {
         case .getAccounts:
             getAccountSummary(fromEvent: .getAccounts)
@@ -50,7 +37,7 @@ final class AccountsListViewModel: NSObject, ObservableObject {
         }
     }
     
-    func getAccountSummary(fromEvent event: AccountListEvent) {
+    func getAccountSummary(fromEvent event: AccountListScreenEvent) {
         var query = ""
         
         if case let .search(searchString) = event {
@@ -88,5 +75,4 @@ final class AccountsListViewModel: NSObject, ObservableObject {
             }
         }
     }
-    
 }

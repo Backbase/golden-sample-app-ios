@@ -13,8 +13,12 @@ import SnapKit
 
 final class AccountsListViewController: UIViewController {
     
+    // MARK: - Properties
     var viewModel: AccountsListViewModel
+    let configuration: AccountsJourney.Configuration = Resolver.resolve()
+    private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Initialisation
     init(viewModel: AccountsListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -24,9 +28,7 @@ final class AccountsListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let configuration: AccountsJourney.Configuration = Resolver.resolve()
-    private var cancellables = Set<AnyCancellable>()
-    
+    // MARK: - UI Properties
     private var refreshControl: UIRefreshControl {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
@@ -49,6 +51,7 @@ final class AccountsListViewController: UIViewController {
         return table
     }()
     
+    // MARK: - Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -66,7 +69,17 @@ final class AccountsListViewController: UIViewController {
         super.loadView()
         view.addSubview(accountsListTableView)
         view.addSubview(loadingView)
+        setupLayout()
         
+    }
+    
+    // MARK: - Private methods
+    
+    @objc private func handleRefreshControl() {
+        viewModel.onEvent(.refresh)
+    }
+    
+    private func setupLayout() {
         accountsListTableView.snp.makeConstraints { make in
             make
                 .leading
@@ -86,10 +99,6 @@ final class AccountsListViewController: UIViewController {
                 .centerY
                 .equalToSuperview()
         }
-    }
-    
-    @objc func handleRefreshControl() {
-        viewModel.onEvent(.refresh)
     }
     
     private func setupBindings() {
@@ -196,6 +205,7 @@ final class AccountsListViewController: UIViewController {
     }
 }
 
+// MARK: - Extensions
 extension AccountsListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.onEvent(.search(""))
