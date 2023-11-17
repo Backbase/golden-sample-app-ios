@@ -29,7 +29,10 @@ targets:
       testTargets:
         - AccountsJourneyUnitTests
       gatherCoverageData: true
-
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
   GoldenAccountsUseCase:
     type: framework
     platform: iOS

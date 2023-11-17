@@ -31,6 +31,7 @@ abstract_target 'Common' do
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
+  pod 'SwiftLint'
   
   target 'AccountsJourney' do
   end

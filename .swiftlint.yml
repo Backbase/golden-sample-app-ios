@@ -1,0 +1,31 @@
+disabled_rules:
+  - large_tuple
+  - trailing_whitespace
+  - todo
+  - opening_brace
+  - nesting
+included:
+  - accounts-journey
+  - accounts-use-case
+  - app
+excluded:
+  - Pods
+  - .build
+  - Tests
+  - vendor
+line_length:
+  warning: 160
+  error: 200
+file_length:
+  warning: 500
+  error: 550
+identifier_name:
+  allowed_symbols: "_"
+  min_length: 2
+  max_length:
+    warning: 90
+    error: 1000
+  excluded:
+    - id
+    - x
+    - y
