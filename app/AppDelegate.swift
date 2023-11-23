@@ -27,13 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Identity Journey properties
 
     lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
-        let usecase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
-        Backbase.register(authClient: usecase)
+        let useCase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
+        Backbase.register(authClient: useCase)
 
         Resolver.register { Authentication.Configuration() }
-        Resolver.register { usecase as AuthenticationUseCase }
+        Resolver.register { useCase as AuthenticationUseCase }
 
-        return usecase
+        return useCase
     }()
 
     lazy var authenticationConfiguration: Authentication.Configuration = {
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Override point for customisation after application launch.
         let window = UIWindow()
         window.rootViewController = UIViewController()
         window.makeKeyAndVisible()

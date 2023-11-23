@@ -75,11 +75,13 @@ extension ArrangementsClient2Gen2.CurrentAccount {
 
 extension ArrangementsClient2Gen2.CurrentAccountProductKinds {
     public func toDomainModel() -> AccountsJourney.CurrentAccounts {
+        let result =
         AccountsJourney.CurrentAccounts(
-            product: self.products.map { $0.toDomainModel()},
+            products: self.products.map { $0.toDomainModel()},
             name: self.name,
             aggregatedBalance: self.aggregatedBalance?.toDomainModel(),
             additions: self.additions
         )
+        return result
     }
 }

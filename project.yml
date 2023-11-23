@@ -23,11 +23,16 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+      - path: assets
+        createIntermediateGroups: true
     scheme:
       testTargets:
         - AccountsJourneyUnitTests
       gatherCoverageData: true
-
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
   GoldenAccountsUseCase:
     type: framework
     platform: iOS

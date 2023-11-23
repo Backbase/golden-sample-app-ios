@@ -8,52 +8,71 @@
 import Foundation
 import Resolver
 import Combine
+import BackbaseDesignSystem
 
-final class AccountsListViewModel {
+final class AccountsListViewModel: NSObject {
     
-    enum Input {
-        case viewDidAppear
-        case viewDidRefresh
-    }
-    
-    enum Output {
-        case fetchDidFail(error: Error)
-        case fetchDidSucceed(accountSummary: AccountsJourney.AccountsSummary)
-    }
+    // MARK: - Properties
+    @Published private(set) var allAccounts = [AccountUIModel]()
+    @Published private(set) var screenState: AccountListScreenState = .loading
     
     // MARK: - Private
     
-    private lazy var accountsUsecase: AccountsUseCase = {
-        guard let usecase = Resolver.optional(AccountsUseCase.self) else {
+    private lazy var accountsUseCase: AccountsUseCase = {
+        guard let useCase = Resolver.optional(AccountsUseCase.self) else {
             fatalError("AccountsUseCase needed to continue")
         }
-        return usecase
+        return useCase
     }()
     
-    private var cancellables = Set<AnyCancellable>()
-    private let output: PassthroughSubject<Output, Never> = .init()
-    
-    func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output,Never> {
-        input.sink {[weak self] event in
-            switch event {
-            case .viewDidAppear, .viewDidRefresh:
-                self?.getAccountSummary()
-            }
-        }.store(in: &cancellables)
-        
-        return output.eraseToAnyPublisher()
-    }
-    
-    private func getAccountSummary() {
-        
-        accountsUsecase.getAccountSummary {[weak self] result in
-            switch result {
-            case let .success(accountsSummaryResponse):
-                self?.output.send(.fetchDidSucceed(accountSummary: accountsSummaryResponse))
-            case let .failure(errorResponse):
-                self?.output.send(.fetchDidFail(error: errorResponse.error!))
-            }
+    // MARK: - Methods
+    func onEvent(_ event: AccountListScreenEvent) {
+        switch event {
+        case .getAccounts:
+            getAccountSummary(fromEvent: .getAccounts)
+        case .refresh:
+            getAccountSummary(fromEvent: .refresh)
+        case .search(let searchString):
+            getAccountSummary(fromEvent: .search(searchString))
         }
     }
     
+    func getAccountSummary(fromEvent event: AccountListScreenEvent) {
+        var query = ""
+        
+        if case let .search(searchString) = event {
+            query = searchString
+        }
+        
+        screenState  = .loading
+        
+        accountsUseCase.getAccountSummary {[weak self] result in
+            guard let self else {
+                return
+            }
+            
+            switch result {
+            case let .success(accountsSummaryResponse):
+                allAccounts = accountsSummaryResponse
+                    .toMapUI()
+                    .generateList(query: query)
+                
+                if allAccounts.isEmpty {
+                    screenState = .emptyResults(
+                        stateViewConfiguration(
+                            for: .noAccounts)
+                    )
+                } else {
+                    screenState = .loaded
+                }
+                
+            case let .failure(errorResponse):
+                screenState = .hasError(
+                    stateViewConfiguration(
+                        for: .loadingFailure(errorResponse)
+                    )
+                )
+            }
+        }
+    }
 }

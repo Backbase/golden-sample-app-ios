@@ -10,7 +10,7 @@ import Foundation
 extension AccountsJourney {
     public struct SavingsAccounts: Equatable {
         /// List of savings accounts
-        public let product: [SavingsAccount]
+        public let products: [SavingsAccount]
         /// the label/name of the saving account
         public let name: String?
         /// The aggregated balance of this group of products.
@@ -25,12 +25,12 @@ extension AccountsJourney {
         ///   - aggregatedBalance: The aggregated balance of this group of products.
         ///   - additions: Extra parameters
         public init(
-            product: [SavingsAccount],
+            products: [SavingsAccount],
             name: String?,
             aggregatedBalance: AggregatedBalance?,
             additions: [String : String]?
         ) {
-            self.product = product
+            self.products = products
             self.name = name
             self.aggregatedBalance = aggregatedBalance
             self.additions = additions
