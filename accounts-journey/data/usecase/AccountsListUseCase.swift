@@ -1,6 +1,6 @@
 //
 //  AccountsListUseCase.swift
-//  GoldenSampleApp
+//  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 11/10/2023.
 //

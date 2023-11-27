@@ -1,10 +1,9 @@
 //
-//  AccountJourneyError.swift
+//  MainErrorFormatter.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 13/11/2023.
 //
-
 
 import UIKit
 import Foundation

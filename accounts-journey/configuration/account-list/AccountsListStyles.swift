@@ -1,20 +1,19 @@
 //
-//  AccountsJourneyStyles.swift
+//  AccountsListStyles.swift
 //  AccountsJourney
 //
-//  Created by Backbase R&D B.V. on 06/11/2023.
+//  Created by George Nyakundi on 27/11/2023.
 //
 
 import UIKit
 import Resolver
 import BackbaseDesignSystem
 
-extension AccountsJourney.Design {
-    /// Configuration of styles used with the Accounts Journey
+extension AccountsList.Design {
+    /// Configuration of styles used with the Accounts List Screen
     public struct Styles {
-        
         /// Style applied to account groups
-        public var accountGroup: Style<UIView> = {view in
+        public var accountGroup: Style<UIView> = { view in
             view.backgroundColor = .clear
         }
         
@@ -41,6 +40,7 @@ extension AccountsJourney.Design {
                 height
             ])
         }
+        
         /// Style applied to account name
         public var accountName: Style<UILabel> = { label in
             label.font = DesignSystem.shared.fonts.preferredFont(.subheadline, .semibold)
@@ -68,7 +68,6 @@ extension AccountsJourney.Design {
         public var searchBar: Style<UISearchBar> = { searchBar in
             searchBar.searchTextField.textColor = DesignSystem.shared.colors.text.default
             searchBar.tintColor = DesignSystem.shared.colors.text.default
-
         }
         
         /// Style applied to activityIndicator
@@ -77,7 +76,8 @@ extension AccountsJourney.Design {
                 activityIndicator.style = style
             }
         }
-    
+        
+        /// Style applied Currency styles
         public var currencyFormatter: StyleSelector<(String, String), UILabel> = { values in
             return { label in
                 let (amount, currencyCode) = values
@@ -89,7 +89,7 @@ extension AccountsJourney.Design {
                 amountOptions.maxFractionDigits = DesignSystem.Formatting.defaultFractionDigits
                 
                 let formatter = DesignSystem.Formatting.makeFormatter()
-               let numberLabel = formatter.format(amount: Decimal(string: amount) ?? 0.00, options: amountOptions)
+                let numberLabel = formatter.format(amount: Decimal(string: amount) ?? 0.00, options: amountOptions)
                 label.text = numberLabel
                 label.accessibilityLabel = numberLabel
             }

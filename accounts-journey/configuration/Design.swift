@@ -11,7 +11,6 @@ import BackbaseDesignSystem
 extension AccountsJourney {
     public struct Design {
         
-        /// Configuration of styles using in Accounts screen
         var styles = Styles()
         
         public var accountIcon: (AccountsJourney.AccountType) -> AccountIconInfo? = { accountType in

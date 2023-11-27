@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "accountsJourney.accounts.errors.generic.subtitle" : {
+    "accountsJourney.accountsList.errors.generic.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -12,7 +12,7 @@
         }
       }
     },
-    "accountsJourney.accounts.errors.generic.title" : {
+    "accountsJourney.accountsList.errors.generic.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -23,7 +23,7 @@
         }
       }
     },
-    "accountsJourney.accounts.errors.loadingFailure.actionButton" : {
+    "accountsJourney.accountsList.errors.loadingFailure.actionButton" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -34,7 +34,7 @@
         }
       }
     },
-    "accountsJourney.accounts.errors.noAccounts.subtitle" : {
+    "accountsJourney.accountsList.errors.noAccounts.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -45,7 +45,7 @@
         }
       }
     },
-    "accountsJourney.accounts.errors.noAccounts.title" : {
+    "accountsJourney.accountsList.errors.noAccounts.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -56,7 +56,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.active" : {
+    "accountsJourney.accountsList.labels.active" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -67,7 +67,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.closed" : {
+    "accountsJourney.accountsList.labels.closed" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -78,7 +78,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.inactive" : {
+    "accountsJourney.accountsList.labels.inactive" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -89,7 +89,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.searchText" : {
+    "accountsJourney.accountsList.labels.searchText" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -100,7 +100,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.creditCards" : {
+    "accountsJourney.accountsList.labels.section.title.creditCards" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -111,7 +111,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.currentAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.currentAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -122,7 +122,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.debitCards" : {
+    "accountsJourney.accountsList.labels.section.title.debitCards" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -133,7 +133,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.generalAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.generalAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -144,7 +144,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.investmentAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.investmentAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -155,7 +155,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.loans" : {
+    "accountsJourney.accountsList.labels.section.title.loans" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -166,7 +166,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.savingsAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.savingsAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -177,7 +177,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.termDeposits" : {
+    "accountsJourney.accountsList.labels.section.title.termDeposits" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -188,7 +188,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.title" : {
+    "accountsJourney.accountsList.labels.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

@@ -7,9 +7,7 @@
 
 import Foundation
 
-
 public enum AccountsJourneyError: Swift.Error {
     case invalidResponse
     case emptyResponse
 }
-

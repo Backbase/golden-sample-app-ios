@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import RetailAppCommon
 
 extension AccountsJourney {
     public struct Strings {
@@ -85,7 +84,7 @@ extension AccountsJourney {
         // MARK: - Private
         
         private static func localized(key: String) -> LocalizedString {
-            let prefix = "accountsJourney.accounts."
+            let prefix = "accountsJourney.accountsList."
             return LocalizedString(key: prefix + key, in: .accountsJourney)
         }
     }

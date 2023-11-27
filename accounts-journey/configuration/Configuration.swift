@@ -11,10 +11,12 @@ import BackbaseDesignSystem
 
 extension AccountsJourney {
     public struct Configuration {
-        /// Create a new strings object with default values
+        /// Create a new Configuration object with default values
         public init() {
             // no code required
         }
+        // Configuration for ``AccountsList`` screen
+        public var accountsList = AccountsList.Configuration()
         
         /// Configuration of styles used in the Accounts Screen
         public var design = Design()
@@ -25,7 +27,6 @@ extension AccountsJourney {
             let configuration = Resolver.resolve(AccountsJourney.Configuration.self)
             
             var accountName: AccountsListRowItem.StyleableText? = .text(item.name ?? "", configuration.design.styles.accountName)
-            
             
             var stateText: String?
             if configuration.isAccountClosed(item) {
