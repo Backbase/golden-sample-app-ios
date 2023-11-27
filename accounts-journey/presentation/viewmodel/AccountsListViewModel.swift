@@ -1,6 +1,6 @@
 //
-//  AccountsJourneyViewModel.swift
-//  GoldenSampleApp
+//  AccountsListViewModel.swift
+//  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 12/10/2023.
 //
@@ -18,9 +18,9 @@ final class AccountsListViewModel: NSObject {
     
     // MARK: - Private
     
-    private lazy var accountsUseCase: AccountsUseCase = {
-        guard let useCase = Resolver.optional(AccountsUseCase.self) else {
-            fatalError("AccountsUseCase needed to continue")
+    private lazy var accountsListUseCase: AccountsListUseCase = {
+        guard let useCase = Resolver.optional(AccountsListUseCase.self) else {
+            fatalError("AccountsListUseCase needed to continue")
         }
         return useCase
     }()
@@ -46,7 +46,7 @@ final class AccountsListViewModel: NSObject {
         
         screenState  = .loading
         
-        accountsUseCase.getAccountSummary {[weak self] result in
+        accountsListUseCase.getAccountSummary {[weak self] result in
             guard let self else {
                 return
             }

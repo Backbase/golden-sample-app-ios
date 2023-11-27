@@ -1,6 +1,6 @@
 //
-//  AccountsSummaryUseCaseImp.swift
-//  GoldenSampleApp
+//  AccountsListSummaryUseCaseImp.swift
+//  GoldenAccountsUseCase
 //
 //  Created by Backbase R&D B.V. on 12/10/2023.
 //
@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 import ClientCommonGen2
 
-public final class AccountsSummaryUseCaseImp: AccountsUseCase {
+public final class AccountsListSummaryUseCaseImp: AccountsListUseCase {
     
     private let client: ArrangementsClient2Gen2.ProductSummaryAPIProtocol
     
