@@ -13,7 +13,7 @@ extension AccountsJourney.InvestmentAccounts {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
-                header: config.strings.investmentAccountTitle(),
+                header: config.accountsList.strings.investmentAccountTitle(),
                 products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,

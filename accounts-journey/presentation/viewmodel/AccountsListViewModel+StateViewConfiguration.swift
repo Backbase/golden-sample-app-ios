@@ -8,10 +8,9 @@
 import Foundation
 import BackbaseDesignSystem
 
-
 // MARK: StateViewConfiguration
 extension AccountsListViewModel {
-    func stateViewConfiguration(for error: AccountsJourney.Error) -> StateViewConfiguration {
+    func stateViewConfiguration(for error: AccountsList.Error) -> StateViewConfiguration {
         var primaryButtonConfiguration: ButtonConfiguration?
         if let primaryButtonText = error.actionButtonTitle {
             primaryButtonConfiguration = .init(

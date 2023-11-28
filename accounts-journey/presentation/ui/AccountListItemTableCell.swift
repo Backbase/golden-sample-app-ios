@@ -135,7 +135,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
     func setup(_ account: AccountUIModel?) {
 
         if let account {
-            let row = configuration.accountRowProvider(account)
+            let row = configuration.accountsList.accountListRowProvider(account)
             setup(accountIconView, with: row.accountIcon)
             setup(accountNameLabel, with: row.accountName)
             setup(accountStateLabel, with: row.stateLabel)

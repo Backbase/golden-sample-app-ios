@@ -19,7 +19,7 @@ public final class AccountsListSummaryUseCaseImp: AccountsListUseCase {
         self.client = client
     }
     
-    public func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsJourney.ErrorResponse>) -> Void) {
+    public func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsList.ErrorResponse>) -> Void) {
         
         let call = try? self.client.getProductSummaryCall(
             params: ProductSummaryAPI.GetProductSummaryRequestParams.Builder().build())
@@ -30,10 +30,10 @@ public final class AccountsListSummaryUseCaseImp: AccountsListUseCase {
                 guard let productSummary = response.body else {
                     return completion(
                         .failure(
-                            AccountsJourney.ErrorResponse(
+                            AccountsList.ErrorResponse(
                                 statusCode: response.statusCode,
                                 data: nil,
-                                error: AccountsJourneyError.invalidResponse
+                                error: AccountsList.Error.invalidResponse
                             )
                         )
                     )
@@ -41,7 +41,7 @@ public final class AccountsListSummaryUseCaseImp: AccountsListUseCase {
                 
                 completion(.success(productSummary.toDomainModel()))
             case let .failure(error):
-                completion(.failure(AccountsJourney.ErrorResponse(error: error)))
+                completion(.failure(AccountsList.ErrorResponse(error: error)))
             }
         })
     }

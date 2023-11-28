@@ -13,7 +13,7 @@ extension AccountsJourney.TermDeposits {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
-                header: config.strings.termDepositTitle(),
+                header: config.accountsList.strings.termDepositTitle(),
                 products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,

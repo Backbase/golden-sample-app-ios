@@ -134,7 +134,7 @@ final class AccountsListViewController: UIViewController {
     private func setupSearchController() {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = configuration.strings.searchText()
+        searchController.searchBar.placeholder = configuration.accountsList.strings.searchText()
         navigationItem.searchController = searchController
         definesPresentationContext = false
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -145,7 +145,7 @@ final class AccountsListViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
-        title = configuration.strings.screenTitle()
+        title = configuration.accountsList.strings.screenTitle()
         
         if let bar = navigationController?.navigationBar {
             configuration.design.styles.navigationBar(bar)

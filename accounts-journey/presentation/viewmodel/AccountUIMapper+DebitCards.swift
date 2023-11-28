@@ -13,7 +13,7 @@ extension AccountsJourney.DebitCards {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
-                header: config.strings.debitCardTitle(),
+                header: config.accountsList.strings.debitCardTitle(),
                 products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,

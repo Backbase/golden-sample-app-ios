@@ -20,7 +20,6 @@ extension AccountsJourney {
         public let investmentAccounts: InvestmentAccounts?
         public let additions: [String: String]?
         
-        
         public init(
             customProducts: [CustomProducts],
             aggregatedBalance: AggregatedBalance?,
@@ -31,7 +30,7 @@ extension AccountsJourney {
             creditCards: CreditCards?,
             debitCards: DebitCards?,
             investmentAccounts: InvestmentAccounts?,
-            additions: [String : String]?
+            additions: [String: String]?
         ) {
             self.customProducts = customProducts
             self.aggregatedBalance = aggregatedBalance
@@ -45,6 +44,4 @@ extension AccountsJourney {
             self.additions = additions
         }
     }
-
 }
-

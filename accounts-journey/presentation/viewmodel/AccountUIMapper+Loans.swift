@@ -13,7 +13,7 @@ extension AccountsJourney.Loans {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
-                header: config.strings.loanAccountTitle(),
+                header: config.accountsList.strings.loanAccountTitle(),
                 products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,

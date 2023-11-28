@@ -15,7 +15,7 @@ extension AccountsJourney.CustomProducts {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             accountsUIModel = AccountsUIModel(
-                header: config.strings.generalAccountTitle(),
+                header: config.accountsList.strings.generalAccountTitle(),
                 products: products.map {
                     AccountUIModel(
                         id: $0.identifier,

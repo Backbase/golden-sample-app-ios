@@ -13,7 +13,7 @@ extension AccountsJourney.CreditCards {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
-                header: config.strings.creditCardTitle(),
+                header: config.accountsList.strings.creditCardTitle(),
                 products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,

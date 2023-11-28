@@ -13,7 +13,7 @@ extension AccountsJourney.CurrentAccounts {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
-                header: config.strings.currentAccountTitle(),
+                header: config.accountsList.strings.currentAccountTitle(),
                 products: products.map {
                     return AccountUIModel(
                         id: $0.identifier,
