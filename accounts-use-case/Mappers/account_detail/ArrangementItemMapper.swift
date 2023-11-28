@@ -1,0 +1,101 @@
+//
+//  ArrangementItem.swift
+//  AccountsJourney
+//
+//  Created by Backbase R&D B.V. on 28/11/2023.
+//
+
+import AccountsJourney
+import ArrangementsClient2Gen2
+
+// swiftlint:disable line_length function_body_length superfluous_disable_command
+extension ArrangementsClient2Gen2.AccountArrangementItem {
+    public func toDomainModel() -> AccountsJourney.AccountDetails {
+        AccountsJourney.AccountDetails(
+            id: self.id,
+            productId: self.productId,
+            productKindName: self.productKindName,
+            legalEntityIds: self.legalEntityIds,
+            productTypeName: self.productKindName,
+            externalProductId: self.externalProductId, 
+            externalArrangementId: self.externalArrangementId,
+            userPreferences: self.userPreferences?.toDomainModel(),
+            product: self.product?.toDomainModel(),
+            state: self.state?.toDomainModel(),
+            parentId: self.parentId,
+            currency: self.currency,
+            name: self.name,
+            bookedBalance: self.bookedBalance,
+            availableBalance: self.availableBalance, 
+            creditLimit: self.creditLimit,
+            IBAN: self.IBAN,
+            BBAN: self.BBAN,
+            BIC: self.BIC,
+            externalTransferAllowed: self.externalTransferAllowed,
+            urgentTransferAllowed: self.urgentTransferAllowed,
+            accruedInterest: self.accruedInterest,
+            number: self.number,
+            principalAmount: self.principalAmount,
+            currentInvestmentValue: self.currentInvestmentValue,
+            productNumber: self.productNumber, 
+            bankBranchCode: self.bankBranchCode,
+            bankBranchCode2: self.bankBranchCode2,
+            accountOpeningDate: self.accountOpeningDate,
+            accountInterestRate: self.accountInterestRate,
+            valueDateBalance: self.valueDateBalance,
+            creditLimitUsage: self.creditLimitUsage,
+            creditLimitInterestRate: self.creditLimitInterestRate,
+            creditLimitExpiryDate: self.creditLimitExpiryDate,
+            startDate: self.startDate,
+            termUnit: self.termUnit?.toDomainModel(),
+            termNumber: self.termNumber,
+            interestPaymentFrequencyUnit: self.interestPaymentFrequencyUnit?.toDomainModel(),
+            interestPaymentFrequencyNumber: self.interestPaymentFrequencyNumber,
+            maturityDate: self.maturityDate,
+            maturityAmount: self.maturityAmount,
+            autoRenewalIndicator: self.autoRenewalIndicator,
+            interestSettlementAccount: self.interestSettlementAccount,
+            outstandingPrincipalAmount: self.outstandingPrincipalAmount,
+            monthlyInstalmentAmount: self.monthlyInstalmentAmount,
+            amountInArrear: self.amountInArrear,
+            minimumRequiredBalance: self.minimumRequiredBalance,
+            creditCardAccountNumber: self.creditCardAccountNumber,
+            validThru: self.validThru,
+            applicableInterestRate: self.applicableInterestRate,
+            remainingCredit: self.remainingCredit,
+            outstandingPayment: self.outstandingPayment,
+            minimumPayment: self.minimumPayment,
+            minimumPaymentDueDate: self.minimumPaymentDueDate,
+            totalInvestmentValue: self.totalInvestmentValue,
+            debitCards: self.debitCards?.map { $0.toDomainModel() },
+            accountHolderAddressLine1: self.accountHolderAddressLine1,
+            accountHolderAddressLine2: self.accountHolderAddressLine2,
+            accountHolderStreetName: self.accountHolderStreetName,
+            town: self.town,
+            postCode: self.postCode,
+            countrySubDivision: self.countrySubDivision,
+            accountHolderNames: self.accountHolderNames,
+            accountHolderCountry: self.accountHolderCountry,
+            creditAccount: self.creditAccount,
+            debitAccount: self.debitAccount,
+            lastUpdateDate: self.lastUpdateDate,
+            bankAlias: self.bankAlias, 
+            sourceId: self.sourceId,
+            externalStateId: self.externalStateId,
+            externalParentId: self.externalParentId,
+            financialInstitutionId: self.financialInstitutionId,
+            lastSyncDate: self.lastSyncDate,
+            additions: self.additions,
+            unmaskableAttributes: self.unmaskableAttributes?.map { $0.toDomainModel()},
+            displayName: self.displayName,
+            cardDetails: self.cardDetails?.toDomainModel(),
+            interestDetails: self.interestDetails?.toDomainModel(),
+            reservedAmount: self.reservedAmount,
+            remainingPeriodicTransfers: self.remainingPeriodicTransfers,
+            nextClosingDate: self.nextClosingDate,
+            overdueSince: self.overdueSince,
+            externalAccountStatus: self.externalAccountStatus
+        )
+    }
+}
+// swiftlint:enable line_length  function_body_length superfluous_disable_command

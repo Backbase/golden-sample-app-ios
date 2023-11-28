@@ -16,45 +16,15 @@ extension AccountsList {
         case invalidResponse
         case notConnected
         case noAccounts
-        case loadingFailure(_ response: ErrorResponse? = nil)
+        case loadingFailure(_ response: AccountsJourney.ErrorResponse? = nil)
     }
     
-    static func getError(_ error: Swift.Error, response: ErrorResponse?) -> AccountsList.Error {
+    static func getError(_ error: Swift.Error, response: AccountsJourney.ErrorResponse?) -> AccountsList.Error {
         switch error as? ClientCommonGen2.CallError {
         case .nilHTTPResponse:
             return AccountsList.Error.notConnected
         default:
             return AccountsList.Error.loadingFailure(response)
-        }
-    }
-}
-
-extension AccountsList {
-    public struct ErrorResponse: Swift.Error, Equatable {
-        /// Status code of the error
-        public let statusCode: Int?
-        /// Response data
-        public let data: Data?
-        /// Error
-        public let error: Swift.Error?
-        
-        /**
-         * Initialiser for the `ErrorResponse` DTO.
-         * - Parameters statusCode: Status code of the error
-         * - Parameters data: Response data.
-         * - Parameters error: Error
-         * - returns initialised `ErrorResponse` object.
-         */
-        public init(statusCode: Int? = nil, data: Data? = nil, error: Swift.Error? = nil) {
-            self.statusCode = statusCode
-            self.data = data
-            self.error = error
-        }
-        
-        public static func == (lhs: ErrorResponse, rhs: ErrorResponse) -> Bool {
-            return lhs.statusCode == rhs.statusCode &&
-            lhs.data == rhs.data &&
-            lhs.error?.localizedDescription == rhs.error?.localizedDescription
         }
     }
 }

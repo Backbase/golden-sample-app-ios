@@ -18,4 +18,3 @@ extension AccountsJourney {
         case number = "number"
     }
 }
-
