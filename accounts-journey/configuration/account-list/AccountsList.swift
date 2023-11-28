@@ -2,7 +2,7 @@
 //  AccountsList.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 27/11/2023.
+//  Created by Backbase R&D B.V. on 27/11/2023.
 //
 
 import UIKit
