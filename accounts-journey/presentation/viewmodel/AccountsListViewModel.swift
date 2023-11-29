@@ -58,4 +58,3 @@ final class AccountsListViewModel: NSObject {
         }
     }
 }
-
