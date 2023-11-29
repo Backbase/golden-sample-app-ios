@@ -8,7 +8,7 @@
 import Foundation
 extension AccountsJourney {
     /// CreditCards
-    public struct CreditCards: Equatable {
+    public struct CreditCards: Codable, Equatable {
         /// List of credit cards
         public let products: [CreditCard]
         /// The label/name of the Credit cards

@@ -14,7 +14,7 @@ extension AccountsJourney.AccountsSummary {
     func toMapUI() -> AccountSummaryUIModel {
         
         var accountSummaryUIModel = AccountSummaryUIModel()
-        if !customProducts.isEmpty {
+        if let customProducts, !customProducts.isEmpty {
             accountSummaryUIModel.customProducts =  customProducts.map {
                 $0.mapToUi()
             }

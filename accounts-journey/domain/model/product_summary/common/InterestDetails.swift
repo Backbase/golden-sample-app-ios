@@ -8,7 +8,7 @@
 import Foundation
 extension AccountsJourney {
     /// DTO that represents interest details for a credit card.
-    public struct InterestDetails: Equatable {
+    public struct InterestDetails: Codable, Equatable {
         /// Optional additions. Defaults to `nil`.
         public let additions: [String: String]?
         /// Last year's interest that was earned (credit interest) or due (debit interest).

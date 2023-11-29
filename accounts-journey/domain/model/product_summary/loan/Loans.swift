@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct Loans: Equatable {
+    public struct Loans: Codable, Equatable {
         /// The list of loans.
         public let products: [Loan]
         /// The name of the loan grouping

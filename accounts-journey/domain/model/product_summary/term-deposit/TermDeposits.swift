@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct TermDeposits: Equatable {
+    public struct TermDeposits: Codable, Equatable {
         /// The list of term deposit.
         public let products: [TermDeposit]
         /// The label/name for term deposits.

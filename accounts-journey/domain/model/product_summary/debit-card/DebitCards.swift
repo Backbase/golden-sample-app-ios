@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// DebitCards
-    public struct DebitCards: Equatable {
+    public struct DebitCards: Codable,Equatable {
         /// The list of debit cards.
         public let products: [DebitCard]
         /// The label/name of the debit card.

@@ -8,7 +8,7 @@
 import Foundation
 extension AccountsJourney {
     /// Defines a product state item.
-    public struct ProductState: Equatable {
+    public struct ProductState: Codable, Equatable {
         /// An external unique identifier for the arrangement state object.
         public let externalStateId: String?
         /// Name that describes the specific arrangement state.

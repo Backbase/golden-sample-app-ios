@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// Debit card product type.
-    public struct DebitCard: Equatable {
+    public struct DebitCard: Codable, Equatable {
         /// First 6 and/or last 4 digits of a Payment card. All other digits will/to be masked.
         /// Be aware that using card number differently is potential PCI risk.
         public let number: String?

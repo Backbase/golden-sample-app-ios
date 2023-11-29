@@ -8,7 +8,7 @@
 import Foundation
 extension AccountsJourney {
     /// Current account type.
-    public struct CurrentAccount: Equatable {
+    public struct CurrentAccount: Codable, Equatable {
         /// Total balance of the account
         public let bookedBalance: String?
         /// Available balance to be used.

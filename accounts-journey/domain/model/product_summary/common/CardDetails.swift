@@ -8,7 +8,7 @@
 import Foundation
 extension AccountsJourney {
     /// DTO that represents details for a credit card.
-    public struct CardDetails: Equatable {
+    public struct CardDetails: Codable, Equatable {
         /// Optional additions. Defaults to `nil`.
         public let additions: [String: String]?
         /// This field specifies the Card Provider associated with the Account.

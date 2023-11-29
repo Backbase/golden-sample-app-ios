@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct CustomProducts: Equatable {
+    public struct CustomProducts: Codable, Equatable {
         /// A list of custom products.
         public let products: [GeneralAccount]
         /// label/name that is used for this particular group of custom products.

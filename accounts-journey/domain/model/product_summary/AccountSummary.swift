@@ -8,8 +8,8 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct AccountsSummary: Equatable {
-        public let customProducts: [CustomProducts]
+    public struct AccountsSummary: Codable, Equatable {
+        public let customProducts: [CustomProducts]?
         public let aggregatedBalance: AggregatedBalance?
         public let currentAccounts: CurrentAccounts?
         public let savingsAccounts: SavingsAccounts?
@@ -19,7 +19,6 @@ extension AccountsJourney {
         public let debitCards: DebitCards?
         public let investmentAccounts: InvestmentAccounts?
         public let additions: [String: String]?
-        
         
         public init(
             customProducts: [CustomProducts],

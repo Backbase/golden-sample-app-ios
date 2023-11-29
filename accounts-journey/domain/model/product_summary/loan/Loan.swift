@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// Loan account type.
-    public struct Loan: Equatable {
+    public struct Loan: Codable, Equatable {
         
         enum LoanState: String {
             case active = "Active"

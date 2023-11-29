@@ -17,14 +17,9 @@ final class AccountsListViewModel: NSObject {
     @Published private(set) var screenState: AccountListScreenState = .loading
     
     // MARK: - Private
-    
-    private lazy var accountsUseCase: AccountsUseCase = {
-        guard let useCase = Resolver.optional(AccountsUseCase.self) else {
-            fatalError("AccountsUseCase needed to continue")
-        }
-        return useCase
-    }()
-    
+
+    private let accountsUseCase = CustomAccountsUseCase()
+
     // MARK: - Methods
     func onEvent(_ event: AccountListScreenEvent) {
         switch event {
@@ -36,43 +31,31 @@ final class AccountsListViewModel: NSObject {
             getAccountSummary(fromEvent: .search(searchString))
         }
     }
-    
+
     func getAccountSummary(fromEvent event: AccountListScreenEvent) {
-        var query = ""
-        
-        if case let .search(searchString) = event {
-            query = searchString
-        }
-        
         screenState  = .loading
-        
-        accountsUseCase.getAccountSummary {[weak self] result in
-            guard let self else {
-                return
-            }
-            
-            switch result {
-            case let .success(accountsSummaryResponse):
-                allAccounts = accountsSummaryResponse
-                    .toMapUI()
-                    .generateList(query: query)
+
+        Task {
+            do {
+                let accountsSummaryResponse = try await self.accountsUseCase.getAccounts()
                 
+                var query = ""
+
+                if case let .search(searchString) = event {
+                    query = searchString
+                }
+                
+                allAccounts = accountsSummaryResponse.toMapUI().generateList(query: query)
+
                 if allAccounts.isEmpty {
-                    screenState = .emptyResults(
-                        stateViewConfiguration(
-                            for: .noAccounts)
-                    )
+                    screenState = .emptyResults(stateViewConfiguration(for: .noAccounts))
                 } else {
                     screenState = .loaded
                 }
-                
-            case let .failure(errorResponse):
-                screenState = .hasError(
-                    stateViewConfiguration(
-                        for: .loadingFailure(errorResponse)
-                    )
-                )
+            } catch {
+                screenState = .hasError(stateViewConfiguration(for: .loadingFailure(nil)))
             }
         }
     }
 }
+
