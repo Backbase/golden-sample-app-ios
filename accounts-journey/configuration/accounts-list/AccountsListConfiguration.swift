@@ -22,6 +22,17 @@ extension AccountsList {
         /// Configuration of strings used in Accounts List
         public var strings = Strings()
         
+        /// Configuration for router of Accounts List
+        public var router = Router(
+            didSelectProduct: { navigationController in
+                return { arrangementId in
+                    let vc = AccountDetailsViewController()
+                    vc.setTitle(arrangementId)
+                    navigationController.pushViewController(vc, animated: true)
+                }
+            }
+        )
+        
         /// AccountsListRowItem configuration
         public var accountListRowProvider: (AccountUIModel) -> AccountsListRowItem = { item in
             let configuration = Resolver.resolve(AccountsJourney.Configuration.self)

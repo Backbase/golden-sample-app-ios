@@ -9,7 +9,7 @@ import Foundation
 import AccountsJourney
 import ArrangementsClient2Gen2
 
-public final class AccountDetailUseCaseImp: AccountDetailUseCase {
+public final class AccountDetailUseCaseImp: AccountDetailsUseCase {
     private let client: ArrangementsClient2Gen2.ArrangementsAPIProtocol
     
     // MARK: - Init
@@ -19,7 +19,7 @@ public final class AccountDetailUseCaseImp: AccountDetailUseCase {
     
     public func getAccountDetail(
         arrangementId: String,
-        _ completion: @escaping (Result<AccountsJourney.AccountDetails, AccountsJourney.ErrorResponse>) -> Void) {
+        _ completion: @escaping (Result<AccountsJourney.AccountDetailsModel, AccountsJourney.ErrorResponse>) -> Void) {
         
         let call = try? self.client.getArrangementByIdCall(
             params: ArrangementsAPI.GetArrangementByIdRequestParams.Builder(arrangementId: arrangementId).build()

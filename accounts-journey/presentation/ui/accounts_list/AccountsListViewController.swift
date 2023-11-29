@@ -45,6 +45,7 @@ final class AccountsListViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.alwaysBounceVertical = false
         table.dataSource = self
+        table.delegate = self
         table.registerCell(AccountListItemTableCell.self)
         table.refreshControl = refreshControl
         

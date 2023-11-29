@@ -61,7 +61,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         return label
     }()
     
-    
     private lazy var accountIconView: IconView = {
         let iconView = IconView()
         iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +77,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         stackView.alignment = .fill
         return stackView
     }()
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

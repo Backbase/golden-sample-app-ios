@@ -1,17 +1,16 @@
 //
-//  AccountsListViewModel+StateViewConfiguration.swift
+//  AccountDetailsViewModel+StateViewConfiguration.swift
 //  AccountsJourney
 //
-//  Created by Backbase R&D B.V. on 13/11/2023.
+//  Created by George Nyakundi on 29/11/2023.
 //
 
 import Foundation
 import BackbaseDesignSystem
 
-// MARK: StateViewConfiguration
-extension AccountsListViewModel {
+extension AccountDetailsViewModel {
     func stateViewConfiguration(
-        for error: AccountsList.Error,
+        for error: AccountDetails.Error,
         primaryAction: @escaping () -> Void
     ) -> StateViewConfiguration {
         var primaryButtonConfiguration: ButtonConfiguration?

@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct AccountDetails {
+    public struct AccountDetailsModel {
         public let id: String
         public let productId: String
         public let productKindName: String?

@@ -10,8 +10,8 @@ import ArrangementsClient2Gen2
 
 // swiftlint:disable line_length function_body_length superfluous_disable_command
 extension ArrangementsClient2Gen2.AccountArrangementItem {
-    public func toDomainModel() -> AccountsJourney.AccountDetails {
-        AccountsJourney.AccountDetails(
+    public func toDomainModel() -> AccountsJourney.AccountDetailsModel {
+        AccountsJourney.AccountDetailsModel(
             id: self.id,
             productId: self.productId,
             productKindName: self.productKindName,

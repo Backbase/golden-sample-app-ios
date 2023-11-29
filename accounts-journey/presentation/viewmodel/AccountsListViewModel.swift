@@ -16,6 +16,8 @@ final class AccountsListViewModel: NSObject {
     @Published private(set) var allAccounts = [AccountUIModel]()
     @Published private(set) var screenState: AccountListScreenState = .loading
     
+    var didSelectProduct: ((String) -> Void)?
+    
     // MARK: - Private
     
     private lazy var accountsListUseCase: AccountsListUseCase = {
@@ -60,7 +62,9 @@ final class AccountsListViewModel: NSObject {
                 if allAccounts.isEmpty {
                     screenState = .emptyResults(
                         stateViewConfiguration(
-                            for: .noAccounts)
+                            for: .noAccounts, primaryAction: {
+                                self.onEvent(.refresh)
+                            })
                     )
                 } else {
                     screenState = .loaded
@@ -69,7 +73,10 @@ final class AccountsListViewModel: NSObject {
             case let .failure(errorResponse):
                 screenState = .hasError(
                     stateViewConfiguration(
-                        for: .loadingFailure(errorResponse)
+                        for: .loadingFailure(errorResponse),
+                        primaryAction: {
+                            self.onEvent(.refresh)
+                        }
                     )
                 )
             }

@@ -1,21 +1,20 @@
 //
-//  AccountsListDesign.swift
+//  AccountDetailsDesign.swift
 //  AccountsJourney
 //
-//  Created by Backbase R&D B.V. on 27/11/2023.
+//  Created by George Nyakundi on 29/11/2023.
 //
 
-import UIKit
+import Foundation
 import BackbaseDesignSystem
 
-extension AccountsList {
+extension AccountDetails {
     public struct Design {
-        /// Configuration of styles used in AccountList screen
         var styles = Styles()
         
         public var errorIconName: ErrorFormatter<String?> = { error in
             switch error {
-            case .noAccounts:
+            case .notConnected:
                 DesignSystem.Assets.icStateViewNoWifi
             default:
                 DesignSystem.Assets.icStateViewLoadingFailed

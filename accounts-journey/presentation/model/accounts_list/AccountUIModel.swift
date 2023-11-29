@@ -39,7 +39,6 @@ public struct AccountUIModel {
     }
 }
 
-
 public struct Currency: Equatable {
     /// Balance value as a string.
     var amount: String

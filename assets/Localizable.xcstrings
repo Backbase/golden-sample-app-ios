@@ -1,6 +1,72 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "accountsJourney.accountDetails.errors.generic.actionButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.generic.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact customer care"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.generic.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong happened"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.notConnected.actionButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Give it a shot"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.notConnected.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact customer care"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.notConnected.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not Connected"
+          }
+        }
+      }
+    },
     "accountsJourney.accountsList.errors.generic.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

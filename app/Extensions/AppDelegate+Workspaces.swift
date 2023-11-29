@@ -40,7 +40,7 @@ extension AppDelegate {
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in
             { [weak self] workspace in
                 didSelect?(navigationController)(workspace)
-                navigationController.viewControllers = [AccountsList.build()]
+                navigationController.viewControllers = [AccountsList.build(navigationController: navigationController)]
                 self?.window?.rootViewController = navigationController
                 self?.window?.makeKeyAndVisible()
             }
