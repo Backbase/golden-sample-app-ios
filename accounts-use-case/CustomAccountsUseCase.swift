@@ -46,7 +46,7 @@ final class CustomAccountsUseCase {
         let systemVersion = UIDevice.current.systemVersion.replacingOccurrences(of: ".", with: "_")
         let backbaseVersion = Bundle(for: Backbase.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
 
-        return "CxpMobile/\(backbaseVersion) \(model);\(system) \(systemVersion); \(model) \(appName)/\(appVersion)"
+        return "CxpMobile/\(backbaseVersion) (\(model); \(system) like Mac OS X; arm64) \(appName)/\(appVersion)"
     }
 
     /// Creates a new URLRequest and sets the headers
