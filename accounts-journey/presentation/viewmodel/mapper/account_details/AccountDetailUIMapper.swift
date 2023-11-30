@@ -16,16 +16,16 @@ extension AccountsJourney.AccountDetailsModel {
             id: id,
             name: name!,
             BBAN: BBAN!,
-            availableBalance: availableBalance?.description ?? "",
+            availableBalance: availableBalance ?? .init(),
             accountHolderNames: accountHolderNames!,
             productKindName: productKindName!,
             bankBranchCode: bankBranchCode,
             lastUpdateDate: lastUpdateDate?.description ?? "",
             accountInterestRate: accountInterestRate?.description ?? "",
-            accruedInterest: accruedInterest?.description ?? "",
-            creditLimit: creditLimit?.description ?? "",
+            accruedInterest: accruedInterest ?? .init(),
+            creditLimit: creditLimit ?? .init(),
             accountOpeningDate: accountOpeningDate?.description ?? "",
-            iconName: config.design.accountIcon(.creditCard)
+            iconName: config.design.accountIcon(.init(rawValue: product?.externalId ?? "") ?? .general)
         )
     }
 }

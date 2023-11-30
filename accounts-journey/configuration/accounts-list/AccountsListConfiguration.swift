@@ -26,9 +26,9 @@ extension AccountsList {
         public var router = Router(
             didSelectProduct: { navigationController in
                 return { arrangementId in
-                    let vc = AccountDetailsViewController()
-                    vc.setTitle(arrangementId)
-                    navigationController.pushViewController(vc, animated: true)
+                    let viewModel = AccountDetailsViewModel()
+                    let viewController = AccountDetailsViewController(viewModel: viewModel, arrangementId: arrangementId)
+                    navigationController.pushViewController(viewController, animated: true)
                 }
             }
         )
@@ -37,7 +37,7 @@ extension AccountsList {
         public var accountListRowProvider: (AccountUIModel) -> AccountsListRowItem = { item in
             let configuration = Resolver.resolve(AccountsJourney.Configuration.self)
             
-            var accountName: AccountsListRowItem.StyleableText? = .text(item.name ?? "", configuration.design.styles.accountName)
+            var accountName: AccountsListRowItem.StyleableText? = .text(item.name ?? "", configuration.accountsList.design.styles.accountName)
             
             var stateText: String?
             if configuration.accountsList.isAccountClosed(item) {
@@ -49,7 +49,7 @@ extension AccountsList {
             }
             let accountState: AccountsListRowItem.StyleableText?
             if let stateText {
-                accountState = .text(stateText, configuration.design.styles.accountState)
+                accountState = .text(stateText, configuration.accountsList.design.styles.accountState)
             } else {
                 accountState = nil
             }
@@ -59,7 +59,7 @@ extension AccountsList {
                 let currencyStyleSelector: StyleSelector<(String, String), UILabel> = { values in
                     return { label in
                         configuration.design.styles.currencyFormatter(values)(label)
-                        configuration.design.styles.accountBalance(label)
+                        configuration.accountsList.design.styles.accountBalance(label)
                     }
                     
                 }

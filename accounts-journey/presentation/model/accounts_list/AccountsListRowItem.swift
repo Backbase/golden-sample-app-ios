@@ -5,9 +5,8 @@
 //  Created by Backbase R&D B.V. on 31/10/2023.
 //
 
-import Foundation
-import BackbaseDesignSystem
 import UIKit
+import BackbaseDesignSystem
 
 public struct AccountsListRowItem {
     /// DTO that enables providing styleable text on an `AccountsListRowItem`

@@ -76,23 +76,5 @@ extension AccountsList.Design {
                 activityIndicator.style = style
             }
         }
-        
-        /// Style applied Currency styles
-        public var currencyFormatter: StyleSelector<(String, String), UILabel> = { values in
-            return { label in
-                let (amount, currencyCode) = values
-                let configuration: AccountsJourney.Configuration = Resolver.resolve()
-                
-                var amountOptions = DesignSystem.Formatting.Options()
-                amountOptions.customCode = currencyCode
-                amountOptions.minFractionDigits = DesignSystem.Formatting.defaultFractionDigits
-                amountOptions.maxFractionDigits = DesignSystem.Formatting.defaultFractionDigits
-                
-                let formatter = DesignSystem.Formatting.makeFormatter()
-                let numberLabel = formatter.format(amount: Decimal(string: amount) ?? 0.00, options: amountOptions)
-                label.text = numberLabel
-                label.accessibilityLabel = numberLabel
-            }
-        }
     }
 }

@@ -12,6 +12,10 @@ extension AccountDetails {
         public init() {
             // no code required
         }
+        
+        /// accountsJourney.accountDetails.labels.title
+        public var screenTitle = localized(key: "labels.title")
+        
         /// accountsJourney.accountDetails.errors.{error}.title
         public var errorTitle: ErrorFormatter<LocalizedString> = { error in
             switch error {

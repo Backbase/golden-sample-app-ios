@@ -8,14 +8,14 @@
 import Foundation
 
 extension AccountsJourney {
-    public enum AccountType: CaseIterable {
-        case current
-        case savings
-        case termDeposit
+    public enum AccountType: String, CaseIterable {
+        case current = "current-account"
+        case savings = "savings-account"
+        case termDeposit = "term-deposit"
         case loan
-        case creditCard
-        case debitCard
-        case investment
+        case creditCard = "credit-card"
+        case debitCard = "debit-card"
+        case investment = "investment-account"
         case general
     }
 }

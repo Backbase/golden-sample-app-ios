@@ -11,7 +11,6 @@ import BackbaseDesignSystem
 import SnapKit
 import Resolver
 
-
 final class LoadingView: UIView {
     private lazy var containerView = UIView()
     private lazy var activityIndicator: UIActivityIndicatorView = {

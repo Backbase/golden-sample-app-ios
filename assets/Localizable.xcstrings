@@ -67,6 +67,17 @@
         }
       }
     },
+    "accountsJourney.accountDetails.labels.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Details"
+          }
+        }
+      }
+    },
     "accountsJourney.accountsList.errors.generic.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

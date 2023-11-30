@@ -116,6 +116,7 @@ final class AccountsListViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: {[weak self] state in
                 self?.removeStateView()
+                self?.accountsListTableView.refreshControl?.endRefreshing()
                 switch state {
                 case .loading:
                     self?.showLoadingView()
@@ -141,7 +142,7 @@ final class AccountsListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
         
-        configuration.design.styles.searchBar(searchController.searchBar)
+        configuration.accountsList.design.styles.searchBar(searchController.searchBar)
     }
     
     private func setupView() {

@@ -16,7 +16,7 @@ public struct AccountDetailsUIModel {
     /// BBAN
     let BBAN: String
     /// Available balance
-    let availableBalance: String
+    let availableBalance: Double
     /// Account holder names
     let accountHolderNames: String
     /// Product kind name
@@ -28,9 +28,9 @@ public struct AccountDetailsUIModel {
     /// Account interest rate
     let accountInterestRate: String?
     /// Accrued interest
-    let accruedInterest: String
+    let accruedInterest: Double
     /// Credit limit
-    let creditLimit: String
+    let creditLimit: Double
     /// Account opening date
     let accountOpeningDate: String
     /// Name of the icon
