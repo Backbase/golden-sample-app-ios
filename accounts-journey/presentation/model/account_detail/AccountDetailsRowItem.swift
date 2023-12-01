@@ -15,25 +15,17 @@ public struct AccountDetailsRowItem {
     }
     
     public let title: StyleableText
-    public let value: StyleableText
-    public let iconConfig: AccountIconInfo?
+    public let subTitle: StyleableText
 }
 
 public struct AccountDetailsSection {
+    // Title of the Card section
     public let title: String?
+    /// Contents to be displayed within the card
     public let rows: [AccountDetailsRowItem]
     
     public init(title: String?, rows: [AccountDetailsRowItem]) {
         self.title = title
         self.rows = rows
     }
-    
-    public init(title: String?, rows: [AccountDetailsRowItem], isShareAvailable: Bool) {
-        self.title = title
-        self.rows = rows
-    }
-}
-
-public protocol AccountDetailsSectionsProvider {
-    var sections: [AccountDetailsSection] { get }
 }

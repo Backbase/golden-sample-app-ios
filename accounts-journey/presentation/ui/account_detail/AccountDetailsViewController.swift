@@ -28,7 +28,7 @@ final class AccountDetailsViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [header])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = DesignSystem.shared.spacer.lg
+        stackView.spacing = DesignSystem.shared.spacer.sm
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         return stackView
@@ -135,6 +135,31 @@ final class AccountDetailsViewController: UIViewController {
         summaryStackRows.append(SummaryStackTextRow(amount: Decimal(details.availableBalance)))
         summaryStackRows.append(SummaryStackTextRow(amount: Decimal(details.creditLimit), amountTextRow: "Credit Limit: "))
         header.rows = summaryStackRows
+        
+        // MARK: - Sections
+        let usageView1 = AccountDetailsUsageView()
+        
+        let detailSection1 = AccountDetailsSection(title: "General", rows: [
+            AccountDetailsRowItem(
+                title: .text("Balance", configuration.accountsList.design.styles.accountName),
+                subTitle: .text(details.availableBalance.description, configuration.accountsList.design.styles.accountName)),
+            AccountDetailsRowItem(
+                title: .text("Something Else", configuration.accountsList.design.styles.accountName),
+                subTitle: .text(details.availableBalance.description, configuration.accountsList.design.styles.accountName))
+        ])
+        
+        let usageView2 = AccountDetailsUsageView()
+        let detailSection2 = AccountDetailsSection(title: "General", rows: [
+            AccountDetailsRowItem(
+                title: .text("Balance", configuration.accountsList.design.styles.accountName),
+                subTitle: .text(details.availableBalance.description, configuration.accountsList.design.styles.accountName))
+        ])
+        
+        usageView1.updateView(with: detailSection1)
+        usageView2.updateView(with: detailSection2)
+        
+        stackView.addArrangedSubview(usageView1)
+        stackView.addArrangedSubview(usageView2)
     }
     
     private func showLoadingView() {
@@ -179,18 +204,24 @@ final class AccountDetailsViewController: UIViewController {
 
 // MARK: - Temporary holding Space
 final class AccountDetailsUsageView: UIView {
-    // MARK - Properties
+    // MARK: - Properties
     private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [])
         view.axis = .vertical
         view.alignment = .fill
-        view.spacing = DesignSystem.shared.spacer.sm
+        view.spacing = DesignSystem.shared.spacer.xs
         return view
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private lazy var card: Card = {
         let card = Card(DesignSystem.shared.styles.cardView)
-        card.addSubview(stackView)
+        card.translatesAutoresizingMaskIntoConstraints = false
         return card
     }()
     
@@ -202,7 +233,9 @@ final class AccountDetailsUsageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
         addSubview(card)
+        card.addSubview(stackView)
         setupConstraints()
     }
     
@@ -211,17 +244,95 @@ final class AccountDetailsUsageView: UIView {
     }
     
     // MARK: - Methods
-    func updateView(with: String) {
-        //TODO:  RemoveAllArrangedViews
+    func updateView(with section: AccountDetailsSection) {
+        if let title = section.title {
+            titleLabel.text = title
+        }
+        
+        for item in section.rows {
+            let accountDetailUsageRow = AccountDetailsUsageRowView()
+            accountDetailUsageRow.setupView(item)
+            stackView.addArrangedSubview(accountDetailUsageRow)
+        }
     }
     
     // MARK: - Private Methods
     private func setupConstraints() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(DesignSystem.shared.spacer.md)
+        }
         card.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(DesignSystem.shared.spacer.xs)
+            make.leading.trailing.bottom.equalToSuperview().inset(DesignSystem.shared.spacer.md)
         }
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(DesignSystem.shared.spacer.md)
+        }
+    }
+}
+
+final class AccountDetailsUsageRowView: UIView {
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .fill
+        view.spacing = DesignSystem.shared.spacer.sm
+        return view
+    }()
+    
+    convenience init() {
+        self.init(frame: .zero)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(subtitleLabel)
+        addSubview(stackView)
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupView(_ rowItem: AccountDetailsRowItem) {
+        switch rowItem.title {
+        case .text(let string, let style):
+            titleLabel.text = string
+            style?(titleLabel)
+        case .currency(let currency, let currencyStyle):
+            currencyStyle((currency.amount, currency.currencyCode))(titleLabel)
+        }
+        
+        switch rowItem.subTitle {
+        case .text(let string, let style):
+            subtitleLabel.text = string
+            style?(subtitleLabel)
+        case .currency(let currency, let currencyStyle):
+            currencyStyle((currency.amount, currency.currencyCode))(subtitleLabel)
+        }
+    }
+    
+    private func setupConstraints() {
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }

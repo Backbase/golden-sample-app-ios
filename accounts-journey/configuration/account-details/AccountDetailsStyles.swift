@@ -10,7 +10,5 @@ import BackbaseDesignSystem
 
 extension AccountDetails.Design {
     /// Configuration of styles used with the Account Details screen
-    public struct Styles {
-
-    }
+    public struct Styles {}
 }
