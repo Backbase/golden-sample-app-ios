@@ -9,8 +9,12 @@ import UIKit
 
 public struct AccountDetails {
     /// Main entry point to the AccountDetails
-    public static func build() -> UIViewController {
-        
-        return UIViewController()
+    public static func build(
+        navigationController: UINavigationController,
+        arrangementId: String
+    ) -> UIViewController {
+        let viewModel = AccountDetailsViewModel()
+        let viewController = AccountDetailsViewController(viewModel: viewModel, arrangementId: arrangementId)
+        return viewController
     }
 }

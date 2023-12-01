@@ -26,8 +26,11 @@ extension AccountsList {
         public var router = Router(
             didSelectProduct: { navigationController in
                 return { arrangementId in
-                    let viewModel = AccountDetailsViewModel()
-                    let viewController = AccountDetailsViewController(viewModel: viewModel, arrangementId: arrangementId)
+                    
+                    let viewController = AccountDetails.build(
+                        navigationController: navigationController,
+                        arrangementId: arrangementId
+                    )
                     navigationController.pushViewController(viewController, animated: true)
                 }
             }
