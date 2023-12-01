@@ -11,21 +11,24 @@ import Resolver
 extension AccountsJourney.AccountDetailsModel {
     func toMapUI() -> AccountDetailsUIModel {
         let config: AccountsJourney.Configuration = Resolver.resolve()
-        
         return AccountDetailsUIModel(
             id: id,
-            name: name!,
-            BBAN: BBAN!,
+            name: name ?? "",
+            displayName: displayName ?? "",
+            BBAN: BBAN ?? BIC ?? "",
+            currency: currency,
             availableBalance: availableBalance ?? .init(),
-            accountHolderNames: accountHolderNames!,
-            productKindName: productKindName!,
+            accountHolderNames: accountHolderNames ?? "",
+            productKindName: productKindName ?? "",
+            productTypeName: productTypeName ?? "",
             bankBranchCode: bankBranchCode,
             lastUpdateDate: lastUpdateDate?.description ?? "",
             accountInterestRate: accountInterestRate?.description ?? "",
             accruedInterest: accruedInterest ?? .init(),
             creditLimit: creditLimit ?? .init(),
-            accountOpeningDate: accountOpeningDate?.description ?? "",
-            iconName: config.design.accountIcon(.init(rawValue: product?.externalId ?? "") ?? .general)
+            accountOpeningDate: accountOpeningDate?.description ?? "", accountState: state?.state,
+            iconName: config.design.accountIcon(.init(rawValue: product?.externalId ?? "") ?? .general
+        )
         )
     }
 }

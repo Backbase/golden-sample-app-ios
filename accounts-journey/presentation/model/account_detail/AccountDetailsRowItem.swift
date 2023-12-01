@@ -24,7 +24,7 @@ public struct AccountDetailsSection {
     /// Contents to be displayed within the card
     public let rows: [AccountDetailsRowItem]
     
-    public init(title: String?, rows: [AccountDetailsRowItem]) {
+    public init(title: String? = nil, rows: [AccountDetailsRowItem]) {
         self.title = title
         self.rows = rows
     }

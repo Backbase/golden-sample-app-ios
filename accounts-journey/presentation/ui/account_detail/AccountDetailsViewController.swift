@@ -123,7 +123,6 @@ final class AccountDetailsViewController: UIViewController {
     
     // MARK: - Private Methods
     private func updateDetailsView(_ details: AccountDetailsUIModel) {
-        // TODO: Improve me
         // MARK: - Header start
         var summaryStackRows = [SummaryStackRow]()
         if let iconName = details.iconName {
@@ -133,33 +132,91 @@ final class AccountDetailsViewController: UIViewController {
         summaryStackRows.append(SummaryStackTextRow(secondaryTextRow: details.BBAN))
         // MARK: Amount
         summaryStackRows.append(SummaryStackTextRow(amount: Decimal(details.availableBalance)))
-        summaryStackRows.append(SummaryStackTextRow(amount: Decimal(details.creditLimit), amountTextRow: "Credit Limit: "))
+        summaryStackRows.append(SummaryStackTextRow(amount: Decimal(details.creditLimit), amountTextRow: configuration.accountDetails.strings.limitTitle()))
         header.rows = summaryStackRows
         
         // MARK: - Sections
-        let usageView1 = AccountDetailsUsageView()
+        let detailsView = AccountDetailsUsageView()
+        let generalView = AccountDetailsUsageView()
+        let statusView = AccountDetailsUsageView()
         
-        let detailSection1 = AccountDetailsSection(title: "General", rows: [
-            AccountDetailsRowItem(
-                title: .text("Balance", configuration.accountsList.design.styles.accountName),
-                subTitle: .text(details.availableBalance.description, configuration.accountsList.design.styles.accountName)),
-            AccountDetailsRowItem(
-                title: .text("Something Else", configuration.accountsList.design.styles.accountName),
-                subTitle: .text(details.availableBalance.description, configuration.accountsList.design.styles.accountName))
-        ])
+        // Update information
+        detailsView.updateView(with: prepareDetailsSection(from: details))
+        generalView.updateView(with: prepareGeneralSection(from: details))
+        statusView.updateView(with: prepareStatusSection(from: details))
         
-        let usageView2 = AccountDetailsUsageView()
-        let detailSection2 = AccountDetailsSection(title: "General", rows: [
-            AccountDetailsRowItem(
-                title: .text("Balance", configuration.accountsList.design.styles.accountName),
-                subTitle: .text(details.availableBalance.description, configuration.accountsList.design.styles.accountName))
-        ])
-        
-        usageView1.updateView(with: detailSection1)
-        usageView2.updateView(with: detailSection2)
-        
-        stackView.addArrangedSubview(usageView1)
-        stackView.addArrangedSubview(usageView2)
+        stackView.addArrangedSubview(detailsView)
+        stackView.addArrangedSubview(generalView)
+        stackView.addArrangedSubview(statusView)
+    }
+    
+    private func prepareDetailsSection(from details: AccountDetailsUIModel) -> AccountDetailsSection {
+        AccountDetailsSection(
+            title: " ",
+            rows: [
+                AccountDetailsRowItem(
+                    title: .text(
+                        configuration.accountDetails.strings.holderNamesTitle(),
+                        configuration.accountDetails.design.styles.accountDetailRowItemTitle
+                    ),
+                    subTitle: .text(
+                        details.displayName,
+                        configuration.accountDetails.design.styles.accountDetailRowItemSubtitle)
+                ),
+                AccountDetailsRowItem(
+                    title: .text(
+                        configuration.accountDetails.strings.cardOrAccountNumberTitle(),
+                        configuration.accountDetails.design.styles.accountDetailRowItemTitle
+                    ),
+                    subTitle: .text(
+                        details.BBAN,
+                        configuration.accountDetails.design.styles.accountDetailRowItemSubtitle)
+                )
+            ])
+    }
+    
+    private func prepareGeneralSection(from details: AccountDetailsUIModel) -> AccountDetailsSection {
+        AccountDetailsSection(
+            title: configuration.accountDetails.strings.generalSectionTitle(),
+            rows: [
+                AccountDetailsRowItem(
+                    title: .text(
+                        configuration.accountDetails.strings.accountTypeTitle(),
+                        configuration.accountDetails.design.styles.accountDetailRowItemTitle
+                    ),
+                    subTitle: .text(
+                        details.productKindName,
+                        configuration.accountDetails.design.styles.accountDetailRowItemSubtitle)
+                ),
+                AccountDetailsRowItem(
+                    title: .text(
+                        configuration.accountDetails.strings.accountNameTitle(),
+                        configuration.accountDetails.design.styles.accountDetailRowItemTitle
+                    ),
+                    subTitle: .text(
+                        details.productKindName,
+                        configuration.accountDetails.design.styles.accountDetailRowItemSubtitle
+                    )
+                )
+            ])
+    }
+    
+    private func prepareStatusSection(from details: AccountDetailsUIModel) -> AccountDetailsSection {
+        AccountDetailsSection(
+            title: configuration.accountDetails.strings.statusSectionTitle(),
+            rows: [
+                AccountDetailsRowItem(
+                    title: .text(
+                        configuration.accountDetails.strings.accountStatusTitle(),
+                        configuration.accountDetails.design.styles.accountDetailRowItemTitle
+                    ),
+                    subTitle: .text(
+                        details.accountState ?? "",
+                        configuration.accountDetails.design.styles.accountDetailRowItemSubtitle
+                    )
+                )
+            ]
+        )
     }
     
     private func showLoadingView() {
@@ -205,11 +262,12 @@ final class AccountDetailsViewController: UIViewController {
 // MARK: - Temporary holding Space
 final class AccountDetailsUsageView: UIView {
     // MARK: - Properties
+    let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [])
         view.axis = .vertical
         view.alignment = .fill
-        view.spacing = DesignSystem.shared.spacer.xs
+        view.spacing = DesignSystem.shared.spacer.md
         return view
     }()
     
@@ -246,7 +304,8 @@ final class AccountDetailsUsageView: UIView {
     // MARK: - Methods
     func updateView(with section: AccountDetailsSection) {
         if let title = section.title {
-            titleLabel.text = title
+            titleLabel.text = title.uppercased()
+            configuration.accountDetails.design.styles.accountDetailSectionTitle(titleLabel)
         }
         
         for item in section.rows {
@@ -260,7 +319,7 @@ final class AccountDetailsUsageView: UIView {
     private func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(DesignSystem.shared.spacer.md)
+            make.leading.trailing.equalToSuperview().inset(DesignSystem.shared.spacer.lg)
         }
         card.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(DesignSystem.shared.spacer.xs)

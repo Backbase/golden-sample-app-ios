@@ -67,6 +67,94 @@
         }
       }
     },
+    "accountsJourney.accountDetails.labels.common.accountName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Name"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.accountStatus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account / Product Status"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.accountType" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Type"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.cardOrAccountNumber" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card / Account Number"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.holderNames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Holder Name(s)"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.limit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.section.general" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.section.status" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        }
+      }
+    },
     "accountsJourney.accountDetails.labels.title" : {
       "extractionState" : "manual",
       "localizations" : {
