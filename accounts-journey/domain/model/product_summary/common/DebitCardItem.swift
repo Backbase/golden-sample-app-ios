@@ -8,7 +8,7 @@
 import Foundation
 extension AccountsJourney {
     /// Debit Card item response DTO.
-    public struct DebitCardItem: Equatable {
+    public struct DebitCardItem: Codable, Equatable {
         
         /// First 6 and/or last 4 digits of a Payment card. All other digits will/to be masked.
         /// Be aware that using card number differently is potential PCI risk

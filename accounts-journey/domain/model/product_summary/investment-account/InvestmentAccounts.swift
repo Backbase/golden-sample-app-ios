@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct InvestmentAccounts: Equatable {
+    public struct InvestmentAccounts: Codable, Equatable {
         /// The list of investments.
         public let products: [InvestmentAccount]
         /// The label/name of an investment account.

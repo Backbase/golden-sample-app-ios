@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// Base product for sub-arrangements
-    public struct BaseProduct: Equatable {
+    public struct BaseProduct: Codable, Equatable {
         /// Reference to the product of which the arrangement is an instantiation.
         public let identifier: String?
         /// Name of the account

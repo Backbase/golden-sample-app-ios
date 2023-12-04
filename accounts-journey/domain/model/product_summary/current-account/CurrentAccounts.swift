@@ -8,7 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
-    public struct CurrentAccounts: Equatable {
+    public struct CurrentAccounts: Codable, Equatable {
         /// List of current accounts
         public let products: [CurrentAccount]
         /// The label/name that is used for the respective product kind.

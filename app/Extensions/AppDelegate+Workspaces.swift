@@ -15,8 +15,6 @@ import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
 import AccountsJourney
-import GoldenAccountsUseCase
-
 
 
 // MARK: - Workspaces Journey methods

@@ -8,8 +8,9 @@
 import Foundation
 
 extension AccountsJourney {
+
     /// The period of time for the product arranged between Bank and customer.
-    public enum TimeUnit: String {
+    public enum TimeUnit: String, Codable {
         /// Day, raw value: D
         case day = "D"
         /// Week, raw value: W

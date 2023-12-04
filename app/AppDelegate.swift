@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     // MARK: Properties
-    lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
+
     // MARK: Identity Journey properties
 
     lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
@@ -64,5 +64,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-
 

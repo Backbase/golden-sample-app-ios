@@ -13,7 +13,7 @@ public struct AccountsListRowItem {
     /// DTO that enables providing styleable text on an `AccountsListRowItem`
     public enum StyleableText {
         case text(String, Style<UILabel>?)
-        case currency(Currency, StyleSelector<(String, String),UILabel>)
+        case currency(Currency, StyleSelector<(String, String), UILabel>)
     }
     
     /// Unique identifier

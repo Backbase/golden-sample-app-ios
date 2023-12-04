@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// Savings account type.
-    public struct SavingsAccount: Equatable {
+    public struct SavingsAccount: Codable, Equatable {
         /// Booked balance of the account
         public let bookedBalance: String?
         /// Available balance of the account

@@ -10,7 +10,7 @@ import Foundation
 extension AccountsJourney {
    
     /// User defined preferences for a specific arrangement. Note: each user might have different preferences.
-    public struct UserPreferences: Equatable {
+    public struct UserPreferences: Codable, Equatable {
         /// The name that can be assigned by the user to label the arrangement.
         public let alias: String?
         /// User indicator whether to show or hide the arrangement on the front end.

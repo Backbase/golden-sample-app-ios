@@ -32,7 +32,8 @@ abstract_target 'Common' do
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  
+  pod 'Alamofire'
+
   target 'AccountsJourney' do
   end
   

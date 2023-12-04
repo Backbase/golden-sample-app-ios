@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// Investment account product type.
-    public struct InvestmentAccount: Equatable {
+    public struct InvestmentAccount: Codable, Equatable {
         /// Current investment value.
         public let currentInvestmentValue: String?
         /// Currency code

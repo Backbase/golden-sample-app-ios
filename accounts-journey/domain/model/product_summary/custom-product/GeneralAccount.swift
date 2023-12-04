@@ -9,7 +9,7 @@ import Foundation
 
 extension AccountsJourney {
     /// General account type.
-    public struct GeneralAccount: Equatable {
+    public struct GeneralAccount: Codable, Equatable {
         /// Booked balance
         public let bookedBalance: String?
         /// Available balance

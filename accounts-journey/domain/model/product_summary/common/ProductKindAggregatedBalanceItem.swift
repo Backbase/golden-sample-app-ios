@@ -7,7 +7,7 @@
 
 import Foundation
 extension AccountsJourney {
-    public struct ProductKindAggregatedBalanceItem: Equatable {
+    public struct ProductKindAggregatedBalanceItem: Codable, Equatable {
         public let amount: Double?
         public let numberOfAccounts: Int?
         public let productKindName: String?
