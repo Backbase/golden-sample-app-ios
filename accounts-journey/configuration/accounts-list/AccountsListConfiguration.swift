@@ -15,13 +15,10 @@ extension AccountsList {
         public init() {
             // no code required
         }
-        
         /// Configuration of styles used in Accounts List
         public var design = Design()
-        
         /// Configuration of strings used in Accounts List
         public var strings = Strings()
-        
         /// Configuration for router of Accounts List
         public var router = Router(
             didSelectProduct: { navigationController in

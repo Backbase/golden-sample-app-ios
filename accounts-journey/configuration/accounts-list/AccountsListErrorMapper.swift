@@ -25,6 +25,9 @@ final class AccountsListErrorMapper {
         self.genericAction = genericAction
     }
     
+    /// Takes in an error and builds it's respective StateViewConfiguration
+    /// - Parameter error: error to be processed
+    /// - Returns: StateViewConfiguration
     func mapToStateViewConfiguration(error: Error) -> StateViewConfiguration {
         let journeyError = error as? AccountsList.Error ?? AccountsList.Error.loadingFailure()
         

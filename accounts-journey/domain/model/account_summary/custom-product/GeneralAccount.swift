@@ -8,6 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
+    // swiftlint:disable line_length type_body_length function_body_length superfluous_disable_command
     /// General account type.
     public struct GeneralAccount: Equatable {
         /// Booked balance
@@ -161,7 +162,7 @@ extension AccountsJourney {
         public let subArrangements: [BaseProduct]?
         /// Financial institution ID.
         public let financialInstitutionId: Int64?
-        /// Last synchronization datetime.
+        /// Last synchronization date.
         public let lastSyncDate: Date?
         /// The last day of the forthcoming billing cycle.
         public let nextClosingDate: Date?
@@ -422,5 +423,7 @@ extension AccountsJourney {
             self.cardDetails = cardDetails
             self.interestDetails = interestDetails
         }
+       
     }
+    // swiftlint:enable line_length type_body_length function_body_length superfluous_disable_command
 }

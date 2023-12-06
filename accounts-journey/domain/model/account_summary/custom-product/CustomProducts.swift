@@ -32,7 +32,7 @@ extension AccountsJourney {
             name: String?,
             id: Int?,
             aggregatedBalance: AggregatedBalance?,
-            additions: [String : String]?
+            additions: [String: String]?
         ) {
             self.products = products
             self.name = name

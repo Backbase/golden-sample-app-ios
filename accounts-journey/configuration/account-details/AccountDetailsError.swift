@@ -10,8 +10,10 @@ import Resolver
 import ClientCommonGen2
 
 extension AccountDetails {
+    /// Generic ErrorFormatter
     public typealias ErrorFormatter<T> = MainErrorFormatter<AccountDetails.Error, T>
     
+    /// Possible errors
     public enum Error: Swift.Error, Equatable {
         case invalidResponse
         case notConnected

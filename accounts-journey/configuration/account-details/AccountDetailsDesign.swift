@@ -10,8 +10,9 @@ import BackbaseDesignSystem
 
 extension AccountDetails {
     public struct Design {
+        /// AccountDetail screen styles
         var styles = Styles()
-        
+        /// Error icon name for possible errors
         public var errorIconName: ErrorFormatter<String?> = { error in
             switch error {
             case .notConnected:

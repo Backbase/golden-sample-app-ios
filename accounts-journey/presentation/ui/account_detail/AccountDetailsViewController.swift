@@ -41,6 +41,12 @@ final class AccountDetailsViewController: UIViewController {
         return scrollView
     }()
     
+    func clearBarButtonItem() -> UIBarButtonItem {
+        let closeImage = UIImage.named(DesignSystem.Assets.icAlarmOn, in: .design)
+        let closeButtonItem = UIBarButtonItem(image: closeImage, style: .done, target: nil, action: nil)
+        return closeButtonItem
+    }
+    
     // MARK: - Init
     init(viewModel: AccountDetailsViewModel, arrangementId: String) {
         self.viewModel = viewModel
@@ -57,6 +63,7 @@ final class AccountDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupBindings()
+        
     }
     
     override func loadView() {
@@ -77,7 +84,18 @@ final class AccountDetailsViewController: UIViewController {
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
         scrollView.backgroundColor = DesignSystem.shared.colors.foundation.default
         title = configuration.accountDetails.strings.screenTitle()
-        navigationItem.largeTitleDisplayMode = .never
+        
+        if let navigationBar = navigationController?.navigationBar {
+            configuration.accountDetails.design.styles.navigationBar(navigationBar)
+            navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(
+                title: configuration.accountDetails.strings.backButtonTitle(),
+                style: .plain,
+                target: nil,
+                action: nil
+            )
+        }
+        
+        configuration.accountDetails.design.styles.navigationItem(navigationItem)
     }
     
     func setupLayout() {

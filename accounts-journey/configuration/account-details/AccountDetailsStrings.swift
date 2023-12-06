@@ -15,7 +15,8 @@ extension AccountDetails {
         
         /// accountsJourney.accountDetails.labels.title
         public var screenTitle = localized(key: "labels.title")
-        
+        /// accountsJourney.accountDetails.labels.buttons.backTitle
+        public var backButtonTitle = localized(key: "labels.buttons.backTitle")
         /// accountsJourney.accountDetails.labels.section.general
         public var generalSectionTitle = localized(key: "labels.section.general")
         /// accountsJourney.accountDetails.labels.section.status

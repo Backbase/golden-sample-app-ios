@@ -56,14 +56,12 @@ struct AccountSummaryUIModel {
         return result
     }
     
-    func filter(_
-        products: [AccountUIModel]?,
-        by query: String
+    func filter(_ products: [AccountUIModel]?, by query: String
     ) -> [AccountUIModel] {
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let searchQuery = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
         if let products {
-            return q.isEmpty ? products : products.filter { $0.name!.lowercased().contains(q) }
+            return searchQuery.isEmpty ? products : products.filter { $0.name!.lowercased().contains(searchQuery) }
         }
         
         return []

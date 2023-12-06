@@ -12,7 +12,6 @@ extension AccountDetails {
         public init() {
             // no code required
         }
-        
         /// Configuration of strings used in Account Details
         public var strings = Strings()
         

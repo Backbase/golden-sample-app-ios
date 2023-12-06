@@ -8,6 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
+    // swiftlint:disable line_length type_body_length function_body_length superfluous_disable_command
     public struct AccountDetailsModel {
         public let id: String
         public let productId: String
@@ -262,4 +263,5 @@ extension AccountsJourney {
                 self.externalAccountStatus = externalAccountStatus
             }
     }
+// swiftlint:enable line_length type_body_length function_body_length superfluous_disable_command
 }

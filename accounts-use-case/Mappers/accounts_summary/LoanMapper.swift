@@ -9,8 +9,8 @@ import Foundation
 import AccountsJourney
 import ArrangementsClient2Gen2
 
-
 extension ArrangementsClient2Gen2.Loan {
+    // swiftlint:disable line_length type_body_length function_body_length superfluous_disable_command
     public func toDomainModel() -> AccountsJourney.Loan {
         AccountsJourney.Loan(
             bookedBalance: self.bookedBalance,
@@ -64,6 +64,7 @@ extension ArrangementsClient2Gen2.Loan {
             bankBranchCode: self.bankBranchCode2
         )
     }
+    // swiftlint:enable line_length type_body_length function_body_length superfluous_disable_command
 }
 
 extension ArrangementsClient2Gen2.LoanProductKinds {

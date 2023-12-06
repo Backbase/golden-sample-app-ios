@@ -52,7 +52,6 @@ extension ArrangementsClient2Gen2.DebitCard {
     }
 }
 
-
 extension ArrangementsClient2Gen2.DebitCardItem {
     public func toDomainModel() -> AccountsJourney.DebitCardItem {
         AccountsJourney.DebitCardItem(
@@ -66,7 +65,6 @@ extension ArrangementsClient2Gen2.DebitCardItem {
         )
     }
 }
-
 
 extension ArrangementsClient2Gen2.DebitCardProductKinds {
     public func toDomainModel() -> AccountsJourney.DebitCards {

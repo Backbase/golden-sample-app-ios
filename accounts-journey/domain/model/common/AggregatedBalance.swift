@@ -18,7 +18,7 @@ extension AccountsJourney {
             currency: String?,
             value: String?,
             productKindAggregatedBalanceItem: [ProductKindAggregatedBalanceItem]? = nil,
-            additions: [String : String]?
+            additions: [String: String]?
         ) {
             self.currency = currency
             self.value = value
