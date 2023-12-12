@@ -61,8 +61,9 @@ final class AccountDetailsViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view.addSubview(scrollView)
-        view.addSubview(loadingView)
+        [scrollView, loadingView ].forEach {
+            view.addSubview($0)
+        }
         
         scrollView.addSubview(stackView)
         setupLayout()
@@ -103,14 +104,9 @@ final class AccountDetailsViewController: UIViewController {
         }
         
         loadingView.snp.makeConstraints { make in
-            make
-                .leading
-                .trailing
-                .equalToSuperview()
+            make.leading.trailing.equalToSuperview()
                 .inset(DesignSystem.shared.spacer.md)
-            make
-                .centerY
-                .equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
     }
