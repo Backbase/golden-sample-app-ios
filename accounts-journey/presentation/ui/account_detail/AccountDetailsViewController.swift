@@ -260,11 +260,11 @@ final class AccountDetailsViewController: UIViewController {
     
     private func removeStateView() {
         if stateView != nil {
-            UIView.animate(withDuration: 0.2) {[weak self] in
-                self?.stateView?.alpha = 0.0
-            } completion: { [weak self] _ in
-                self?.stateView?.removeFromSuperview()
-                self?.stateView = nil
+            UIView.animate(withDuration: 0.2) {
+                self.stateView?.alpha = 0.0
+            } completion: {  _ in
+                self.stateView?.removeFromSuperview()
+                self.stateView = nil
             }
         }
     }
