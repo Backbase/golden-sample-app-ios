@@ -24,7 +24,7 @@ final class AccountDetailsUsageRowView: UIView {
     }()
     
     private lazy var stackView: UIStackView = {
-        let view = UIStackView()
+        let view = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
         view.axis = .vertical
         view.distribution = .fill
         view.spacing = DesignSystem.shared.spacer.sm
@@ -38,8 +38,6 @@ final class AccountDetailsUsageRowView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(subtitleLabel)
         addSubview(stackView)
         setupConstraints()
     }

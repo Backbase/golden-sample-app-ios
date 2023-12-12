@@ -23,11 +23,10 @@ final class AccountDetailsViewController: UIViewController {
     private var stateView: StateView?
     private let loadingView = LoadingView()
     
-    private var header = SummaryStackView()
+    private let header = SummaryStackView()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [header])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = DesignSystem.shared.spacer.sm
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
@@ -41,12 +40,6 @@ final class AccountDetailsViewController: UIViewController {
         return scrollView
     }()
     
-    func clearBarButtonItem() -> UIBarButtonItem {
-        let closeImage = UIImage.named(DesignSystem.Assets.icAlarmOn, in: .design)
-        let closeButtonItem = UIBarButtonItem(image: closeImage, style: .done, target: nil, action: nil)
-        return closeButtonItem
-    }
-    
     // MARK: - Init
     init(viewModel: AccountDetailsViewModel, arrangementId: String) {
         self.viewModel = viewModel
@@ -59,6 +52,15 @@ final class AccountDetailsViewController: UIViewController {
     }
     
     // MARK: - Lifecycle Methods
+    
+    // MARK: - Lifecycle Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        setupBindings()
+        
+    }
+    
     override func loadView() {
         super.loadView()
         view.addSubview(scrollView)
@@ -73,7 +75,7 @@ final class AccountDetailsViewController: UIViewController {
         viewModel.onEvent(.getAccountDetails(arrangementId))
     }
     
-    func setupView() {
+    private func setupView() {
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
         scrollView.backgroundColor = DesignSystem.shared.colors.foundation.default
         title = configuration.accountDetails.strings.screenTitle()
@@ -91,7 +93,7 @@ final class AccountDetailsViewController: UIViewController {
         configuration.accountDetails.design.styles.navigationItem(navigationItem)
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         scrollView.snp.makeConstraints { make in
             make.edges.width.equalToSuperview()
         }
@@ -115,7 +117,7 @@ final class AccountDetailsViewController: UIViewController {
         
     }
     
-    func setupBindings() {
+    private func setupBindings() {
         viewModel
             .$screenState
             .receive(on: DispatchQueue.main)
@@ -262,7 +264,7 @@ final class AccountDetailsViewController: UIViewController {
         if stateView != nil {
             UIView.animate(withDuration: 0.2) {
                 self.stateView?.alpha = 0.0
-            } completion: {  _ in
+            } completion: { _ in
                 self.stateView?.removeFromSuperview()
                 self.stateView = nil
             }
