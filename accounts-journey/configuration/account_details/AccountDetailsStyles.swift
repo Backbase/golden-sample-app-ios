@@ -15,7 +15,6 @@ extension AccountDetails.Design {
         /// Style applied to account detail sectionTitle
         public var accountDetailSectionTitle: Style<UILabel> = { label in
             label.font = DesignSystem.shared.fonts.preferredFont(.footnote, .regular)
-            
             label.textColor = DesignSystem.shared.colors.text.support
         }
         /// Style applied to account detail row item title

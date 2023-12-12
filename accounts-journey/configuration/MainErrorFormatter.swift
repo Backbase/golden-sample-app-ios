@@ -7,4 +7,5 @@
 
 import Foundation
 
+/// Main Error formatter 
 public typealias MainErrorFormatter<E: Error, T> = (E) -> T

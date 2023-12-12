@@ -59,13 +59,6 @@ final class AccountDetailsViewController: UIViewController {
     }
     
     // MARK: - Lifecycle Methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        setupBindings()
-        
-    }
-    
     override func loadView() {
         super.loadView()
         view.addSubview(scrollView)

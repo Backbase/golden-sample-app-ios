@@ -36,7 +36,6 @@ extension AccountsList {
         /// AccountsListRowItem configuration
         public var accountListRowProvider: (AccountUIModel) -> AccountsListRowItem = { item in
             let configuration = Resolver.resolve(AccountsJourney.Configuration.self)
-            
             var accountName: AccountsListRowItem.StyleableText? = .text(item.name ?? "", configuration.accountsList.design.styles.accountName)
             
             var stateText: String?

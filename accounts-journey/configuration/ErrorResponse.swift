@@ -8,6 +8,7 @@
 import Foundation
 
 extension AccountsJourney {
+    /// Specicialized configuration for error responses
     public struct ErrorResponse: Swift.Error, Equatable {
         /// Status code of the error
         public let statusCode: Int?

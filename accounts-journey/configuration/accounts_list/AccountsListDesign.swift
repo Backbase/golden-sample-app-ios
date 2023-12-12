@@ -13,7 +13,8 @@ extension AccountsList {
         /// Configuration of styles used in AccountList screen
         var styles = Styles()
         
-        public var errorIconName: ErrorFormatter<String?> = { error in
+        /// Icon name base of the ErrorType
+        public var errorIconName: ErrorFormatter<String> = { error in
             switch error {
             case .noAccounts:
                 DesignSystem.Assets.icStateViewNoWifi

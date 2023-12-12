@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.TermDeposit {
-    // swiftlint:disable line_length type_body_length function_body_length superfluous_disable_command
+    // swiftlint:disable function_body_length
    public func toDomainModel() -> AccountsJourney.TermDeposit {
         AccountsJourney.TermDeposit(
             bookedBalance: self.bookedBalance,
@@ -68,7 +68,7 @@ extension ArrangementsClient2Gen2.TermDeposit {
             bankBranchCode: self.bankBranchCode2
         )
     }
-    // swiftlint:enable line_length type_body_length function_body_length superfluous_disable_command
+    // swiftlint:enable function_body_length
 }
 
 extension ArrangementsClient2Gen2.TermDepositProductKinds {

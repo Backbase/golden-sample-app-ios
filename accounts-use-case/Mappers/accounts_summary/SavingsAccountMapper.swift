@@ -10,7 +10,7 @@ import AccountsJourney
 import ArrangementsClient2Gen2
 
 extension ArrangementsClient2Gen2.SavingsAccount {
-    // swiftlint:disable line_length type_body_length function_body_length superfluous_disable_command
+    // swiftlint:disable function_body_length
    public func toDomainModel() -> AccountsJourney.SavingsAccount {
         AccountsJourney.SavingsAccount(
             bookedBalance: self.bookedBalance,
@@ -75,7 +75,7 @@ extension ArrangementsClient2Gen2.SavingsAccount {
             interestDetails: self.interestDetails?.toDomainModel()
         )
     }
-    // swiftlint:enable line_length type_body_length function_body_length superfluous_disable_command
+    // swiftlint:enable function_body_length
 }
 
 extension ArrangementsClient2Gen2.SavingsAccountProductKinds {

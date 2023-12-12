@@ -13,6 +13,7 @@ extension AccountsJourney {
         
         var styles = Styles()
         
+        /// Account icon based of account / product type
         public var accountIcon: (AccountsJourney.AccountType) -> AccountIconInfo? = { accountType in
             switch accountType {
             case .creditCard:
@@ -74,6 +75,7 @@ extension AccountsJourney {
             }
         }
         
+        /// a dark icon background color
         public static let darkIconBackgroundColor: UIColor = DesignSystem.shared.colors.surfaceSecondary.default
     }
 }
