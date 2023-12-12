@@ -67,7 +67,7 @@ targets:
       iOS: 15.0
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp
+        PRODUCT_BUNDLE_IDENTIFIER: com.backbase.DashboardJourney.TestApp
         MARKETING_VERSION: 0.0.1
     info:
       path: app/Info.plist
