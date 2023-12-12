@@ -181,14 +181,9 @@ final class AccountsListViewController: UIViewController {
         view.addSubview(stateView)
         
         stateView.snp.makeConstraints { make in
-            make
-                .leading
-                .trailing
-                .equalToSuperview()
+            make.leading.trailing.equalToSuperview()
                 .inset(DesignSystem.shared.spacer.md)
-            make
-                .centerY
-                .equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     

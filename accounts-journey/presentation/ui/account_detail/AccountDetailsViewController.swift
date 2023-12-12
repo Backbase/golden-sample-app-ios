@@ -52,8 +52,6 @@ final class AccountDetailsViewController: UIViewController {
     }
     
     // MARK: - Lifecycle Methods
-    
-    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
