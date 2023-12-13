@@ -11,7 +11,7 @@ import BackbaseDesignSystem
 final class AccountDetailsUsageRowView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
     
