@@ -19,7 +19,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .leading
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = DesignSystem.shared.sizer.sm
         stackView.backgroundColor = .clear
         return stackView
@@ -29,7 +28,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         let stackView = UIStackView(frame: .zero)
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = DesignSystem.shared.sizer.xs
         return stackView
     }()
@@ -38,7 +36,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         return label
     }()
@@ -47,7 +44,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         return label
     }()
@@ -56,21 +52,18 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         return label
     }()
     
     private lazy var accountIconView: IconView = {
         let iconView = IconView()
-        iconView.translatesAutoresizingMaskIntoConstraints = false
         configuration.design.styles.accountIconView(iconView)
         return iconView
     }()
     
     private lazy var accountDetailsStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [accountNameLabel, accountStateLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = DesignSystem.shared.spacer.sm
         stackView.distribution = .fill
@@ -108,11 +101,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         infoStackView.addArrangedSubview(accountBalanceLabel)
         
         containerStackView.snp.makeConstraints { make in
-            make
-                .leading
-                .top
-                .trailing
-                .bottom
+            make.leading.top.trailing.bottom
                 .equalToSuperview().inset(DesignSystem.shared.spacer.md)
         }
         

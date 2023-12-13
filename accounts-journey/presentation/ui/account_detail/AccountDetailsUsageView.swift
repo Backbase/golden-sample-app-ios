@@ -23,13 +23,12 @@ final class AccountDetailsUsageView: UIView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
     
     private lazy var card: Card = {
         let card = Card(DesignSystem.shared.styles.cardView)
-        card.translatesAutoresizingMaskIntoConstraints = false
         return card
     }()
     

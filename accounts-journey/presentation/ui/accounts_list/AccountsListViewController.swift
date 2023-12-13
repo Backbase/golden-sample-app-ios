@@ -42,7 +42,6 @@ final class AccountsListViewController: UIViewController {
     
     private lazy var accountsListTableView: RoundedTableView = {
         let table = RoundedTableView()
-        table.translatesAutoresizingMaskIntoConstraints = false
         table.alwaysBounceVertical = false
         table.dataSource = self
         table.delegate = self
@@ -82,22 +81,16 @@ final class AccountsListViewController: UIViewController {
     
     private func setupLayout() {
         accountsListTableView.snp.makeConstraints { make in
-            make
-                .leading
-                .trailing
-                .bottom
+            make.leading.trailing.bottom
                 .equalToSuperview().inset(DesignSystem.shared.spacer.md)
             make.top.equalToSuperview()
         }
         
         loadingView.snp.makeConstraints { make in
-            make
-                .leading
-                .trailing
+            make.leading.trailing
                 .equalToSuperview()
                 .inset(DesignSystem.shared.spacer.md)
-            make
-                .centerY
+            make.centerY
                 .equalToSuperview()
         }
     }
