@@ -1,6 +1,6 @@
 //
-//  AccountsJourneyViewModel.swift
-//  GoldenSampleApp
+//  AccountsListViewModel.swift
+//  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 12/10/2023.
 //
@@ -16,11 +16,13 @@ final class AccountsListViewModel: NSObject {
     @Published private(set) var allAccounts = [AccountUIModel]()
     @Published private(set) var screenState: AccountListScreenState = .loading
     
+    var didSelectProduct: ((String) -> Void)?
+    
     // MARK: - Private
     
-    private lazy var accountsUseCase: AccountsUseCase = {
-        guard let useCase = Resolver.optional(AccountsUseCase.self) else {
-            fatalError("AccountsUseCase needed to continue")
+    private lazy var accountsListUseCase: AccountsListUseCase = {
+        guard let useCase = Resolver.optional(AccountsListUseCase.self) else {
+            fatalError("AccountsListUseCase needed to continue")
         }
         return useCase
     }()
@@ -46,7 +48,7 @@ final class AccountsListViewModel: NSObject {
         
         screenState  = .loading
         
-        accountsUseCase.getAccountSummary {[weak self] result in
+        accountsListUseCase.getAccountSummary {[weak self] result in
             guard let self else {
                 return
             }
@@ -60,7 +62,9 @@ final class AccountsListViewModel: NSObject {
                 if allAccounts.isEmpty {
                     screenState = .emptyResults(
                         stateViewConfiguration(
-                            for: .noAccounts)
+                            for: .noAccounts, primaryAction: {
+                                self.onEvent(.refresh)
+                            })
                     )
                 } else {
                     screenState = .loaded
@@ -69,7 +73,10 @@ final class AccountsListViewModel: NSObject {
             case let .failure(errorResponse):
                 screenState = .hasError(
                     stateViewConfiguration(
-                        for: .loadingFailure(errorResponse)
+                        for: .loadingFailure(errorResponse),
+                        primaryAction: {
+                            self.onEvent(.refresh)
+                        }
                     )
                 )
             }

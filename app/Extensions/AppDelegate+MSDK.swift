@@ -7,7 +7,6 @@
 
 import Backbase
 
-
 // MARK: Backbase SDK methods
 extension AppDelegate {
     func setupBackbaseSDK() {

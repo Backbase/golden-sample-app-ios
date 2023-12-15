@@ -16,7 +16,6 @@ import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
 
-
 extension AppDelegate {
     
     func setupIdentityJourney() {
