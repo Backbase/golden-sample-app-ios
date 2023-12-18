@@ -63,6 +63,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupIdentityJourney()
         setupWorkspacesJourney()
         setupAccountsJourney()
+        appendBaasHeader()
         return true
     }
+    
+    private func appendBaasHeader() {
+                let baasHeaderKey: String = "X-REFERENCE-BAAS"
+                let configCustomHeaders = Backbase.configuration().custom["default-http-headers"] as? [String: String]
+                let baasHeaderValue = configCustomHeaders?[baasHeaderKey]
+
+                if Backbase.securitySessionConfiguration().httpAdditionalHeaders != nil {
+                    Backbase.securitySessionConfiguration().httpAdditionalHeaders?.updateValue(baasHeaderValue, forKey: baasHeaderKey)
+                } else {
+                    Backbase.securitySessionConfiguration().httpAdditionalHeaders = [
+                        baasHeaderKey: baasHeaderValue
+                    ]
+                }
+            }
 }
