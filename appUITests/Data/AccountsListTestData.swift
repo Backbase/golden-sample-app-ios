@@ -2,7 +2,7 @@
 //  AccountsListTestData.swift
 //  GoldenSampleUITests
 //
-//  Created by Ganjar Manggala on 15/01/2024.
+//  Created by Backbase on 15/01/2024.
 //
 
 import Foundation

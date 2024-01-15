@@ -2,7 +2,7 @@
 //  BaseTestCase.swift
 //  GoldenSampleUITests
 //
-//  Created by Ganjar Manggala on 15/12/2023.
+//  Created by Backbase on 15/12/2023.
 //
 
 import XCTest
