@@ -15,7 +15,7 @@ class PasscodeScreen : BaseScreen {
     }
     
     func enterPasscode(_ passcode: String) {
-        app.keyboards.firstMatch.waitForElementToAppear()
+        expect(element: app.keyboards.firstMatch, status: .hittable, timeout: Timeouts.defaultTimeout)
         passcode.map { String($0) }.forEach { tapKey($0) }
     }
     

@@ -10,10 +10,10 @@ import Foundation
 class SetupCompleteScreen : BaseScreen {
     
     //MARK: ELEMENTS
-    private lazy var letsGetStartedButton = app.buttons.matching(identifier: "setupComplete.dismissButton").firstMatch
+    private lazy var letsGetStartedBtn = app.buttons.matching(identifier: "setupComplete.dismissButton").firstMatch
   
     //MARK: METHODS - ACTION
     func dismissLetsGetStartedScreen() {
-        letsGetStartedButton.tap()
+        expect(element: letsGetStartedBtn, status: .hittable, timeout: Timeouts.defaultTimeout).tap()
     }
 }

@@ -10,6 +10,8 @@ import XCTest
 
 final class AccountsListTests : BaseTestCase {
         
+    let testData = AccountsListTestData.self
+    
     override func setUp() {
         super.setUp()
         LoginScreen(app).authenticateUserWith(name: UserEnrollment.userName, password: UserEnrollment.password)
@@ -19,14 +21,14 @@ final class AccountsListTests : BaseTestCase {
     func testAccountIsDisplayedInTheList() {
         let accountListScreen = AccountsListScreen(app)
         
-        accountListScreen.validateAccountScreenIsDisplayed()
-        accountListScreen.assertAccountIsDisplayed(name: "Checking Account USD 7299", accountNumberEndsWith: "7299", balance: "11,284.38")
+        accountListScreen.assertAccountScreenIsDisplayed()
+        accountListScreen.assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds, balance: testData.defaultBalance)
     }
     
     func testEmptySearchResultIsDisplayed() {
         let accountListScreen = AccountsListScreen(app)
 
-        accountListScreen.searchAccount(query: "7299")
-        accountListScreen.assertAccountIsDisplayed(name: "Checking Account USD 7299", accountNumberEndsWith: "7299", balance: "11,284.38")
+        accountListScreen.searchAccount(query: testData.defaultAccountNumberEnds)
+        accountListScreen.assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds, balance: testData.defaultBalance)
     }
 }
