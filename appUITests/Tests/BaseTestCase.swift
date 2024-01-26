@@ -14,6 +14,7 @@ class BaseTestCase: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        self.continueAfterFailure = false
         app.launch()
     }
     

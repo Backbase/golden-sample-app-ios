@@ -13,7 +13,9 @@ class SetupCompleteScreen : BaseScreen {
     private lazy var letsGetStartedBtn = app.buttons.matching(identifier: "setupComplete.dismissButton").firstMatch
   
     //MARK: METHODS - ACTION
-    func dismissLetsGetStartedScreen() {
-        expect(element: letsGetStartedBtn, status: .hittable, timeout: Timeouts.defaultTimeout).tap()
+    @discardableResult
+    func dismissLetsGetStartedScreen() -> Self {
+        expect(element: letsGetStartedBtn, status: .hittable).tap()
+        return self
     }
 }

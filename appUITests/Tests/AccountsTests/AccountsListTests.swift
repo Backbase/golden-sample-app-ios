@@ -1,6 +1,6 @@
 //
 //  AccountsListTests.swift
-//  ios-golden-sample-app
+//  GoldenSampleUITests
 //
 //  Created by Backbase on 15/12/2023.
 //
@@ -19,16 +19,14 @@ final class AccountsListTests : BaseTestCase {
     }
     
     func testAccountIsDisplayedInTheList() {
-        let accountListScreen = AccountsListScreen(app)
-        
-        accountListScreen.assertAccountScreenIsDisplayed()
-        accountListScreen.assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds, balance: testData.defaultBalance)
+        AccountsListScreen(app)
+            .assertAccountScreenIsDisplayed()
+            .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds)
     }
     
     func testEmptySearchResultIsDisplayed() {
-        let accountListScreen = AccountsListScreen(app)
-
-        accountListScreen.searchAccount(query: testData.defaultAccountNumberEnds)
-        accountListScreen.assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds, balance: testData.defaultBalance)
+        AccountsListScreen(app)
+            .searchAccount(query: testData.defaultAccountNumberEnds)
+            .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds)
     }
 }

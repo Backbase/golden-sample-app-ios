@@ -16,19 +16,25 @@ class WorkspacesSelectorScreen : BaseScreen {
     private lazy var workspacesLoadingView = XCUIApplication().activityIndicators.element(boundBy: 0).firstMatch
     
     //MARK: METHODS - ACTION
-    func selectWorkspaceBy(position: Int) {
+    @discardableResult
+    func selectWorkspaceBy(position: Int) -> Self {
         let selectedWorkspace = workspacesTbl.cells.element(boundBy: position)
         selectedWorkspace.tap()
+        return self
     }
     
-    func selectWorkspaceBy(text: String) {
+    @discardableResult
+    func selectWorkspaceBy(text: String) -> Self {
         let selectedWorkspace = app.staticTexts[text]
-        expect(element: selectedWorkspace, status: .hittable, timeout: Timeouts.defaultTimeout).tap()
+        expect(element: selectedWorkspace, status: .hittable).tap()
+        return self
     }
     
-    func selectServiceAgreementIfNeeded(workspaceName: String) {
-        expect(element: workspacesSelectorScreenTitleLbl, status: .exist, timeout: Timeouts.defaultTimeout)
+    @discardableResult
+    func selectServiceAgreementIfNeeded(workspaceName: String) -> Self {
+        expect(element: workspacesSelectorScreenTitleLbl, status: .exist)
         selectWorkspaceBy(text: workspaceName)
+        return self
     }
     
     //MARK: Other Method

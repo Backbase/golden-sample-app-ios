@@ -1,17 +1,22 @@
 {
+  "development": {
+    "debugEnable": true
+  },
   "backbase": {
-    "serverURL": "https://app.stg.reference.azure.backbaseservices.com",
-    "version": "6.1.5",
+    "serverURL": "https://app.bus-stg.reference.azure.backbaseservices.com",
+    "experience": "",
+    "localModelPath": "$(contextRoot)/conf/localModel.json",
+    "version": "6.2.3.1",
     "identity": {
-      "baseURL": "https://identity.stg.reference.azure.backbaseservices.com",
-      "realm": "customer",
+      "baseURL": "https://identity.bus-stg.reference.azure.backbaseservices.com",
       "clientId": "mobile-client",
-      "applicationKey": "retail"
+      "realm": "customer",
+      "applicationKey": "business"
     }
   },
   "custom": {
     "default-http-headers": {
-      "X-REFERENCE-BAAS": "reference-stg-d45ecd5c-9624-9db5-3254-49681278a126"
+      "X-REFERENCE-BAAS": "reference-bus-stg-f4c23d77-c00e-df81-9a4d-97fc61830923"
     }
   },
   "security": {
@@ -19,9 +24,5 @@
       "*"
     ]
   },
-  "development": {
-    "debugEnable": true
-  },
-  "bankTimeZone": "Europe/Amsterdam"
+  "bankTimeZone": "America/Los_Angeles"
 }
-

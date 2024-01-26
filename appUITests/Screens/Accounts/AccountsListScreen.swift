@@ -19,28 +19,38 @@ class AccountsListScreen : BaseScreen {
     }
     
     //MARK: METHODS - ACTION
-    func searchAccount(query: String) {
-        expect(element: accountListTbl, status: .hittable, timeout: Timeouts.defaultTimeout)
+    @discardableResult
+    func searchAccount(query: String) -> Self {
+        expect(element: accountListTbl, status: .hittable)
         searchAccountTf.tap()
         searchAccountTf.typeText(query)
+        return self
     }
     
     //MARK: METHODS - ASSERTION
-    func assertAccountScreenIsDisplayed() {
-        expect(element: accountListTbl, status: .hittable, timeout: Timeouts.defaultTimeout)
-        XCTAssert(myAccountsHeaderLbl.exists)
-        XCTAssert(searchAccountTf.exists)
-        XCTAssert(accountListTbl.exists)
+    
+    @discardableResult
+    func assertAccountScreenIsDisplayed() -> Self {
+        expect(element: accountListTbl, status: .hittable)
+        expect(element: myAccountsHeaderLbl, status: .exist)
+        expect(element: searchAccountTf, status: .exist)
+        expect(element: accountListTbl, status: .exist)
+        return self
     }
     
-    func assertAccountIsDisplayed(name: String, accountNumberEndsWith: String, balance: String) {
-        expect(element: accountListTbl, status: .hittable, timeout: Timeouts.defaultTimeout)
+    @discardableResult
+    func assertAccountIsDisplayed(name: String, accountNumberEndsWith: String, balance: String? = nil) -> Self {
+        expect(element: accountListTbl, status: .hittable)
         let lblName = app.staticTexts.containing(predicate(name)).firstMatch
         let lblAccountNumber = app.staticTexts["************\(accountNumberEndsWith)"].firstMatch
-        let lblBalance = app.staticTexts["$\(balance)"]
+        expect(element: lblName, status: .exist)
+        expect(element: lblAccountNumber, status: .exist)
         
-        XCTAssert(lblName.exists)
-        XCTAssert(lblAccountNumber.exists)
-        XCTAssert(lblBalance.exists)
+        //Since test data comes from real live environment, balance is changing quickly thus i make it optional to avoid confusion in random test failure.
+        if let balance {
+            let lblBalance = app.staticTexts["$\(balance)"]
+            expect(element: lblBalance, status: .exist)
+        }
+        return self
     }
 }

@@ -22,17 +22,22 @@ class BaseScreen {
     }
     
     //MARK: METHODS - ACTION
-    func tapBack() {
+    @discardableResult
+    func tapBack()  -> Self {
         navigationBar.tap()
+        return self
     }
 
     //MARK: METHODS - ASSERTION
-    func assertTitleIsDisplayed(contains title: String, timeout: TimeInterval = Timeouts.defaultTimeout) {
-        XCTAssert(navigationBar.exists)
-        XCTAssert(navigationBarTitleLbl.exists)
+    @discardableResult
+    func assertTitleIsDisplayed(contains title: String, timeout: TimeInterval = Timeouts.defaultTimeout)  -> Self {
+        expect(element: navigationBar, status: .exist)
+        expect(element: navigationBarTitleLbl, status: .exist)
+        return self
     }
     
     //MARK: Other Method
+    @discardableResult
     func expect(element: XCUIElement, status: UIStatus = .hittable, timeout: TimeInterval = Timeouts.defaultTimeout, message: String? = nil) -> XCUIElement {
         let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: status.rawValue), object: element)
         let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
