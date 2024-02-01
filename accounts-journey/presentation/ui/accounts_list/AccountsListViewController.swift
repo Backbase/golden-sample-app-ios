@@ -83,7 +83,7 @@ final class AccountsListViewController: UIViewController {
         accountsListTableView.snp.makeConstraints { make in
             make.leading.trailing.bottom
                 .equalToSuperview().inset(DesignSystem.shared.spacer.md)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().inset(DesignSystem.shared.spacer.md)
         }
         
         loadingView.snp.makeConstraints { make in
