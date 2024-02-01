@@ -40,5 +40,6 @@ bundle install
 bundle exec fastlane setup
 ```
 
-## Login
-The Golden Sample App uses the API Sandbox environment, to login to the application you can use the [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/).
+## Usage and login
+
+The Golden Sample App is configured to use the API Sandbox environment out of the box. To be able to connect to this environment you need a Sandbox API key which can be obtained from the API Sandbox team and needs to be added to config.json. To login to the app the API Sandbox [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/) can be used.
