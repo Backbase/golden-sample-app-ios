@@ -81,9 +81,9 @@ final class AccountsListViewController: UIViewController {
     
     private func setupLayout() {
         accountsListTableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom
+            make.leading.trailing
                 .equalToSuperview().inset(DesignSystem.shared.spacer.md)
-            make.top.equalToSuperview()
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         loadingView.snp.makeConstraints { make in
