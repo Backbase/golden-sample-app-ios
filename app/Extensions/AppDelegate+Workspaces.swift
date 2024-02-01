@@ -14,6 +14,7 @@ import BusinessWorkspacesJourneyWorkspacesUseCase2
 import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
+import BackbaseDesignSystem
 import AccountsJourney
 import GoldenAccountsUseCase
 
@@ -39,10 +40,14 @@ extension AppDelegate {
         
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in
             { [weak self] workspace in
+                guard let self else { return }
                 didSelect?(navigationController)(workspace)
-                navigationController.viewControllers = [AccountsList.build(navigationController: navigationController)]
-                self?.window?.rootViewController = navigationController
-                self?.window?.makeKeyAndVisible()
+                let tabBarViewController = BackbaseDesignSystem.TabBarController()
+                // TODO add move money screen
+                tabBarViewController.viewControllers = [getDashboardTabHeaderViewController(navigationController: navigationController)]
+                navigationController.viewControllers = [tabBarViewController]
+                window?.rootViewController = navigationController
+                window?.makeKeyAndVisible()
             }
         }
         

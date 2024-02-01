@@ -374,6 +374,39 @@
           }
         }
       }
+    },
+    "dashboard.menu.tab2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab 2"
+          }
+        }
+      }
+    },
+    "dashboard.menu.tab3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tab 3"
+          }
+        }
+      }
+    },
+    "tabBar.dashboard.tabTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dashboard"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
