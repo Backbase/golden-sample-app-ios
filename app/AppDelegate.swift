@@ -63,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupIdentityJourney()
         setupWorkspacesJourney()
         setupAccountsJourney()
+        appendCustomHeader()
         return true
     }
 }
