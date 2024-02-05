@@ -18,7 +18,6 @@ final class ComingSoonViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let stateView = getStateView()
         stateView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stateView)

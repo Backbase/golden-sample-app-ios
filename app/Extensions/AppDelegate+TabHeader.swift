@@ -7,7 +7,7 @@ import UIKit
 import AccountsJourney
 import GoldenAccountsUseCase
 
-struct DummyUser: TabHeaderViewControllerUserPresentable {
+private struct DummyUser: TabHeaderViewControllerUserPresentable {
     var name: String
     var company: String?
     var image: UIImage?
