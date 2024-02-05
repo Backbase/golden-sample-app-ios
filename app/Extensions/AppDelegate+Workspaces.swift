@@ -43,15 +43,15 @@ extension AppDelegate {
                 guard let self else { return }
                 didSelect?(navigationController)(workspace)
 
-                let dummyViewController = ComingSoonViewController(title: "Coming soon..")
-                dummyViewController.view.backgroundColor = UIColor.white
-                dummyViewController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
+                let comingSoonController = ComingSoonViewController(title: "Coming soon..")
+                comingSoonController.view.backgroundColor = UIColor.white
+                comingSoonController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
                 let tabHeaderViewController = getDashboardTabHeaderViewController(navigationController: navigationController)
                 tabBarViewController.viewControllers = [
                     tabHeaderViewController,
-                    dummyViewController
+                    comingSoonController
                 ]
                 navigationController.viewControllers = [tabBarViewController]
 
