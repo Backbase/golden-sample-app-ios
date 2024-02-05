@@ -15,13 +15,15 @@ struct DummyUser: TabHeaderViewControllerUserPresentable {
 
 extension AppDelegate {
     
-    func getDashboardTabHeaderViewController(navigationController: UINavigationController) -> TabHeaderViewController {
+    func getDashboardTabHeaderViewController(navigationController: UINavigationController,
+                                             name: String,
+                                             description: String) -> TabHeaderViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
         let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
         let tab3ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
-        let userPresentable = DummyUser(name: "Test User", company: "Test User", image: nil) // TODO figure out the right user
+        let userPresentable = DummyUser(name: name, company: description, image: nil)
 
         let headerConfiguration = TabHeaderViewController.Header.UserInformationConfiguration(userPresentable: userPresentable)
         let header: TabHeaderViewController.Header = .userInformation(headerConfiguration)
