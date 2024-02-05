@@ -42,10 +42,19 @@ extension AppDelegate {
             { [weak self] workspace in
                 guard let self else { return }
                 didSelect?(navigationController)(workspace)
+
+                let dummyViewController = ComingSoonViewController(title: "Coming soon..")
+                dummyViewController.view.backgroundColor = UIColor.white
+                dummyViewController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
+
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
-                // TODO add move money screen
-                tabBarViewController.viewControllers = [getDashboardTabHeaderViewController(navigationController: navigationController)]
+                let tabHeaderViewController = getDashboardTabHeaderViewController(navigationController: navigationController)
+                tabBarViewController.viewControllers = [
+                    tabHeaderViewController,
+                    dummyViewController
+                ]
                 navigationController.viewControllers = [tabBarViewController]
+
                 window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()
             }
