@@ -57,20 +57,7 @@ final class AccountsListViewController: UIViewController {
         setupView()
         setupSearchController()
         setupBindings()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         viewModel.onEvent(.getAccounts)
-    }
-    
-    override func loadView() {
-        super.loadView()
-        view.addSubview(accountsListTableView)
-        view.addSubview(loadingView)
-        setupLayout()
-        
     }
     
     // MARK: - Private methods
@@ -139,6 +126,10 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupView() {
+        view.addSubview(accountsListTableView)
+        view.addSubview(loadingView)
+        setupLayout()
+        
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
         title = configuration.accountsList.strings.screenTitle()
         
