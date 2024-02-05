@@ -11,18 +11,18 @@ PODS:
   - ArrangementsClient2Gen2 (1.2.1):
     - Backbase (>= 9.0)
     - ClientCommonGen2 (~> 1.0)
-  - Backbase (11.2.0):
-    - BackbaseSDKSwiftWrapper (~> 2.0.0)
+  - Backbase (10.1.0):
+    - BackbaseSDKSwiftWrapper (~> 1.1.0)
   - BackbaseCountryCore (1.1.0)
   - BackbaseDesignSystem (4.2.2):
     - BackbaseCountryCore (>= 1.1.0)
-  - BackbaseIdentity (6.0.1):
+  - BackbaseIdentity (5.6.1):
     - AppAuth (~> 1.3)
-    - Backbase (>= 11.0.0)
+    - Backbase (>= 9.3.0)
   - BackbaseObservability (2.0.0)
-  - BackbaseSDKSwiftWrapper (2.0.0):
-    - BackbaseSecureStorage (~> 2)
-  - BackbaseSecureStorage (2.0.2)
+  - BackbaseSDKSwiftWrapper (1.1.0):
+    - BackbaseSecureStorage (~> 1.0.0)
+  - BackbaseSecureStorage (1.0.3)
   - BusinessJourneyCommon (3.0.0):
     - Backbase (>= 9.0)
     - BusinessJourneyCommon/Sources (= 3.0.0)
@@ -50,9 +50,9 @@ PODS:
     - BusinessWorkspacesJourney (~> 6.1.0)
   - ClientCommonGen2 (1.0.0):
     - Backbase (>= 9.0)
-  - IdentityAuthenticationJourney (6.0.0):
-    - BackbaseDesignSystem (>= 4.0.0)
-    - BackbaseIdentity (~> 6.0.0)
+  - IdentityAuthenticationJourney (5.2.1):
+    - BackbaseDesignSystem (>= 2.12.0)
+    - BackbaseIdentity (~> 5.6)
     - Resolver (~> 1.2.1)
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
@@ -73,7 +73,7 @@ PODS:
 
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
-  - Backbase (>= 9.0)
+  - Backbase (= 10.1.0)
   - BackbaseDesignSystem (= 4.2.2)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
@@ -117,18 +117,18 @@ SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
-  Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
+  Backbase: c4bb5f58383c0d738257eb3d54d8c123068049a8
   BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
   BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
-  BackbaseIdentity: fed2efa2fba48ad5213d2e12d94500f13cecb733
+  BackbaseIdentity: 785241825cd404db7ef1691db2564d04f6839889
   BackbaseObservability: 4b7ee241560e02ed45bfab35911da9c4062b7b76
-  BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
-  BackbaseSecureStorage: 6bbb0e8bb8295a5ffd09e817622949208068255c
+  BackbaseSDKSwiftWrapper: 22a1eb85e7b73d1cc885659a271c7d343a14a1d1
+  BackbaseSecureStorage: f864fdc06a7af5fd9244efa37adcdd1effc58cec
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
   BusinessWorkspacesJourney: 08c72efe5aa4bf879d3593489daa094d18d82433
   BusinessWorkspacesJourneyWorkspacesUseCase2: ab08bcb68efae0f69374bee31a8835640b0502ab
   ClientCommonGen2: 4a37e42a2a05f978b5df56fb7fea3ce5411e9cb6
-  IdentityAuthenticationJourney: e988f4a50e26f492caeb48ca3bc159c6cd9f19d1
+  IdentityAuthenticationJourney: 36f1310a5d6b4304efb9ebf16d9993840cd3c492
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
   RetailFeatureFilterUseCase: ea793414c0ab37a196a4455a4d14ff0f4e5425d7
@@ -138,6 +138,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 818043645267d30d6bdb27e58bceb20cb9412f4a
+PODFILE CHECKSUM: ad06f71f4a9812ec86eddce48efe5b8b2e5f1c8a
 
 COCOAPODS: 1.13.0
