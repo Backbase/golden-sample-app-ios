@@ -12,11 +12,7 @@ import BackbaseDesignSystem
 class RoundedTableView: UITableView {
     private var tableViewBackView: Card?
     private var tableContentObserver: NSKeyValueObservation?
-    private var topConstraint: NSLayoutConstraint?
-    private var bottomConstraint: NSLayoutConstraint?
-    
-    let placeHolderHeader = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -31,7 +27,6 @@ class RoundedTableView: UITableView {
         showsVerticalScrollIndicator = false
         alwaysBounceVertical = false
         // Default views (Needed for the background view)
-        tableHeaderView = placeHolderHeader
         tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
     }
     
@@ -71,16 +66,13 @@ class RoundedTableView: UITableView {
         
         superView.insertSubview(backViewCard, belowSubview: self)
         
-        backViewCard.translatesAutoresizingMaskIntoConstraints = false
-        backViewCard.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        backViewCard.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        topConstraint = backViewCard.topAnchor.constraint(equalTo: header.topAnchor)
-        topConstraint?.isActive = true
-        
-        bottomConstraint = backViewCard.bottomAnchor.constraint(equalTo: footer.topAnchor)
-        bottomConstraint?.isActive = true
-        
+        backViewCard.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(footer.snp.top)
+        }
+
         self.tableViewBackView = backViewCard
     }
 }

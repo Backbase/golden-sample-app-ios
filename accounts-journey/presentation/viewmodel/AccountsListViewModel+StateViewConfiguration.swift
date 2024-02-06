@@ -8,17 +8,17 @@
 import Foundation
 import BackbaseDesignSystem
 
-
 // MARK: StateViewConfiguration
 extension AccountsListViewModel {
-    func stateViewConfiguration(for error: AccountsJourney.Error) -> StateViewConfiguration {
+    func stateViewConfiguration(
+        for error: AccountsList.Error,
+        primaryAction: @escaping () -> Void
+    ) -> StateViewConfiguration {
         var primaryButtonConfiguration: ButtonConfiguration?
         if let primaryButtonText = error.actionButtonTitle {
             primaryButtonConfiguration = .init(
                 title: primaryButtonText,
-                action: {[weak self] in
-                    self?.getAccountSummary(fromEvent: .refresh)
-                })
+                action: primaryAction)
         }
         
         return GenericStateViewConfiguration(

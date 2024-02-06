@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "accountsJourney.accounts.errors.generic.subtitle" : {
+    "accountsJourney.accountDetails.errors.generic.actionButton" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -12,29 +12,7 @@
         }
       }
     },
-    "accountsJourney.accounts.errors.generic.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ohhh Shooot"
-          }
-        }
-      }
-    },
-    "accountsJourney.accounts.errors.loadingFailure.actionButton" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Something wrong happened"
-          }
-        }
-      }
-    },
-    "accountsJourney.accounts.errors.noAccounts.subtitle" : {
+    "accountsJourney.accountDetails.errors.generic.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -45,7 +23,205 @@
         }
       }
     },
-    "accountsJourney.accounts.errors.noAccounts.title" : {
+    "accountsJourney.accountDetails.errors.generic.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong happened"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.notConnected.actionButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Give it a shot"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.notConnected.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact customer care"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.errors.notConnected.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not Connected"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.buttons.backTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.accountName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Name"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.accountStatus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account / Product Status"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.accountType" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Type"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.cardOrAccountNumber" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Card / Account Number"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.holderNames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Holder Name(s)"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.common.limit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.section.general" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.section.status" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountDetails.labels.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account Details"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountsList.errors.generic.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try again"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountsList.errors.generic.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ohhh Shooot"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountsList.errors.loadingFailure.actionButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong happened"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountsList.errors.noAccounts.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact customer care"
+          }
+        }
+      }
+    },
+    "accountsJourney.accountsList.errors.noAccounts.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -56,7 +232,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.active" : {
+    "accountsJourney.accountsList.labels.active" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -67,7 +243,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.closed" : {
+    "accountsJourney.accountsList.labels.closed" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -78,7 +254,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.inactive" : {
+    "accountsJourney.accountsList.labels.inactive" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -89,7 +265,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.searchText" : {
+    "accountsJourney.accountsList.labels.searchText" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -100,7 +276,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.creditCards" : {
+    "accountsJourney.accountsList.labels.section.title.creditCards" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -111,7 +287,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.currentAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.currentAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -122,7 +298,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.debitCards" : {
+    "accountsJourney.accountsList.labels.section.title.debitCards" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -133,7 +309,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.generalAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.generalAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -144,7 +320,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.investmentAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.investmentAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -155,7 +331,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.loans" : {
+    "accountsJourney.accountsList.labels.section.title.loans" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -166,7 +342,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.savingsAccounts" : {
+    "accountsJourney.accountsList.labels.section.title.savingsAccounts" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -177,7 +353,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.section.title.termDeposits" : {
+    "accountsJourney.accountsList.labels.section.title.termDeposits" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -188,7 +364,7 @@
         }
       }
     },
-    "accountsJourney.accounts.labels.title" : {
+    "accountsJourney.accountsList.labels.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

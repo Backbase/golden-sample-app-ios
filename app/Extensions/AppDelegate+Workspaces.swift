@@ -17,10 +17,7 @@ import AccessControlClient3Gen2
 import AccountsJourney
 import GoldenAccountsUseCase
 
-
-
 // MARK: - Workspaces Journey methods
-
 extension AppDelegate {
     func setupWorkspacesJourney() {
         
@@ -43,7 +40,7 @@ extension AppDelegate {
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in
             { [weak self] workspace in
                 didSelect?(navigationController)(workspace)
-                navigationController.viewControllers = [AccountsJourney.build()]
+                navigationController.viewControllers = [AccountsList.build(navigationController: navigationController)]
                 self?.window?.rootViewController = navigationController
                 self?.window?.makeKeyAndVisible()
             }

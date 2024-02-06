@@ -73,7 +73,7 @@ PODS:
 
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
-  - Backbase (>= 9.0)
+  - Backbase (>= 10.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney
@@ -84,7 +84,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://repo.backbase.com/api/pods/design-ios:
     - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business:
+  https://repo.backbase.com/api/pods/ios-business/:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
@@ -137,6 +137,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 0241394a040cc654d3e1c812d01ff1403a74e00d
+PODFILE CHECKSUM: bbf64b9052c3d48518b0863ad398b8c06037b8d1
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.14.3
