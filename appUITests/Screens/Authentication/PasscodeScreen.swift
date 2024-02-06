@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class PasscodeScreen : BaseScreen {
+final class PasscodeScreen: BaseScreen {
     
-    //MARK: METHODS - ACTION
+    // MARK: METHODS - ACTION
     @discardableResult
     func tapKey(_ keyToPress: String) -> Self {
         app.keys[keyToPress].tap()

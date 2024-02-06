@@ -8,13 +8,13 @@
 import Foundation
 import XCTest
 
-final class AccountsListScreen : BaseScreen {
+final class AccountsListScreen: BaseScreen {
     
     private enum Identifier {
             static let myAccountsHeaderLblId = "My Accounts"
         }
 
-    //MARK: ELEMENTS
+    // MARK: ELEMENTS
     private lazy var myAccountsHeaderLbl = app.staticTexts[Identifier.myAccountsHeaderLblId]
     private lazy var searchAccountTf = app.searchFields.firstMatch
     private lazy var accountListTbl = app.tables.firstMatch
@@ -22,7 +22,7 @@ final class AccountsListScreen : BaseScreen {
         NSPredicate(format: "label  CONTAINS %@", query)
     }
     
-    //MARK: METHODS - ACTION
+    // MARK: METHODS - ACTION
     @discardableResult
     func searchAccount(query: String) -> Self {
         expect(element: accountListTbl, status: .hittable)
@@ -31,8 +31,7 @@ final class AccountsListScreen : BaseScreen {
         return self
     }
     
-    //MARK: METHODS - ASSERTION
-    
+    // MARK: METHODS - ASSERTION
     @discardableResult
     func assertAccountScreenIsDisplayed() -> Self {
         expect(element: accountListTbl, status: .hittable)
@@ -50,7 +49,7 @@ final class AccountsListScreen : BaseScreen {
         expect(element: lblName, status: .exist)
         expect(element: lblAccountNumber, status: .exist)
         
-        //Since test data comes from real live environment, balance is changing quickly thus i make it optional to avoid confusion in random test failure.
+        // Since test data comes from real live environment, balance is changing quickly thus i make it optional to avoid confusion in random test failure.
         if let balance {
             let lblBalance = app.staticTexts["$\(balance)"]
             expect(element: lblBalance, status: .exist)

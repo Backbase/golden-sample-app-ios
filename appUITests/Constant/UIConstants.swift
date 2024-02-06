@@ -25,4 +25,3 @@ enum UIStatus: String {
     case isLabelEqual = "label MATCHES '%@'"
     case isPlaceholderEqual = "placeholderValue MATCHES '%@'"
 }
-

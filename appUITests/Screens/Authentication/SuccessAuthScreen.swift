@@ -7,16 +7,16 @@
 
 import Foundation
 
-final class SuccessAuthScreen : BaseScreen {
+final class SuccessAuthScreen: BaseScreen {
     
     private enum Identifier {
             static let letsGetStartedBtnId = "setupComplete.dismissButton"
         }
     
-    //MARK: ELEMENTS
+    // MARK: ELEMENTS
     private lazy var letsGetStartedBtn = app.buttons.matching(identifier: Identifier.letsGetStartedBtnId).firstMatch
   
-    //MARK: METHODS - ACTION
+    // MARK: METHODS - ACTION
     @discardableResult
     func dismissLetsGetStartedScreen() -> Self {
         expect(element: letsGetStartedBtn, status: .hittable).tap()

@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 
-final class AccountsListTests : BaseTestCase {
+final class AccountsListTests: BaseTestCase {
         
     private let testData = AccountsListTestData.self
     

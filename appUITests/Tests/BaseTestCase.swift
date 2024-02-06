@@ -9,7 +9,7 @@ import XCTest
 
 class BaseTestCase: XCTestCase {
     
-    //MARK: ELEMENTS
+    // MARK: ELEMENTS
     var app = XCUIApplication()
     
     override func setUp() {
@@ -17,9 +17,4 @@ class BaseTestCase: XCTestCase {
         self.continueAfterFailure = false
         app.launch()
     }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-
 }

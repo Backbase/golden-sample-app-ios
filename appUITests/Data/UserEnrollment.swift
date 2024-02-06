@@ -9,12 +9,11 @@ import Foundation
 
 enum UserEnrollment {
         
-    //Test User
+    // Test User
     static let userName: String = "ref-bus-stg-kristelcfo"
     static let password: String = "Pass1234"
     static let validPasscode: String = "53427"
     
-    
-    //Workspace
+    // Workspace
     static let boryCoffeeQA: String = "Bory Coffee Company Ltd"
 }

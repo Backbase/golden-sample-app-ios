@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 
-final class LoginScreen : BaseScreen {
+final class LoginScreen: BaseScreen {
     
     private enum Identifier {
             static let titleLabelId = "register.titleLabel"
@@ -20,7 +20,7 @@ final class LoginScreen : BaseScreen {
             static let passcodeBtnId = "login.passcodeButton"
         }
     
-    //MARK: ELEMENTS
+    // MARK: ELEMENTS
     private lazy var titleLbl = app.staticTexts.matching(identifier: Identifier.titleLabelId).firstMatch
     private lazy var loginBtn = app.buttons.matching(identifier: Identifier.loginBtnId).firstMatch
     private lazy var usernameTf = app.textFields.matching(identifier: Identifier.usernameTfId).firstMatch
@@ -31,7 +31,7 @@ final class LoginScreen : BaseScreen {
 
     private lazy var passcodeScreen = PasscodeScreen()
     
-    //MARK: METHODS - ACTION
+    // MARK: METHODS - ACTION
     @discardableResult
     func denyBiometricUsage() -> Self {
         expect(element: denyBtn, status: .hittable).tap()

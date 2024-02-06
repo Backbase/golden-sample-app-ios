@@ -10,7 +10,7 @@ import XCTest
 
 class BaseScreen {
     
-    //MARK: ELEMENTS
+    // MARK: ELEMENTS
     internal let app: XCUIApplication
     
     lazy var navigationBar       = app.navigationBars.firstMatch
@@ -21,22 +21,22 @@ class BaseScreen {
         self.app = XCUIApplication()
     }
     
-    //MARK: METHODS - ACTION
+    // MARK: METHODS - ACTION
     @discardableResult
-    func tapBack()  -> Self {
+    func tapBack() -> Self {
         navigationBar.tap()
         return self
     }
 
-    //MARK: METHODS - ASSERTION
+    // MARK: METHODS - ASSERTION
     @discardableResult
-    func assertTitleIsDisplayed(contains title: String, timeout: TimeInterval = Timeouts.defaultTimeout)  -> Self {
+    func assertTitleIsDisplayed(contains title: String, timeout: TimeInterval = Timeouts.defaultTimeout) -> Self {
         expect(element: navigationBar, status: .exist)
         expect(element: navigationBarTitleLbl, status: .exist)
         return self
     }
     
-    //MARK: Other Method
+    // MARK: Other Method
     @discardableResult
     func expect(element: XCUIElement, status: UIStatus = .hittable, timeout: TimeInterval = Timeouts.defaultTimeout, message: String? = nil) -> XCUIElement {
         let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: status.rawValue), object: element)
