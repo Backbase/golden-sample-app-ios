@@ -8,10 +8,14 @@
 import Foundation
 import XCTest
 
-class WorkspacesSelectorScreen : BaseScreen {
+final class WorkspacesSelectorScreen : BaseScreen {
+    
+    private enum Identifier {
+            static let workspacesSelectorScreenTitleLblId = "workspaceSelectorView.screenTitle"
+        }
 
     //MARK: ELEMENTS
-    private lazy var workspacesSelectorScreenTitleLbl = app.staticTexts.matching(identifier: "workspaceSelectorView.screenTitle").firstMatch
+    private lazy var workspacesSelectorScreenTitleLbl = app.staticTexts.matching(identifier: Identifier.workspacesSelectorScreenTitleLblId).firstMatch
     private lazy var workspacesTbl = XCUIApplication().tables.element(boundBy: 0).firstMatch
     private lazy var workspacesLoadingView = XCUIApplication().activityIndicators.element(boundBy: 0).firstMatch
     
@@ -41,5 +45,4 @@ class WorkspacesSelectorScreen : BaseScreen {
     func countWorkspaces() -> Int {
         return workspacesTbl.cells.count
     }
-
 }

@@ -11,14 +11,14 @@ import XCTest
 class BaseScreen {
     
     //MARK: ELEMENTS
-    var app = XCUIApplication()
+    internal let app: XCUIApplication
     
     lazy var navigationBar       = app.navigationBars.firstMatch
     lazy var navigationBarBtn = navigationBar.buttons.firstMatch
     lazy var navigationBarTitleLbl  = navigationBar.otherElements.firstMatch
 
-    init(_ app: XCUIApplication) {
-        self.app = app
+    init() {
+        self.app = XCUIApplication()
     }
     
     //MARK: METHODS - ACTION

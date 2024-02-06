@@ -7,10 +7,14 @@
 
 import Foundation
 
-class SetupCompleteScreen : BaseScreen {
+final class SuccessAuthScreen : BaseScreen {
+    
+    private enum Identifier {
+            static let letsGetStartedBtnId = "setupComplete.dismissButton"
+        }
     
     //MARK: ELEMENTS
-    private lazy var letsGetStartedBtn = app.buttons.matching(identifier: "setupComplete.dismissButton").firstMatch
+    private lazy var letsGetStartedBtn = app.buttons.matching(identifier: Identifier.letsGetStartedBtnId).firstMatch
   
     //MARK: METHODS - ACTION
     @discardableResult

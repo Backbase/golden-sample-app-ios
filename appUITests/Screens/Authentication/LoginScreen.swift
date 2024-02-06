@@ -8,18 +8,28 @@
 import Foundation
 import XCTest
 
-class LoginScreen : BaseScreen {
+final class LoginScreen : BaseScreen {
+    
+    private enum Identifier {
+            static let titleLabelId = "register.titleLabel"
+            static let loginBtnId = "register.loginButton"
+            static let usernameTfId = "register.usernameInput.textInput.textField"
+            static let passwordTfId = "register.passwordInput.textInput.textField"
+            static let allowBtnId = "biometricRegistration.allowButton"
+            static let denyBtnId = "biometricRegistration.denyButton"
+            static let passcodeBtnId = "login.passcodeButton"
+        }
     
     //MARK: ELEMENTS
-    private lazy var titleLbl = app.staticTexts.matching(identifier: "register.titleLabel").firstMatch
-    private lazy var loginBtn = app.buttons.matching(identifier: "register.loginButton").firstMatch
-    private lazy var usernameTf = app.textFields.matching(identifier: "register.usernameInput.textInput.textField").firstMatch
-    private lazy var passwordTf = app.secureTextFields.matching(identifier: "register.passwordInput.textInput.textField").firstMatch
-    private lazy var allowBtn = app.buttons.matching(identifier: "biometricRegistration.allowButton").firstMatch
-    private lazy var denyBtn = app.buttons.matching(identifier: "biometricRegistration.denyButton").firstMatch
-    private lazy var passcodeBtn = app.buttons.matching(identifier: "login.passcodeButton").firstMatch
+    private lazy var titleLbl = app.staticTexts.matching(identifier: Identifier.titleLabelId).firstMatch
+    private lazy var loginBtn = app.buttons.matching(identifier: Identifier.loginBtnId).firstMatch
+    private lazy var usernameTf = app.textFields.matching(identifier: Identifier.usernameTfId).firstMatch
+    private lazy var passwordTf = app.secureTextFields.matching(identifier: Identifier.passwordTfId).firstMatch
+    private lazy var allowBtn = app.buttons.matching(identifier: Identifier.allowBtnId).firstMatch
+    private lazy var denyBtn = app.buttons.matching(identifier: Identifier.denyBtnId).firstMatch
+    private lazy var passcodeBtn = app.buttons.matching(identifier: Identifier.passcodeBtnId).firstMatch
 
-    private lazy var passcodeScreen = PasscodeScreen(app)
+    private lazy var passcodeScreen = PasscodeScreen()
     
     //MARK: METHODS - ACTION
     @discardableResult
@@ -53,7 +63,7 @@ class LoginScreen : BaseScreen {
             passcodeScreen
                 .enterPasscode(UserEnrollment.validPasscode)
                 .enterPasscode(UserEnrollment.validPasscode)
-            SetupCompleteScreen(app).dismissLetsGetStartedScreen()
+            SuccessAuthScreen().dismissLetsGetStartedScreen()
         } else {
             passcodeScreen.enterPasscode(UserEnrollment.validPasscode)
         }

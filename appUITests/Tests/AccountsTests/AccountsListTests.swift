@@ -10,22 +10,22 @@ import XCTest
 
 final class AccountsListTests : BaseTestCase {
         
-    let testData = AccountsListTestData.self
+    private let testData = AccountsListTestData.self
     
     override func setUp() {
         super.setUp()
-        LoginScreen(app).authenticateUserWith(name: UserEnrollment.userName, password: UserEnrollment.password)
-        WorkspacesSelectorScreen(app).selectServiceAgreementIfNeeded(workspaceName: UserEnrollment.boryCoffeeQA)
+        LoginScreen().authenticateUserWith(name: UserEnrollment.userName, password: UserEnrollment.password)
+        WorkspacesSelectorScreen().selectServiceAgreementIfNeeded(workspaceName: UserEnrollment.boryCoffeeQA)
     }
     
     func testAccountIsDisplayedInTheList() {
-        AccountsListScreen(app)
+        AccountsListScreen()
             .assertAccountScreenIsDisplayed()
             .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds)
     }
     
     func testEmptySearchResultIsDisplayed() {
-        AccountsListScreen(app)
+        AccountsListScreen()
             .searchAccount(query: testData.defaultAccountNumberEnds)
             .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumberEndsWith: testData.defaultAccountNumberEnds)
     }

@@ -8,10 +8,14 @@
 import Foundation
 import XCTest
 
-class AccountsListScreen : BaseScreen {
+final class AccountsListScreen : BaseScreen {
+    
+    private enum Identifier {
+            static let myAccountsHeaderLblId = "My Accounts"
+        }
 
     //MARK: ELEMENTS
-    private lazy var myAccountsHeaderLbl = app.staticTexts["My Accounts"]
+    private lazy var myAccountsHeaderLbl = app.staticTexts[Identifier.myAccountsHeaderLblId]
     private lazy var searchAccountTf = app.searchFields.firstMatch
     private lazy var accountListTbl = app.tables.firstMatch
     private var predicate: (String) -> NSPredicate = { query in

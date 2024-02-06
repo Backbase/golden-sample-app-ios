@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PasscodeScreen : BaseScreen {
+final class PasscodeScreen : BaseScreen {
     
     //MARK: METHODS - ACTION
     @discardableResult
@@ -22,5 +22,4 @@ class PasscodeScreen : BaseScreen {
         passcode.map { String($0) }.forEach { tapKey($0) }
         return self
     }
-    
 }
