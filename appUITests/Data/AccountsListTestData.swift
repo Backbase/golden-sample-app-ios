@@ -8,8 +8,8 @@
 import Foundation
 
 struct AccountsListTestData{
-    // WARNING : Please adjust this based on the test data available
-    static let defaultAccountName: String = "Checking Account USD 7299"
-    static let defaultAccountNumberEnds: String = "7299"
-    static let defaultBalance: String = "11,309.73"
+    // NOTE : Please adjust this based on the test data available
+    static let defaultAccountName: String = "Sara's Current Account"
+    static let defaultAccountNumber: String = "****************0025"
+    static let defaultBalance: String = ""
 }

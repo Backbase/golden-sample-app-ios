@@ -29,7 +29,7 @@ final class WorkspacesSelectorScreen: BaseScreen {
     
     @discardableResult
     func selectWorkspaceBy(text: String) -> Self {
-        let selectedWorkspace = app.staticTexts[text]
+        let selectedWorkspace = app.staticTexts[text].firstMatch
         expect(element: selectedWorkspace, status: .hittable).tap()
         return self
     }

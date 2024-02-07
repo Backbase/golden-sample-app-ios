@@ -42,10 +42,10 @@ final class AccountsListScreen: BaseScreen {
     }
     
     @discardableResult
-    func assertAccountIsDisplayed(name: String, accountNumberEndsWith: String, balance: String? = nil) -> Self {
+    func assertAccountIsDisplayed(name: String, accountNumber: String, balance: String? = nil) -> Self {
         expect(element: accountListTbl, status: .hittable)
         let lblName = app.staticTexts.containing(predicate(name)).firstMatch
-        let lblAccountNumber = app.staticTexts["************\(accountNumberEndsWith)"].firstMatch
+        let lblAccountNumber = app.staticTexts[accountNumber].firstMatch
         expect(element: lblName, status: .exist)
         expect(element: lblAccountNumber, status: .exist)
         
