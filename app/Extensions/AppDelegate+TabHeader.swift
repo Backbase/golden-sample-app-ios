@@ -19,14 +19,14 @@ private struct UserPresentable: TabHeaderViewControllerUserPresentable {
 extension AppDelegate {
     
     func getDashboardTabHeaderViewController(navigationController: UINavigationController,
-                                             serviceAgreementName: String) async throws -> TabHeaderViewController {
-        let userProfileName = try await fetchUserProfile()
+                                             serviceAgreementName: String) async -> TabHeaderViewController {
+        let userProfileName = await fetchUserProfile()
         return getDashboardTabHeaderViewController(navigationController: navigationController,
                                                    userName: userProfileName,
                                                    serviceAgreementName: serviceAgreementName)
     }
 
-    func fetchUserProfile() async throws -> String {
+    func fetchUserProfile() async -> String {
         let userProfileUseCase: UserProfileUseCase = Resolver.resolve()
         return await withCheckedContinuation { continuation in
             userProfileUseCase.retrieveUserProfile { result in

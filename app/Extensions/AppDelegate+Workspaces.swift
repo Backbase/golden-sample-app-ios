@@ -49,8 +49,8 @@ extension AppDelegate {
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
                 Task {
-                    let tabHeaderViewController = try await self.getDashboardTabHeaderViewController(navigationController: navigationController,
-                                                                                                     serviceAgreementName: workspace.workspace.name)
+                    let tabHeaderViewController = await self.getDashboardTabHeaderViewController(navigationController: navigationController,
+                                                                                                 serviceAgreementName: workspace.workspace.name)
 
                     tabBarViewController.viewControllers = [
                         tabHeaderViewController,
