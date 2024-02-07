@@ -19,8 +19,7 @@ final class AccountsListViewModel: NSObject {
     
     var didSelectProduct: ((String) -> Void)?
     
-    @OptionalInjected
-    var tracker: Tracker?
+    private var observabilityTracker: BackbaseObservability.Tracker? = Resolver.optional()
     
     // MARK: - Private
     
@@ -33,20 +32,31 @@ final class AccountsListViewModel: NSObject {
     
     // MARK: - Methods
     func onEvent(_ event: AccountListScreenEvent) {
+        
+        publishObservabilityEvents(for: event)
+        
         switch event {
         case .getAccounts:
-            tracker?.publish(event: ScreenViewEvent.accounts)
             getAccountSummary(fromEvent: .getAccounts)
         case .refresh:
-            tracker?.publish(event: UserActionEvent.refresh)
             getAccountSummary(fromEvent: .refresh)
         case .search(let searchString):
-            tracker?.publish(event: UserActionEvent.searchAccounts)
             getAccountSummary(fromEvent: .search(searchString))
         }
     }
     
-    func getAccountSummary(fromEvent event: AccountListScreenEvent) {
+    private func publishObservabilityEvents(for event: AccountListScreenEvent) {
+        switch event {
+        case .getAccounts:
+            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forScreen: .accounts))
+        case .refresh:
+            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forUserAction: .refresh_accounts))
+        case .search:
+            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forUserAction: .search_accounts))
+        }
+    }
+    
+    private func getAccountSummary(fromEvent event: AccountListScreenEvent) {
         var query = ""
         
         if case let .search(searchString) = event {
