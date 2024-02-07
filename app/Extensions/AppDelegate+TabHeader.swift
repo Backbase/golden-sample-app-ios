@@ -34,7 +34,7 @@ extension AppDelegate {
                 case .success(let userProfile):
                     continuation.resume(returning: userProfile.fullName)
                 case .failure:
-                    continuation.resume(returning: "") // TODO figure this out
+                    continuation.resume(returning: "") // This is not a bug, but a feature.
                 }
             }
         }
@@ -42,18 +42,15 @@ extension AppDelegate {
 
     private func getDashboardTabHeaderViewController(navigationController: UINavigationController,
                                                      userName: String,
-                                                     serviceAgreementName: String?) -> TabHeaderViewController {
+                                                     serviceAgreementName: String) -> TabHeaderViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
         let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
         let tab3ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
-        var header: TabHeaderViewController.Header = .none
-        if !userName.isEmpty {
-            let userPresentable = UserPresentable(name: userName, company: serviceAgreementName, image: nil)
-            let headerConfiguration = TabHeaderViewController.Header.UserInformationConfiguration(userPresentable: userPresentable)
-            header = .userInformation(headerConfiguration)
-        }
+        let userPresentable = UserPresentable(name: userName, company: serviceAgreementName, image: nil)
+        let headerConfiguration = TabHeaderViewController.Header.UserInformationConfiguration(userPresentable: userPresentable)
+        let header: TabHeaderViewController.Header = .userInformation(headerConfiguration)
 
         let tabHeaderViewControllerConfiguration = TabHeaderViewController.Configuration(header: header,
                                                                                          viewControllers: [accountsListViewController,
