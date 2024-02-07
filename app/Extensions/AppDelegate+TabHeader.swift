@@ -6,8 +6,11 @@ import BackbaseDesignSystem
 import UIKit
 import AccountsJourney
 import GoldenAccountsUseCase
+import Resolver
+import UserManagerUserProfileUseCase
+import UserProfileJourney
 
-private struct DummyUser: TabHeaderViewControllerUserPresentable {
+private struct UserPresentable: TabHeaderViewControllerUserPresentable {
     var name: String
     var company: String?
     var image: UIImage?
@@ -16,17 +19,41 @@ private struct DummyUser: TabHeaderViewControllerUserPresentable {
 extension AppDelegate {
     
     func getDashboardTabHeaderViewController(navigationController: UINavigationController,
-                                             name: String,
-                                             description: String) -> TabHeaderViewController {
+                                             serviceAgreementName: String) async throws -> TabHeaderViewController {
+        let userProfileName = try await fetchUserProfile()
+        return getDashboardTabHeaderViewController(navigationController: navigationController,
+                                                   userName: userProfileName,
+                                                   serviceAgreementName: serviceAgreementName)
+    }
+
+    func fetchUserProfile() async throws -> String {
+        let userProfileUseCase: UserProfileUseCase = Resolver.resolve()
+        return await withCheckedContinuation { continuation in
+            userProfileUseCase.retrieveUserProfile { result in
+                switch result {
+                case .success(let userProfile):
+                    continuation.resume(returning: userProfile.fullName)
+                case .failure:
+                    continuation.resume(returning: "") // TODO figure this out
+                }
+            }
+        }
+    }
+
+    private func getDashboardTabHeaderViewController(navigationController: UINavigationController,
+                                                     userName: String,
+                                                     serviceAgreementName: String?) -> TabHeaderViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
         let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
         let tab3ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
-        let userPresentable = DummyUser(name: name, company: description, image: nil)
-
-        let headerConfiguration = TabHeaderViewController.Header.UserInformationConfiguration(userPresentable: userPresentable)
-        let header: TabHeaderViewController.Header = .userInformation(headerConfiguration)
+        var header: TabHeaderViewController.Header = .none
+        if !userName.isEmpty {
+            let userPresentable = UserPresentable(name: userName, company: serviceAgreementName, image: nil)
+            let headerConfiguration = TabHeaderViewController.Header.UserInformationConfiguration(userPresentable: userPresentable)
+            header = .userInformation(headerConfiguration)
+        }
 
         let tabHeaderViewControllerConfiguration = TabHeaderViewController.Configuration(header: header,
                                                                                          viewControllers: [accountsListViewController,

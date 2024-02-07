@@ -48,14 +48,16 @@ extension AppDelegate {
                 comingSoonController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
-                let tabHeaderViewController = getDashboardTabHeaderViewController(navigationController: navigationController,
-                                                                                  name: workspace.workspace.name,
-                                                                                  description: workspace.workspace.description)
-                tabBarViewController.viewControllers = [
-                    tabHeaderViewController,
-                    comingSoonController
-                ]
-                navigationController.viewControllers = [tabBarViewController]
+                Task {
+                    let tabHeaderViewController = try await self.getDashboardTabHeaderViewController(navigationController: navigationController,
+                                                                                                     serviceAgreementName: workspace.workspace.name)
+
+                    tabBarViewController.viewControllers = [
+                        tabHeaderViewController,
+                        comingSoonController
+                    ]
+                    navigationController.viewControllers = [tabBarViewController]
+                }
 
                 window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()

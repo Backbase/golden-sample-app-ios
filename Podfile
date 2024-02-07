@@ -33,6 +33,7 @@ abstract_target 'Common' do
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
   pod 'BackbaseDesignSystem', '4.2.2'
+  pod 'UserManagerUserProfileUseCase'
 
   target 'AccountsJourney' do
   end
