@@ -27,9 +27,9 @@ final class ComingSoonViewController: UIViewController {
     }
 
     private func getStateView() -> StateView {
-        let config = GenericStateViewConfiguration(iconName: "ic_state_view_loading_failed",
-                                                   title: "Journey under construction!",
-                                                   subtitle: "Soon a new journey will be added to this tab. Stay tuned!",
+        let config = GenericStateViewConfiguration(iconName: DesignSystem.Assets.icStateViewLoadingFailed,
+                                                   title: Bundle.main.localize("comingSoonViewController.stateViewTitle") ?? "",
+                                                   subtitle: Bundle.main.localize("comingSoonViewController.stateViewSubtitle") ?? "",
                                                    animationView: nil,
                                                    firstButtonConfiguration: nil,
                                                    secondButtonConfiguration: nil)
