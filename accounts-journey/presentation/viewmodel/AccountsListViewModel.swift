@@ -9,6 +9,7 @@ import Foundation
 import Resolver
 import Combine
 import BackbaseDesignSystem
+import BackbaseObservability
 
 final class AccountsListViewModel: NSObject {
     
@@ -17,6 +18,9 @@ final class AccountsListViewModel: NSObject {
     @Published private(set) var screenState: AccountListScreenState = .loading
     
     var didSelectProduct: ((String) -> Void)?
+    
+    @OptionalInjected
+    var tracker: Tracker?
     
     // MARK: - Private
     
@@ -31,10 +35,13 @@ final class AccountsListViewModel: NSObject {
     func onEvent(_ event: AccountListScreenEvent) {
         switch event {
         case .getAccounts:
+            tracker?.publish(event: ScreenViewEvent.accounts)
             getAccountSummary(fromEvent: .getAccounts)
         case .refresh:
+            tracker?.publish(event: UserActionEvent.refresh)
             getAccountSummary(fromEvent: .refresh)
         case .search(let searchString):
+            tracker?.publish(event: UserActionEvent.searchAccounts)
             getAccountSummary(fromEvent: .search(searchString))
         }
     }

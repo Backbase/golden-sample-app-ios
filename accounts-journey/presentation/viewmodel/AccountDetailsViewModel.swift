@@ -8,6 +8,7 @@
 import Foundation
 import Resolver
 import BackbaseDesignSystem
+import BackbaseObservability
 
 final class AccountDetailsViewModel: NSObject {
     
@@ -22,10 +23,14 @@ final class AccountDetailsViewModel: NSObject {
         return useCase
     }()
     
+    @OptionalInjected
+    var tracker: Tracker?
+    
     // MARK: - Methods
     func onEvent(_ event: AccountDetailsEvent) {
         switch event {
         case let .getAccountDetails(id):
+            tracker?.publish(event: ScreenViewEvent.accountDetails)
             getAccountDetail(id: id)
         }
     }
