@@ -7,15 +7,13 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo Installing Cocoapods-art
-        gem install cocoapods-art
         echo Adding repository backbase-pods3
-        pod repo-art add backbase-pods3 https://repo.backbase.com/api/pods/ios3
+        bundle exec pod repo-art add backbase-pods3 https://repo.backbase.com/api/pods/ios3
         echo Adding repository backbase-pods-retail3
-        pod repo-art add backbase-pods-retail3 https://repo.backbase.com/api/pods/ios-retail3
+        bundle exec pod repo-art add backbase-pods-retail3 https://repo.backbase.com/api/pods/ios-retail3
         echo Adding repository backbase-pods-identity
-        pod repo-art add backbase-pods-identity https://repo.backbase.com/api/pods/ios-identity
+        bundle exec pod repo-art add backbase-pods-identity https://repo.backbase.com/api/pods/ios-identity
         echo Adding repository backbase-pods-business
-        pod repo-art add backbase-pods-business https://repo.backbase.com/api/pods/ios-business
+        bundle exec pod repo-art add backbase-pods-business https://repo.backbase.com/api/pods/ios-business
         echo Adding repository backbase-pods-design
-        pod repo-art add backbase-pods-design https://repo.backbase.com/api/pods/design-ios
+        bundle exec pod repo-art add backbase-pods-design https://repo.backbase.com/api/pods/design-ios
