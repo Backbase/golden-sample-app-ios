@@ -21,6 +21,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
+        with: 
+          bb_artifactory_ios_username: ${{ secrets.REPO_USERNAME }}
+          bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD }}
       - name: Generate the project file
         run: bundle exec fastlane setup
       - name: Run tests
