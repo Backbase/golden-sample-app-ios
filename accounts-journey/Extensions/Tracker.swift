@@ -12,7 +12,7 @@ extension AccountsJourney {
     /// Namespace for UserEvents and ScreenEvents tracker within the journey
     enum Tracker {
         /// Journey name
-        static let journeyName = "accounts_journey"
+        static let journeyName = "accounts_transactions"
         
         /// ScreenEvent
         enum ScreenEvent: String {
