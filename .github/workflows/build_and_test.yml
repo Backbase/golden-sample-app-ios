@@ -25,5 +25,3 @@ jobs:
         run: bundle exec fastlane setup
       - name: Run tests
         run: bundle exec fastlane test
-      - name: Gather code coverage
-        run: xcrun llvm-cov export -format="lcov" ./DerivedData/Build/Products/Debug/Curtz.framework/Curtz -instr-profile DerivedData/Build/ProfileData/*/Coverage.profdata > coverage_report.lcov
