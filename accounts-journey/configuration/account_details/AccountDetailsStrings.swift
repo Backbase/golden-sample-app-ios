@@ -37,9 +37,9 @@ extension AccountDetails {
         public var errorTitle: ErrorFormatter<LocalizedString> = { error in
             switch error {
             case .notConnected:
-                localized(key: "errors.notConnected.title")
+                return localized(key: "errors.notConnected.title")
             default:
-                localized(key: "errors.generic.title")
+                return localized(key: "errors.generic.title")
             }
         }
         
@@ -47,18 +47,18 @@ extension AccountDetails {
         public var errorSubtitle: ErrorFormatter<LocalizedString> = { error in
             switch error {
             case .notConnected:
-                localized(key: "errors.notConnected.subtitle")
+                return localized(key: "errors.notConnected.subtitle")
             default:
-                localized(key: "errors.generic.subtitle")
+                return localized(key: "errors.generic.subtitle")
             }
         }
         /// accountsJourney.accountsList.errors.{error}.actionButton
         public var errorRetryButtonTitle: ErrorFormatter<LocalizedString?> = { error in
             switch error {
             case .notConnected:
-                localized(key: "errors.notConnected.actionButton")
+                return localized(key: "errors.notConnected.actionButton")
             default:
-                localized(key: "errors.generic.actionButton")
+                return localized(key: "errors.generic.actionButton")
             }
         }
         

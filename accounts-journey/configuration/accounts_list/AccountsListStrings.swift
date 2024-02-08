@@ -43,18 +43,18 @@ extension AccountsList {
         public var errorTitle: ErrorFormatter<LocalizedString> = { error in
             switch error {
             case .noAccounts:
-                localized(key: "errors.noAccounts.title")
+                return localized(key: "errors.noAccounts.title")
             default:
-                localized(key: "errors.generic.title")
+                return localized(key: "errors.generic.title")
             }
         }
         /// accountsJourney.accountsList.errors.{error}.subtitle
         public var errorSubtitle: ErrorFormatter<LocalizedString> = { error in
             switch error {
             case .noAccounts:
-                localized(key: "errors.noAccounts.subtitle")
+                return localized(key: "errors.noAccounts.subtitle")
             default:
-                localized(key: "errors.generic.subtitle")
+                return localized(key: "errors.generic.subtitle")
             }
         }
         /// accountsJourney.accountsList.errors.{error}.actionButton.title
