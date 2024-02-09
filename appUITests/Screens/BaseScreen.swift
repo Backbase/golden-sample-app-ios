@@ -13,9 +13,9 @@ class BaseScreen {
     // MARK: ELEMENTS
     internal let app: XCUIApplication
     
-    lazy var navigationBar       = app.navigationBars.firstMatch
+    lazy var navigationBar = app.navigationBars.firstMatch
     lazy var navigationBarBtn = navigationBar.buttons.firstMatch
-    lazy var navigationBarTitleLbl  = navigationBar.otherElements.firstMatch
+    lazy var navigationBarTitleLbl = navigationBar.otherElements.firstMatch
 
     init() {
         self.app = XCUIApplication()

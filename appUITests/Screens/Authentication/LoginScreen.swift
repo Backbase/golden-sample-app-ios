@@ -56,7 +56,6 @@ final class LoginScreen: BaseScreen {
     
     @discardableResult
     func authenticateUserWith(name: String, password: String) -> Self {
-        
         if titleLbl.exists {
             login(withUsername: name, password: password)
             denyBiometricUsage()

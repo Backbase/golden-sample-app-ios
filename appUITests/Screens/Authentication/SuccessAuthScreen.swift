@@ -10,8 +10,8 @@ import Foundation
 final class SuccessAuthScreen: BaseScreen {
     
     private enum Identifier {
-            static let letsGetStartedBtnId = "setupComplete.dismissButton"
-        }
+        static let letsGetStartedBtnId = "setupComplete.dismissButton"
+    }
     
     // MARK: ELEMENTS
     private lazy var letsGetStartedBtn = app.buttons.matching(identifier: Identifier.letsGetStartedBtnId).firstMatch

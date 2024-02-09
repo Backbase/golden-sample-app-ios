@@ -9,7 +9,7 @@ import Foundation
 
 struct AccountsListTestData{
     // NOTE : Please adjust this based on the test data available
-    static let defaultAccountName: String = "Sara's Current Account"
-    static let defaultAccountNumber: String = "****************0025"
-    static let defaultBalance: String = ""
+    static let defaultAccountName = "Sara's Current Account"
+    static let defaultAccountNumber = "****************0025"
+    static let defaultBalance = ""
 }

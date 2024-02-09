@@ -11,8 +11,8 @@ import XCTest
 final class WorkspacesSelectorScreen: BaseScreen {
     
     private enum Identifier {
-            static let workspacesSelectorScreenTitleLblId = "workspaceSelectorView.screenTitle"
-        }
+        static let workspacesSelectorScreenTitleLblId = "workspaceSelectorView.screenTitle"
+    }
 
     // MARK: ELEMENTS
     private lazy var workspacesSelectorScreenTitleLbl = app.staticTexts.matching(identifier: Identifier.workspacesSelectorScreenTitleLblId).firstMatch
