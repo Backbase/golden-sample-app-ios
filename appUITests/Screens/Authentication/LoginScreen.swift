@@ -18,7 +18,7 @@ final class LoginScreen: BaseScreen {
             static let allowBtnId = "biometricRegistration.allowButton"
             static let denyBtnId = "biometricRegistration.denyButton"
             static let passcodeBtnId = "login.passcodeButton"
-        }
+    }
     
     // MARK: ELEMENTS
     private lazy var titleLbl = app.staticTexts.matching(identifier: Identifier.titleLabelId).firstMatch
