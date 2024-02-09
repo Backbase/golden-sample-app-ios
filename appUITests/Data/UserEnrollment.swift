@@ -10,10 +10,10 @@ import Foundation
 enum UserEnrollment {
     // NOTE : Please adjust this based on your testing account
     // Test User
-    static let userName: String = "sdbxaz-dev-sara"
-    static let password: String = "QenEn4BhKqbUEbqD"
-    static let validPasscode: String = "53427"
+    static let userName = "sdbxaz-dev-sara"
+    static let password = "QenEn4BhKqbUEbqD"
+    static let validPasscode = "53427"
     
     // Workspace
-    static let defaultWorkspace: String = "Sara"
+    static let defaultWorkspace = "Sara"
 }
