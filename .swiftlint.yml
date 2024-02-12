@@ -8,6 +8,7 @@ included:
   - accounts-journey
   - accounts-use-case
   - app
+  - appUITests
 excluded:
   - Pods
   - .build
