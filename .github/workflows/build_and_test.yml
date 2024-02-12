@@ -26,6 +26,10 @@ jobs:
         with: 
           bb_artifactory_ios_username: ${{ secrets.REPO_USERNAME }}
           bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD }}
+      - name: Install Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.2'
       - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
