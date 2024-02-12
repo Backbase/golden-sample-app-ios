@@ -16,7 +16,7 @@ extension AccountsJourney {
         
         /// ScreenEvent
         enum ScreenEvent: String {
-            case accounts
+            case accounts_list
             case account_details
         }
         

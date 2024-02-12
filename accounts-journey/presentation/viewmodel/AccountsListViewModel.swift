@@ -48,7 +48,7 @@ final class AccountsListViewModel: NSObject {
     private func publishObservabilityEvents(for event: AccountListScreenEvent) {
         switch event {
         case .getAccounts:
-            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forScreen: .accounts))
+            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forScreen: .accounts_list))
         case .refresh:
             observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forUserAction: .refresh_accounts))
         case .search:
