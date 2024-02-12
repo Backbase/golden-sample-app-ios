@@ -46,9 +46,9 @@ final class AccountDetailsViewModel: NSObject {
             
             switch result {
             case let .success(accountDetailsResponse):
-                self.screenState = .loaded( accountDetailsResponse.toMapUI())
+                screenState = .loaded( accountDetailsResponse.toMapUI())
             case let .failure(errorResponse):
-                self.screenState = .hasError(self.stateViewConfiguration(for: .loadingFailure(errorResponse), primaryAction: {
+                screenState = .hasError(self.stateViewConfiguration(for: .loadingFailure(errorResponse), primaryAction: {
                     self.onEvent(.getAccountDetails(id))
                 }))
             }

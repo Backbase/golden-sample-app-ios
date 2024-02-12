@@ -72,24 +72,24 @@ final class AccountsListViewModel: NSObject {
             
             switch result {
             case let .success(accountsSummaryResponse):
-                self.allAccounts = accountsSummaryResponse
+                allAccounts = accountsSummaryResponse
                     .toMapUI()
                     .generateList(query: query)
                 
-                if self.allAccounts.isEmpty {
-                    self.screenState = .emptyResults(
-                        self.stateViewConfiguration(
+                if allAccounts.isEmpty {
+                    screenState = .emptyResults(
+                        stateViewConfiguration(
                             for: .noAccounts, primaryAction: {
                                 self.onEvent(.refresh)
                             })
                     )
                 } else {
-                    self.screenState = .loaded
+                    screenState = .loaded
                 }
                 
             case let .failure(errorResponse):
-                self.screenState = .hasError(
-                    self.stateViewConfiguration(
+                screenState = .hasError(
+                    stateViewConfiguration(
                         for: .loadingFailure(errorResponse),
                         primaryAction: {
                             self.onEvent(.refresh)

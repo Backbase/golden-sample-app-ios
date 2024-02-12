@@ -43,27 +43,27 @@ extension AccountsList {
         public var errorTitle: ErrorFormatter<LocalizedString> = { error in
             switch error {
             case .noAccounts:
-                return localized(key: "errors.noAccounts.title")
+                localized(key: "errors.noAccounts.title")
             default:
-                return localized(key: "errors.generic.title")
+                localized(key: "errors.generic.title")
             }
         }
         /// accountsJourney.accountsList.errors.{error}.subtitle
         public var errorSubtitle: ErrorFormatter<LocalizedString> = { error in
             switch error {
             case .noAccounts:
-                return localized(key: "errors.noAccounts.subtitle")
+                localized(key: "errors.noAccounts.subtitle")
             default:
-                return localized(key: "errors.generic.subtitle")
+                localized(key: "errors.generic.subtitle")
             }
         }
         /// accountsJourney.accountsList.errors.{error}.actionButton.title
         public var errorRetryButtonTitle: ErrorFormatter<LocalizedString?> = { error in
             switch error {
             case .loadingFailure:
-                return localized(key: "errors.loadingFailure.actionButton")
+                localized(key: "errors.loadingFailure.actionButton")
             default:
-                return nil
+                nil
             }
         }
         
