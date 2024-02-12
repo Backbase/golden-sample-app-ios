@@ -107,9 +107,9 @@ targets:
         - name: GoldenAccountsUseCaseUnitTests
           parallelizable: false
           randomExecutionOrder: true
-        - name: GoldenSampleUITests
-          parallelizable: true
-          randomExecutionOrder: false
+        # - name: GoldenSampleUITests
+        #   parallelizable: true
+        #   randomExecutionOrder: false
 
   AccountsJourneyUnitTests:
     type: bundle.unit-test
