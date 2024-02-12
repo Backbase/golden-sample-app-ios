@@ -40,7 +40,7 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
     
     func test_accountsScreenEventIsPublished_whenTheAccountsViewLoads() {
         screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
-        let event = AccountsJourney.Tracker.event(forScreen: .accounts)
+        let event = AccountsJourney.Tracker.event(forScreen: .accounts_list)
         
         expect(screenViewEventsSpy!, toReceive: [event], when: {
             AccountsListViewModel().onEvent(.getAccounts)
