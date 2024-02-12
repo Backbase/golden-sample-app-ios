@@ -17,9 +17,9 @@ extension AccountsList {
         public var errorIconName: ErrorFormatter<String> = { error in
             switch error {
             case .noAccounts:
-                return DesignSystem.Assets.icStateViewNoWifi
+                DesignSystem.Assets.icStateViewNoWifi
             default:
-               return DesignSystem.Assets.icStateViewLoadingFailed
+               DesignSystem.Assets.icStateViewLoadingFailed
             }
         }
     }
