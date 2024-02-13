@@ -109,6 +109,9 @@ targets:
         - name: GoldenAccountsUseCaseUnitTests
           parallelizable: false
           randomExecutionOrder: true
+        - name: GoldenSampleUITests
+          parallelizable: true
+          randomExecutionOrder: false
 
   AccountsJourneyUnitTests:
     type: bundle.unit-test
@@ -140,3 +143,25 @@ targets:
         excludes: Info.plist
         createIntermediateGroups: true
 
+  # UITests1
+
+  GoldenSampleUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    info:
+      path: appUITests/Info.plist
+    codeSign: false
+    deploymentTarget:
+      iOS: 15.0
+    sources:
+      - path: appUITests
+        excludes: Info.plist
+    dependencies:
+      - target: GoldenSampleApp
+        link: true
+    scheme:
+      testTargets:
+        - GoldenSampleUITests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
