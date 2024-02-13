@@ -44,7 +44,7 @@ extension AppDelegate {
                 didSelect?(navigationController)(workspace)
 
                 let comingSoonController = ComingSoonViewController(title: "Coming soon..")
-                comingSoonController.view.backgroundColor = UIColor.white
+                comingSoonController.view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
                 comingSoonController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
