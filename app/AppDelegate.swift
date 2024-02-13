@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupWorkspacesJourney()
         setupAccountsJourney()
         appendCustomHeader()
-        setupUserProfileUseCase()
+        UserProfileUseCaseHelper().setupUserProfileUseCase()
         return true
     }
 }

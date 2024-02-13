@@ -1,5 +1,5 @@
 //
-//  Created by Backbase on 31/01/2024.
+//  Created by Backbase on 13/02/2024.
 //
 
 import BackbaseDesignSystem
@@ -16,33 +16,34 @@ private struct UserPresentable: TabHeaderViewControllerUserPresentable {
     var image: UIImage?
 }
 
-extension AppDelegate {
-    
-    func getDashboardTabHeaderViewController(navigationController: UINavigationController,
-                                             serviceAgreementName: String) async -> TabHeaderViewController {
+/// A helper struct to setup the dashboard.
+struct DashboardHelper {
+    func getViewController(navigationController: UINavigationController, serviceAgreementName: String) async -> UIViewController {
         let userProfileName = await fetchUserProfile()
-        return getDashboardTabHeaderViewController(navigationController: navigationController,
-                                                   userName: userProfileName,
-                                                   serviceAgreementName: serviceAgreementName)
+        return DispatchQueue.main.sync {
+            getTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
+        }
     }
 
-    func fetchUserProfile() async -> String {
+    private func fetchUserProfile() async -> String {
         let userProfileUseCase: UserProfileUseCase = Resolver.resolve()
         return await withCheckedContinuation { continuation in
-            userProfileUseCase.retrieveUserProfile { result in
-                switch result {
-                case .success(let userProfile):
-                    continuation.resume(returning: userProfile.fullName)
-                case .failure:
-                    continuation.resume(returning: "") // This is not a bug, but a feature.
+            DispatchQueue.global().async {
+                userProfileUseCase.retrieveUserProfile { result in
+                    switch result {
+                    case .success(let userProfile):
+                        continuation.resume(returning: userProfile.fullName)
+                    case .failure:
+                        continuation.resume(returning: "") // This is not a bug, but a feature.
+                    }
                 }
             }
         }
     }
 
-    private func getDashboardTabHeaderViewController(navigationController: UINavigationController,
-                                                     userName: String,
-                                                     serviceAgreementName: String) -> TabHeaderViewController {
+    private func getTabHeaderViewController(_ navigationController: UINavigationController,
+                                            _ userName: String,
+                                            _ serviceAgreementName: String) -> UIViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
         let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")

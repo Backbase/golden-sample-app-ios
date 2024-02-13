@@ -37,7 +37,8 @@ extension AppDelegate {
     func getWorkspacesConfiguration() -> Workspaces.Configuration {
         var configuration = Workspaces.Configuration()
         let didSelect = configuration.selector.router.didSelectWorkspaceV2
-        
+        let dashboardHelper = DashboardHelper()
+
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in
             { [weak self] workspace in
                 guard let self else { return }
@@ -49,11 +50,11 @@ extension AppDelegate {
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
                 Task {
-                    let tabHeaderViewController = await self.getDashboardTabHeaderViewController(navigationController: navigationController,
-                                                                                                 serviceAgreementName: workspace.workspace.name)
+                    let dashboardViewController = await dashboardHelper.getViewController(navigationController: navigationController,
+                                                                                          serviceAgreementName: workspace.workspace.name)
 
                     tabBarViewController.viewControllers = [
-                        tabHeaderViewController,
+                        dashboardViewController,
                         comingSoonController
                     ]
                     navigationController.viewControllers = [tabBarViewController]

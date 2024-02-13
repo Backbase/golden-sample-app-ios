@@ -1,5 +1,5 @@
 //
-//  Created by Backbase on 07/02/2024.
+//  Created by Backbase on 13/02/2024.
 //
 
 import Resolver
@@ -8,7 +8,8 @@ import UserManagerClient2
 import UserProfileJourney
 import UserManagerUserProfileUseCase
 
-extension AppDelegate {
+/// A helper struct to setup UserProfileUseCase.
+struct UserProfileUseCaseHelper {
     func setupUserProfileUseCase() {
         if Resolver.optional(UserProfileUseCase.self) == nil {
             let userProfileUseCase = UserManagerUserProfileUseCase(client: getUserProfileClient())
