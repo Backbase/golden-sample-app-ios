@@ -62,7 +62,7 @@ class RoundedTableView: UITableView {
         DesignSystem.shared.styles.cardView(backViewCard)
         backViewCard.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
         
-        guard let superView = superview, let footer = tableFooterView, let header = tableHeaderView else { return }
+        guard let superView = superview, let footer = tableFooterView, let tableHeaderView else { return }
         
         superView.insertSubview(backViewCard, belowSubview: self)
         
