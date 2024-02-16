@@ -9,11 +9,11 @@ import UIKit
 import Foundation
 import Combine
 
-extension UISearchController {
+extension UISearchBar {
     var textPublisher: AnyPublisher<String, Never> {
         NotificationCenter.default.publisher(
             for: UITextField.textDidChangeNotification,
-            object: self.searchBar.searchTextField
+            object: self.searchTextField
         )
         .compactMap { ($0.object as? UITextField)?.text}
         .eraseToAnyPublisher()

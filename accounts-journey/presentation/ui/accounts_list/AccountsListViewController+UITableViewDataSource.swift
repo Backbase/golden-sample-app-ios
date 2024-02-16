@@ -13,17 +13,32 @@ extension AccountsListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.allAccounts.count
+        return viewModel.allAccounts.count + 1 // +1 the Search Cell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
-        
-        let accountItem = viewModel.allAccounts[indexPath.row]
-        
-        accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
-        accountListCell.setup(accountItem)
-        return accountListCell
+        if indexPath.row == 0 {
+            let searchCell = tableView.dequeReusableCell(SearchBarTableViewCell.self)
+            // TODO here bind events
+            // TODO cancel the previous bindings
+            searchCell.searchBar
+                .textPublisher
+                .removeDuplicates()
+                .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+                .sink { [weak self] in
+                    self?.viewModel.onEvent(.search($0))
+                }.store(in: &cancellables)
+
+            return searchCell
+        } else {
+            let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
+
+            let accountItem = viewModel.allAccounts[indexPath.row - 1]
+
+            accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
+            accountListCell.setup(accountItem)
+            return accountListCell
+        }
     }
 }
 

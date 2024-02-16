@@ -61,6 +61,7 @@ extension AccountsList.Design {
         public var searchBar: Style<UISearchBar> = { searchBar in
             searchBar.searchTextField.textColor = DesignSystem.shared.colors.text.default
             searchBar.tintColor = DesignSystem.shared.colors.text.default
+            searchBar.searchBarStyle = .minimal
         }
         /// Style applied to activityIndicator
         public var activityIndicator: StyleSelector<UIActivityIndicatorView.Style, UIActivityIndicatorView> = { style in
