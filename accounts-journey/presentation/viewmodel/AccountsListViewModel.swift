@@ -19,7 +19,7 @@ final class AccountsListViewModel: NSObject {
     
     var didSelectProduct: ((String) -> Void)?
     
-    private var observabilityTracker: BackbaseObservability.Tracker? = Resolver.optional()
+    private var tracker: BackbaseObservability.Tracker? = Resolver.optional()
     
     // MARK: - Private
     
@@ -48,11 +48,11 @@ final class AccountsListViewModel: NSObject {
     private func publishObservabilityEvents(for event: AccountListScreenEvent) {
         switch event {
         case .getAccounts:
-            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forScreen: .accounts_list))
+            tracker?.publish(event: ScreenViewEvent(.accounts_list))
         case .refresh:
-            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forUserAction: .refresh_accounts))
+            tracker?.publish(event: UserActionEvent(.refresh_accounts))
         case .search:
-            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forUserAction: .search_accounts))
+            tracker?.publish(event: UserActionEvent(.search_accounts))
         }
     }
     

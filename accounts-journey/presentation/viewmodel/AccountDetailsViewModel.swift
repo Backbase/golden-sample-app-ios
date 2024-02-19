@@ -23,14 +23,14 @@ final class AccountDetailsViewModel: NSObject {
         return useCase
     }()
     
-    private var observabilityTracker: BackbaseObservability.Tracker? = Resolver.optional()
+    private var tracker: BackbaseObservability.Tracker? = Resolver.optional()
     
     // MARK: - Methods
     func onEvent(_ event: AccountDetailsEvent) {
         switch event {
         case let .getAccountDetails(id):
             
-            observabilityTracker?.publish(event: AccountsJourney.Tracker.event(forScreen: .account_details))
+            tracker?.publish(event: ScreenViewEvent(.account_details))
             
             getAccountDetail(id: id)
         }

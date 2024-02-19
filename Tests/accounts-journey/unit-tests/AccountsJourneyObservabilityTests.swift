@@ -40,27 +40,24 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
     
     func test_accountsScreenEventIsPublished_whenTheAccountsViewLoads() {
         screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
-        let event = AccountsJourney.Tracker.event(forScreen: .accounts_list)
         
-        expect(screenViewEventsSpy!, toReceive: [event], when: {
+        expect(screenViewEventsSpy!, toReceive: [ScreenViewEvent(.accounts_list)], when: {
             AccountsListViewModel().onEvent(.getAccounts)
         })
     }
     
     func test_refresh_accountsUserActionEvent_isPublished_whenTheRefreshEventIsEmitted() {
         userActionSpy = TrackerSpy<UserActionEvent>()
-        let event = AccountsJourney.Tracker.event(forUserAction: .refresh_accounts)
         
-        expect(userActionSpy!, toReceive: [event], when: {
+        expect(userActionSpy!, toReceive: [UserActionEvent(.refresh_accounts)], when: {
             AccountsListViewModel().onEvent(.refresh)
         })
     }
     
     func test_search_accountsUserActionEvent_isPublished_whenTheSearchEventIsEmitted() {
         userActionSpy = TrackerSpy<UserActionEvent>()
-        let event = AccountsJourney.Tracker.event(forUserAction: .search_accounts)
         
-        expect(userActionSpy!, toReceive: [event], when: {
+        expect(userActionSpy!, toReceive: [UserActionEvent(.search_accounts)], when: {
             AccountsListViewModel().onEvent(.search(""))
         })
     }
@@ -83,8 +80,8 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
     
     func test_accountsDetailsScreenEventIsPublished_whenTheAccountsDetailsViewLoads() {
         screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
-        let event = AccountsJourney.Tracker.event(forScreen: .account_details)
-        expect(screenViewEventsSpy!, toReceive: [event], when: {
+
+        expect(screenViewEventsSpy!, toReceive: [ScreenViewEvent(.account_details)], when: {
             AccountDetailsViewModel().onEvent(.getAccountDetails(""))
         })
     }
