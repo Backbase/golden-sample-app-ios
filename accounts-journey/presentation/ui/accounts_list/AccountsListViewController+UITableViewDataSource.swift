@@ -8,18 +8,30 @@
 import UIKit
 
 extension AccountsListViewController: UITableViewDataSource {
+
+    // +1 the Search Cell
+    private var rowCount: Int {
+        let accountsCount = viewModel.allAccounts.count
+        if firstTimeLoad {
+            return accountsCount == 0 ? 0 : (accountsCount + 1)
+        } else {
+            return accountsCount + 1
+        }
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.allAccounts.count + 1 // +1 the Search Cell
+        return rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let searchCell = tableView.dequeReusableCell(SearchBarTableViewCell.self)
-            // TODO here bind events
+            let searchCell = tableView.dequeReusableCell(AccountListSearchTableCell.self)
+            searchCell.setupCornerRadius(position: rowPosition(for: indexPath))
+            // TODO here bind cancel events
             // TODO cancel the previous bindings
             searchCell.searchBar
                 .textPublisher
@@ -32,10 +44,8 @@ extension AccountsListViewController: UITableViewDataSource {
             return searchCell
         } else {
             let accountListCell = tableView.dequeReusableCell(AccountListItemTableCell.self)
-
             let accountItem = viewModel.allAccounts[indexPath.row - 1]
-
-            accountListCell.setupSelectedViewCornerRadius(position: rowPosition(for: indexPath))
+            accountListCell.setupCornerRadius(position: rowPosition(for: indexPath))
             accountListCell.setup(accountItem)
             return accountListCell
         }
@@ -44,14 +54,13 @@ extension AccountsListViewController: UITableViewDataSource {
 
 extension AccountsListViewController {
     private func rowPosition(for indexPath: IndexPath) -> CellPosition {
-        let sectionRows = viewModel.allAccounts
-        if sectionRows.count < 2 {
+        if rowCount < 2 {
             return .full
         }
         if indexPath.row == 0 {
             return .beginning
         }
-        if indexPath.row == sectionRows.count - 1 {
+        if indexPath.row == rowCount - 1 {
             return .end
         }
         return .middle

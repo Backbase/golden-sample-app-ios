@@ -17,7 +17,8 @@ final class AccountsListViewController: UIViewController {
     var viewModel: AccountsListViewModel
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
     var cancellables = Set<AnyCancellable>()
-    
+    var firstTimeLoad: Bool = true
+
     // MARK: - Initialisation
     init(viewModel: AccountsListViewModel) {
         self.viewModel = viewModel
@@ -38,16 +39,26 @@ final class AccountsListViewController: UIViewController {
     private var stateView: StateView?
     private let loadingView = LoadingView()
     
-    private lazy var accountsListTableView: RoundedTableView = {
-        let table = RoundedTableView()
+    private lazy var accountsListTableView: UITableView = {
+        let table = UITableView()
         let inset = DesignSystem.shared.spacer.md
         table.contentInset = UIEdgeInsets(top: inset, left: 0, bottom: inset, right: 0)
         table.alwaysBounceVertical = false
         table.dataSource = self
         table.delegate = self
         table.registerCell(AccountListItemTableCell.self)
-        table.registerCell(SearchBarTableViewCell.self)
+        table.registerCell(AccountListSearchTableCell.self)
         table.refreshControl = refreshControl
+
+        table.clipsToBounds = true
+        table.separatorStyle = .none
+        table.backgroundColor = .clear
+        table.showsVerticalScrollIndicator = false
+        table.alwaysBounceVertical = false
+
+        // Default views (Needed for the background view)
+        table.tableHeaderView =  UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
+        table.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
         return table
     }()
     
@@ -95,10 +106,10 @@ final class AccountsListViewController: UIViewController {
                 case .loading:
                     self?.showLoadingView()
                 case .loaded:
+                    self?.firstTimeLoad = false
                     self?.hideLoadingView()
                     self?.accountsListTableView.isHidden = false
                     self?.accountsListTableView.reloadData()
-                    print("------ CONTENT HEIGHT: \(self?.accountsListTableView.contentSize.height ?? 0)")
                 case let .hasError(stateViewConfig):
                     self?.accountsListTableView.reloadData()
                     self?.hideLoadingView()
