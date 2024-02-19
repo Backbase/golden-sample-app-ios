@@ -17,7 +17,8 @@ final class AccountsListViewController: UIViewController {
     var viewModel: AccountsListViewModel
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
     var cancellables = Set<AnyCancellable>()
-    var firstTimeLoad: Bool = true
+
+    private let headerView = AccountListSearchBarView()
 
     // MARK: - Initialisation
     init(viewModel: AccountsListViewModel) {
@@ -47,7 +48,7 @@ final class AccountsListViewController: UIViewController {
         table.dataSource = self
         table.delegate = self
         table.registerCell(AccountListItemTableCell.self)
-        table.registerCell(AccountListSearchTableCell.self)
+        table.tableHeaderView = headerView
         table.refreshControl = refreshControl
 
         table.clipsToBounds = true
@@ -55,10 +56,6 @@ final class AccountsListViewController: UIViewController {
         table.backgroundColor = .clear
         table.showsVerticalScrollIndicator = false
         table.alwaysBounceVertical = false
-
-        // Default views (Needed for the background view)
-        table.tableHeaderView =  UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
-        table.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0.1))
         return table
     }()
     
@@ -68,8 +65,6 @@ final class AccountsListViewController: UIViewController {
         setupView()
         setupBindings()
         viewModel.onEvent(.getAccounts)
-
-        accountsListTableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
     }
 
     // MARK: - Private methods
@@ -105,8 +100,13 @@ final class AccountsListViewController: UIViewController {
                 switch state {
                 case .loading:
                     self?.showLoadingView()
+
+                    self?.headerView.cancellable = self?.headerView.textChangeSubject
+                        .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+                        .sink(receiveValue: { [weak self] text in
+                            self?.viewModel.onEvent(.search(text))
+                        })
                 case .loaded:
-                    self?.firstTimeLoad = false
                     self?.hideLoadingView()
                     self?.accountsListTableView.isHidden = false
                     self?.accountsListTableView.reloadData()
@@ -121,7 +121,6 @@ final class AccountsListViewController: UIViewController {
                 }
             })
             .store(in: &cancellables)
-        
     }
     
     private func setupView() {
@@ -181,21 +180,5 @@ final class AccountsListViewController: UIViewController {
     private func removeStateView() {
         stateView?.removeFromSuperview()
         stateView = nil
-    }
-
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if(keyPath == "contentSize"){
-            if let newvalue = change?[.newKey] {
-                let contentHeight: CGFloat = accountsListTableView.contentSize.height
-                print("------ contentHeight: \(contentHeight)")
-            }
-        }
-    }
-}
-
-// MARK: - Extensions
-extension AccountsListViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.onEvent(.search(""))
     }
 }

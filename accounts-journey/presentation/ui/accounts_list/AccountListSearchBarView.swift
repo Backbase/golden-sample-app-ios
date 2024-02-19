@@ -5,15 +5,19 @@
 import UIKit
 import BackbaseDesignSystem
 import Resolver
+import Combine
 
-final class AccountListSearchTableCell: UITableViewCell, Reusable, CellCornerModifier {
+final class AccountListSearchBarView: UIView {
     private let configuration: AccountsJourney.Configuration = Resolver.resolve()
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+    var cancellable: AnyCancellable?
+    let textChangeSubject = PassthroughSubject<String, Never>()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    init() {
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
         setupSubviews()
         setupConfiguration()
+        searchBar.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -21,14 +25,17 @@ final class AccountListSearchTableCell: UITableViewCell, Reusable, CellCornerMod
     }
 
     private func setupSubviews() {
-        contentView.addSubview(searchBar)
-        contentView.backgroundColor = .clear
-        backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+        addSubview(searchBar)
+        backgroundColor = .clear
 
         searchBar.snp.makeConstraints { make in
-            make.edges
+            make.top.equalToSuperview()
+            make.bottom
                 .equalToSuperview()
                 .inset(DesignSystem.shared.spacer.sm)
+            make.leading.trailing
+                .equalToSuperview()
+                .inset(-DesignSystem.shared.spacer.sm)
         }
     }
 
@@ -38,9 +45,8 @@ final class AccountListSearchTableCell: UITableViewCell, Reusable, CellCornerMod
     }
 }
 
-extension AccountListSearchTableCell: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // TODO here
-//        viewModel.onEvent(.search(""))
+extension AccountListSearchBarView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        textChangeSubject.send(searchText)
     }
 }
