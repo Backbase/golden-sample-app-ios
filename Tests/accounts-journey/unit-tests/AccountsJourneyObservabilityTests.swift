@@ -6,9 +6,6 @@ import BackbaseObservability
 
 final class AccountsJourneyObservabilityTests: XCTestCase {
     
-    private var userActionSpy: TrackerSpy<UserActionEvent>?
-    private var screenViewEventsSpy: TrackerSpy<ScreenViewEvent>?
-    
     override func setUp() {
         super.setUp()
         let accountsJourneyConfig = AccountsJourney.Configuration()
@@ -16,33 +13,28 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
         Resolver.register { DummyAccountsListUseCase() as AccountsListUseCase }
         Resolver.register { DummyAccountDetailsUseCase() as AccountDetailsUseCase }
     }
-    
-    override func tearDown() {
-        super.tearDown()
-        userActionSpy = nil
-        screenViewEventsSpy = nil
-    }
+   
     
     //MARK: -  AccountsList Events
     
     func test_noUserActionEventIsPublished_whenAccountsListViewModel_is_initialized() {
-        userActionSpy = TrackerSpy<UserActionEvent>()
-        expect(userActionSpy!, toReceive: [], when: {
+        let userActionSpy = TrackerSpy<UserActionEvent>()
+        expect(userActionSpy, toReceive: [], when: {
             _ = AccountsListViewModel()
         })
     }
     
     func test_noScreenViewEventIsPublished_whenAccountListViewModel_is_initialized() {
-        screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
-        expect(screenViewEventsSpy!, toReceive: [], when: {
+        let screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
+        expect(screenViewEventsSpy, toReceive: [], when: {
             _ = AccountsListViewModel()
         })
     }
     
     func test_accountsScreenEventIsPublished_whenTheAccountsViewLoads() {
-        screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
+        let screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
         
-        expect(screenViewEventsSpy!, toReceive: [ScreenViewEvent(.accounts_list)], when: {
+        expect(screenViewEventsSpy, toReceive: [ScreenViewEvent(.accounts_list)], when: {
             AccountsListViewModel().onEvent(.getAccounts)
             let viewDidAppearSubject = PassthroughSubject<Void, Never>()
             let userActionEventSubject = PassthroughSubject<UserActionEvent, Never>()
@@ -53,9 +45,9 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
     }
     
     func test_refresh_accountsUserActionEvent_isPublished_whenTheRefreshEventIsEmitted() {
-        userActionSpy = TrackerSpy<UserActionEvent>()
+        let userActionSpy = TrackerSpy<UserActionEvent>()
         
-        expect(userActionSpy!, toReceive: [UserActionEvent(.refresh_accounts)], when: {
+        expect(userActionSpy, toReceive: [UserActionEvent(.refresh_accounts)], when: {
             
             let viewDidAppearSubject = PassthroughSubject<Void, Never>()
             let userActionEventSubject = PassthroughSubject<UserActionEvent, Never>()
@@ -68,23 +60,23 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
 
     // MARK: - AccountDetails Tests
     func test_noUserActionEventIsPublished_whenAccountDetailsViewModel_is_initialized() {
-        userActionSpy = TrackerSpy<UserActionEvent>()
-        expect(userActionSpy!, toReceive: [], when: {
+        let userActionSpy = TrackerSpy<UserActionEvent>()
+        expect(userActionSpy, toReceive: [], when: {
             _ = AccountDetailsViewModel()
         })
     }
     
     func test_noScreenViewEventIsPublished_whenAccountDetailsViewModel_is_initialized() {
-        screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
-        expect(screenViewEventsSpy!, toReceive: [], when: {
+        let screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
+        expect(screenViewEventsSpy, toReceive: [], when: {
             _ = AccountDetailsViewModel()
         })
     }
     
     func test_accountsDetailsScreenEventIsPublished_whenTheAccountsDetailsViewLoads() {
-        screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
+        let screenViewEventsSpy = TrackerSpy<ScreenViewEvent>()
 
-        expect(screenViewEventsSpy!, toReceive: [ScreenViewEvent(.account_details)], when: {
+        expect(screenViewEventsSpy, toReceive: [ScreenViewEvent(.account_details)], when: {
             let valueSubject = PassthroughSubject<Void, Never>()
             let viewModel = AccountDetailsViewModel()
             viewModel.bind(viewDidAppear: valueSubject.eraseToAnyPublisher())
@@ -108,6 +100,8 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
     private func expect<S>(_ sut: TrackerSpy<S>, toReceive events: [S?], when action: () -> Void, file: StaticString = #file, line: UInt = #line) where S: Equatable {
         let spy = TrackerSpy<S>()
         Resolver.register { spy as Tracker }
+        
+        XCTAssertEqual(spy.publishedEvents, [], "Should have not received not events", file: file, line: line)
         
         action()
         
