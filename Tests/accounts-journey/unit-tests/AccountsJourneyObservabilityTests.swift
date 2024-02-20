@@ -101,7 +101,7 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
         let spy = TrackerSpy<S>()
         Resolver.register { spy as Tracker }
         
-        XCTAssertEqual(spy.publishedEvents, [], "Should have not received not events", file: file, line: line)
+        XCTAssertEqual(spy.publishedEvents, [], "No events should be published before the action() closure.", file: file, line: line)
         
         action()
         
