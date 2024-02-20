@@ -15,10 +15,9 @@ final class AccountsListViewController: UIViewController {
     
     // MARK: - Properties
     var viewModel: AccountsListViewModel
-    let configuration: AccountsJourney.Configuration = Resolver.resolve()
-    var cancellables = Set<AnyCancellable>()
-
-    private let headerView = AccountListSearchBarView()
+    private let configuration: AccountsJourney.Configuration = Resolver.resolve()
+    private var cancellables = Set<AnyCancellable>()
+    private let headerView = AccountListSearchBarHeaderView()
 
     // MARK: - Initialisation
     init(viewModel: AccountsListViewModel) {
@@ -100,7 +99,6 @@ final class AccountsListViewController: UIViewController {
                 switch state {
                 case .loading:
                     self?.showLoadingView()
-
                     self?.headerView.cancellable = self?.headerView.textChangeSubject
                         .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
                         .sink(receiveValue: { [weak self] text in

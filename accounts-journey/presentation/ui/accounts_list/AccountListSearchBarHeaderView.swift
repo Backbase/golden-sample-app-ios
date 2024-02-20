@@ -7,7 +7,7 @@ import BackbaseDesignSystem
 import Resolver
 import Combine
 
-final class AccountListSearchBarView: UIView {
+final class AccountListSearchBarHeaderView: UIView {
     private let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private let searchBar = UISearchBar(frame: .zero)
     var cancellable: AnyCancellable?
@@ -26,8 +26,6 @@ final class AccountListSearchBarView: UIView {
 
     private func setupSubviews() {
         addSubview(searchBar)
-        backgroundColor = .clear
-
         searchBar.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.bottom
@@ -40,12 +38,13 @@ final class AccountListSearchBarView: UIView {
     }
 
     private func setupConfiguration() {
+        backgroundColor = .clear
         searchBar.placeholder = configuration.accountsList.strings.searchText()
         configuration.accountsList.design.styles.searchBar(searchBar)
     }
 }
 
-extension AccountListSearchBarView: UISearchBarDelegate {
+extension AccountListSearchBarHeaderView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         textChangeSubject.send(searchText)
     }
