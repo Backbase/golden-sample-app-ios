@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import BackbaseObservability
 import Resolver
 import BackbaseDesignSystem
 import SnapKit
@@ -17,6 +18,8 @@ final class AccountsListViewController: UIViewController {
     var viewModel: AccountsListViewModel
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private var cancellables = Set<AnyCancellable>()
+    private let viewDidAppearSubject = PassthroughSubject<Void, Never>()
+    private let userActionEventSubject = PassthroughSubject<UserActionEvent, Never>()
     
     // MARK: - Initialisation
     init(viewModel: AccountsListViewModel) {
@@ -61,8 +64,8 @@ final class AccountsListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         viewModel.onEvent(.getAccounts)
+        viewDidAppearSubject.send()
     }
     
     override func loadView() {
@@ -70,13 +73,13 @@ final class AccountsListViewController: UIViewController {
         view.addSubview(accountsListTableView)
         view.addSubview(loadingView)
         setupLayout()
-        
     }
     
     // MARK: - Private methods
     
     @objc private func handleRefreshControl() {
         viewModel.onEvent(.refresh)
+        userActionEventSubject.send(UserActionEvent(.refresh_accounts))
     }
     
     private func setupLayout() {
@@ -96,6 +99,11 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupBindings() {
+        viewModel.bind(
+            viewDidAppearPublisher: viewDidAppearSubject.eraseToAnyPublisher(),
+            userActionEventPublisher: userActionEventSubject.eraseToAnyPublisher()
+        )
+        
         searchController
             .textPublisher
             .removeDuplicates()

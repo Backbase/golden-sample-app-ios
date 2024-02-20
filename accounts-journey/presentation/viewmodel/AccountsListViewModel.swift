@@ -21,6 +21,8 @@ final class AccountsListViewModel: NSObject {
     
     private var tracker: BackbaseObservability.Tracker? = Resolver.optional()
     
+    private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Private
     
     private lazy var accountsListUseCase: AccountsListUseCase = {
@@ -33,8 +35,6 @@ final class AccountsListViewModel: NSObject {
     // MARK: - Methods
     func onEvent(_ event: AccountListScreenEvent) {
         
-        publishObservabilityEvents(for: event)
-        
         switch event {
         case .getAccounts:
             getAccountSummary(fromEvent: .getAccounts)
@@ -45,15 +45,14 @@ final class AccountsListViewModel: NSObject {
         }
     }
     
-    private func publishObservabilityEvents(for event: AccountListScreenEvent) {
-        switch event {
-        case .getAccounts:
-            tracker?.publish(event: ScreenViewEvent(.accounts_list))
-        case .refresh:
-            tracker?.publish(event: UserActionEvent(.refresh_accounts))
-        case .search:
-            tracker?.publish(event: UserActionEvent(.search_accounts))
-        }
+    func bind(viewDidAppearPublisher: AnyPublisher<Void, Never>, userActionEventPublisher: AnyPublisher<UserActionEvent, Never>) {
+        viewDidAppearPublisher.sink { [weak self] _ in
+            self?.tracker?.publish(event: ScreenViewEvent(.accounts_list))
+        }.store(in: &cancellables)
+        
+        userActionEventPublisher.sink { [weak self] userActionEvent in
+            self?.tracker?.publish(event: userActionEvent)
+        }.store(in: &cancellables)
     }
     
     private func getAccountSummary(fromEvent event: AccountListScreenEvent) {

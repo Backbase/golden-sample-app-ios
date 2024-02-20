@@ -7,6 +7,7 @@
 
 import Foundation
 import Resolver
+import Combine
 import BackbaseDesignSystem
 import BackbaseObservability
 
@@ -14,6 +15,7 @@ final class AccountDetailsViewModel: NSObject {
     
     // MARK: - Properties
     @Published private(set) var screenState: AccountDetailsScreenState = .loading
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Private
     private lazy var accountDetailsUseCase: AccountDetailsUseCase = {
@@ -29,9 +31,6 @@ final class AccountDetailsViewModel: NSObject {
     func onEvent(_ event: AccountDetailsEvent) {
         switch event {
         case let .getAccountDetails(id):
-            
-            tracker?.publish(event: ScreenViewEvent(.account_details))
-            
             getAccountDetail(id: id)
         }
     }
@@ -48,11 +47,19 @@ final class AccountDetailsViewModel: NSObject {
             case let .success(accountDetailsResponse):
                 screenState = .loaded( accountDetailsResponse.toMapUI())
             case let .failure(errorResponse):
-                screenState = .hasError(stateViewConfiguration(for: .loadingFailure(errorResponse), primaryAction: {
+                screenState = .hasError(
+                    stateViewConfiguration(
+                        for: .loadingFailure(errorResponse), primaryAction: {
                     self.onEvent(.getAccountDetails(id))
                 }))
             }
         }
+    }
+    
+    func bind(viewDidAppear: AnyPublisher<Void, Never>) {
+        viewDidAppear.sink { [weak self] _ in
+            self?.tracker?.publish(event: ScreenViewEvent(.account_details))
+        }.store(in: &cancellables)
     }
 }
 

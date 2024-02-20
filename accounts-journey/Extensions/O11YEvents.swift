@@ -23,9 +23,9 @@ extension UserActionEvent {
     
     enum EventName: String {
         case refresh_accounts = "refresh-accounts"
-        case search_accounts = "search-accounts"
     }
-    convenience init(_ eventName: EventName, attributes: [String : BackbaseObservability.BasicEventData] = [:]) {
+    
+    convenience init(_ eventName: EventName, attributes: [String: BackbaseObservability.BasicEventData] = [:]) {
         self.init(name: eventName.rawValue, journey: "accounts-transactions", attributes: attributes)
     }
 }

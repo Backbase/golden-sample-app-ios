@@ -37,5 +37,6 @@ platform :ios do
   desc "Test and generate coverage data"
   lane :test do
     scan
+    slather
   end
 end
