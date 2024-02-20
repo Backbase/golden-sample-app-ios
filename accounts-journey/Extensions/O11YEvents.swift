@@ -10,8 +10,8 @@ import BackbaseObservability
 
 extension ScreenViewEvent {
     enum ScreenName: String {
-        case accounts_list
-        case account_details
+        case accountsList = "accounts_list"
+        case accountDetails = "account_details"
     }
     
     init(_ screenName: ScreenName, addition: String? = nil) {
@@ -22,7 +22,7 @@ extension ScreenViewEvent {
 extension UserActionEvent {
     
     enum EventName: String {
-        case refresh_accounts
+        case refreshAccounts = "refresh_accounts"
     }
     
     convenience init(_ eventName: EventName, attributes: [String: BackbaseObservability.BasicEventData] = [:]) {

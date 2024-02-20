@@ -34,7 +34,9 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
         
         viewDidAppearSubject.send()
         
-        XCTAssertEqual(screenViewEventsSpy.publishedEvents, [ScreenViewEvent(.accounts_list)])
+        XCTAssertEqual(screenViewEventsSpy.publishedEvents.count, 1)
+        XCTAssertEqual(screenViewEventsSpy.publishedEvents.first??.journey, "accounts_transactions")
+        XCTAssertEqual(screenViewEventsSpy.publishedEvents.first??.name, "accounts_list")
     }
     
     func test_refresh_accountsUserActionEvent_isPublished_whenTheRefreshEventIsEmitted() {
@@ -54,9 +56,11 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
         // No event has been triggered yet. List of events should be empty
         XCTAssertEqual(userActionSpy.publishedEvents, [])
         
-        userActionEventSubject.send(UserActionEvent(.refresh_accounts))
+        userActionEventSubject.send(UserActionEvent(.refreshAccounts))
         
-        XCTAssertEqual(userActionSpy.publishedEvents, [UserActionEvent(.refresh_accounts)])
+        XCTAssertEqual(userActionSpy.publishedEvents.count, 1)
+        XCTAssertEqual(userActionSpy.publishedEvents.first??.journey, "accounts_transactions")
+        XCTAssertEqual(userActionSpy.publishedEvents.first??.name, "refresh_accounts")
     }
     
 
@@ -75,7 +79,9 @@ final class AccountsJourneyObservabilityTests: XCTestCase {
         
         valueSubject.send()
         
-        XCTAssertEqual(screenViewEventsSpy.publishedEvents, [ScreenViewEvent(.account_details)])
+        XCTAssertEqual(screenViewEventsSpy.publishedEvents.count, 1)
+        XCTAssertEqual(screenViewEventsSpy.publishedEvents.first??.journey, "accounts_transactions")
+        XCTAssertEqual(screenViewEventsSpy.publishedEvents.first??.name, "account_details")
     }
     
     // MARK: - Private

@@ -79,7 +79,7 @@ final class AccountsListViewController: UIViewController {
     
     @objc private func handleRefreshControl() {
         viewModel.onEvent(.refresh)
-        userActionEventSubject.send(UserActionEvent(.refresh_accounts))
+        userActionEventSubject.send(UserActionEvent(.refreshAccounts))
     }
     
     private func setupLayout() {

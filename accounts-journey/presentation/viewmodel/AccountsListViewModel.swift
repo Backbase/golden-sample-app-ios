@@ -47,7 +47,7 @@ final class AccountsListViewModel: NSObject {
     
     func bind(viewDidAppearPublisher: AnyPublisher<Void, Never>, userActionEventPublisher: AnyPublisher<UserActionEvent, Never>) {
         viewDidAppearPublisher.sink { [weak self] _ in
-            self?.tracker?.publish(event: ScreenViewEvent(.accounts_list))
+            self?.tracker?.publish(event: ScreenViewEvent(.accountsList))
         }.store(in: &cancellables)
         
         userActionEventPublisher.sink { [weak self] userActionEvent in

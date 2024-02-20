@@ -58,7 +58,7 @@ final class AccountDetailsViewModel: NSObject {
     
     func bind(viewDidAppear: AnyPublisher<Void, Never>) {
         viewDidAppear.sink { [weak self] _ in
-            self?.tracker?.publish(event: ScreenViewEvent(.account_details))
+            self?.tracker?.publish(event: ScreenViewEvent(.accountDetails))
         }.store(in: &cancellables)
     }
 }
