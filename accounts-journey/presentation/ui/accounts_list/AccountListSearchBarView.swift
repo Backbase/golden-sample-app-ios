@@ -9,12 +9,12 @@ import Combine
 
 final class AccountListSearchBarView: UIView {
     private let configuration: AccountsJourney.Configuration = Resolver.resolve()
-    let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+    private let searchBar = UISearchBar(frame: .zero)
     var cancellable: AnyCancellable?
     let textChangeSubject = PassthroughSubject<String, Never>()
 
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 60))
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         setupSubviews()
         setupConfiguration()
         searchBar.delegate = self
@@ -32,7 +32,7 @@ final class AccountListSearchBarView: UIView {
             make.top.equalToSuperview()
             make.bottom
                 .equalToSuperview()
-                .inset(DesignSystem.shared.spacer.sm)
+                .inset(DesignSystem.shared.spacer.md)
             make.leading.trailing
                 .equalToSuperview()
                 .inset(-DesignSystem.shared.spacer.sm)
