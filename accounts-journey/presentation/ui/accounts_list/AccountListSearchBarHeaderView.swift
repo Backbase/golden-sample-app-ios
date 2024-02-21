@@ -10,7 +10,6 @@ import Combine
 final class AccountListSearchBarHeaderView: UIView {
     private let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private let searchBar = UISearchBar(frame: .zero)
-    var cancellable: AnyCancellable?
     let textChangeSubject = PassthroughSubject<String, Never>()
 
     init() {

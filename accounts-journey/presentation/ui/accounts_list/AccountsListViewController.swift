@@ -99,6 +99,12 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupBindings() {
+        headerView.textChangeSubject
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink(receiveValue: { [weak self] text in
+                self?.viewModel.onEvent(.search(text))
+            }).store(in: &cancellables)
+
         viewModel.bind(
             viewDidAppearPublisher: viewDidAppearSubject.eraseToAnyPublisher(),
             userActionEventPublisher: userActionEventSubject.eraseToAnyPublisher()
@@ -113,11 +119,6 @@ final class AccountsListViewController: UIViewController {
                 switch state {
                 case .loading:
                     self?.showLoadingView()
-                    self?.headerView.cancellable = self?.headerView.textChangeSubject
-                        .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-                        .sink(receiveValue: { [weak self] text in
-                            self?.viewModel.onEvent(.search(text))
-                        })
                 case .loaded:
                     self?.hideLoadingView()
                     self?.accountsListTableView.isHidden = false
