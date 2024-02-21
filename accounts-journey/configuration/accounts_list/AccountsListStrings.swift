@@ -61,9 +61,9 @@ extension AccountsList {
         public var errorRetryButtonTitle: ErrorFormatter<LocalizedString?> = { error in
             switch error {
             case .loadingFailure:
-                return localized(key: "errors.loadingFailure.actionButton")
+                localized(key: "errors.loadingFailure.actionButton")
             default:
-                return nil
+                nil
             }
         }
         

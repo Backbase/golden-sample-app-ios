@@ -34,6 +34,7 @@ abstract_target 'Common' do
   pod 'SwiftLint'
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
+  pod 'BackbaseObservability', '~> 1.0'
 
   target 'AccountsJourney' do
   end

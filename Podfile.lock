@@ -19,7 +19,9 @@ PODS:
   - BackbaseIdentity (5.6.1):
     - AppAuth (~> 1.3)
     - Backbase (>= 9.3.0)
-  - BackbaseObservability (2.0.0)
+  - BackbaseObservability (1.0.0):
+    - BackbaseObservability/Sources (= 1.0.0)
+  - BackbaseObservability/Sources (1.0.0)
   - BackbaseSDKSwiftWrapper (1.1.0):
     - BackbaseSecureStorage (~> 1.0.0)
   - BackbaseSecureStorage (1.0.3)
@@ -92,6 +94,7 @@ DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (= 10.1.0)
   - BackbaseDesignSystem (= 4.2.2)
+  - BackbaseObservability (~> 1.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney
@@ -144,7 +147,7 @@ SPEC CHECKSUMS:
   BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
   BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
   BackbaseIdentity: 785241825cd404db7ef1691db2564d04f6839889
-  BackbaseObservability: 4b7ee241560e02ed45bfab35911da9c4062b7b76
+  BackbaseObservability: 5881fd8f1d7ecf71799914a63a9785af4ce4cfb9
   BackbaseSDKSwiftWrapper: 22a1eb85e7b73d1cc885659a271c7d343a14a1d1
   BackbaseSecureStorage: f864fdc06a7af5fd9244efa37adcdd1effc58cec
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
@@ -166,6 +169,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: e48b7fa4445a69985294b7050b20af624c634790
   UserProfileJourney: cd79b731d7a1db6845fef39e8d6dac33c2b5296f
 
-PODFILE CHECKSUM: 0dc410b9c8c33aeb48651dfe9d66d34a601b8010
+PODFILE CHECKSUM: 707211f28ad5f5555de8bc0dfac59309f4a9dad1
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.15.2

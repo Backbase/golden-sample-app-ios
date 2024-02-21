@@ -1,0 +1,39 @@
+name: "Setup environment"
+
+inputs:
+  bb_artifactory_ios_username:
+    description: "Backbase repo username"
+    required: true
+  bb_artifactory_ios_password:
+    description: "Backbase repo password"
+    required: true
+
+description: Build and Run
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+    
+    - name: Setup repository credentials
+      shell: bash
+      run: |
+        echo Adding credentials to ~/.netrc file
+        echo -e "machine repo.backbase.com\nlogin ${{ inputs.bb_artifactory_ios_username }}\npassword ${{ inputs.bb_artifactory_ios_password }}" > ~/.netrc
+        echo Changing ~/.netrc file permissions
+        chmod -R 0600 ~/.netrc
+           
+    - name: Add repositories from repo.backbase.com
+      uses: ./.github/actions/repo-art
