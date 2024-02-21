@@ -67,6 +67,7 @@ final class AccountsListViewController: UIViewController {
         setupView()
         setupBindings()
         viewModel.onEvent(.getAccounts)
+        headerView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,6 +121,7 @@ final class AccountsListViewController: UIViewController {
                 case .loading:
                     self?.showLoadingView()
                 case .loaded:
+                    self?.headerView.isHidden = false
                     self?.hideLoadingView()
                     self?.accountsListTableView.isHidden = false
                     self?.accountsListTableView.reloadData()
