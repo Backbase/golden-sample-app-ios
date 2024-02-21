@@ -77,7 +77,7 @@ final class AccountsListViewController: UIViewController {
             make.trailing.left
                 .equalToSuperview()
                 .inset(DesignSystem.shared.spacer.md)
-            make.top.bottom.equalTo(view.layoutMarginsGuide)
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         loadingView.snp.makeConstraints { make in
