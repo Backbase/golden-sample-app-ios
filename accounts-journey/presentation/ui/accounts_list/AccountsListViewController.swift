@@ -74,7 +74,7 @@ final class AccountsListViewController: UIViewController {
     
     private func setupLayout() {
         accountsListTableView.snp.makeConstraints { make in
-            make.trailing.left
+            make.trailing.leading
                 .equalToSuperview()
                 .inset(DesignSystem.shared.spacer.md)
             make.top.bottom.equalTo(view.safeAreaLayoutGuide)
