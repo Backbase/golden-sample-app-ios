@@ -18,6 +18,7 @@ final class AccountDetailsViewController: UIViewController {
     private var arrangementId: String
     private var cancellables = Set<AnyCancellable>()
     let configuration: AccountsJourney.Configuration = Resolver.resolve()
+    private let viewDidAppearSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - UI Properties
     private var stateView: StateView?
@@ -55,7 +56,6 @@ final class AccountDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupBindings()
-        
     }
     
     override func loadView() {
@@ -71,6 +71,7 @@ final class AccountDetailsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.onEvent(.getAccountDetails(arrangementId))
+        viewDidAppearSubject.send()
     }
     
     private func setupView() {
@@ -111,6 +112,10 @@ final class AccountDetailsViewController: UIViewController {
     }
     
     private func setupBindings() {
+        viewModel.bind(
+            viewDidAppear: viewDidAppearSubject.eraseToAnyPublisher()
+        )
+        
         viewModel
             .$screenState
             .receive(on: DispatchQueue.main)

@@ -19,7 +19,7 @@ extension AccountsList {
             case .noAccounts:
                 DesignSystem.Assets.icStateViewNoWifi
             default:
-                DesignSystem.Assets.icStateViewLoadingFailed
+               DesignSystem.Assets.icStateViewLoadingFailed
             }
         }
     }

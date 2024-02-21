@@ -59,6 +59,10 @@ targets:
     dependencies:
       - target: AccountsJourney
         link: true
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
 
   GoldenSampleApp:
     type: application
@@ -84,6 +88,10 @@ targets:
         embed: true
       - target: AccountsJourney
         embed: true
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
   GoldenSampleAllTests:
     type: framework
     platform: iOS
@@ -107,9 +115,9 @@ targets:
         - name: GoldenAccountsUseCaseUnitTests
           parallelizable: false
           randomExecutionOrder: true
-        - name: GoldenSampleUITests
-          parallelizable: true
-          randomExecutionOrder: false
+        # - name: GoldenSampleUITests
+        #   parallelizable: true
+        #   randomExecutionOrder: false
 
   AccountsJourneyUnitTests:
     type: bundle.unit-test

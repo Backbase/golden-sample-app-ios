@@ -33,4 +33,10 @@ platform :ios do
     }
     cocoapods(error_callback: error_callback)
   end
+
+  desc "Test and generate coverage data"
+  lane :test do
+    scan
+    # slather
+  end
 end

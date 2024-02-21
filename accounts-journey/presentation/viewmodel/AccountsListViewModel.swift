@@ -9,6 +9,7 @@ import Foundation
 import Resolver
 import Combine
 import BackbaseDesignSystem
+import BackbaseObservability
 
 final class AccountsListViewModel: NSObject {
     
@@ -17,6 +18,10 @@ final class AccountsListViewModel: NSObject {
     @Published private(set) var screenState: AccountListScreenState = .loading
     
     var didSelectProduct: ((String) -> Void)?
+    
+    private var tracker: BackbaseObservability.Tracker? = Resolver.optional()
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Private
     
@@ -29,6 +34,7 @@ final class AccountsListViewModel: NSObject {
     
     // MARK: - Methods
     func onEvent(_ event: AccountListScreenEvent) {
+        
         switch event {
         case .getAccounts:
             getAccountSummary(fromEvent: .getAccounts)
@@ -39,7 +45,17 @@ final class AccountsListViewModel: NSObject {
         }
     }
     
-    func getAccountSummary(fromEvent event: AccountListScreenEvent) {
+    func bind(viewDidAppearPublisher: AnyPublisher<Void, Never>, userActionEventPublisher: AnyPublisher<UserActionEvent, Never>) {
+        viewDidAppearPublisher.sink { [weak self] _ in
+            self?.tracker?.publish(event: ScreenViewEvent(.accountsList))
+        }.store(in: &cancellables)
+        
+        userActionEventPublisher.sink { [weak self] userActionEvent in
+            self?.tracker?.publish(event: userActionEvent)
+        }.store(in: &cancellables)
+    }
+    
+    private func getAccountSummary(fromEvent event: AccountListScreenEvent) {
         var query = ""
         
         if case let .search(searchString) = event {
