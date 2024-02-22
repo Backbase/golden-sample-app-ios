@@ -20,8 +20,8 @@ private struct UserPresentable: TabHeaderViewControllerUserPresentable {
 struct DashboardHelper {
     func getViewController(navigationController: UINavigationController, serviceAgreementName: String) async -> UIViewController {
         let userProfileName = await fetchUserProfile()
-        return DispatchQueue.main.sync {
-            getTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
+        return await MainActor.run {
+            return createTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
         }
     }
 
@@ -41,9 +41,9 @@ struct DashboardHelper {
         }
     }
 
-    private func getTabHeaderViewController(_ navigationController: UINavigationController,
-                                            _ userName: String,
-                                            _ serviceAgreementName: String) -> UIViewController {
+    private func createTabHeaderViewController(_ navigationController: UINavigationController,
+                                               _ userName: String,
+                                               _ serviceAgreementName: String) -> UIViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
         let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
