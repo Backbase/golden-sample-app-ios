@@ -18,11 +18,10 @@ private struct UserPresentable: TabHeaderViewControllerUserPresentable {
 
 /// A helper struct to setup the dashboard.
 struct DashboardHelper {
+    @MainActor
     func getViewController(navigationController: UINavigationController, serviceAgreementName: String) async -> UIViewController {
         let userProfileName = await fetchUserProfile()
-        return await MainActor.run {
-            return createTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
-        }
+        return createTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
     }
 
     private func fetchUserProfile() async -> String {
