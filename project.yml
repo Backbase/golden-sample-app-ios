@@ -83,6 +83,8 @@ targets:
       - path: app
         excludes: Info.plist
         createIntermediateGroups: true
+      - path: assets
+        createIntermediateGroups: true
     dependencies:
       - target: GoldenAccountsUseCase
         embed: true

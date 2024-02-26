@@ -10,8 +10,8 @@ import Resolver
 import SnapKit
 import BackbaseDesignSystem
 
-final class AccountListItemTableCell: UITableViewCell, Reusable {
-    
+final class AccountListItemTableCell: UITableViewCell, Reusable, CellCornerModifier {
+
     var configuration: AccountsJourney.Configuration = Resolver.resolve()
     
     private lazy var containerStackView: UIStackView = {
@@ -107,18 +107,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         
     }
     
-    func setupSelectedViewCornerRadius(position: CellPosition) {
-        let view = UIView()
-        let color = UIColor(light: DesignSystem.shared.colors.primary.lightest, dark: DesignSystem.shared.colors.primary.darkest)
-        view.backgroundColor = color
-        view.layer.cornerRadius = DesignSystem.shared.cornerRadius.large
-        view.layer.maskedCorners = position.maskedCorners
-        selectedBackgroundView = view
-        
-        layer.cornerRadius = DesignSystem.shared.cornerRadius.large
-        layer.maskedCorners = position.maskedCorners
-    }
-    
     func setup(_ account: AccountUIModel?) {
 
         if let account {
@@ -158,41 +146,6 @@ final class AccountListItemTableCell: UITableViewCell, Reusable {
         
         if let iconBackgroundColor = accountIconInfo.backgroundColor {
             icon.backgroundColor = iconBackgroundColor
-        }
-    }
-}
-
-enum CellPosition {
-    case beginning
-    case end
-    case middle
-    case full
-    
-    var cornerRadius: CGFloat {
-        self == .middle ? 0 : DesignSystem.shared.cornerRadius.large
-    }
-    
-    var maskedCorners: CACornerMask {
-        switch self {
-        case .beginning:
-            return [
-                .layerMinXMinYCorner,
-                .layerMaxXMinYCorner
-            ]
-        case .end:
-            return [
-                .layerMinXMaxYCorner,
-                .layerMaxXMaxYCorner
-            ]
-        case .full:
-            return [
-                .layerMinXMinYCorner,
-                .layerMaxXMinYCorner,
-                .layerMinXMaxYCorner,
-                .layerMaxXMaxYCorner
-            ]
-        default:
-            return []
         }
     }
 }

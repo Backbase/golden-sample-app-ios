@@ -16,11 +16,12 @@ final class AccountsListViewController: UIViewController {
     
     // MARK: - Properties
     var viewModel: AccountsListViewModel
-    let configuration: AccountsJourney.Configuration = Resolver.resolve()
+    private let configuration: AccountsJourney.Configuration = Resolver.resolve()
     private var cancellables = Set<AnyCancellable>()
+    private let headerView = AccountListSearchBarHeaderView()
     private let viewDidAppearSubject = PassthroughSubject<Void, Never>()
     private let userActionEventSubject = PassthroughSubject<UserActionEvent, Never>()
-    
+
     // MARK: - Initialisation
     init(viewModel: AccountsListViewModel) {
         self.viewModel = viewModel
@@ -37,20 +38,26 @@ final class AccountsListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
         return refreshControl
     }
-    
-    private let searchController = UISearchController(searchResultsController: nil)
-    
+
     private var stateView: StateView?
     private let loadingView = LoadingView()
     
-    private lazy var accountsListTableView: RoundedTableView = {
-        let table = RoundedTableView()
+    private lazy var accountsListTableView: UITableView = {
+        let table = UITableView()
+        let inset = DesignSystem.shared.spacer.md
+        table.contentInset = UIEdgeInsets(top: inset, left: 0, bottom: inset, right: 0)
         table.alwaysBounceVertical = false
         table.dataSource = self
         table.delegate = self
         table.registerCell(AccountListItemTableCell.self)
+        table.tableHeaderView = headerView
         table.refreshControl = refreshControl
-        
+
+        table.clipsToBounds = true
+        table.separatorStyle = .none
+        table.backgroundColor = .clear
+        table.showsVerticalScrollIndicator = false
+        table.alwaysBounceVertical = false
         return table
     }()
     
@@ -58,23 +65,16 @@ final class AccountsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupSearchController()
         setupBindings()
+        viewModel.onEvent(.getAccounts)
+        headerView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.onEvent(.getAccounts)
         viewDidAppearSubject.send()
     }
-    
-    override func loadView() {
-        super.loadView()
-        view.addSubview(accountsListTableView)
-        view.addSubview(loadingView)
-        setupLayout()
-    }
-    
+
     // MARK: - Private methods
     
     @objc private func handleRefreshControl() {
@@ -84,8 +84,9 @@ final class AccountsListViewController: UIViewController {
     
     private func setupLayout() {
         accountsListTableView.snp.makeConstraints { make in
-            make.leading.trailing
-                .equalToSuperview().inset(DesignSystem.shared.spacer.md)
+            make.trailing.leading
+                .equalToSuperview()
+                .inset(DesignSystem.shared.spacer.md)
             make.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -99,54 +100,49 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupBindings() {
+        headerView.textChangeSubject
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink(receiveValue: { [weak self] text in
+                self?.viewModel.onEvent(.search(text))
+            }).store(in: &cancellables)
+
         viewModel.bind(
             viewDidAppearPublisher: viewDidAppearSubject.eraseToAnyPublisher(),
             userActionEventPublisher: userActionEventSubject.eraseToAnyPublisher()
         )
-        
-        searchController
-            .textPublisher
-            .removeDuplicates()
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .sink { [weak self] in
-                self?.viewModel.onEvent(.search($0))
-            }.store(in: &cancellables)
-        
+
         viewModel
             .$screenState
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: {[weak self] state in
+            .sink(receiveValue: { [weak self] state in
                 self?.removeStateView()
                 self?.accountsListTableView.refreshControl?.endRefreshing()
                 switch state {
                 case .loading:
                     self?.showLoadingView()
                 case .loaded:
+                    self?.headerView.isHidden = false
                     self?.hideLoadingView()
                     self?.accountsListTableView.isHidden = false
                     self?.accountsListTableView.reloadData()
-                case let .hasError(stateViewConfig), let .emptyResults(stateViewConfig):
+                case let .hasError(stateViewConfig):
+                    self?.accountsListTableView.reloadData()
                     self?.hideLoadingView()
-                    self?.showStateView(stateViewConfig)
+                    self?.showStateView(stateViewConfig, isEmptyState: false)
+                case let .emptyResults(stateViewConfig):
+                    self?.accountsListTableView.reloadData()
+                    self?.hideLoadingView()
+                    self?.showStateView(stateViewConfig, isEmptyState: true)
                 }
             })
             .store(in: &cancellables)
-        
-    }
-    
-    private func setupSearchController() {
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = configuration.accountsList.strings.searchText()
-        navigationItem.searchController = searchController
-        definesPresentationContext = false
-        navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchBar.delegate = self
-        
-        configuration.accountsList.design.styles.searchBar(searchController.searchBar)
     }
     
     private func setupView() {
+        view.addSubview(accountsListTableView)
+        view.addSubview(loadingView)
+        setupLayout()
+        
         view.backgroundColor = DesignSystem.shared.colors.foundation.default
         title = configuration.accountsList.strings.screenTitle()
         
@@ -156,7 +152,6 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func showLoadingView() {
-        accountsListTableView.isHidden = true
         loadingView.isHidden = false
         loadingView.startAnimating()
     }
@@ -166,46 +161,39 @@ final class AccountsListViewController: UIViewController {
         loadingView.stopAnimating()
     }
     
-    private func showStateView(_ configuration: StateViewConfiguration) {
+    private func showStateView(_ configuration: StateViewConfiguration, isEmptyState: Bool) {
         stateView = StateView(
             params: StateViewInitParams(
                 configuration: configuration,
                 bundles: .accountsJourney ?? .design ?? .main
             )
         )
-        
+
         guard let stateView else { return }
         stateView.accessibilityIdentifier = "AccountsListStateView"
-        // HIDE TABLE
-        accountsListTableView.isHidden = true
+
         // Add state view to the view hierarchy
-        view.addSubview(stateView)
-        
-        stateView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-                .inset(DesignSystem.shared.spacer.md)
-            make.centerY.equalToSuperview()
+        if isEmptyState {
+            accountsListTableView.addSubview(stateView)
+            stateView.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+            }
+        } else {
+            // HIDE TABLE
+            accountsListTableView.isHidden = true
+            // Add state view to the view hierarchy
+            view.addSubview(stateView)
+
+            stateView.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview()
+                    .inset(DesignSystem.shared.spacer.md)
+                make.centerY.equalToSuperview()
+            }
         }
     }
     
     private func removeStateView() {
-        if stateView != nil {
-            UIView.animate(
-                withDuration: 0.2,
-                animations: {[weak self] in
-                    self?.stateView?.alpha = 0.0
-                },
-                completion: {[weak self] _ in
-                    self?.stateView?.removeFromSuperview()
-                    self?.stateView = nil
-                })
-        }
-    }
-}
-
-// MARK: - Extensions
-extension AccountsListViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.onEvent(.search(""))
+        stateView?.removeFromSuperview()
+        stateView = nil
     }
 }

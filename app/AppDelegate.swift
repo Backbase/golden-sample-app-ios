@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAccountsJourney()
         setupObservability()
         appendCustomHeader()
+        UserProfileUseCaseHelper().setupUserProfileUseCase()
         return true
     }
 }
