@@ -39,6 +39,14 @@ bundle install
 ```bash
 bundle exec fastlane setup
 ```
+- Setup pod repos.
+```bash
+pod repo-art add backbase-pods3 "https://repo.backbase.com/artifactory/api/pods/ios3" &&
+pod repo-art add backbase-pods-retail3 "https://repo.backbase.com/artifactory/api/pods/ios-retail3" &&
+pod repo-art add backbase-pods-identity "https://repo.backbase.com/artifactory/api/pods/ios-identity" &&
+pod repo-art add backbase-pods-business "https://repo.backbase.com/artifactory/api/pods/ios-business" &&
+pod repo-art add backbase-pods-design "https://repo.backbase.com/artifactory/api/pods/design-ios"
+```
 
 ## Usage and login
 
