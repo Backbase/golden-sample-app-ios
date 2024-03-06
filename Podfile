@@ -21,12 +21,12 @@ use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '10.1.0'
+$backbaseVersion = '11.2.0'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase'
-  pod 'IdentityAuthenticationJourney'
+  pod 'IdentityAuthenticationJourney','~> 6.0'
   pod 'BusinessWorkspacesJourney'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
