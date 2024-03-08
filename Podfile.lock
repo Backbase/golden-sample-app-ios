@@ -81,11 +81,13 @@ PODS:
   - UserManagerClient2 (1.0.0):
     - Backbase (>= 7.8.0)
     - ClientCommon (~> 1.1)
-  - UserManagerUserProfileUseCase (4.3.0):
+  - UserManagerUserProfileUseCase (5.1.0):
+    - Backbase (>= 11.0.0)
     - UserManagerClient2 (~> 1.0)
-    - UserProfileJourney (= 4.3.0)
-  - UserProfileJourney (4.3.0):
-    - BackbaseDesignSystem (>= 3.0.0)
+    - UserProfileJourney (= 5.1.0)
+  - UserProfileJourney (5.1.0):
+    - Backbase (>= 11.0.0)
+    - BackbaseDesignSystem (>= 4.2.1)
     - BackbaseObservability (>= 1.0.0)
     - RetailJourneyCommon (>= 2.0)
     - SnapKit (~> 5.0.0)
@@ -166,8 +168,8 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
   UserManagerClient2: 9851ed8619099ea9f6ec79d17acdcb7c310018e5
-  UserManagerUserProfileUseCase: e48b7fa4445a69985294b7050b20af624c634790
-  UserProfileJourney: cd79b731d7a1db6845fef39e8d6dac33c2b5296f
+  UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
+  UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
 PODFILE CHECKSUM: ae4588eb5c2d916cba64eae24ba134e60308a409
 
