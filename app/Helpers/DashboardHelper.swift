@@ -9,6 +9,7 @@ import GoldenAccountsUseCase
 import Resolver
 import UserManagerUserProfileUseCase
 import UserProfileJourney
+import DashboardJourney
 
 private struct UserPresentable: TabHeaderViewControllerUserPresentable {
     var name: String
@@ -45,7 +46,8 @@ struct DashboardHelper {
                                                _ serviceAgreementName: String) -> UIViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
-        let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
+        let dashboardViewController = Dashboard.build(navigationController: navigationController)
+        dashboardViewController.title = Bundle.main.localize("dashboardJourney.dashboard.labels.title") ?? ""
         let tab3ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
         let userPresentable = UserPresentable(name: userName, company: serviceAgreementName, image: nil)
@@ -53,8 +55,8 @@ struct DashboardHelper {
         let header: TabHeaderViewController.Header = .userInformation(headerConfiguration)
 
         let tabHeaderViewControllerConfiguration = TabHeaderViewController.Configuration(header: header,
-                                                                                         viewControllers: [accountsListViewController,
-                                                                                                           tab2ViewController,
+                                                                                         viewControllers: [dashboardViewController,
+                                                                                                           accountsListViewController,
                                                                                                            tab3ViewController])
 
         let tabHeaderController = TabHeaderViewController(configuration: tabHeaderViewControllerConfiguration)
