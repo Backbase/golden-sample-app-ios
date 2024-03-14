@@ -9,63 +9,42 @@ import UIKit
 import Resolver
 import Backbase
 import IdentityAuthenticationJourney
-import BusinessWorkspacesJourney
-import BusinessWorkspacesJourneyWorkspacesUseCase2
-import BusinessJourneyCommon
-import RetailFeatureFilterUseCase
-import RetailFeatureFilterAccessControlEntitlementsUseCase
-import AccessControlClient3Gen2
-import ArrangementsClient2Gen2
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+
     // MARK: Properties
-    lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
-    lazy var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
-    
-    // MARK: Identity Journey properties
-
-    lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
-        let useCase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
-        Backbase.register(authClient: useCase)
-
-        Resolver.register { Authentication.Configuration() }
-        Resolver.register { useCase as AuthenticationUseCase }
-
-        return useCase
-    }()
-
-    lazy var authenticationConfiguration: Authentication.Configuration = {
-        var config = Authentication.Configuration()
-        config.login.autoLoginEnabled = true
-        return config
-    }()
-
-    lazy var navCoordinator: AuthenticationNavigationCoordinator = { [weak self] in
-        guard let window = self?.window else { fatalError("Failed to get window") }
-        return Authentication.NavigationCoordinator(window: window)
-    }()
+    let configuration: AppConfiguration = AppConfiguration()
 
     // MARK: Default methods
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customisation after application launch.
-        let window = UIWindow()
-        window.rootViewController = UIViewController()
-        window.makeKeyAndVisible()
+        let window = createWindow()
         self.window = window
+        configuration.registerDependencies()
 
-        setupBackbaseSDK()
-        setupIdentityJourney()
-        setupWorkspacesJourney()
-        setupAccountsJourney()
         setupObservability()
         appendCustomHeader()
         UserProfileUseCaseHelper().setupUserProfileUseCase()
+
+        configuration.router.didStartApp(window)
+        let authenticationUseCase = Resolver.resolve(AuthenticationUseCase.self)
+        authenticationUseCase.validateSession(callback: { _ in })
         return true
+    }
+
+    override init() {
+        super.init()
+
+        setupBackbaseSDK()
+    }
+
+    private func createWindow() -> UIWindow {
+        let newWindow = UIWindow()
+        newWindow.makeKeyAndVisible()
+        return newWindow
     }
 }
