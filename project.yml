@@ -189,7 +189,7 @@ targets:
     codeSign: false
     dependencies:
       - package: SnapshotTesting
-#      - target: GoldenSampleApp
+      - target: GoldenSampleApp
         link: true
       - target: AccountsJourney
         link: true
