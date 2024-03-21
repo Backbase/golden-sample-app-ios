@@ -6,6 +6,14 @@ import UIKit
 import BackbaseDesignSystem
 
 final class ComingSoonViewController: UIViewController {
+    static func build(title: String) -> (UINavigationController) -> UIViewController {
+        { _ in
+            let comingSoonController = ComingSoonViewController(title: title)
+            comingSoonController.view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+            comingSoonController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
+            return comingSoonController
+        }
+    }
 
     init(title: String) {
         super.init(nibName: nil, bundle: .main)

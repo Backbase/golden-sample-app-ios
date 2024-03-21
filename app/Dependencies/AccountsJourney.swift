@@ -10,12 +10,15 @@ import Backbase
 import Resolver
 import AccountsJourney
 import GoldenAccountsUseCase
+import ArrangementsClient2Gen2
 
-extension AppDelegate {
-    func setupAccountsJourney() {
-        Resolver.register { AccountsListSummaryUseCaseImp(client: self.productSummaryClient) as AccountsListUseCase }
-        Resolver.register { AccountDetailUseCaseImp(client: self.arrangementsClient) as AccountDetailsUseCase}
-        Resolver.register { AccountsJourney.Configuration() }
+extension AccountsJourney.Configuration: AppDependency {
+    func register() {
+        var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
+        var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
+        Resolver.register { AccountsListSummaryUseCaseImp(client: productSummaryClient) as AccountsListUseCase }
+        Resolver.register { AccountDetailUseCaseImp(client: arrangementsClient) as AccountDetailsUseCase}
+        Resolver.register { self }
     }
     
     func clientFactory<T: DBSClient>(_ client: T, _ path: String) -> T {
@@ -35,5 +38,11 @@ extension AppDelegate {
             }
             return client
         }
+    }
+}
+
+extension AccountsJourney.Configuration: Configurable {
+    static var appDefault: AccountsJourney.Configuration {
+        return AccountsJourney.Configuration()
     }
 }

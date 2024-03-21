@@ -9,6 +9,7 @@ import GoldenAccountsUseCase
 import Resolver
 import UserManagerUserProfileUseCase
 import UserProfileJourney
+import IdentityAuthenticationJourney
 
 private struct UserPresentable: TabHeaderViewControllerUserPresentable {
     var name: String
@@ -18,31 +19,17 @@ private struct UserPresentable: TabHeaderViewControllerUserPresentable {
 
 /// A helper struct to setup the dashboard.
 struct DashboardHelper {
-    @MainActor
-    func getViewController(navigationController: UINavigationController, serviceAgreementName: String) async -> UIViewController {
-        let userProfileName = await fetchUserProfile()
-        return createTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
-    }
-
-    private func fetchUserProfile() async -> String {
-        let userProfileUseCase: UserProfileUseCase = Resolver.resolve()
-        return await withCheckedContinuation { continuation in
-            DispatchQueue.global().async {
-                userProfileUseCase.retrieveUserProfile { result in
-                    switch result {
-                    case .success(let userProfile):
-                        continuation.resume(returning: userProfile.fullName)
-                    case .failure:
-                        continuation.resume(returning: "") // This is not a bug, but a feature.
-                    }
-                }
-            }
+    static func build(serviceAgreementName: String) -> (UINavigationController) -> UIViewController {
+        { navigationController in
+            let authenticationUseCase = Resolver.resolve(AuthenticationUseCase.self)
+            let userProfileName = authenticationUseCase.cachedName ?? ""
+            return createTabHeaderViewController(navigationController, userProfileName, serviceAgreementName)
         }
     }
 
-    private func createTabHeaderViewController(_ navigationController: UINavigationController,
-                                               _ userName: String,
-                                               _ serviceAgreementName: String) -> UIViewController {
+    private static func createTabHeaderViewController(_ navigationController: UINavigationController,
+                                                      _ userName: String,
+                                                      _ serviceAgreementName: String) -> UIViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
         let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
