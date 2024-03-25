@@ -51,6 +51,9 @@ abstract_target 'Tests' do
   pod 'Backbase', $backbaseVersion
   pod 'Resolver', $resolverVersion
   
+  target 'SnapshotTests' do
+      inherit! :search_paths
+    end
 
   target 'AccountsJourneyUnitTests' do 
   end

@@ -1,0 +1,50 @@
+{
+    "name": "Person's Current Account",
+    "bookedBalance": 2152.11,
+    "availableBalance": 3207.61,
+    "creditLimit": 1055.5,
+    "BBAN": "****************0025",
+    "BIC": "WFBIUS6S",
+    "currency": "USD",
+    "accruedInterest": 3.6185016176,
+    "bankBranchCode": "111000025",
+    "accountOpeningDate": "2023-02-07T19:54:27Z",
+    "accountInterestRate": 3.0,
+    "creditLimitUsage": 0,
+    "creditLimitInterestRate": 2.0,
+    "accountHolderNames": "Person",
+    "lastUpdateDate": "2024-03-14T10:01:59.945552227Z",
+    "displayName": "Person's Current Account",
+    "debitCards": [],
+    "unmaskableAttributes": [
+        "BBAN"
+    ],
+    "id": "0e0b4b4f-e67e-4bbf-ba8d-1e5053d33745",
+    "productKindName": "Current Account",
+    "visible": true,
+    "legalEntityIds": [
+        "8a8080a18da89fd3018da8cdf3b60041"
+    ],
+    "productId": "94714eb6-d49a-44c1-be06-6398f1b9dbc1",
+    "productTypeName": "Current Account",
+    "userPreferences": {
+        "arrangementId": "0e0b4b4f-e67e-4bbf-ba8d-1e5053d33745",
+        "visible": true,
+        "favorite": false
+    },
+    "product": {
+        "externalId": "current-account",
+        "externalTypeId": "current-account",
+        "typeName": "Current Account",
+        "productKind": {
+            "externalKindId": "kind1",
+            "kindName": "Current Account",
+            "kindUri": "current-account",
+            "expectsChildren": false
+        }
+    },
+    "state": {
+        "externalStateId": "Active",
+        "state": "Active"
+    }
+}

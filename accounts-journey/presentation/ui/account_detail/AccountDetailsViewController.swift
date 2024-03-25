@@ -126,8 +126,8 @@ final class AccountDetailsViewController: UIViewController {
                 case let .loaded(details):
                     self?.hideLoadingView()
                     self?.updateDetailsView(details)
-                default:
-                    break
+                case let .hasError(errorStateConfiguration):
+                    self?.showStateView(errorStateConfiguration)
                 }
             }.store(in: &cancellables)
     }
