@@ -10,7 +10,7 @@ import Backbase
 
 class AccountDetailsScreenSnapshotTests: XCTestCase {
     override func setUp() {
-//        isRecording = true
+        isRecording = true
     }
 
     func testSuggestionsHappyPath() {
