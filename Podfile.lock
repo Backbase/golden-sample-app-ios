@@ -13,15 +13,16 @@ PODS:
     - ClientCommonGen2 (~> 1.0)
   - Backbase (11.2.0):
     - BackbaseSDKSwiftWrapper (~> 2.0.0)
+  - BackbaseAnalytics (1.0.0):
+    - BackbaseObservability (~> 2.0)
+    - SwiftProtobuf (= 1.20.2)
   - BackbaseCountryCore (1.1.0)
   - BackbaseDesignSystem (4.2.2):
     - BackbaseCountryCore (>= 1.1.0)
   - BackbaseIdentity (6.0.1):
     - AppAuth (~> 1.3)
     - Backbase (>= 11.0.0)
-  - BackbaseObservability (1.0.0):
-    - BackbaseObservability/Sources (= 1.0.0)
-  - BackbaseObservability/Sources (1.0.0)
+  - BackbaseObservability (2.0.0)
   - BackbaseSDKSwiftWrapper (2.0.0):
     - BackbaseSecureStorage (~> 2)
   - BackbaseSecureStorage (2.0.2)
@@ -78,6 +79,7 @@ PODS:
   - RxSwift (5.1.3)
   - SnapKit (5.0.1)
   - SwiftLint (0.54.0)
+  - SwiftProtobuf (1.20.2)
   - UserManagerClient2 (1.0.0):
     - Backbase (>= 7.8.0)
     - ClientCommon (~> 1.1)
@@ -95,8 +97,9 @@ PODS:
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (= 11.2.0)
+  - BackbaseAnalytics
   - BackbaseDesignSystem (= 4.2.2)
-  - BackbaseObservability (~> 1.0)
+  - BackbaseObservability (~> 2.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney (~> 6.0)
@@ -106,9 +109,11 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase
 
 SPEC REPOS:
+  https://artifacts.backbase.com/artifactory/api/pods/ios3:
+    - BackbaseAnalytics
   https://repo.backbase.com/api/pods/design-ios:
     - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business:
+  https://repo.backbase.com/api/pods/ios-business/:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
@@ -140,16 +145,18 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SwiftLint
+    - SwiftProtobuf
 
 SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
   Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
+  BackbaseAnalytics: 72670c238ce448b1469b802eedb9e2241ad5043c
   BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
   BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
   BackbaseIdentity: fed2efa2fba48ad5213d2e12d94500f13cecb733
-  BackbaseObservability: 5881fd8f1d7ecf71799914a63a9785af4ce4cfb9
+  BackbaseObservability: 4b7ee241560e02ed45bfab35911da9c4062b7b76
   BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
   BackbaseSecureStorage: 6bbb0e8bb8295a5ffd09e817622949208068255c
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
@@ -167,10 +174,11 @@ SPEC CHECKSUMS:
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  SwiftProtobuf: 9f458aaa7844a2fc0b910053e66578bc4e2da9c1
   UserManagerClient2: 9851ed8619099ea9f6ec79d17acdcb7c310018e5
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: ae4588eb5c2d916cba64eae24ba134e60308a409
+PODFILE CHECKSUM: 4c17e7e936de54602308baf9fdd8db48af160f5d
 
 COCOAPODS: 1.15.2

@@ -12,6 +12,7 @@ plugin 'cocoapods-art', sources: %w[
   backbase-pods-identity
   backbase-pods-business
   backbase-pods-design
+  artifacts-ios3
 ]
 
 install! 'cocoapods', deterministic_uuids: false
@@ -34,7 +35,8 @@ abstract_target 'Common' do
   pod 'SwiftLint'
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
-  pod 'BackbaseObservability', '~> 1.0'
+  pod 'BackbaseObservability', '~> 2.0'
+  pod 'BackbaseAnalytics'
 
   target 'AccountsJourney' do
   end

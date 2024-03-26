@@ -7,10 +7,12 @@
 
 import Resolver
 import BackbaseObservability
+import BackbaseAnalytics
 
 extension AppDelegate {
     func setupObservability() {
         let tracker = TrackerBuilder.create()
         Resolver.register { tracker }
+        tracker.enable
     }
 }
