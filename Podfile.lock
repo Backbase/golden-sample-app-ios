@@ -104,30 +104,34 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase
 
 SPEC REPOS:
-  https://repo.backbase.com/api/pods/design-ios:
+  https://artifacts.backbase.com/api/pods/design-ios:
     - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business:
+  https://artifacts.backbase.com/api/pods/ios-business:
+    - BackbaseObservability
+  https://artifacts.backbase.com/api/pods/ios-retail3:
+    - BackbaseDesignSystem
+    - RetailFeatureFilterUseCase
+  https://artifacts.backbase.com/api/pods/ios3:
+    - Backbase
+  https://repo.backbase.com/artifactory/api/pods/ios-business:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
     - BusinessWorkspacesJourneyWorkspacesUseCase2
-  https://repo.backbase.com/api/pods/ios-identity:
+  https://repo.backbase.com/artifactory/api/pods/ios-identity:
     - BackbaseIdentity
     - IdentityAuthenticationJourney
     - UserManagerUserProfileUseCase
     - UserProfileJourney
-  https://repo.backbase.com/api/pods/ios-retail3:
+  https://repo.backbase.com/artifactory/api/pods/ios-retail3:
     - AccessControlClient3Gen2
     - ArrangementsClient2Gen2
-    - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
     - RetailFeatureFilterAccessControlEntitlementsUseCase
-    - RetailFeatureFilterUseCase
     - RetailJourneyCommon
     - UserManagerClient2
-  https://repo.backbase.com/api/pods/ios3:
-    - Backbase
+  https://repo.backbase.com/artifactory/api/pods/ios3:
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
   trunk:
@@ -143,9 +147,9 @@ SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
-  Backbase: c4bb5f58383c0d738257eb3d54d8c123068049a8
-  BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
-  BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
+  Backbase: 03072a5f0e5227f726f59c43403991b64ceedcb1
+  BackbaseCountryCore: a215909dde6497a0cb0c628d87c0dd2db4deb732
+  BackbaseDesignSystem: 5b44fa1f43d165c7a7535d16295634cb8f59b323
   BackbaseIdentity: 785241825cd404db7ef1691db2564d04f6839889
   BackbaseObservability: 5881fd8f1d7ecf71799914a63a9785af4ce4cfb9
   BackbaseSDKSwiftWrapper: 22a1eb85e7b73d1cc885659a271c7d343a14a1d1
@@ -158,7 +162,7 @@ SPEC CHECKSUMS:
   IdentityAuthenticationJourney: 36f1310a5d6b4304efb9ebf16d9993840cd3c492
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
-  RetailFeatureFilterUseCase: ea793414c0ab37a196a4455a4d14ff0f4e5425d7
+  RetailFeatureFilterUseCase: d45be31ea6161ee445d07bef67ed75f0a06a5d93
   RetailJourneyCommon: ec0a1db2fcc55c9797c3883ed022f90df60be6a2
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
@@ -169,6 +173,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: e48b7fa4445a69985294b7050b20af624c634790
   UserProfileJourney: cd79b731d7a1db6845fef39e8d6dac33c2b5296f
 
-PODFILE CHECKSUM: 707211f28ad5f5555de8bc0dfac59309f4a9dad1
+PODFILE CHECKSUM: 108d69c1fd08626bd6dd0e72ce14b55ff6d629ce
 
 COCOAPODS: 1.15.2

@@ -12,6 +12,16 @@ class AccountDetailsScreenSnapshotTests: XCTestCase {
     override func setUp() {
         isRecording = true
     }
+    
+    private var simulatorsForTestConfiguration: [Simulator] {
+        guard let language = ProcessInfo.processInfo.environment["TestPlanLanguage"] else { fatalError("Missing environment variable from test plan")}
+        print("language from config: \(language)")
+        if language == "en" {
+          return Simulator.leftToRightWithDarkMode
+        } else {
+          return Simulator.rightToLeftLightMode
+        }
+      }
 
     func testSuggestionsHappyPath() {
         
@@ -26,7 +36,7 @@ class AccountDetailsScreenSnapshotTests: XCTestCase {
         // fire the event that fetches account details
         viewController.viewModel.onEvent(.getAccountDetails(""))
         
-        let result = verifyViewSnapshot(with: viewController.view)
+        let result = verifyViewSnapshot(with: viewController.view, testCases: simulatorsForTestConfiguration)
                 XCTAssertTrue(result.isEmpty, "Failed in \(#function) snapshot test")
         
     }
@@ -44,7 +54,7 @@ class AccountDetailsScreenSnapshotTests: XCTestCase {
         // fire the event that fetches account details
         viewController.viewModel.onEvent(.getAccountDetails(""))
         
-        let result = verifyViewSnapshot(with: viewController.view)
+        let result = verifyViewSnapshot(with: viewController.view, testCases: simulatorsForTestConfiguration)
         XCTAssertTrue(result.isEmpty, "Failed in \(#function) snapshot test")
         
     }
