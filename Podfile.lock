@@ -25,6 +25,11 @@ PODS:
   - BackbaseSDKSwiftWrapper (2.0.0):
     - BackbaseSecureStorage (~> 2)
   - BackbaseSecureStorage (2.0.2)
+  - BusinessDesign (4.0.1):
+    - BackbaseDesignSystem (>= 4.0)
+    - BusinessDesign/Sources (= 4.0.1)
+  - BusinessDesign/Sources (4.0.1):
+    - BackbaseDesignSystem (>= 4.0)
   - BusinessJourneyCommon (3.0.0):
     - Backbase (>= 9.0)
     - BusinessJourneyCommon/Sources (= 3.0.0)
@@ -54,6 +59,33 @@ PODS:
     - Backbase (>= 7.8.0)
   - ClientCommonGen2 (1.0.0):
     - Backbase (>= 9.0)
+  - DashboardJourney (2.3.0):
+    - BackbaseDesignSystem (>= 4.0)
+    - BackbaseObservability (>= 1.0)
+    - BusinessDesign (~> 4.0)
+    - BusinessJourneyCommon (~> 3.0)
+    - DashboardJourney/Sources (= 2.3.0)
+    - DashboardJourneyCore (= 2.0.0)
+    - Resolver (~> 1.2.1)
+    - Shimmer (= 1.0.2)
+  - DashboardJourney/Sources (2.3.0):
+    - BackbaseDesignSystem (>= 4.0)
+    - BackbaseObservability (>= 1.0)
+    - BusinessDesign (~> 4.0)
+    - BusinessJourneyCommon (~> 3.0)
+    - DashboardJourneyCore (= 2.0.0)
+    - Resolver (~> 1.2.1)
+    - Shimmer (= 1.0.2)
+  - DashboardJourneyCore (2.0.0):
+    - DashboardJourneyCore/Sources (= 2.0.0)
+  - DashboardJourneyCore/Sources (2.0.0)
+  - Differentiator (4.0.1)
+  - ExternalAccountAggregatorClient1Gen2 (2.0.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
+  - FinancialInstitutionManagerClient1Gen2 (1.0.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - IdentityAuthenticationJourney (6.0.0):
     - BackbaseDesignSystem (>= 4.0.0)
     - BackbaseIdentity (~> 6.0.0)
@@ -61,7 +93,44 @@ PODS:
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
     - SnapKit (~> 5.0.0)
+  - LoansClient1Gen2 (1.2.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - Resolver (1.2.1)
+  - RetailAccountsAndTransactionsArrangementViewsUseCase (5.4.0):
+    - ArrangementsClient2Gen2 (~> 1.2)
+    - RetailAccountsAndTransactionsJourney (~> 5.0)
+  - RetailAccountsAndTransactionsFinancialInstitutionsUseCase (5.4.0):
+    - FinancialInstitutionManagerClient1Gen2 (~> 1.0)
+    - RetailAccountsAndTransactionsJourney (~> 5.0)
+    - RetailJourneyCommon (~> 2.0)
+  - RetailAccountsAndTransactionsJourney (5.4.0):
+    - BackbaseDesignSystem (>= 3.6)
+    - BackbaseObservability (~> 1.0)
+    - ClientCommonGen2 (~> 1.0)
+    - DashboardJourneyCore (~> 2.0.0)
+    - Resolver (= 1.2.1)
+    - RetailDesign (>= 2.0)
+    - RetailJourneyCommon (~> 2.0)
+    - RxAnimated (~> 0.7)
+    - RxDataSources (~> 4.0)
+  - RetailAccountsAndTransactionsJourneyAccountsUseCase (5.4.0):
+    - ArrangementsClient2Gen2 (~> 1.2)
+    - RetailAccountsAndTransactionsJourney (~> 5.0)
+    - RetailJourneyCommon (~> 2.0)
+  - RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase (5.4.0):
+    - ExternalAccountAggregatorClient1Gen2 (~> 2.0)
+    - RetailAccountsAndTransactionsJourney (~> 5.0)
+  - RetailAccountsAndTransactionsJourneyLoansUseCase (5.4.0):
+    - LoansClient1Gen2 (~> 1.2)
+    - RetailAccountsAndTransactionsJourney (~> 5.0)
+  - RetailAccountsAndTransactionsJourneyTransactionsUseCase (5.4.0):
+    - RetailAccountsAndTransactionsJourney (~> 5.0)
+    - RetailJourneyCommon (~> 2.0)
+    - TransactionsClient2Gen2 (~> 1.0)
+  - RetailDesign (2.1.0):
+    - BackbaseDesignSystem (>= 2.0)
+    - SnapKit (~> 5.0.0)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (3.0.0):
     - AccessControlClient3Gen2 (~> 1.0.0)
     - RetailFeatureFilterUseCase (~> 3.0)
@@ -70,14 +139,29 @@ PODS:
     - Resolver (= 1.2.1)
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
+  - RxAnimated (0.7.0):
+    - RxAnimated/Core (= 0.7.0)
+    - RxCocoa (~> 5.1)
+    - RxSwift (~> 5.1)
+  - RxAnimated/Core (0.7.0):
+    - RxCocoa (~> 5.1)
+    - RxSwift (~> 5.1)
   - RxCocoa (5.1.3):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - RxRelay (5.1.3):
     - RxSwift (~> 5)
   - RxSwift (5.1.3)
+  - Shimmer (1.0.2)
   - SnapKit (5.0.1)
   - SwiftLint (0.54.0)
+  - TransactionsClient2Gen2 (1.0.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - UserManagerClient2 (1.0.0):
     - Backbase (>= 7.8.0)
     - ClientCommon (~> 1.1)
@@ -99,8 +183,16 @@ DEPENDENCIES:
   - BackbaseObservability (~> 1.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
+  - DashboardJourney (~> 2.3.0)
   - IdentityAuthenticationJourney (~> 6.0)
   - Resolver (= 1.2.1)
+  - RetailAccountsAndTransactionsArrangementViewsUseCase (~> 5.4.0)
+  - RetailAccountsAndTransactionsFinancialInstitutionsUseCase (~> 5.4.0)
+  - RetailAccountsAndTransactionsJourney (~> 5.4.0)
+  - RetailAccountsAndTransactionsJourneyAccountsUseCase (~> 5.4.0)
+  - RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase (~> 5.4.0)
+  - RetailAccountsAndTransactionsJourneyLoansUseCase (~> 5.4.0)
+  - RetailAccountsAndTransactionsJourneyTransactionsUseCase (~> 5.4.0)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
   - SwiftLint
   - UserManagerUserProfileUseCase
@@ -110,6 +202,7 @@ SPEC REPOS:
     - BackbaseCountryCore
   https://repo.backbase.com/api/pods/ios-business:
     - BackbaseObservability
+    - BusinessDesign
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
     - BusinessWorkspacesJourneyWorkspacesUseCase2
@@ -124,20 +217,38 @@ SPEC REPOS:
     - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
+    - ExternalAccountAggregatorClient1Gen2
+    - FinancialInstitutionManagerClient1Gen2
+    - LoansClient1Gen2
+    - RetailAccountsAndTransactionsArrangementViewsUseCase
+    - RetailAccountsAndTransactionsFinancialInstitutionsUseCase
+    - RetailAccountsAndTransactionsJourney
+    - RetailAccountsAndTransactionsJourneyAccountsUseCase
+    - RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase
+    - RetailAccountsAndTransactionsJourneyLoansUseCase
+    - RetailAccountsAndTransactionsJourneyTransactionsUseCase
+    - RetailDesign
     - RetailFeatureFilterAccessControlEntitlementsUseCase
     - RetailFeatureFilterUseCase
     - RetailJourneyCommon
+    - TransactionsClient2Gen2
     - UserManagerClient2
   https://repo.backbase.com/api/pods/ios3:
     - Backbase
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
+    - DashboardJourney
+    - DashboardJourneyCore
   trunk:
     - AppAuth
+    - Differentiator
     - Resolver
+    - RxAnimated
     - RxCocoa
+    - RxDataSources
     - RxRelay
     - RxSwift
+    - Shimmer
     - SnapKit
     - SwiftLint
 
@@ -152,25 +263,44 @@ SPEC CHECKSUMS:
   BackbaseObservability: 5881fd8f1d7ecf71799914a63a9785af4ce4cfb9
   BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
   BackbaseSecureStorage: 6bbb0e8bb8295a5ffd09e817622949208068255c
+  BusinessDesign: b26a0e5d4d6960d7c94a299bb0235580ab0ab1b4
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
   BusinessWorkspacesJourney: 08c72efe5aa4bf879d3593489daa094d18d82433
   BusinessWorkspacesJourneyWorkspacesUseCase2: ab08bcb68efae0f69374bee31a8835640b0502ab
   ClientCommon: 3b305ed1d4c94dbe4955f53b2e3c102ec7892776
   ClientCommonGen2: 4a37e42a2a05f978b5df56fb7fea3ce5411e9cb6
+  DashboardJourney: a1a2df9a5df12741008bd5ec25715edef834e96a
+  DashboardJourneyCore: 82124af526791e5310cfaf170a3c381d8c41382a
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  ExternalAccountAggregatorClient1Gen2: 9f5124816ff8350f17e71e7887d087bf5b9c51a9
+  FinancialInstitutionManagerClient1Gen2: 6e05b7c45ca7a0f18c1b628dba57a9b517f05517
   IdentityAuthenticationJourney: e988f4a50e26f492caeb48ca3bc159c6cd9f19d1
+  LoansClient1Gen2: b474ec9164f4ed57a08884f217e8d6558793a3ff
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
+  RetailAccountsAndTransactionsArrangementViewsUseCase: 512874217c38e129eea265287384cfd44818fa4f
+  RetailAccountsAndTransactionsFinancialInstitutionsUseCase: 346bb85ff40c45e2c891710210a536bcb86bc7eb
+  RetailAccountsAndTransactionsJourney: 114095f2ea3efc9272449d01fcf4f7338d504779
+  RetailAccountsAndTransactionsJourneyAccountsUseCase: 53d7c5c8926cf9df60c849f948d4ec9cb5e7e807
+  RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase: 18e5d7d89d051effc3f478a9ffaea985ce6098f2
+  RetailAccountsAndTransactionsJourneyLoansUseCase: 9ef766cc87612fc4f7fb7aa03c291fe47524e35a
+  RetailAccountsAndTransactionsJourneyTransactionsUseCase: 95208725becf7a267d14b56f59a6e20be19862e7
+  RetailDesign: a43a2916782ed6617bcf8dd147d565f193516703
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
   RetailFeatureFilterUseCase: ea793414c0ab37a196a4455a4d14ff0f4e5425d7
   RetailJourneyCommon: ec0a1db2fcc55c9797c3883ed022f90df60be6a2
+  RxAnimated: 8540892468e906e7404595bc51ed4b36b3737ab5
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
+  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  TransactionsClient2Gen2: da49982577436aae8ed1e37f67110543f3bc4c88
   UserManagerClient2: 9851ed8619099ea9f6ec79d17acdcb7c310018e5
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: ae4588eb5c2d916cba64eae24ba134e60308a409
+PODFILE CHECKSUM: fab7d01a3534fe7c43a7b411addaf2dd967e84c7
 
 COCOAPODS: 1.15.2

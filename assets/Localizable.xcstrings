@@ -419,6 +419,17 @@
         }
       }
     },
+    "dashboardJourney.dashboard.labels.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dashboard"
+          }
+        }
+      }
+    },
     "tabBar.dashboard.tabTitle" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -35,6 +35,14 @@ abstract_target 'Common' do
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
   pod 'BackbaseObservability', '~> 1.0'
+  pod 'RetailAccountsAndTransactionsJourney', '~> 5.4.0'
+  pod 'RetailAccountsAndTransactionsJourneyAccountsUseCase', '~> 5.4.0'
+  pod 'RetailAccountsAndTransactionsFinancialInstitutionsUseCase', '~> 5.4.0'
+  pod 'RetailAccountsAndTransactionsArrangementViewsUseCase', '~> 5.4.0'
+  pod 'RetailAccountsAndTransactionsJourneyLoansUseCase', '~> 5.4.0'
+  pod 'RetailAccountsAndTransactionsJourneyTransactionsUseCase', '~> 5.4.0'
+  pod 'RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase', '~> 5.4.0'
+  pod 'DashboardJourney', '~> 2.3.0'
 
   target 'AccountsJourney' do
   end
