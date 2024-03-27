@@ -90,6 +90,9 @@ targets:
         embed: true
       - target: AccountsJourney
         embed: true
+    testPlans:
+        - path: newTestPlan.xctestplan
+          defaultPlan: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -202,6 +205,9 @@ targets:
       - path: Tests/SnapshotTests/__Snapshots__
         type: folder
         createIntermediateGroups: true
+    testPlans:
+        - path: newTestPlan.xctestplan
+          defaultPlan: true
 packages:
   SnapshotTesting:
     github: pointfreeco/swift-snapshot-testing
