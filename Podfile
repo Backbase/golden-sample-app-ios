@@ -36,7 +36,7 @@ abstract_target 'Common' do
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
   pod 'BackbaseObservability', '~> 2.0'
-  pod 'BackbaseAnalytics'
+  pod 'BackbaseAnalytics', '~> 1.0.0-rc1'
 
   target 'AccountsJourney' do
   end

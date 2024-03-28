@@ -2,11 +2,11 @@ PODS:
   - AccessControlClient3Gen2 (1.0.0):
     - Backbase (>= 9.0)
     - ClientCommonGen2 (~> 1.0)
-  - AppAuth (1.6.2):
-    - AppAuth/Core (= 1.6.2)
-    - AppAuth/ExternalUserAgent (= 1.6.2)
-  - AppAuth/Core (1.6.2)
-  - AppAuth/ExternalUserAgent (1.6.2):
+  - AppAuth (1.7.3):
+    - AppAuth/Core (= 1.7.3)
+    - AppAuth/ExternalUserAgent (= 1.7.3)
+  - AppAuth/Core (1.7.3)
+  - AppAuth/ExternalUserAgent (1.7.3):
     - AppAuth/Core
   - ArrangementsClient2Gen2 (1.2.1):
     - Backbase (>= 9.0)
@@ -25,7 +25,7 @@ PODS:
   - BackbaseObservability (2.0.0)
   - BackbaseSDKSwiftWrapper (2.0.0):
     - BackbaseSecureStorage (~> 2)
-  - BackbaseSecureStorage (2.0.2)
+  - BackbaseSecureStorage (2.0.3)
   - BusinessJourneyCommon (3.0.0):
     - Backbase (>= 9.0)
     - BusinessJourneyCommon/Sources (= 3.0.0)
@@ -97,7 +97,7 @@ PODS:
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (= 11.2.0)
-  - BackbaseAnalytics
+  - BackbaseAnalytics (~> 1.0.0-rc1)
   - BackbaseDesignSystem (= 4.2.2)
   - BackbaseObservability (~> 2.0)
   - BusinessWorkspacesJourney
@@ -110,9 +110,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://artifacts.backbase.com/artifactory/api/pods/ios3:
+    - Backbase
     - BackbaseAnalytics
-  https://repo.backbase.com/api/pods/design-ios:
-    - BackbaseCountryCore
+    - BackbaseSecureStorage
   https://repo.backbase.com/api/pods/ios-business/:
     - BackbaseObservability
     - BusinessJourneyCommon
@@ -134,9 +134,9 @@ SPEC REPOS:
     - RetailJourneyCommon
     - UserManagerClient2
   https://repo.backbase.com/api/pods/ios3:
-    - Backbase
     - BackbaseSDKSwiftWrapper
-    - BackbaseSecureStorage
+  https://repo.backbase.com/artifactory/api/pods/design-ios:
+    - BackbaseCountryCore
   trunk:
     - AppAuth
     - Resolver
@@ -149,16 +149,16 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
-  AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  AppAuth: a13994980c1ec792f7e2e665acd4d4aa6be43240
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
-  Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
+  Backbase: b3cce2998f8416979874f370e778640a1037343a
   BackbaseAnalytics: 72670c238ce448b1469b802eedb9e2241ad5043c
   BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
   BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
   BackbaseIdentity: fed2efa2fba48ad5213d2e12d94500f13cecb733
   BackbaseObservability: 4b7ee241560e02ed45bfab35911da9c4062b7b76
   BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
-  BackbaseSecureStorage: 6bbb0e8bb8295a5ffd09e817622949208068255c
+  BackbaseSecureStorage: 50e07065a6ec4ec7ce3853aa616228a42b4628fa
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
   BusinessWorkspacesJourney: 08c72efe5aa4bf879d3593489daa094d18d82433
   BusinessWorkspacesJourneyWorkspacesUseCase2: ab08bcb68efae0f69374bee31a8835640b0502ab
@@ -179,6 +179,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: 4c17e7e936de54602308baf9fdd8db48af160f5d
+PODFILE CHECKSUM: 554e6d1196da3af5d4f5bce3a37296fb4352ed4a
 
 COCOAPODS: 1.15.2
