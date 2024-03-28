@@ -2,7 +2,7 @@
   "configurations" : [
     {
       "id" : "A4DFB22F-BBF3-44AB-80FC-C8EB3CF1C6E8",
-      "name" : "Configuration 1",
+      "name" : "English",
       "options" : {
         "environmentVariableEntries" : [
           {
@@ -15,7 +15,7 @@
     },
     {
       "id" : "5386E73E-FD0E-4777-8EA3-18AD2E3B1E4E",
-      "name" : "Configuration 1 (copy)",
+      "name" : "Arabic",
       "options" : {
         "environmentVariableEntries" : [
           {

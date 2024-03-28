@@ -3,6 +3,11 @@ options:
   bundleIdPrefix: com.backbase
   deploymentTarget:
     iOS: 15.0
+  # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
+  # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
+  postGenCommand: >-
+    FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
+    sed -i '' -E 's/<Testables>/<TestPlans><TestPlanReference reference = "container:TestPlans\/newTestPlan.xctestplan" default = "YES"><\/TestPlanReference><\/TestPlans><Testables>/g' $FILE;
 targets:
   AccountsJourney:
     type: framework
@@ -90,9 +95,6 @@ targets:
         embed: true
       - target: AccountsJourney
         embed: true
-    testPlans:
-        - path: newTestPlan.xctestplan
-          defaultPlan: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -205,9 +207,6 @@ targets:
       - path: Tests/SnapshotTests/__Snapshots__
         type: folder
         createIntermediateGroups: true
-    testPlans:
-        - path: newTestPlan.xctestplan
-          defaultPlan: true
 packages:
   SnapshotTesting:
     github: pointfreeco/swift-snapshot-testing
