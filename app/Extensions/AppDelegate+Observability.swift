@@ -7,12 +7,12 @@
 
 import Resolver
 import BackbaseObservability
-import BackbaseAnalytics
+import BackbaseOpenTelemetryConnector
 
 extension AppDelegate {
     func setupObservability() {
         let tracker = TrackerBuilder.create()
-        tracker.enableBackbaseAnalytics(appKey: "975db35b-2a6b-42d5-899f-01f40f931955")
+        tracker.enableBackbaseOpenTelemetryConnector(appKey: "975db35b-2a6b-42d5-899f-01f40f931955")
         Resolver.register { tracker }
     }
 }

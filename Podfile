@@ -12,7 +12,6 @@ plugin 'cocoapods-art', sources: %w[
   backbase-pods-identity
   backbase-pods-business
   backbase-pods-design
-  artifacts-ios3
 ]
 
 install! 'cocoapods', deterministic_uuids: false
@@ -36,7 +35,7 @@ abstract_target 'Common' do
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
   pod 'BackbaseObservability', '~> 2.0'
-  pod 'BackbaseAnalytics', '~> 1.0.0-rc1'
+  pod 'BackbaseOpenTelemetryConnector', '~> 1.0.0'
 
   target 'AccountsJourney' do
   end
