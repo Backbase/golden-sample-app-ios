@@ -20,7 +20,7 @@ PODS:
     - AppAuth (~> 1.3)
     - Backbase (>= 11.0.0)
   - BackbaseObservability (2.0.0)
-  - BackbaseOpenTelemetryConnector (1.0.0-rc4):
+  - BackbaseOpenTelemetryConnector (1.0.0):
     - BackbaseObservability (~> 2.0)
     - SwiftProtobuf (= 1.20.2)
   - BackbaseSDKSwiftWrapper (2.0.0):
@@ -99,7 +99,7 @@ DEPENDENCIES:
   - Backbase (= 11.2.0)
   - BackbaseDesignSystem (= 4.2.2)
   - BackbaseObservability (~> 2.0)
-  - BackbaseOpenTelemetryConnector (~> 1.0.0-rc4)
+  - BackbaseOpenTelemetryConnector (~> 1.0.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney (~> 6.0)
@@ -111,7 +111,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://artifacts.backbase.com/artifactory/api/pods/ios3:
     - Backbase
-    - BackbaseOpenTelemetryConnector
     - BackbaseSecureStorage
   https://repo.backbase.com/api/pods/ios-business/:
     - BackbaseObservability
@@ -134,6 +133,7 @@ SPEC REPOS:
     - RetailJourneyCommon
     - UserManagerClient2
   https://repo.backbase.com/api/pods/ios3:
+    - BackbaseOpenTelemetryConnector
     - BackbaseSDKSwiftWrapper
   https://repo.backbase.com/artifactory/api/pods/design-ios:
     - BackbaseCountryCore
@@ -156,7 +156,7 @@ SPEC CHECKSUMS:
   BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
   BackbaseIdentity: fed2efa2fba48ad5213d2e12d94500f13cecb733
   BackbaseObservability: 4b7ee241560e02ed45bfab35911da9c4062b7b76
-  BackbaseOpenTelemetryConnector: 2475439b04c5e86568463029ac782a63fe469d51
+  BackbaseOpenTelemetryConnector: bf4dd3e94b156b25d9e2c1826b784674b8ff76cd
   BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
   BackbaseSecureStorage: 50e07065a6ec4ec7ce3853aa616228a42b4628fa
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
@@ -179,6 +179,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: 21c61c291c93b279fd15b591bda5710540f54795
+PODFILE CHECKSUM: e897e75ebee7c0de6f359e1ca0d17db48a2d5ad5
 
 COCOAPODS: 1.15.2
