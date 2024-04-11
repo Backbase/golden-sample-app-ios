@@ -7,7 +7,7 @@ options:
   # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
   postGenCommand: >-
     FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
-    sed -i '' -E 's/<Testables>/<TestPlans><TestPlanReference reference = "container:TestPlans\/newTestPlan.xctestplan" default = "YES"><\/TestPlanReference><\/TestPlans><Testables>/g' $FILE;
+    sed -i '' -E 's/<\/Testables>/<\/Testables><TestPlans><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan"><\/TestPlanReference><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan" default="YES"><\/TestPlanReference><\/TestPlans>/g' $FILE;
 targets:
   AccountsJourney:
     type: framework
