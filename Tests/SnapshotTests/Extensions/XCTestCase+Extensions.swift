@@ -9,38 +9,6 @@ import SwiftUI
 
 extension XCTestCase {
 
-    // MARK: - Snapshot testing helper methods
-
-    /// Asserts and verifies given view controller
-    ///  - Parameters:
-    ///     - viewController: view controller to verify
-    ///     - waitTime: waiting time before timing out while verifying an image
-    ///     - file: File name of the snapshot test class
-    ///     - function: A unique method name of the snapshot test to be used to attach to the name of the image
-    ///     - named: Optional name to attach to the snapshot test. By default it uses the name of the method from `function` parameter.
-    ///  - Returns: A list of error descriptons in case existing image did not match with the created image.
-    func verifyViewControllerSnapshot(with viewController: UIViewController,
-                                      testCases: [Simulator] = Simulator.leftToRightLightMode,
-                                      waitTime: TimeInterval = 0,
-                                      file: StaticString = #file,
-                                      function: String = #function,
-                                      snapshotNameSuffix: String? = nil,
-                                      containerBackgroundColor: UIColor = DesignSystem.shared.colors.surfacePrimary.default) -> [String] {
-
-        viewController.view.backgroundColor = containerBackgroundColor
-        disableAnimationsAndTransitions(viewController: viewController)
-        return testCases.compactMap {
-            let imageName = snapshotNameSuffix == nil ? function : "\(function)\(snapshotNameSuffix!)"
-            let result = SnapshotTesting.verifySnapshot(matching: viewController,
-                                                        as: .wait(for: waitTime,
-                                                                  on: .image(on: $0.config, precision: 1)),
-                                                        named: imageName,
-                                                        file: file,
-                                                        testName: "\($0.description)")
-            return result
-        }
-    }
-
     /// Asserts and verifies given view controller
     ///  - Parameters:
     ///     - view: view to verify

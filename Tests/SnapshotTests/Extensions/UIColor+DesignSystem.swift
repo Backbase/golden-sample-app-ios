@@ -11,7 +11,7 @@ import BackbaseDesignSystem
 
 extension UIColor {
 
-    static var designSystem: DesignSystem.Colors {
+    static var designSystemColors: DesignSystem.Colors {
         DesignSystem.shared.colors
     }
 }

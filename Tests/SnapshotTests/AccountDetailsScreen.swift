@@ -6,12 +6,8 @@ import Resolver
 import AccessControlClient3Gen2
 import ArrangementsClient2Gen2
 import Backbase
-//@testable import GoldenSampleApp
 
 class AccountDetailsScreenSnapshotTests: XCTestCase {
-    override func setUp() {
-        isRecording = true
-    }
     
     private var simulatorsForTestConfiguration: [Simulator] {
         guard let language = ProcessInfo.processInfo.environment["TestPlanLanguage"] else { fatalError("Missing environment variable from test plan")}
@@ -38,7 +34,6 @@ class AccountDetailsScreenSnapshotTests: XCTestCase {
         
         let result = verifyViewSnapshot(with: viewController.view, testCases: simulatorsForTestConfiguration)
                 XCTAssertTrue(result.isEmpty, "Failed in \(#function) snapshot test")
-        
     }
     
     func testSuggestionsSadPath() {
@@ -56,6 +51,5 @@ class AccountDetailsScreenSnapshotTests: XCTestCase {
         
         let result = verifyViewSnapshot(with: viewController.view, testCases: simulatorsForTestConfiguration)
         XCTAssertTrue(result.isEmpty, "Failed in \(#function) snapshot test")
-        
     }
 }
