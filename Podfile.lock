@@ -80,12 +80,6 @@ PODS:
     - DashboardJourneyCore/Sources (= 2.0.0)
   - DashboardJourneyCore/Sources (2.0.0)
   - Differentiator (4.0.1)
-  - ExternalAccountAggregatorClient1Gen2 (2.0.0):
-    - Backbase (>= 9.0)
-    - ClientCommonGen2 (~> 1.0)
-  - FinancialInstitutionManagerClient1Gen2 (1.0.0):
-    - Backbase (>= 9.0)
-    - ClientCommonGen2 (~> 1.0)
   - IdentityAuthenticationJourney (6.0.0):
     - BackbaseDesignSystem (>= 4.0.0)
     - BackbaseIdentity (~> 6.0.0)
@@ -93,17 +87,10 @@ PODS:
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
     - SnapKit (~> 5.0.0)
-  - LoansClient1Gen2 (1.2.0):
-    - Backbase (>= 9.0)
-    - ClientCommonGen2 (~> 1.0)
   - Resolver (1.2.1)
   - RetailAccountsAndTransactionsArrangementViewsUseCase (5.4.0):
     - ArrangementsClient2Gen2 (~> 1.2)
     - RetailAccountsAndTransactionsJourney (~> 5.0)
-  - RetailAccountsAndTransactionsFinancialInstitutionsUseCase (5.4.0):
-    - FinancialInstitutionManagerClient1Gen2 (~> 1.0)
-    - RetailAccountsAndTransactionsJourney (~> 5.0)
-    - RetailJourneyCommon (~> 2.0)
   - RetailAccountsAndTransactionsJourney (5.4.0):
     - BackbaseDesignSystem (>= 3.6)
     - BackbaseObservability (~> 1.0)
@@ -118,12 +105,6 @@ PODS:
     - ArrangementsClient2Gen2 (~> 1.2)
     - RetailAccountsAndTransactionsJourney (~> 5.0)
     - RetailJourneyCommon (~> 2.0)
-  - RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase (5.4.0):
-    - ExternalAccountAggregatorClient1Gen2 (~> 2.0)
-    - RetailAccountsAndTransactionsJourney (~> 5.0)
-  - RetailAccountsAndTransactionsJourneyLoansUseCase (5.4.0):
-    - LoansClient1Gen2 (~> 1.2)
-    - RetailAccountsAndTransactionsJourney (~> 5.0)
   - RetailAccountsAndTransactionsJourneyTransactionsUseCase (5.4.0):
     - RetailAccountsAndTransactionsJourney (~> 5.0)
     - RetailJourneyCommon (~> 2.0)
@@ -187,11 +168,8 @@ DEPENDENCIES:
   - IdentityAuthenticationJourney (~> 6.0)
   - Resolver (= 1.2.1)
   - RetailAccountsAndTransactionsArrangementViewsUseCase (~> 5.4.0)
-  - RetailAccountsAndTransactionsFinancialInstitutionsUseCase (~> 5.4.0)
   - RetailAccountsAndTransactionsJourney (~> 5.4.0)
   - RetailAccountsAndTransactionsJourneyAccountsUseCase (~> 5.4.0)
-  - RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase (~> 5.4.0)
-  - RetailAccountsAndTransactionsJourneyLoansUseCase (~> 5.4.0)
   - RetailAccountsAndTransactionsJourneyTransactionsUseCase (~> 5.4.0)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
   - SwiftLint
@@ -217,15 +195,9 @@ SPEC REPOS:
     - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
-    - ExternalAccountAggregatorClient1Gen2
-    - FinancialInstitutionManagerClient1Gen2
-    - LoansClient1Gen2
     - RetailAccountsAndTransactionsArrangementViewsUseCase
-    - RetailAccountsAndTransactionsFinancialInstitutionsUseCase
     - RetailAccountsAndTransactionsJourney
     - RetailAccountsAndTransactionsJourneyAccountsUseCase
-    - RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase
-    - RetailAccountsAndTransactionsJourneyLoansUseCase
     - RetailAccountsAndTransactionsJourneyTransactionsUseCase
     - RetailDesign
     - RetailFeatureFilterAccessControlEntitlementsUseCase
@@ -272,17 +244,11 @@ SPEC CHECKSUMS:
   DashboardJourney: a1a2df9a5df12741008bd5ec25715edef834e96a
   DashboardJourneyCore: 82124af526791e5310cfaf170a3c381d8c41382a
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  ExternalAccountAggregatorClient1Gen2: 9f5124816ff8350f17e71e7887d087bf5b9c51a9
-  FinancialInstitutionManagerClient1Gen2: 6e05b7c45ca7a0f18c1b628dba57a9b517f05517
   IdentityAuthenticationJourney: e988f4a50e26f492caeb48ca3bc159c6cd9f19d1
-  LoansClient1Gen2: b474ec9164f4ed57a08884f217e8d6558793a3ff
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
   RetailAccountsAndTransactionsArrangementViewsUseCase: 512874217c38e129eea265287384cfd44818fa4f
-  RetailAccountsAndTransactionsFinancialInstitutionsUseCase: 346bb85ff40c45e2c891710210a536bcb86bc7eb
   RetailAccountsAndTransactionsJourney: 114095f2ea3efc9272449d01fcf4f7338d504779
   RetailAccountsAndTransactionsJourneyAccountsUseCase: 53d7c5c8926cf9df60c849f948d4ec9cb5e7e807
-  RetailAccountsAndTransactionsJourneyExternalAccountAggregationUseCase: 18e5d7d89d051effc3f478a9ffaea985ce6098f2
-  RetailAccountsAndTransactionsJourneyLoansUseCase: 9ef766cc87612fc4f7fb7aa03c291fe47524e35a
   RetailAccountsAndTransactionsJourneyTransactionsUseCase: 95208725becf7a267d14b56f59a6e20be19862e7
   RetailDesign: a43a2916782ed6617bcf8dd147d565f193516703
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
@@ -301,6 +267,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: fab7d01a3534fe7c43a7b411addaf2dd967e84c7
+PODFILE CHECKSUM: 28b9b49fc290a4f405aa8c6068c51c5067a4ae1d
 
 COCOAPODS: 1.15.2

@@ -45,13 +45,13 @@ class DashboardTileFactory {
         }
     }
 
-    private func checkEntitlements(_ entitlements: [DashboardCore.Entitlement]) -> Bool {
+    private static func checkEntitlements(_ entitlements: [DashboardCore.Entitlement]) -> Bool {
         guard !entitlements.isEmpty else { return true }
-        return !Self.allowedFeatures.filter { entitlements.contains($0) }.isEmpty
+        return !allowedFeatures.filter { entitlements.contains($0) }.isEmpty
     }
 
     // MARK: - Methods
-    func makeLatestTransactionsTile(_ parentNavigationController: UINavigationController) -> (any TileProtocol)? {
+    static func makeLatestTransactionsTile(_ parentNavigationController: UINavigationController) -> (any TileProtocol)? {
         guard checkEntitlements(LatestTransactionsTile.entitlements) else {
             return nil
         }
@@ -59,14 +59,14 @@ class DashboardTileFactory {
         return tile
     }
 
-    func makeAccountsTile(_ parentNavigationController: UINavigationController) -> (any TileProtocol)? {
+    static func makeAccountsTile(_ parentNavigationController: UINavigationController) -> (any TileProtocol)? {
         let tile = RetailAccountsAndTransactionsJourney.AccountsTile.build(
             navigationController: parentNavigationController
         )
         return tile
     }
 
-    func makeTotalBalanceTile(_ parentNavigationController: UINavigationController) -> (any TileProtocol)? {
+    static func makeTotalBalanceTile(_ parentNavigationController: UINavigationController) -> (any TileProtocol)? {
         let tile = TotalBalanceTile.build(navigationController: parentNavigationController)
         return tile
     }

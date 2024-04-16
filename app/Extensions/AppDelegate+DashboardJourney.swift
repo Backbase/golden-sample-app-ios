@@ -21,13 +21,12 @@ extension AppDelegate {
 private extension AppDelegate {
     func getConfiguration() -> Dashboard.Configuration {
         var config = Dashboard.Configuration()
-        let factory = DashboardTileFactory()
 
         config.dashboardList.items = { navigation in {
             [
-                factory.makeTotalBalanceTile(navigation),
-                factory.makeAccountsTile(navigation),
-                factory.makeLatestTransactionsTile(navigation)
+                DashboardTileFactory.makeTotalBalanceTile(navigation),
+                DashboardTileFactory.makeAccountsTile(navigation),
+                DashboardTileFactory.makeLatestTransactionsTile(navigation)
             ].compactMap { $0 }
             }
         }
