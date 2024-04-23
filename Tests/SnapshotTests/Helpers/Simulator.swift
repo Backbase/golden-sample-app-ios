@@ -9,11 +9,8 @@ import UIKit
 enum Simulator: CaseIterable {
 
     case iPhone8(ViewImageConfig)
-
     case iPhone11(ViewImageConfig)
-
     case iPhone14ProMax(ViewImageConfig)
-
 
     /// The `ViewImageConfig` associated with the enum case
     var config: ViewImageConfig {

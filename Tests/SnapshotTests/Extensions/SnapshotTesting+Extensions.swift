@@ -33,8 +33,6 @@ extension UITraitCollection {
                     .init(verticalSizeClass: .regular)
                 ]
             )
-        @unknown default:
-            fatalError("Fatal: unknown value for orientation")
         }
     }
 }
@@ -46,7 +44,6 @@ extension ViewImageConfig.Orientation: CustomStringConvertible {
         switch self {
         case .landscape: return "landscape"
         case .portrait: return "portrait"
-        @unknown default: return "unknownOrientation"
         }
     }
 }

@@ -51,3 +51,12 @@ pod repo-art add backbase-pods-design "https://repo.backbase.com/artifactory/api
 ## Usage and login
 
 The Golden Sample App is configured to use the API Sandbox environment out of the box. To be able to connect to this environment you need a Sandbox API key which can be obtained from the API Sandbox team and needs to be added to config.json. To login to the app the API Sandbox [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/) can be used.
+
+## Test plan
+- To modify the test plan
+```bash
+1. Go to the Snapshot scheme
+2. Click on the Edit the scheme
+3. Click on the respective test plan
+4. Modify the details
+```

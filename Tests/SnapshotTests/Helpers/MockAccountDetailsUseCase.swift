@@ -11,7 +11,7 @@ import ArrangementsClient2Gen2
 
 
 class MockAccountDetailsUseCase: AccountDetailsUseCase {
-    private var shouldReturnError = false
+    private var shouldReturnError: Bool
     private var fileName: String
     
     init(shouldReturnError: Bool = false, fileName: String = "arrangement.json") {
