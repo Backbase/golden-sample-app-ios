@@ -3,6 +3,11 @@ options:
   bundleIdPrefix: com.backbase
   deploymentTarget:
     iOS: 15.0
+  # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
+  # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
+  postGenCommand: >-
+    FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
+    sed -i '' -E 's/<\/Testables>/<\/Testables><TestPlans><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan"><\/TestPlanReference><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan" default="YES"><\/TestPlanReference><\/TestPlans>/g' $FILE;
 targets:
   AccountsJourney:
     type: framework
@@ -98,7 +103,7 @@ targets:
     type: framework
     platform: iOS
     info:
-      path: tests/all-tests/Info.plist
+      path: Tests/all-tests/Info.plist
     codeSign: false
     settings:
       base:
@@ -125,13 +130,13 @@ targets:
     type: bundle.unit-test
     platform: iOS
     info:
-      path: tests/accounts-journey/unit-tests/Info.plist
+      path: Tests/accounts-journey/unit-tests/Info.plist
     codeSign: false
     dependencies:
       - target: AccountsJourney
         link: true
     sources:
-      - path: tests/accounts-journey/unit-tests
+      - path: Tests/accounts-journey/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
   
@@ -139,7 +144,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     info:
-      path: tests/accounts-use-case/unit-tests/Info.plist
+      path: Tests/accounts-use-case/unit-tests/Info.plist
     codeSign: false
     dependencies:
       - target: AccountsJourney
@@ -147,7 +152,7 @@ targets:
       - target: GoldenAccountsUseCase
         link: true
     sources:
-      - path: tests/accounts-use-case/unit-tests
+      - path: Tests/accounts-use-case/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
 
@@ -173,3 +178,37 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
+
+    # Snapshot tests
+    
+  SnapshotTests:
+    scheme:
+      testTargets:
+        - name: SnapshotTests
+          randomExecutionOrder: true
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: 15.0
+    info:
+      path: Tests/SnapshotTests/Info.plist
+    codeSign: false
+    dependencies:
+      - package: SnapshotTesting
+      - target: GoldenSampleApp
+        link: true
+      - target: AccountsJourney
+        link: true
+    sources:
+      - path: Tests/SnapshotTests
+        excludes:
+          - Info.plist
+          - __Snapshots__
+        createIntermediateGroups: true
+      - path: Tests/SnapshotTests/__Snapshots__
+        type: folder
+        createIntermediateGroups: true
+packages:
+  SnapshotTesting:
+    github: pointfreeco/swift-snapshot-testing
+    from: 1.11.0
+    
