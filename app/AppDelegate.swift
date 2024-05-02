@@ -66,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupObservability()
         appendCustomHeader()
         UserProfileUseCaseHelper().setupUserProfileUseCase()
+        setupMoreMenu()
         return true
     }
 }

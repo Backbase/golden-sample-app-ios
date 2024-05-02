@@ -70,6 +70,10 @@ PODS:
     - Resolver (= 1.2.1)
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
+  - RetailMoreJourney (4.1.0):
+    - BackbaseDesignSystem (>= 4.0)
+    - BackbaseObservability (>= 1.0)
+    - RetailJourneyCommon (>= 2.0)
   - RxCocoa (5.1.3):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -102,13 +106,14 @@ DEPENDENCIES:
   - IdentityAuthenticationJourney (~> 6.0)
   - Resolver (= 1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
+  - RetailMoreJourney (= 4.1.0)
   - SwiftLint
   - UserManagerUserProfileUseCase
 
 SPEC REPOS:
   https://repo.backbase.com/api/pods/design-ios:
     - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business:
+  https://repo.backbase.com/api/pods/ios-business/:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
@@ -127,6 +132,7 @@ SPEC REPOS:
     - RetailFeatureFilterAccessControlEntitlementsUseCase
     - RetailFeatureFilterUseCase
     - RetailJourneyCommon
+    - RetailMoreJourney
     - UserManagerClient2
   https://repo.backbase.com/api/pods/ios3:
     - Backbase
@@ -162,6 +168,7 @@ SPEC CHECKSUMS:
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
   RetailFeatureFilterUseCase: ea793414c0ab37a196a4455a4d14ff0f4e5425d7
   RetailJourneyCommon: ec0a1db2fcc55c9797c3883ed022f90df60be6a2
+  RetailMoreJourney: 8d8447f0d02d0babf1492347f708e5be2d8f40cd
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
@@ -171,6 +178,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: ae4588eb5c2d916cba64eae24ba134e60308a409
+PODFILE CHECKSUM: 84ec749928bbe99b1cdcbb5fc32122250d9743f9
 
 COCOAPODS: 1.15.2

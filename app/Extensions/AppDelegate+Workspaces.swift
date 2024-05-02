@@ -17,6 +17,7 @@ import AccessControlClient3Gen2
 import BackbaseDesignSystem
 import AccountsJourney
 import GoldenAccountsUseCase
+import RetailMoreJourney
 
 // MARK: - Workspaces Journey methods
 extension AppDelegate {
@@ -44,9 +45,11 @@ extension AppDelegate {
                 guard let self else { return }
                 didSelect?(navigationController)(workspace)
 
-                let comingSoonController = ComingSoonViewController(title: "Coming soon..")
-                comingSoonController.view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
-                comingSoonController.tabBarItem.image = UIImage(systemName: "pencil.and.scribble")
+                let navigationController = UINavigationController()
+                navigationController.tabBarItem.title = "More"
+                navigationController.tabBarItem.image = UIImage(systemName: "line.3.horizontal")
+                let moreViewController = More.build(navigationController: navigationController)
+                navigationController.viewControllers = [moreViewController]
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
                 Task {
@@ -55,7 +58,7 @@ extension AppDelegate {
 
                     tabBarViewController.viewControllers = [
                         dashboardViewController,
-                        comingSoonController
+                        moreViewController
                     ]
                     navigationController.viewControllers = [tabBarViewController]
                 }
