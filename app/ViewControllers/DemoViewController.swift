@@ -5,7 +5,7 @@
 import UIKit
 import BackbaseDesignSystem
 
-final class ComingSoonViewController: UIViewController {
+final class DemoViewController: UIViewController {
 
     init(title: String) {
         super.init(nibName: nil, bundle: .main)
@@ -24,12 +24,13 @@ final class ComingSoonViewController: UIViewController {
         stateView.snp.makeConstraints { make in
             make.trailing.leading.centerY.equalToSuperview()
         }
+        view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
     }
 
     private func getStateView() -> StateView {
         let config = GenericStateViewConfiguration(iconName: DesignSystem.Assets.icStateViewLoadingFailed,
-                                                   title: Bundle.main.localize("comingSoonViewController.stateViewTitle") ?? "",
-                                                   subtitle: Bundle.main.localize("comingSoonViewController.stateViewSubtitle") ?? "",
+                                                   title: Bundle.main.localize("demoViewController.stateViewTitle") ?? "",
+                                                   subtitle: Bundle.main.localize("demoViewController.stateViewSubtitle") ?? "",
                                                    animationView: nil,
                                                    firstButtonConfiguration: nil,
                                                    secondButtonConfiguration: nil)

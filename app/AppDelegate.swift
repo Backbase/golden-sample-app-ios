@@ -63,9 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupIdentityJourney()
         setupWorkspacesJourney()
         setupAccountsJourney()
-        setupObservability()
-        appendCustomHeader()
         UserProfileUseCaseHelper().setupUserProfileUseCase()
+        MoreMenuConfiguration.setupMoreMenu()
         return true
     }
 }
