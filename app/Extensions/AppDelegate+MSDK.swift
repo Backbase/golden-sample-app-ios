@@ -12,6 +12,7 @@ extension AppDelegate {
     func setupBackbaseSDK() {
         do {
             try Backbase.initialize("config.json", forceDecryption: false)
+            appendCustomHeader()
         } catch {
             fatalError("Backbase MSDK initialization failed: \(error.localizedDescription)")
         }
