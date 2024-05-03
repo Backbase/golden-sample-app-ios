@@ -537,28 +537,6 @@
         }
       }
     },
-    "comingSoonViewController.stateViewSubtitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Soon a new journey will be added to this tab. Stay tuned!"
-          }
-        }
-      }
-    },
-    "comingSoonViewController.stateViewTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Journey under construction!"
-          }
-        }
-      }
-    },
     "dashboard.menu.tab2" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -577,6 +555,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tab 3"
+          }
+        }
+      }
+    },
+    "demoViewController.stateViewSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In a Backbase powered app you would have a working journey here."
+          }
+        }
+      }
+    },
+    "demoViewController.stateViewTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is a demo journey"
+          }
+        }
+      }
+    },
+    "retailUniversalApp.more.items.demo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demo journey"
+          }
+        }
+      }
+    },
+    "retailUniversalApp.more.items.logout" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
           }
         }
       }

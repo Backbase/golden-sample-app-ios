@@ -45,11 +45,9 @@ extension AppDelegate {
                 guard let self else { return }
                 didSelect?(navigationController)(workspace)
 
-                let navigationController = UINavigationController()
-                navigationController.tabBarItem.title = "More"
-                navigationController.tabBarItem.image = UIImage(systemName: "line.3.horizontal")
-                let moreViewController = More.build(navigationController: navigationController)
-                navigationController.viewControllers = [moreViewController]
+                let moreNavigationController = UINavigationController()
+                let moreViewController = More.build(navigationController: moreNavigationController)
+                moreNavigationController.viewControllers = [moreViewController]
 
                 let tabBarViewController = BackbaseDesignSystem.TabBarController()
                 Task {
@@ -58,7 +56,7 @@ extension AppDelegate {
 
                     tabBarViewController.viewControllers = [
                         dashboardViewController,
-                        moreViewController
+                        moreNavigationController
                     ]
                     navigationController.viewControllers = [tabBarViewController]
                 }
