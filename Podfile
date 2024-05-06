@@ -35,7 +35,7 @@ abstract_target 'Common' do
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
   pod 'RetailMoreJourney', '4.1.0'
-  pod 'BackbaseObservability', '~> 1.0'
+  pod 'BackbaseObservability', '~> 2.0'
   pod 'BackbaseOpenTelemetryConnector', '~> 1.0'
 
 
