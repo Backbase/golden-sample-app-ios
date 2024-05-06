@@ -45,8 +45,8 @@ struct DashboardHelper {
                                                _ serviceAgreementName: String) -> UIViewController {
         let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
-        let tab2ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
-        let tab3ViewController = ComingSoonViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
+        let tab2ViewController = DemoViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
+        let tab3ViewController = DemoViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
         let userPresentable = UserPresentable(name: userName, company: serviceAgreementName, image: nil)
         let headerConfiguration = TabHeaderViewController.Header.UserInformationConfiguration(userPresentable: userPresentable)

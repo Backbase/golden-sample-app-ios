@@ -34,8 +34,10 @@ abstract_target 'Common' do
   pod 'SwiftLint'
   pod 'BackbaseDesignSystem', '4.2.2'
   pod 'UserManagerUserProfileUseCase'
-  pod 'BackbaseObservability', '~> 2.0'
-  pod 'BackbaseOpenTelemetryConnector', '~> 1.0.0'
+  pod 'RetailMoreJourney', '4.1.0'
+  pod 'BackbaseObservability', '~> 1.0'
+  pod 'BackbaseOpenTelemetryConnector', '~> 1.0'
+
 
   target 'AccountsJourney' do
   end
@@ -52,6 +54,9 @@ abstract_target 'Tests' do
   pod 'Backbase', $backbaseVersion
   pod 'Resolver', $resolverVersion
   
+  target 'SnapshotTests' do
+      inherit! :search_paths
+    end
 
   target 'AccountsJourneyUnitTests' do 
   end
