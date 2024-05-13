@@ -44,6 +44,8 @@ Example branch names:
  - `poc/devs/O11Y`
  - `poc/retail/payments-journey`
 
+ We encourage the usage of demo data instead of relying on backend data to ensure that a sample can run independently of the backend and requires less maintenance.
+
 ## Sample catalog
 
 The sample catalog file (CATALOG.md) contains all the samples and POCs. It serves as guide for the users to help to find samples and their maintainers. It's also a guide to the DEVS team to see which branches are samples and which can be deleted. 
