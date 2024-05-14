@@ -1,6 +1,6 @@
 # How to contribute
 
-The golden sample app provides a opportunity to show samples, examples and best practices internally and externally of Backbase methods, processes and way of working. It's main branch contains a minimalistic working application which can be basis for new applications and POCs. 
+The golden sample app provides a opportunity to show samples, examples and best practices internally and externally of Backbase methods, processes and way of working. The `main` branch contains a minimalistic working application which can be basis for new applications and POCs. 
 
 This guideline summarizes the development process with the Golden sample and how you can create your own samples.
 
