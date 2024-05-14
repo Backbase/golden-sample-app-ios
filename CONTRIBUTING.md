@@ -60,6 +60,6 @@ A catalog entry must contain the following information:
 - Link to the branch
 
 ## Issues
-If there is an issue with a sample check the catalog file and contact the responsible team if it's maintained. For login issues contact the API sandbox team at their support Slack channel: `#s-ebp-api-sandbox`. For issues with the main branch and other problems reach out to the DEVS team on `#s-golden-sample` Slack channel.
+If there is an issue with a sample check the catalog file and contact the responsible team if it's maintained. For login issues contact the API sandbox team at their support Slack channel: `#s-ebp-api-sandbox`. For issues with the main branch and other problems reach out to the DEVS team on `#s-golden-sample-mobile` Slack channel.
 
 
