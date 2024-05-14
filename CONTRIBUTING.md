@@ -20,7 +20,7 @@ The repository is owned by the DEVS team. It's the DEVS team responsibility to u
 ## Branches
 
 ### Main branch
-The main branch is owned by the DEVS team and is continuously updated to the latest LTS version. The main branch is the repository's primary and protected branch. The main branch should be the basis for a new sample.
+The `main` branch is owned by the DEVS team and is continuously updated to the latest LTS version. The `main` branch is the repository's primary and protected branch. The `main` branch should be the basis for a new sample.
 
 ### Sample and POC branches
 
