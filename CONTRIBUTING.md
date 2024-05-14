@@ -15,7 +15,7 @@ The repository's main branch contains the main sample and CATALOG.md file which 
 
 ## Roles and responsibilities
 
-The repository is owned by the DEVS team. It's the DEVS team responsibility to update the main branch and to handle PRs to the main branch and to keep the repository clean. Every sample has a maintainer which is the team that created the sample and it is that team responsibility to maintain it and keep the sample up to date and runnable if needed (some samples show an example or practice that doesn't need this). 
+The repository is owned by the DEVS team. It's the DEVS team responsibility to update the `main` branch and to handle PRs to the `main` branch and to keep the repository clean. Every sample has a maintainer which is the team that created the sample and it is that team responsibility to maintain it and keep the sample up to date and runnable if needed (some samples show an example or practice that doesn't need this). 
 
 ## Branches
 
