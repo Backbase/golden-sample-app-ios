@@ -11,7 +11,7 @@ The repository's main branch contains the main sample and CATALOG.md file which 
 ### Steps to create a new sample
 1. Create a new branch from main according to the branch naming guide described in this guide
 2. Add your sample code to the branch.
-3. On the main branch update catalog.yaml file according to this guide and crete a PR for it.
+3. On the `main` branch update catalog.yaml file according to this guide and create a PR for just this change.
 
 ## Roles and responsibilities
 
