@@ -1,6 +1,6 @@
 # How to contribute
 
-The golden sample app provides a opportunity to show samples, examples and best practices internally and externally of Backbase methods, processes and way of working. It's main branch contains a minimalistic working application which can be basis for new applications and POCs. 
+The golden sample app provides a opportunity to show samples, examples and best practices internally and externally of Backbase methods, processes and way of working. The `main` branch contains a minimalistic working application which can be basis for new applications and POCs. 
 
 This guideline summarizes the development process with the Golden sample and how you can create your own samples.
 
@@ -11,16 +11,16 @@ The repository's main branch contains the main sample and CATALOG.md file which 
 ### Steps to create a new sample
 1. Create a new branch from main according to the branch naming guide described in this guide
 2. Add your sample code to the branch.
-3. On the main branch update catalog.yaml file according to this guide and crete a PR for it.
+3. On the `main` branch update catalog.yaml file according to this guide and create a PR for just this change.
 
 ## Roles and responsibilities
 
-The repository is owned by the DEVS team. It's the DEVS team responsibility to update the main branch and to handle PRs to the main branch and to keep the repository clean. Every sample has a maintainer which is the team that created the sample and it is that team responsibility to maintain it and keep the sample up to date and runnable if needed (some samples show an example or practice that doesn't need this). 
+The repository is owned by the DEVS team. It's the DEVS team responsibility to update the `main` branch and to handle PRs to the `main` branch and to keep the repository clean. Every sample has a maintainer which is the team that created the sample and it is that team responsibility to maintain it and keep the sample up to date and runnable if needed (some samples show an example or practice that doesn't need this). 
 
 ## Branches
 
 ### Main branch
-The main branch is owned by the DEVS team and is continuously updated to the latest LTS version. The main branch is the repository's primary and protected branch. The main branch should be the basis for a new sample.
+The `main` branch is owned by the DEVS team and is continuously updated to the latest LTS version. The `main` branch is the repository's primary and protected branch. The `main` branch should be the basis for a new sample.
 
 ### Sample and POC branches
 
@@ -60,6 +60,6 @@ A catalog entry must contain the following information:
 - Link to the branch
 
 ## Issues
-If there is an issue with a sample check the catalog file and contact the responsible team if it's maintained. For login issues contact the API sandbox team at their support Slack channel: `#s-ebp-api-sandbox`. For issues with the main branch and other problems reach out to the DEVS team on `#s-golden-sample` Slack channel.
+If there is an issue with a sample check the catalog file and contact the responsible team if it's maintained. For login issues contact the API sandbox team at their support Slack channel: `#s-ebp-api-sandbox`. For issues with the main branch and other problems reach out to the DEVS team on `#s-golden-sample-mobile` Slack channel.
 
 
