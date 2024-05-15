@@ -22,7 +22,7 @@
     "bankTimeZone": "Europe/Amsterdam",
     "custom": {
         "default-http-headers": {
-          "X-SDBXAZ-API-KEY": "Add your API key here"
+            "X-SDBXAZ-API-KEY": "Add your API key here"
         }
     }
 }
