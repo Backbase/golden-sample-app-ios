@@ -16,6 +16,7 @@ import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
 import ArrangementsClient2Gen2
+import TransactionsClient2Gen2
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Properties
     lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
     lazy var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
-    
+    lazy var transactionsClient = clientFactory(TransactionClientAPI(), "api/transaction-manager")
+
     // MARK: Identity Journey properties
 
     lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
@@ -62,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupBackbaseSDK()
         setupIdentityJourney()
         setupWorkspacesJourney()
+        setupDashboardJourney()
         setupAccountsJourney()
         setupObservability()
         appendCustomHeader()
