@@ -1,6 +1,6 @@
 # Sample catalog
 
-This file contains the catalog of samples in the repository, please refer to the contributing guideline how to add a new entry.
+This file contains the catalog of samples in the repository, please refer to the contributing guideline how to add a new entry. To check code changes in a sample you can always compare it to the appropriate tag on the main branch.
 
 ## [main](https://github.com/Backbase/golden-sample-app-ios)
 The minimal sample that includes all the required Backbase SDKs to get started to develop your own bank app.
@@ -15,25 +15,25 @@ The minimal sample that includes all the required Backbase SDKs to get started t
 
 **Status**: Maintained
 \
-EBP Sandbox 2023.09-LTS
+LTS 24.03
 
 ## [sample/devs/O11Y](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/O11Y)
 An implementation of Backbase Observability that makes it easy to add 3rd party tracking libraries to your project.
 \
 **Status**: Maintained
 \
-EBP Sandbox 2023.09-LTS
+LTS 24.03
 
 ## [sample/devs/open-telemetry](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/open-telemetry)
 An implementation of Backbase OpenTelemetry Connector to track screen views and user actions.
 \
 **Status**: Maintained
 \
-EBP Sandbox 2023.09-LTS
+LTS 24.03
 
 ## [sample/devs/custom-network](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/custom-networking)
 This example shows how to connect to a Backbase powered backend with a custom networking library.
 \
 **Status**: Not maintained
 \
-EBP Sandbox 2023.09-LTS
+LTS 24.03
