@@ -34,6 +34,6 @@ EBP Sandbox 2023.09-LTS
 ## [sample/devs/custom-network](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/custom-networking)
 This example shows how to connect to a Backbase powered backend with a custom networking library.
 \
-**Status**: Maintained
+**Status**: Not maintained
 \
 EBP Sandbox 2023.09-LTS
