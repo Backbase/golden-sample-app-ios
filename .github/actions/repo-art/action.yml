@@ -1,0 +1,19 @@
+name: "Add repo-art"
+
+description: Add repositories from repo.backbase.com
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        echo Adding repository backbase-pods3
+        bundle exec pod repo-art add backbase-pods3 https://repo.backbase.com/api/pods/ios3
+        echo Adding repository backbase-pods-retail3
+        bundle exec pod repo-art add backbase-pods-retail3 https://repo.backbase.com/api/pods/ios-retail3
+        echo Adding repository backbase-pods-identity
+        bundle exec pod repo-art add backbase-pods-identity https://repo.backbase.com/api/pods/ios-identity
+        echo Adding repository backbase-pods-business
+        bundle exec pod repo-art add backbase-pods-business https://repo.backbase.com/api/pods/ios-business
+        echo Adding repository backbase-pods-design
+        bundle exec pod repo-art add backbase-pods-design https://repo.backbase.com/api/pods/design-ios

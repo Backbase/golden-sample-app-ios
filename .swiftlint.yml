@@ -8,11 +8,13 @@ included:
   - accounts-journey
   - accounts-use-case
   - app
+  - appUITests
 excluded:
   - Pods
   - .build
   - Tests
   - vendor
+  - DerivedData
 line_length:
   warning: 160
   error: 200

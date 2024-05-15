@@ -14,11 +14,12 @@ import BusinessWorkspacesJourneyWorkspacesUseCase2
 import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
+import BackbaseDesignSystem
 import AccountsJourney
-
+import GoldenAccountsUseCase
+import RetailMoreJourney
 
 // MARK: - Workspaces Journey methods
-
 extension AppDelegate {
     func setupWorkspacesJourney() {
         
@@ -37,13 +38,31 @@ extension AppDelegate {
     func getWorkspacesConfiguration() -> Workspaces.Configuration {
         var configuration = Workspaces.Configuration()
         let didSelect = configuration.selector.router.didSelectWorkspaceV2
-        
+        let dashboardHelper = DashboardHelper()
+
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in
             { [weak self] workspace in
+                guard let self else { return }
                 didSelect?(navigationController)(workspace)
-                navigationController.viewControllers = [AccountsJourney.build()]
-                self?.window?.rootViewController = navigationController
-                self?.window?.makeKeyAndVisible()
+
+                let moreNavigationController = UINavigationController()
+                let moreViewController = More.build(navigationController: moreNavigationController)
+                moreNavigationController.viewControllers = [moreViewController]
+
+                let tabBarViewController = BackbaseDesignSystem.TabBarController()
+                Task {
+                    let dashboardViewController = await dashboardHelper.getViewController(navigationController: navigationController,
+                                                                                          serviceAgreementName: workspace.workspace.name)
+
+                    tabBarViewController.viewControllers = [
+                        dashboardViewController,
+                        moreNavigationController
+                    ]
+                    navigationController.viewControllers = [tabBarViewController]
+                }
+
+                window?.rootViewController = navigationController
+                window?.makeKeyAndVisible()
             }
         }
         

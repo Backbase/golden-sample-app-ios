@@ -1,9 +1,11 @@
 # Golden Sample iOS App
 
 ## Overview
-This sample provides examples of the code structure, configuration, and best practices for building iOS application on the Backbase platform.
+The golden sample is a public repository that contains samples, examples and best practices. This repository should be used internally and externally to show the Backbase approach, architecture and way of working to our developers and customers.
 
-## Get started
+## Running and building
+
+### Get started
 1. [rbenv](https://github.com/rbenv/rbenv)
 Use rbenv to pick a Ruby version for you application and guarantee that your development environment matches production. This enables painless Ruby upgrades and bulletproof deployments
 ```bash
@@ -29,7 +31,7 @@ machine repo.backbase.com
     password {password}
 ``` 
 
-## Setup
+### Setup
 - Install required environment tools
 ```bash
 bundle install
@@ -39,3 +41,31 @@ bundle install
 ```bash
 bundle exec fastlane setup
 ```
+- Setup pod repos.
+```bash
+pod repo-art add backbase-pods3 "https://repo.backbase.com/artifactory/api/pods/ios3" &&
+pod repo-art add backbase-pods-retail3 "https://repo.backbase.com/artifactory/api/pods/ios-retail3" &&
+pod repo-art add backbase-pods-identity "https://repo.backbase.com/artifactory/api/pods/ios-identity" &&
+pod repo-art add backbase-pods-business "https://repo.backbase.com/artifactory/api/pods/ios-business" &&
+pod repo-art add backbase-pods-design "https://repo.backbase.com/artifactory/api/pods/design-ios"
+```
+
+## Usage and login
+
+The Golden Sample App is configured to use the API Sandbox environment out of the box. To be able to connect to this environment you need a Sandbox API key which can be obtained from the API Sandbox team and needs to be added to config.json. To login to the app the API Sandbox [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/) can be used.
+
+### Test plan
+The testplan is part of the project, but Xcodegen cannot add it. In order to do so:
+
+```bash
+1. Go to the Snapshot scheme
+2. Click on the Edit the scheme
+3. Click on the respective test plan
+4. Modify the details
+```
+
+## Contribution
+If you want to create your own samples check the [CONTRIBUTING.md](CONTRIBUTING.md) for the guidelines.
+
+## Samples
+Every sample lives on its own branch the [CATALOG.md](CATALOG.md) file lists all the samples that the repo contains. 

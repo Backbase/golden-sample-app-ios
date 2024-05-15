@@ -1,0 +1,40 @@
+name: Build and Test GoldenSampeApp
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-and-tests:
+    runs-on: macos-13
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Install Gems 
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
+        with: 
+          bb_artifactory_ios_username: ${{ secrets.REPO_USERNAME }}
+          bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD }}
+      - name: Xcode Select Version
+        uses: mobiledevops/xcode-select-version-action@v1
+        with:
+          xcode-select-version: 15.2
+      - name: Generate the project file
+        run: bundle exec fastlane setup
+      - name: Run tests
+        run: bundle exec fastlane test
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -21,18 +21,23 @@ use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '>= 9.0'
+$backbaseVersion = '11.2.0'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase'
-  pod 'IdentityAuthenticationJourney'
+  pod 'IdentityAuthenticationJourney','~> 6.0'
   pod 'BusinessWorkspacesJourney'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
   pod 'Alamofire'
+
+  pod 'BackbaseDesignSystem', '4.2.2'
+  pod 'UserManagerUserProfileUseCase'
+  pod 'RetailMoreJourney', '4.1.0'
+  pod 'BackbaseObservability', '~> 1.0'
 
   target 'AccountsJourney' do
   end
@@ -49,6 +54,9 @@ abstract_target 'Tests' do
   pod 'Backbase', $backbaseVersion
   pod 'Resolver', $resolverVersion
   
+  target 'SnapshotTests' do
+      inherit! :search_paths
+    end
 
   target 'AccountsJourneyUnitTests' do 
   end

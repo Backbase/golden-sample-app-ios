@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "A4DFB22F-BBF3-44AB-80FC-C8EB3CF1C6E8",
+      "name" : "English",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "TestPlanLanguage",
+            "value" : "en"
+          }
+        ],
+        "language" : "en"
+      }
+    },
+    {
+      "id" : "5386E73E-FD0E-4777-8EA3-18AD2E3B1E4E",
+      "name" : "Arabic",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "TestPlanLanguage",
+            "value" : "ar"
+          }
+        ],
+        "language" : "IDELaunchSchemeLanguageRightToLeftLayoutDirection"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:ios-golden-sample-app.xcodeproj",
+        "identifier" : "6BD16231F79DDFCBA9FB4B98",
+        "name" : "SnapshotTests"
+      }
+    }
+  ],
+  "version" : 1
+}
