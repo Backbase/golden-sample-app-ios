@@ -1,6 +1,7 @@
 import Foundation
 import Alamofire
 import Backbase
+import AccountsJourney
 
 final class CustomAccountsUseCase {
 

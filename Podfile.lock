@@ -2,6 +2,7 @@ PODS:
   - AccessControlClient3Gen2 (1.0.0):
     - Backbase (>= 9.0)
     - ClientCommonGen2 (~> 1.0)
+  - Alamofire (5.9.1)
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
     - AppAuth/ExternalUserAgent (= 1.6.2)
@@ -97,6 +98,7 @@ PODS:
     - SnapKit (~> 5.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (= 11.2.0)
   - BackbaseDesignSystem (= 4.2.2)
@@ -139,6 +141,7 @@ SPEC REPOS:
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
   trunk:
+    - Alamofire
     - AppAuth
     - Resolver
     - RxCocoa
@@ -149,6 +152,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
   Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
@@ -178,6 +182,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: 84ec749928bbe99b1cdcbb5fc32122250d9743f9
+PODFILE CHECKSUM: f4b96f1e2fc77ced484bdb646c0f13dc001fcf1c
 
 COCOAPODS: 1.15.2
