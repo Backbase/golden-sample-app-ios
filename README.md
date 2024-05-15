@@ -64,8 +64,12 @@ The testplan is part of the project, but Xcodegen cannot add it. In order to do 
 4. Modify the details
 ```
 
-## Contribution
+## Samples
+Every sample lives on its own branch. The [CATALOG.md](CATALOG.md) file lists all the samples that the repo contains. The repository is updated with every LTS releases and these updates are tagged, you can easily compare a sample to the tag to see the code changes. 
+
+### Contribution
 If you want to create your own samples check the [CONTRIBUTING.md](CONTRIBUTING.md) for the guidelines.
 
-## Samples
-Every sample lives on its own branch the [CATALOG.md](CATALOG.md) file lists all the samples that the repo contains. 
+## Discussion
+
+You can discuss samples, request new examples and report problems on Github Discussions. 
