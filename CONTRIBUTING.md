@@ -29,7 +29,7 @@ A custom branch on the Golden sample app has an maintainer, the type of the bran
 The name of a custom branch should follow the convention of `type/valuestream/sample` scheme. The last part of the name should describe the sample. 
 
 Type can be:
-- `POC`
+- `poc`
 - `sample`
 
 Value stream can be:
@@ -38,7 +38,7 @@ Value stream can be:
 - `wealth`
 - `flow`
 - `devs`
-- `CS`
+- `cs`
 
 Example branch names:
  - `poc/devs/O11Y`
@@ -56,7 +56,7 @@ A catalog entry must contain the following information:
 - Short description
 - Maintainer team
 - Maintenance status
-- Year and the LTS version when the sample was working
+- LTS version when the sample was working (check the latest main tag!)
 - Link to the branch
 
 ## Issues
