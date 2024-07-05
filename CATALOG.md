@@ -37,3 +37,12 @@ This example shows how to connect to a Backbase powered backend with a custom ne
 **Status**: Not maintained
 \
 LTS 24.03
+
+## [sample/devs/theme-switching](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/theme-switching)
+This example shows how to switch themes at run time via the Backbase Design System.
+\
+**Maintainer**: Mobile-UI
+\
+**Status**: Maintained
+\
+LTS 24.03
