@@ -13,9 +13,10 @@ PODS:
     - ClientCommonGen2 (~> 1.0)
   - Backbase (11.2.0):
     - BackbaseSDKSwiftWrapper (~> 2.0.0)
-  - BackbaseCountryCore (1.1.0)
-  - BackbaseDesignSystem (4.2.2):
-    - BackbaseCountryCore (>= 1.1.0)
+  - BackbaseCountryCore (1.1.1)
+  - BackbaseDesignSystem (5.3.0):
+    - BackbaseCountryCore (>= 1.1.1)
+    - Resolver (~> 1.2.1)
   - BackbaseIdentity (6.0.1):
     - AppAuth (~> 1.3)
     - Backbase (>= 11.0.0)
@@ -99,7 +100,7 @@ PODS:
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (= 11.2.0)
-  - BackbaseDesignSystem (= 4.2.2)
+  - BackbaseDesignSystem (~> 5.3.0)
   - BackbaseObservability (~> 1.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
@@ -111,9 +112,7 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase
 
 SPEC REPOS:
-  https://repo.backbase.com/api/pods/design-ios:
-    - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business/:
+  https://repo.backbase.com/api/pods/ios-business:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
@@ -126,7 +125,6 @@ SPEC REPOS:
   https://repo.backbase.com/api/pods/ios-retail3:
     - AccessControlClient3Gen2
     - ArrangementsClient2Gen2
-    - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
     - RetailFeatureFilterAccessControlEntitlementsUseCase
@@ -138,6 +136,9 @@ SPEC REPOS:
     - Backbase
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
+  https://repo.backbase.com/artifactory/api/pods/design-ios:
+    - BackbaseCountryCore
+    - BackbaseDesignSystem
   trunk:
     - AppAuth
     - Resolver
@@ -152,8 +153,8 @@ SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
   Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
-  BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
-  BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
+  BackbaseCountryCore: cbe14b72509d1785a32a99107bcc0fd68df98ea7
+  BackbaseDesignSystem: 30a2decf532485f1adfe13e6d28917b2e7811563
   BackbaseIdentity: fed2efa2fba48ad5213d2e12d94500f13cecb733
   BackbaseObservability: 5881fd8f1d7ecf71799914a63a9785af4ce4cfb9
   BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
@@ -178,6 +179,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: 84ec749928bbe99b1cdcbb5fc32122250d9743f9
+PODFILE CHECKSUM: adb2bb40544b079454967951fa0a095fcfa5e54e
 
 COCOAPODS: 1.15.2

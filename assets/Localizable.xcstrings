@@ -613,6 +613,39 @@
           }
         }
       }
+    },
+    "tabBar.dashboard.themeSwitchActionMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will be logged out for the theme to take affect"
+          }
+        }
+      }
+    },
+    "tabBar.dashboard.themeSwitchActionTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose theme"
+          }
+        }
+      }
+    },
+    "tabBar.dashboard.themeSwitchButtonTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch Theme"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

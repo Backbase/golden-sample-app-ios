@@ -32,7 +32,7 @@ abstract_target 'Common' do
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '4.2.2'
+  pod 'BackbaseDesignSystem', '~> 5.3.0'
   pod 'UserManagerUserProfileUseCase'
   pod 'RetailMoreJourney', '4.1.0'
   pod 'BackbaseObservability', '~> 1.0'
