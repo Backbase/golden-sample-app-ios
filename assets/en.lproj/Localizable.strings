@@ -1,0 +1,544 @@
+/*
+  Created by Backbase R&D B.V. on 14/5/2020.
+*/
+
+"authentication.buttons.close.accessibility.label" = "Close";
+"authentication.inputs.maskbutton.accessibility.label" = "Hide or show password";
+
+// MARK: - Error Alerts
+"authentication.alerts.notConnected.title" = "No internet connection";
+"authentication.alerts.notConnected.message" = "Please check your internet connection and try again.";
+
+"authentication.alerts.networkFailure.title" = "Network error";
+"authentication.alerts.networkFailure.message" = "Check your internet connection. If the problem continues, please call customer support or try again later.";
+
+"authentication.alerts.invalidCredentials.title" = "Incorrect username or password";
+"authentication.alerts.invalidCredentials.message" = "Please try again.";
+
+"authentication.alerts.invalidPasscode.title" = "Incorrect passcode";
+"authentication.alerts.invalidPasscode.message" = "You entered an invalid passcode, Please try again.";
+
+"authentication.alerts.invalidPasscodeAttempt.title" = "Incorrect passcode";
+
+"authentication.alerts.sessionExpired.title" = "Session expired";
+"authentication.alerts.sessionExpired.message" = "Please log in again.";
+
+"authentication.alerts.accountLocked.title" = "Authentication failed";
+"authentication.alerts.accountLocked.message" = "You've entered the wrong passcode multiple times. As a result, you have been logged out and your data has been de-registered from this device. You will now have to re-register this device to use this app.";
+
+"authentication.alerts.cancelledByUser.title" = "";
+"authentication.alerts.cancelledByUser.message" = "";
+
+"authentication.alerts.incompleteEnrollment.title" = "Setup incomplete";
+"authentication.alerts.incompleteEnrollment.message" = "Something went wrong during registration. Please try again.";
+
+"authentication.alerts.passcodeMismatch.title" = "Passcodes do not match";
+"authentication.alerts.passcodeMismatch.message" = "Please try again.";
+
+"authentication.alerts.passcodeTooManyRepeatingNumbers.title" = "Passcode not secure";
+"authentication.alerts.passcodeTooManyRepeatingNumbers.message" = "This passcode contains too many repeating digits.";
+
+"authentication.alerts.passcodeTooManyConsecutiveNumbers.title" = "Passcode not secure";
+"authentication.alerts.passcodeTooManyConsecutiveNumbers.message" = "This passcode contains too many consecutive digits.";
+
+"authentication.alerts.biometricUsageDenied.title" = "Biometrics access required.";
+"authentication.alerts.biometricUsageDenied.message" = "Your privacy settings are preventing us from accessing your biometrics. Fix this from Settings and try again.";
+
+"authentication.alerts.biometricLockout.title" = "Biometric sensor locked out";
+"authentication.alerts.biometricLockout.message" = "Biometric sensor was locked out due to several wrong attempts. Lock the device, unlock it, and try again.";
+
+"authentication.alerts.biometricsAuthenticationFailed.title" = "Try again";
+"authentication.alerts.biometricsAuthenticationFailed.message" = "Biometrics not recognised";
+
+"authentication.alerts.biometricsInvalidated.title" = "Invalidated biometrics key";
+"authentication.alerts.biometricsInvalidated.message" = "Your biometric settings have changed since you registered the device. You can no longer use biometric authentication until you re-register them.";
+
+"authentication.alerts.userDisabled.title" = "Your account has been locked";
+"authentication.alerts.userDisabled.message" = "Please contact us for assistance.";
+
+"authentication.alerts.userBlocked.title" = "Your account has been locked";
+"authentication.alerts.userBlocked.message" = "Please contact us for assistance.";
+
+"authentication.alerts.userTemporarilyDisabled.title" = "Your account has been temporarily locked";
+"authentication.alerts.userTemporarilyDisabled.message" = "You’ve reached the maximum number of failed authentication attempts.\nPlease try again later or contact us for assistance.";
+
+"authentication.alerts.deviceSuspended.title" = "This device has been suspended";
+"authentication.alerts.deviceSuspended.message" = "Login on a web browser and use device manager to re-enable this device or contact us for assistance.";
+
+"authentication.alerts.invalidEmail.title" = "Invalid e-mail";
+"authentication.alerts.invalidEmail.message" = "Please enter a valid address and try again.";
+
+"authentication.alerts.registrationTimeOut.title" = "Inactivity time-out";
+"authentication.alerts.registrationTimeOut.message" = "Due to inactivity, your registration has timed out. Please try again.";
+
+"authentication.alerts.unknown.title" = "Something went wrong";
+"authentication.alerts.unknown.message" = "We were unable to process that request. Please try again.";
+
+"authentication.alerts.confirmationIsNotPending.title" = "Something went wrong";
+"authentication.alerts.confirmationIsNotPending.message" = "This request has expired. Please close and try again.";
+
+"authentication.alerts.confirmationFailed.title" = "Something went wrong";
+"authentication.alerts.confirmationFailed.message" = "We were unable to process this request. Please close and try again.";
+
+"authentication.alerts.confirmationFailedExpiredSession.title" = "Something went wrong";
+"authentication.alerts.confirmationFailedExpiredSession.message" = "Your session has expired. The transaction has been cancelled. Please log in and try again.";
+
+"authentication.alerts.confirmationFailedNoAuthenticators.title" = "Something went wrong";
+"authentication.alerts.confirmationFailedNoAuthenticators.message" = "Biometric or passcode authentication must be registered to approve this action. Please register one and try again.";
+
+"authentication.alerts.confirmationNotFound.title" = "Something went wrong";
+"authentication.alerts.confirmationNotFound.message" = "We were unable to process this request. Please close and try again.";
+
+"authentication.alerts.authConfirmationIsNotPending.title" = "Something went wrong";
+"authentication.alerts.authConfirmationIsNotPending.message" = "This request has expired. Please close and try again.";
+
+"authentication.alerts.authConfirmationFailed.title" = "Something went wrong";
+"authentication.alerts.authConfirmationFailed.message" = "We were unable to process this request. Please close and try again.";
+
+"authentication.alerts.authConfirmationFailedNoAuthenticators.title" = "Something went wrong";
+"authentication.alerts.authConfirmationFailedNoAuthenticators.message" = "Biometric or passcode authentication must be registered to approve this action. Please register one and try again.";
+
+"authentication.alerts.authConfirmationNotFound.title" = "Something went wrong";
+"authentication.alerts.authConfirmationNotFound.message" = "We were unable to process this request. Please close and try again.";
+
+"authentication.alerts.authConfirmationSecretExpired.title" = "Something went wrong";
+"authentication.alerts.authConfirmationSecretExpired.message" = "This request has expired. Please close and try again.";
+
+"authentication.alerts.invalidPasswordMinLengthMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordMinLowerCaseCharsMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordMinDigitsMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordMinUpperCaseCharsMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordMinSpecialCharsMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordNotUsernameMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordNotUsernameMessage.message" = "Password cannot be the same as your username";
+"authentication.alerts.invalidPasswordNotEmailMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordNotEmailMessage.message" = "Password cannot be your email";
+"authentication.alerts.invalidPasswordRegexPatternMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordRegexPatternMessage.message" = "Invalid password";
+"authentication.alerts.invalidPasswordHistoryMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordHistoryMessage.message" = "Password cannot be a previously used password";
+"authentication.alerts.invalidPasswordDenylistedMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordDenylistedMessage.message" = "Invalid password";
+"authentication.alerts.invalidPasswordGenericMessage.title" = "Invalid password";
+"authentication.alerts.invalidPasswordGenericMessage.message" = "Password does not match the password policy";
+
+"authentication.alerts.deviceDoesNotExist.title" = "This device is not linked to your account";
+"authentication.alerts.deviceDoesNotExist.message" = "To continue, please log in with your banking credentials.";
+
+"authentication.alerts.tokenIsNotActive.title" = "Inactivity time-out";
+"authentication.alerts.tokenIsNotActive.message" = "Due to inactivity, your request has timed out. Please try again.";
+
+"authentication.alerts.invalidFIDOCredentials.title" = "This device is not linked to your account";
+"authentication.alerts.invalidFIDOCredentials.message" = "To continue, please log in with your banking credentials.";
+
+"authentication.alerts.options.confirm" = "OK";
+"authentication.alerts.options.retry" = "Retry";
+"authentication.alerts.options.cancel" = "Cancel";
+"authentication.alerts.options.settings" = "Settings";
+"authentication.alerts.options.close" = "Close";
+"authentication.alerts.options.restart" = "Restart";
+"authentication.alerts.options.tryAgain" = "Try again";
+
+"authentication.alerts.otpIncorrect.title" = "Incorrect OTP";
+"authentication.alerts.otpIncorrect.message" = "Invalid code. Please try again";
+"authentication.alerts.otpExpired.title" = "Expired OTP";
+"authentication.alerts.otpExpired.message" = "Expired code. Please request a new one‑time password.";
+
+"authentication.alerts.otpMaxAttemptsReached.title" = "Your account is locked";
+"authentication.alerts.otpMaxAttemptsReached.message" = "It looks like you reached the maximum number of failed attempts. Please try again or contact us for assistance.";
+
+"authentication.alerts.resendLimitExceed.title" = "Resend limit exceeded";
+"authentication.alerts.resendLimitReached.title" = "Resend limit exceeded";
+"authentication.alerts.resendLimitReached.message" = "You are out of OTP resend attempts.";
+
+"authentication.alerts.otpUnableToSend.title" = "Something went wrong";
+"authentication.alerts.otpUnableToSend.message" = "We were unable to send an OTP, due to an internal error occurring. \n Please close and try again";
+
+"authentication.alerts.invalidForgotPasswordOTPCode.title" = "Invalid code";
+"authentication.alerts.invalidForgotPasswordOTPCode.message" = "Please try again.";
+
+"authentication.alerts.noValidOTPChannel.title" = "Something went wrong";
+"authentication.alerts.noValidOTPChannel.message" = "We don't have an email address or cell phone number to use to verify you. Call us on [telephone number].";
+
+"authentication.alerts.unexpectedError.title" = "Something went wrong";
+"authentication.alerts.unexpectedError.message" = "We were unable to process that request. Please try again";
+
+"authentication.alerts.fidoRequestExpired.title" = "Inactivity time-out";
+"authentication.alerts.fidoRequestExpired.message" = "Due to inactivity, your request has timed out. Please try again";
+
+"authentication.alerts.requestTimedOut.title" = "Something went wrong";
+"authentication.alerts.requestTimedOut.message" = "The request timed out. Please try again.";
+
+// MARK: - Login
+"authentication.login.labels.title" = "Welcome back";
+"authentication.login.labels.titleWithName" = "Welcome back,\n%@";
+
+"authentication.login.labels.subtitle.faceID" = "Log in with Face ID";
+"authentication.login.labels.subtitle.touchID" = "Log in with Touch ID";
+"authentication.login.labels.subtitle.lockedOut" = "Enable Biometrics";
+"authentication.login.labels.subtitle.passcode" = "Log in with Passcode";
+
+"authentication.login.buttons.biometric.faceID" = "Face ID Login";
+"authentication.login.buttons.biometric.touchID" = "Touch ID Login";
+"authentication.login.buttons.biometric.lockedOut" = "Enable Biometrics";
+"authentication.login.buttons.passcode" = "Passcode Login";
+
+// MARK: - Register
+"authentication.register.labels.title" = "Let’s get started";
+"authentication.register.labels.subtitle" = "Enter your personal banking credentials to get started";
+
+"authentication.register.inputs.username.placeholder" = "Username";
+"authentication.register.inputs.username.emptyError" = "*Username is required";
+
+"authentication.register.inputs.password.placeholder" = "Password";
+"authentication.register.inputs.password.emptyError" = "*Password is required";
+
+"authentication.register.buttons.forgotCredentials" = "Forgot credentials?";
+"authentication.forgotcredentials.labels.title" = "Forgot credentials?";
+"authentication.forgotcredentials.labels.subtitle" = "Which credentials are you having a problem remembering?";
+"authentication.forgotcredentials.options.forgotusername" = "I've forgotten my username";
+"authentication.forgotcredentials.options.forgotpassword" = "I've forgotten my password";
+
+"authentication.register.buttons.login" = "Log in";
+
+// Mark: - Forgot Passcode
+"authentication.forgotpasscode.labels.title" = "Your account details";
+"authentication.forgotpasscode.labels.subtitle" = "Enter your personal banking credentials to get started.";
+
+"authentication.forgotpasscode.inputs.username.placeholder" = "Username";
+"authentication.forgotpasscode.inputs.username.emptyError" = "*Username is required";
+
+"authentication.forgotpasscode.inputs.password.placeholder" = "Password";
+"authentication.forgotpasscode.inputs.password.emptyError" = "*Password is required";
+
+"authentication.forgotpasscode.buttons.forgotCredentials" = "Forgot credentials?";
+"authentication.forgotpasscode.buttons.login" = "Log in";
+
+"authentication.forgotpasscode.otp.methodChoice.buttons.continue" = "Continue";
+"authentication.forgotpasscode.otp.methodChoice.labels.subtitle" = "Select the destination that you would like us to send a one‑time password";
+"authentication.forgotpasscode.otp.methodChoice.labels.title" = "Get a one‑time password";
+"authentication.forgotpasscode.otp.methodChoice.buttons.continue" = "Continue";
+
+"authentication.forgotpasscode.otp.input.labels.otp.placeholder" = "";
+"authentication.forgotpasscode.otp.input.labels.title" = "Enter one‑time password";
+"authentication.forgotpasscode.otp.input.labels.subtitle" = "Enter the one‑time password (OTP) we’ve sent to %@ below to help us verify you and this device.";
+"authentication.forgotpasscode.otp.input.buttons.submit" = "Submit";
+"authentication.forgotpasscode.otp.input.labels.problems" = "Experiencing Problems?";
+"authentication.forgotpasscode.otp.input.labels.problems.message" = "If you are unable to complete this process, please restart and try again";
+"authentication.forgotpasscode.otp.input.labels.problems.restart" = "Restart";
+"authentication.forgotpasscode.otp.input.labels.resend" = "Resend my OTP";
+"authentication.forgotpasscode.otp.input.labels.otp.emptyError" = "*OTP is required";
+
+"authentication.forgotpasscode.createpasscode.labels.step1Title" = "Create your passcode";
+"authentication.forgotpasscode.createpasscode.labels.step1Subtitle" = "Create a %d-digit code to use for logging in to your banking app";
+"authentication.forgotpasscode.createpasscode.labels.tip" = "Your passcode must avoid consecutive numbers or a repeating number like 12345 or 11111";
+
+"authentication.forgotpasscode.createpasscode.labels.step2Title" = "Confirm your passcode";
+"authentication.forgotpasscode.createpasscode.labels.step2Subtitle" = "Confirm your newly created %d-digit code";
+
+"authentication.forgotpasscode.createpasscode.buttons.problems" = "Experiencing problems?";
+"authentication.forgotpasscode.createpasscode.alerts.problems.title" = "Experiencing problems?";
+"authentication.forgotpasscode.createpasscode.alerts.problems.message" = "If you're unable to complete this process, please restart and try again";
+"authentication.forgotpasscode.createpasscode.alerts.inline.passcodePolicyErrorTitle" = "Passcode does not meet security policy";
+
+"authentication.forgotpasscode.createpasscode.error.inline.passcodeMismatch" = "Passcodes do not match. Try again.";
+"authentication.forgotpasscode.createpasscode.error.inline.passcodeTooManyRepeatingNumbers" = "Too many repeating numbers used";
+"authentication.forgotpasscode.createpasscode.error.inline.passcodeTooManyConsecutiveNumbers" = "Too many consecutive numbers used";
+"authentication.forgotpasscode.createpasscode.alerts.troubleshoot.options.cancel" = "Cancel";
+"authentication.forgotpasscode.createpasscode.alerts.troubleshoot.options.retry" = "Retry";
+
+"authentication.forgotPasscode.success.labels.title" = "Well Done!";
+"authentication.forgotPasscode.success.labels.subtitle" = "Your passcode has been changed successfully.";
+"authentication.forgotPasscode.success.buttons.done" = "Done";
+
+// MARK: - Passcode
+"authentication.passcode.inputs.passcode" = "Passcode input, %d of %d";
+
+"authentication.passcode.registration.labels.step1Title" = "Create passcode";
+"authentication.passcode.registration.labels.step1Subtitle" = "Create a %d-digit code to use for logging in to your banking app";
+"authentication.passcode.registration.labels.step2Title" = "Confirm passcode";
+"authentication.passcode.registration.labels.step2Subtitle" = "Confirm your newly created %d-digit code";
+"authentication.passcode.registration.buttons.reset" = "Reset";
+"authentication.passcode.registration.tip" = "Your passcode must avoid consecutive numbers or a repeating number like 12345 or 11111";
+"authentication.passcode.registration.alerts.inline.passcodeMismatch" = "Passcodes do not match. Try again.";
+"authentication.passcode.registration.alerts.inline.passcodeTooManyRepeatingNumbers" = "Too many repeating numbers used";
+"authentication.passcode.registration.alerts.inline.passcodeTooManyConsecutiveNumbers" = "Too many consecutive numbers used";
+"authentication.passcode.registration.alerts.inline.passcodePolicyErrorTitle" = "Passcode does not meet security policy";
+
+
+"authentication.passcode.change.labels.step1Title" = "What is your current passcode?";
+
+"authentication.passcode.change.labels.step2Title" = "Choose your new passcode";
+"authentication.passcode.change.labels.step2Subtitle" = "This passcode will be used for quick access to your app";
+"authentication.passcode.change.tip" = "Your passcode must avoid consecutive or repeating numbers like 12345 or 11111.";
+
+"authentication.passcode.change.alerts.inline.invalidPasscode" = "Incorrect passcode. Try again";
+"authentication.passcode.change.alerts.inline.newPasscodeSameAsOld" = "Old and new passcode must not be the same";
+"authentication.passcode.change.alerts.inline.passcodePolicyErrorTitle" = "Passcode does not meet security policy";
+
+"authentication.passcode.change.labels.step3Title" = "Confirm your new passcode";
+
+"authentication.passcode.change.success.labels.title" = "You have a new passcode!";
+"authentication.passcode.change.success.labels.subtitle" = "You can now use this new passcode to sign in to your app";
+"authentication.passcode.change.success.buttons.done" = "Done";
+
+"authentication.passcode.login.labels.title" = "Welcome back";
+"authentication.passcode.login.labels.subtitle" = "Login with passcode";
+"authentication.passcode.login.buttons.forgotpasscode" = "Forgot passcode?";
+
+// MARK: - Password
+"authentication.password.change.complete.labels.title" = "Success!";
+"authentication.password.change.complete.labels.subtitle" = "Your password was successfully changed";
+"authentication.password.change.complete.buttons.dismiss" = "Done";
+
+// MARK: - Biometrics
+"authentication.biometrics.registration.labels.title.faceID" = "Enable Face ID";
+"authentication.biometrics.registration.labels.title.touchID" = "Enable Touch ID";
+
+"authentication.biometrics.registration.labels.subtitle.faceID" = "Log in using Face ID instead of your password for easy account access";
+"authentication.biometrics.registration.labels.subtitle.touchID" = "Log in using Touch ID instead of your password for easy account access";
+
+"authentication.biometrics.registration.buttons.prompt.faceID" = "Enable Face ID";
+"authentication.biometrics.registration.buttons.prompt.touchID" = "Enable Touch ID";
+
+"authentication.biometrics.registration.buttons.cancel" = "Maybe later";
+
+// MARK: - Late Biometrics Enrollment
+"authentication.biometrics.lateEnrollment.labels.title.faceID" = "Enable Face ID";
+"authentication.biometrics.lateEnrollment.labels.title.touchID" = "Enable Touch ID";
+
+"authentication.biometrics.lateEnrollment.labels.subtitle.faceID" = "Log in using Face ID instead of your password for easy account access";
+"authentication.biometrics.lateEnrollment.labels.subtitle.touchID" = "Log in using Touch ID instead of your password for easy account access";
+
+"authentication.biometrics.lateEnrollment.buttons.prompt.faceID" = "Enable Face ID";
+"authentication.biometrics.lateEnrollment.buttons.prompt.touchID" = "Enable Touch ID";
+
+"authentication.biometrics.lateEnrollment.alerts.faceIDNotEnabled.title" = "Face ID isn’t enabled in your device settings";
+"authentication.biometrics.lateEnrollment.alerts.faceIDNotEnabled.subtitle" = "To enable Face ID, please go to the Face ID & Passcode settings screen.";
+
+"authentication.biometrics.lateEnrollment.alerts.touchIDNotEnabled.title" = "Touch ID isn’t enabled in your device settings";
+"authentication.biometrics.lateEnrollment.alerts.touchIDNotEnabled.subtitle" = "To enable Touch ID, please go to the Touch ID & Passcode settings screen.";
+
+"authentication.biometrics.lateEnrollment.alerts.options.cancel" = "Cancel";
+"authentication.biometrics.lateEnrollment.alerts.options.settings" = "Go to settings";
+
+"authentication.biometrics.lateEnrollment.success.labels.title" = "Success!";
+"authentication.biometrics.lateEnrollment.success.labels.subtitle.faceID" = "You’ve successfully enabled Face ID!";
+"authentication.biometrics.lateEnrollment.success.labels.subtitle.touchID" = "You’ve successfully enabled Touch ID!";
+"authentication.biometrics.lateEnrollment.success.buttons.done" = "Close";
+
+// MARK: - Input Required
+"authentication.inputRequired.labels.unknownTitle" = "Input required";
+"authentication.inputRequired.labels.unknownSubtitle" = "Please provide the required input";
+"authentication.inputRequired.inputs.unknown.emptyError" = "Invalid input";
+
+"authentication.inputRequired.buttons.unknown.submit" = "Submit";
+
+// MARK: - Forgot username
+"authentication.forgotUsername.labels.email.title" = "Forgot username";
+"authentication.forgotUsername.labels.email.subtitle" = "Please enter your registered e-mail and we’ll send you your username reminder";
+"authentication.forgotUsername.inputs.email.placeholder" = "e-mail address";
+"authentication.forgotUsername.inputs.email.emptyError" = "Invalid e-mail address";
+"authentication.forgotUsername.buttons.email.submit" = "Confirm e-mail address";
+
+// MARK: - Forgot password
+"authentication.forgotPassword.labels.username.title" = "Forgot your password?";
+"authentication.forgotPassword.labels.username.subtitle" = "Enter your username to get started. We’ll send you instructions to reset your password";
+"authentication.forgotPassword.inputs.username.placeholder" = "Username";
+"authentication.forgotPassword.inputs.username.emptyError" = "Username required";
+"authentication.forgotPassword.inputs.username.invalidError" = "Invalid username";
+"authentication.forgotPassword.buttons.username.submit" = "Continue";
+
+"authentication.forgotPassword.otp.channelChoice.labels.title" = "Get a one‑time passcode";
+"authentication.forgotPassword.otp.channelChoice.labels.subtitle" = "Select the destination that you would like us to send a one‑time password (OTP) to.";
+"authentication.forgotPassword.otp.channelChoice.buttons.confirm" = "Confirm";
+
+// MARK: - Password
+"authentication.password.update.labels.title" = "Change your password";
+"authentication.password.update.labels.subtitle" = "Create a new password to use for logging in to your banking app";
+"authentication.password.update.buttons.submit" = "Confirm";
+"authentication.password.update.inputs.password.title" = "New password";
+"authentication.password.update.buttons.problems" = "Experiencing problems?";
+"authentication.password.update.labels.tip" = "Must contain at least 8 characters, one lowercase, uppercase, number & one special character ( !, @, #, $, %,...)";
+"authentication.password.update.alerts.problems.title" = "Having problems?";
+"authentication.password.update.alerts.problems.message" = "Please check your password. If you need further assistance, please call customer support.";
+"authentication.password.update.errors.emptyPassword" = "Password is required";
+"authentication.password.update.inputs.password.placeholder" = "New password";
+"authentication.password.update.alerts.cancelled.title" = "Password updated";
+"authentication.password.update.alerts.cancelled.message" = "Your password has been updated. You need to login again";
+
+// MARK: - Password Update (Required action)
+"authentication.password.update.requiredAction.labels.title" = "Update your password";
+"authentication.password.update.requiredAction.labels.subtitle" = "You are required to update your password before signing into your online banking";
+"authentication.password.update.requiredAction.buttons.submit" = "Confirm";
+"authentication.password.update.requiredAction.inputs.password.title" = "New password";
+"authentication.password.update.requiredAction.buttons.problems" = "Experiencing problems?";
+"authentication.password.update.requiredAction.labels.tip" = "Must contain at least 8 characters, one lowercase, uppercase, number & one special character ( !, @, #, $, %,...)";
+"authentication.password.update.requiredAction.alerts.problems.title" = "Having problems?";
+"authentication.password.update.requiredAction.alerts.problems.message" = "Please check your password. If you need further assistance, please call customer support.";
+"authentication.password.update.requiredAction.errors.emptyPassword" = "Password is required";
+
+// MARK: - Input Required: Forgot password - OTP
+"authentication.inputRequired.otp.labels.title" = "Check your email";
+"authentication.inputRequired.otp.labels.subtitle" = "We’ve sent you an email containing a one‑time password (OTP) to verify you are the account holder";
+"authentication.inputRequired.otp.labels.inputField" = "Enter one‑time password";
+"authentication.inputRequired.otp.emptyError" = "Empty OTP";
+"authentication.inputRequired.otp.invalidCodeError" = "Invalid code - Please try again";
+"authentication.inputRequired.otp.placeholder" = "Enter OTP";
+"authentication.inputRequired.otp.buttons.submit" = "Submit";
+"authentication.inputRequired.otp.button.problems" = "Experiencing Problems?";
+"authentication.inputRequired.otp.problems.alert.title" = "Something went wrong";
+"authentication.inputRequired.otp.problems.alert.message" = "Please ensure your username is correct. If you need further assistance, please call customer support.";
+
+
+"authentication.inputRequired.otp.alerts.invalidCredentials.title" = "Invalid code";
+"authentication.inputRequired.otp.alerts.invalidCredentials.message" = "Please try again.";
+
+"authentication.forgotPassword.otp.labels.title" = "Check your email";
+"authentication.forgotPassword.otp.labels.subtitle" = "We’ve sent you an email containing a one‑time password (OTP) to verify you are the account holder";
+"authentication.forgotPassword.otp.labels.inputField" = "Enter one‑time password";
+
+// MARK: - Email Sent
+"authentication.emailSent.labels.title" = "On its way";
+"authentication.emailSent.labels.subtitle" = "If there is an account associated with this e-mail address, you will shortly receive an e-mail with your username";
+"authentication.emailSent.buttons.dismiss" = "Done";
+
+// MARK: - Setup Complete
+"authentication.setupComplete.labels.title" = "Well done!";
+"authentication.setupComplete.labels.subtitle" = "Your device is registered successfully and now you can use the app";
+"authentication.setupComplete.buttons.dismiss" = "Let's get started!";
+
+// MARK: - In-band transaction signing
+"authentication.inbandTS.labels.title.faceID" = "Authorise with Face ID";
+"authentication.inbandTS.labels.title.touchID" = "Authorise with Touch ID";
+"authentication.inbandTS.labels.title.passcode" = "Authorise with Passcode";
+"authentication.inbandTS.buttons.dismiss" = "Cancel";
+"authentication.inbandTS.buttons.authorise" = "Authorise";
+
+// MARK: - Outofband transaction signing
+"authentication.outOfBandTS.labels.title.faceID" = "Authorise with Face ID";
+"authentication.outOfBandTS.labels.title.touchID" = "Authorise with Touch ID";
+"authentication.outOfBandTS.labels.title.passcode" = "Authorise with Passcode";
+"authentication.outOfBandTS.buttons.reject" = "Reject";
+"authentication.outOfBandTS.buttons.authorise" = "Authorise";
+"authentication.outOfBandTS.buttons.useAnother" = "Use another method";
+
+// MARK: - Outofband transaction signing complete screen
+"authentication.oobtscomplete.labels.title.accepted" = "Success!";
+"authentication.oobtscomplete.labels.title.cancelled" = "Transaction cancelled";
+"authentication.oobtscomplete.labels.subtitle.accepted" = "Your transaction authorisation was successful";
+"authentication.oobtscomplete.labels.subtitle.cancelled" = "This transaction was not processed";
+"authentication.oobtscomplete.buttons.done" = "Done";
+
+
+// MARK: - Outofband Authentication
+"authentication.outOfBandAuthentication.confirm.labels.title" = "Confirm it's you";
+"authentication.outOfBandAuthentication.confirm.labels.subtitle" = "If you've used your web login to take an action, confirm it here";
+"authentication.outOfBandAuthentication.confirm.buttons.approve" = "Confirm";
+"authentication.outOfBandAuthentication.confirm.buttons.reject" = "Reject";
+"authentication.outOfBandAuthentication.confirm.labels.codeSubtitle" = "Only confirm if this number matches what's on your browser";
+"authentication.outOfBandAuthentication.confirm.labels.location" = "Location";
+"authentication.outOfBandAuthentication.confirm.labels.dateTime" = "Date & Time";
+
+// MARK: - Outofband authentication complete screen
+"authentication.outOfBandAuthentication.complete.labels.title.accepted" = "Success";
+"authentication.outOfBandAuthentication.complete.labels.title.cancelled" = "Action canceled";
+"authentication.outOfBandAuthentication.complete.labels.subtitle.accepted" = "Please continue in your browser";
+"authentication.outOfBandAuthentication.complete.labels.subtitle.cancelled" = "You've canceled the action on the web. If you suspect someone else is trying to access your account, please contact us";
+"authentication.outOfBandAuthentication.complete.buttons.done" = "Done";
+
+"authentication.outOfBandAuthentication.passcode.labels.title" = "Input your Passcode";
+"authentication.outOfBandAuthentication.passcode.labels.subtitle" = "Use your passcode to confirm the action";
+
+// MARK: - Step Up Biometric Authentication Screen
+"authentication.stepUp.biometric.labels.title.faceID" = "Authorise with Face ID";
+"authentication.stepUp.biometric.labels.title.touchID" = "Authorise with Touch ID";
+"authentication.stepUp.biometric.labels.subtitle.faceID" = "To protect from unwanted changes to your account, we just need to confirm that it’s you";
+"authentication.stepUp.biometric.labels.subtitle.touchID" = "To protect from unwanted changes to your account, we just need to confirm that it’s you";
+"authentication.stepUp.biometric.buttons.cancel" = "Cancel";
+"authentication.stepUp.biometric.buttons.authorise" = "Authorise";
+
+// MARK: - Step Up Passcode Authentication Screen
+"authentication.stepUp.passcode.labels.title" = "Authorise with Passcode";
+"authentication.stepUp.passcode.labels.subtitle" = "To protect from unwanted changes to your account, we just need to confirm that it’s you";
+
+// MARK: - OTP Input
+"authentication.otp.methodChoice.buttons.continue" = "Continue";
+"authentication.otp.methodChoice.labels.subtitle" = "Select the destination that you would like us to send a one‑time password";
+"authentication.otp.methodChoice.labels.title" = "Get a one‑time password";
+
+"authentication.otp.input.labels.otp.placeholder" = "";
+"authentication.otp.input.labels.title" = "Enter one‑time password";
+"authentication.otp.input.labels.subtitle" = "Enter the one‑time password (OTP) we’ve sent to %@ below to help us verify you and this device.";
+"authentication.otp.input.buttons.submit" = "Submit";
+"authentication.otp.input.labels.problems" = "Experiencing Problems?";
+"authentication.otp.input.labels.problems.message" = "If you are unable to complete this process, please restart and try again";
+"authentication.otp.input.labels.problems.restart" = "Restart";
+"authentication.otp.input.labels.resend" = "Resend my OTP";
+"authentication.otp.input.labels.otp.emptyError" = "*OTP is required";
+
+// MARK: - OTP Common
+"authentication.otp.input.accessibility.label" = "One time password, %d of %d";
+"authentication.otp.input.accessibility.announcement" = "%d of %d";
+
+// MARK: - ForgotPassword OTP Entry
+"authentication.forgotPassword.otpEntry.labels.otp.placeholder" = "";
+"authentication.forgotPassword.otpEntry.labels.title" = "Enter one‑time password";
+"authentication.forgotPassword.otpEntry.labels.subtitle" = "Enter the one‑time password (OTP) we’ve sent to %@ below to help us verify you and this device.";
+"authentication.forgotPassword.otpEntry.buttons.submit" = "Submit";
+"authentication.forgotPassword.otpEntry.labels.problems" = "Experiencing Problems?";
+"authentication.forgotPassword.otpEntry.labels.problems.message" = "If you are unable to complete this process, please restart and try again";
+"authentication.forgotPassword.otpEntry.labels.problems.restart" = "Restart";
+"authentication.forgotPassword.otpEntry.labels.resend" = "Resend my OTP";
+"authentication.forgotPassword.otpEntry.labels.otp.emptyError" = "*OTP is required";
+
+// MARK: - Terms and conditions
+"authentication.termsAndConditions.labels.title" = "Terms & Conditions";
+"authentication.termsAndConditions.labels.checkboxText" = "Please confirm you have read and accept our new terms and conditions";
+"authentication.termsAndConditions.buttons.done" = "Done";
+"authentication.termsAndConditions.alerts.loadFailed.title" = "Failed to load T&Cs";
+"authentication.termsAndConditions.alerts.loadFailed.message" = "We could not load the terms and conditions. Please tap retry to try again.";
+
+// MARK: - Workspaces
+
+"workspace.item.log_in_to" = "Log in to";
+"workspace.select.contract.text" = "Choose a workspace to continue";
+"workspace.loading.workspaces.title" = "Loading...";
+"workspace.logging_into_workspace_title" = "Logging you into \"%1$@\"";
+"workspace.workspace_changed_successfully_title" = "\"%1$@\" have been loaded successfully";
+"workspace.switch_workspace" = "Switch workspace";
+"workspace.error.title.no_workspaces_found" = "No workspaces";
+"workspace.error.message.no_workspaces_found" = "Please try again later or contact your bank for support";
+"workspace.error.title.unable_to_select_workspace" = "Unable to select workspace";
+"workspace.error.title.unable_to_switch_workspace" = "Unable to switch workspace";
+"workspace.error.message.unable_to_switch_workspace" = "Please try again later or contact your system administrator for support";
+"workspace.error.message.no_workspaces_allocated" = "Please try again later or contact your system administrator for support";
+"workspace.action.log_out" = "Log out";
+"workspace.action.call_support" = "Call support";
+
+// MARK: - Selector
+"workspace.selector.no_internet.title" = "You are offline";
+"workspace.selector.no_internet.message" = "You have lost your internet connection. Try to reconnect and try again.";
+"workspace.selector.retry" = "Retry";
+"workspace.selector.error.title" = "That doesn't look right";
+"workspace.selector.error.message" = "We’re unable to display workspaces. Retry now or try again later.";
+
+// MARK: - Switcher
+"workspace.switcher.no_internet.title" = "You are offline";
+"workspace.switcher.no_internet.message" = "You have lost your internet connection. Try to reconnect and try again.";
+"workspace.switcher.retry" = "Retry";
+"workspace.switcher.error.title" = "That doesn't look right";
+"workspace.switcher.error.message" = "We’re unable to display workspaces. Retry now or try again later.";
+"workspace.OK" = "OK";
+
+// MARK: - Pagination
+
+"workspace.selector.endOfList.message" = "You’ve reached the end of the list";
+"workspace.selector.pagination.error.title" = "Failed to load workspaces";
+"workspace.selector.pagination.error.message" = "Please try again later or contact your system administrator for support";
+"workspace.selector.pagination.error.cta" = "OK";
+
+"workspace.switcher.endOfList.message" = "You’ve reached the end of the list";
+"workspace.switcher.pagination.error.title" = "Failed to load workspaces";
+"workspace.switcher.pagination.error.message" = "Please try again later or contact your system administrator for support";
+"workspace.switcher.pagination.error.cta" = "OK";
