@@ -2,29 +2,24 @@ PODS:
   - AccessControlClient3Gen2 (1.0.0):
     - Backbase (>= 9.0)
     - ClientCommonGen2 (~> 1.0)
-  - AppAuth (1.6.2):
-    - AppAuth/Core (= 1.6.2)
-    - AppAuth/ExternalUserAgent (= 1.6.2)
-  - AppAuth/Core (1.6.2)
-  - AppAuth/ExternalUserAgent (1.6.2):
-    - AppAuth/Core
+  - AppAuth/Core (1.7.5)
   - ArrangementsClient2Gen2 (1.2.1):
     - Backbase (>= 9.0)
     - ClientCommonGen2 (~> 1.0)
   - Backbase (11.2.0):
     - BackbaseSDKSwiftWrapper (~> 2.0.0)
-  - BackbaseCountryCore (1.1.0)
-  - BackbaseDesignSystem (4.2.2):
+  - BackbaseCountryCore (1.1.1)
+  - BackbaseDesignSystem (4.2.7):
     - BackbaseCountryCore (>= 1.1.0)
-  - BackbaseIdentity (6.0.1):
-    - AppAuth (~> 1.3)
+  - BackbaseIdentity (6.0.2):
+    - AppAuth/Core (~> 1.3)
     - Backbase (>= 11.0.0)
   - BackbaseObservability (1.0.0):
     - BackbaseObservability/Sources (= 1.0.0)
   - BackbaseObservability/Sources (1.0.0)
-  - BackbaseSDKSwiftWrapper (2.0.0):
-    - BackbaseSecureStorage (~> 2)
-  - BackbaseSecureStorage (2.0.2)
+  - BackbaseSDKSwiftWrapper (2.0.1):
+    - BackbaseSecureStorage (~> 2.1.0)
+  - BackbaseSecureStorage (2.1.2)
   - BusinessJourneyCommon (3.0.0):
     - Backbase (>= 9.0)
     - BusinessJourneyCommon/Sources (= 3.0.0)
@@ -54,14 +49,20 @@ PODS:
     - Backbase (>= 7.8.0)
   - ClientCommonGen2 (1.0.0):
     - Backbase (>= 9.0)
-  - IdentityAuthenticationJourney (6.0.0):
+  - IdentityAuthenticationJourney (6.1.1):
     - BackbaseDesignSystem (>= 4.0.0)
     - BackbaseIdentity (~> 6.0.0)
+    - BackbaseObservability (>= 1.0)
     - Resolver (~> 1.2.1)
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
     - SnapKit (~> 5.0.0)
   - Resolver (1.2.1)
+  - RetailContactsJourney (4.1.1):
+    - Backbase (>= 7)
+    - BackbaseDesignSystem (~> 4.2.3)
+    - BackbaseObservability (>= 1.0)
+    - RetailJourneyCommon (>= 2.0)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (3.0.0):
     - AccessControlClient3Gen2 (~> 1.0.0)
     - RetailFeatureFilterUseCase (~> 3.0)
@@ -81,15 +82,15 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.3)
   - SnapKit (5.0.1)
-  - SwiftLint (0.54.0)
+  - SwiftLint (0.55.1)
   - UserManagerClient2 (1.0.0):
     - Backbase (>= 7.8.0)
     - ClientCommon (~> 1.1)
-  - UserManagerUserProfileUseCase (5.1.0):
+  - UserManagerUserProfileUseCase (5.2.0):
     - Backbase (>= 11.0.0)
     - UserManagerClient2 (~> 1.0)
-    - UserProfileJourney (= 5.1.0)
-  - UserProfileJourney (5.1.0):
+    - UserProfileJourney (= 5.2.0)
+  - UserProfileJourney (5.2.0):
     - Backbase (>= 11.0.0)
     - BackbaseDesignSystem (>= 4.2.1)
     - BackbaseObservability (>= 1.0.0)
@@ -99,12 +100,13 @@ PODS:
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (= 11.2.0)
-  - BackbaseDesignSystem (= 4.2.2)
+  - BackbaseDesignSystem (~> 4)
   - BackbaseObservability (~> 1.0)
   - BusinessWorkspacesJourney
   - BusinessWorkspacesJourneyWorkspacesUseCase2
   - IdentityAuthenticationJourney (~> 6.0)
   - Resolver (= 1.2.1)
+  - RetailContactsJourney (= 4.1.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
   - RetailMoreJourney (= 4.1.0)
   - SwiftLint
@@ -113,7 +115,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://repo.backbase.com/api/pods/design-ios:
     - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business/:
+  https://repo.backbase.com/api/pods/ios-business:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
@@ -129,6 +131,7 @@ SPEC REPOS:
     - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
+    - RetailContactsJourney
     - RetailFeatureFilterAccessControlEntitlementsUseCase
     - RetailFeatureFilterUseCase
     - RetailJourneyCommon
@@ -149,22 +152,23 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
-  AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
   Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
-  BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
-  BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
-  BackbaseIdentity: fed2efa2fba48ad5213d2e12d94500f13cecb733
+  BackbaseCountryCore: cbe14b72509d1785a32a99107bcc0fd68df98ea7
+  BackbaseDesignSystem: c337073f4c9bf9209420f4aa8a9c154e87873595
+  BackbaseIdentity: 900553d7d88f8eee7e66a86396f3decfb895f2b8
   BackbaseObservability: 5881fd8f1d7ecf71799914a63a9785af4ce4cfb9
-  BackbaseSDKSwiftWrapper: bec0fac655e6de1ce9075591940e21c52eb1b8a8
-  BackbaseSecureStorage: 6bbb0e8bb8295a5ffd09e817622949208068255c
+  BackbaseSDKSwiftWrapper: 28f754ed3d9f2d838536226e2922438b19c08a9a
+  BackbaseSecureStorage: 128e58c04f134bc402e195ae3f913ff847e9d6d9
   BusinessJourneyCommon: d1635531cc39299fd72c7a66d121bcaef88429ae
   BusinessWorkspacesJourney: 08c72efe5aa4bf879d3593489daa094d18d82433
   BusinessWorkspacesJourneyWorkspacesUseCase2: ab08bcb68efae0f69374bee31a8835640b0502ab
   ClientCommon: 3b305ed1d4c94dbe4955f53b2e3c102ec7892776
   ClientCommonGen2: 4a37e42a2a05f978b5df56fb7fea3ce5411e9cb6
-  IdentityAuthenticationJourney: e988f4a50e26f492caeb48ca3bc159c6cd9f19d1
+  IdentityAuthenticationJourney: d0e7889da8aec6bf8d9ee1e99b682818b312d8b7
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
+  RetailContactsJourney: b0e9c0c684e352f388a80672d783fb971e16afd2
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
   RetailFeatureFilterUseCase: ea793414c0ab37a196a4455a4d14ff0f4e5425d7
   RetailJourneyCommon: ec0a1db2fcc55c9797c3883ed022f90df60be6a2
@@ -173,11 +177,11 @@ SPEC CHECKSUMS:
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  SwiftLint: 3fe909719babe5537c552ee8181c0031392be933
   UserManagerClient2: 9851ed8619099ea9f6ec79d17acdcb7c310018e5
-  UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
-  UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
+  UserManagerUserProfileUseCase: 564438f8d083419e21b837e0011177c15be005e0
+  UserProfileJourney: 9202a8517e5c7176d54b94597ce0543430ff4250
 
-PODFILE CHECKSUM: 84ec749928bbe99b1cdcbb5fc32122250d9743f9
+PODFILE CHECKSUM: 23be3f072714f77b0c1f253d738ea3c455a73ed4
 
 COCOAPODS: 1.15.2

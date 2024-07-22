@@ -32,14 +32,15 @@ abstract_target 'Common' do
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '4.2.2'
+  pod 'BackbaseDesignSystem', '~> 4'
   pod 'UserManagerUserProfileUseCase'
   pod 'RetailMoreJourney', '4.1.0'
   pod 'BackbaseObservability', '~> 1.0'
+  pod 'RetailContactsJourney', '4.1.1'
 
   target 'AccountsJourney' do
   end
-  
+
   target 'GoldenAccountsUseCase' do
   end
 
@@ -48,25 +49,25 @@ abstract_target 'Common' do
   end
 end
 
-abstract_target 'Tests' do 
+abstract_target 'Tests' do
   pod 'Backbase', $backbaseVersion
   pod 'Resolver', $resolverVersion
-  
+
   target 'SnapshotTests' do
       inherit! :search_paths
     end
 
-  target 'AccountsJourneyUnitTests' do 
+  target 'AccountsJourneyUnitTests' do
   end
 
-  target 'GoldenAccountsUseCaseUnitTests' do 
+  target 'GoldenAccountsUseCaseUnitTests' do
   end
 end
 
 
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
-    
+
     if target.respond_to?(:product_type)
       puts(target.product_type)
       if target.product_type == "com.apple.product-type.bundle"
