@@ -542,3 +542,5 @@
 "workspace.switcher.pagination.error.title" = "Failed to load workspaces";
 "workspace.switcher.pagination.error.message" = "Please try again later or contact your system administrator for support";
 "workspace.switcher.pagination.error.cta" = "OK";
+
+"lokaize.test.first" = "Test string for lokalize";
