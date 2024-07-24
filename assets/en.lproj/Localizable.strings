@@ -541,3 +541,5 @@
 "workspace.switcher.endOfList.message" = "You’ve reached the end of the list";
 "workspace.switcher.pagination.error.message" = "Please try again later or contact your system administrator for support";
 "workspace.switcher.pagination.error.cta" = "Ok";
+
+"hey.welcom.to.the.demo" = "This is the integration";
