@@ -37,6 +37,7 @@ abstract_target 'Common' do
   pod 'RetailMoreJourney', '4.1.0'
   pod 'BackbaseObservability', '~> 1.0'
   pod 'RetailContactsJourney', '4.1.1'
+  pod 'RetailContactsJourneyUseCase', '4.1.1'
 
   target 'AccountsJourney' do
   end

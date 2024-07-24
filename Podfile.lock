@@ -49,6 +49,9 @@ PODS:
     - Backbase (>= 7.8.0)
   - ClientCommonGen2 (1.0.0):
     - Backbase (>= 9.0)
+  - ContactsClient2Gen2 (1.3.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - IdentityAuthenticationJourney (6.1.1):
     - BackbaseDesignSystem (>= 4.0.0)
     - BackbaseIdentity (~> 6.0.0)
@@ -63,6 +66,11 @@ PODS:
     - BackbaseDesignSystem (~> 4.2.3)
     - BackbaseObservability (>= 1.0)
     - RetailJourneyCommon (>= 2.0)
+  - RetailContactsJourneyUseCase (4.1.1):
+    - BackbaseDesignSystem (~> 4.2.3)
+    - ContactsClient2Gen2 (~> 1.0)
+    - Resolver
+    - RetailContactsJourney (~> 4.0)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (3.0.0):
     - AccessControlClient3Gen2 (~> 1.0.0)
     - RetailFeatureFilterUseCase (~> 3.0)
@@ -107,6 +115,7 @@ DEPENDENCIES:
   - IdentityAuthenticationJourney (~> 6.0)
   - Resolver (= 1.2.1)
   - RetailContactsJourney (= 4.1.1)
+  - RetailContactsJourneyUseCase (= 4.1.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase
   - RetailMoreJourney (= 4.1.0)
   - SwiftLint
@@ -131,7 +140,9 @@ SPEC REPOS:
     - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
+    - ContactsClient2Gen2
     - RetailContactsJourney
+    - RetailContactsJourneyUseCase
     - RetailFeatureFilterAccessControlEntitlementsUseCase
     - RetailFeatureFilterUseCase
     - RetailJourneyCommon
@@ -166,9 +177,11 @@ SPEC CHECKSUMS:
   BusinessWorkspacesJourneyWorkspacesUseCase2: ab08bcb68efae0f69374bee31a8835640b0502ab
   ClientCommon: 3b305ed1d4c94dbe4955f53b2e3c102ec7892776
   ClientCommonGen2: 4a37e42a2a05f978b5df56fb7fea3ce5411e9cb6
+  ContactsClient2Gen2: 1d56a46c638aac2e8568409b536a966f8fdcfe5c
   IdentityAuthenticationJourney: d0e7889da8aec6bf8d9ee1e99b682818b312d8b7
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
   RetailContactsJourney: b0e9c0c684e352f388a80672d783fb971e16afd2
+  RetailContactsJourneyUseCase: aacd8f9f7684d113894b652f860a338cb1bda5ed
   RetailFeatureFilterAccessControlEntitlementsUseCase: 234024f4c07c65a473b5c442dcb8f4cacfa2bbdf
   RetailFeatureFilterUseCase: ea793414c0ab37a196a4455a4d14ff0f4e5425d7
   RetailJourneyCommon: ec0a1db2fcc55c9797c3883ed022f90df60be6a2
@@ -182,6 +195,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 564438f8d083419e21b837e0011177c15be005e0
   UserProfileJourney: 9202a8517e5c7176d54b94597ce0543430ff4250
 
-PODFILE CHECKSUM: 23be3f072714f77b0c1f253d738ea3c455a73ed4
+PODFILE CHECKSUM: b9509aa0123157c032200e3e4edb9483d98cb43a
 
 COCOAPODS: 1.15.2

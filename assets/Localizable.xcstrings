@@ -581,7 +581,95 @@
         }
       }
     },
-    "retailUniversalApp.more.items.demo" : {
+    "goldenSampleApp.more.contacts.accountNumberLabel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account number"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.contacts.accountNumberPlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account number"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.contacts.errorMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.contacts.nameLabel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.contacts.namePlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact name"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.contacts.submitButtonText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Submit"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.contacts.successMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact added successfully"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.items.contacts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacts"
+          }
+        }
+      }
+    },
+    "goldenSampleApp.more.items.demo" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -592,7 +680,7 @@
         }
       }
     },
-    "retailUniversalApp.more.items.logout" : {
+    "goldenSampleApp.more.items.logout" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
     
     // MARK: Identity Journey properties
-
     lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
         let useCase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
         Backbase.register(authClient: useCase)
@@ -63,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupIdentityJourney()
         setupWorkspacesJourney()
         setupAccountsJourney()
+        setupContactsJourney()
         UserProfileUseCaseHelper().setupUserProfileUseCase()
         MoreMenuConfiguration.setupMoreMenu()
         return true
