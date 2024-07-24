@@ -29,4 +29,3 @@ extension AppDelegate {
         Resolver.register { useCase as ContactsUseCase}
     }
 }
-

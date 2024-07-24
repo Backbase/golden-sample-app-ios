@@ -658,6 +658,17 @@
         }
       }
     },
+    "goldenSampleApp.more.contacts.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add contact"
+          }
+        }
+      }
+    },
     "goldenSampleApp.more.items.contacts" : {
       "extractionState" : "manual",
       "localizations" : {

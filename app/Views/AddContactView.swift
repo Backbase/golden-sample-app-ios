@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 struct AddContactView: View {
     @State var name: String = ""
     @State var accountNumber: String = ""
@@ -21,6 +20,10 @@ struct AddContactView: View {
     var body: some View {
         VStack(alignment: .leading) {
             
+            Text(localizedString("goldenSampleApp.more.contacts.title"))
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+            
             if vm.state == .contactAdded {
                 Text(localizedString("goldenSampleApp.more.contacts.successMessage"))
             } else {
@@ -29,6 +32,7 @@ struct AddContactView: View {
                         .foregroundStyle(.red)
                 }
                 Text(localizedString("goldenSampleApp.more.contacts.nameLabel"))
+                    .padding([.top], 10)
                 TextField(localizedString("goldenSampleApp.more.contacts.namePlaceholder"), text: $name)
                     .frame(height: 50)
                     .textFieldStyle(.roundedBorder)
@@ -54,6 +58,7 @@ struct AddContactView: View {
                         .background(.blue)
                         .clipShape(Capsule())
                 }
+                .frame(maxWidth: .infinity)
                 Spacer()
             }
         }
