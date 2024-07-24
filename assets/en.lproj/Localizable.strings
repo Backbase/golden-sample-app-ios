@@ -539,8 +539,8 @@
 "workspace.selector.pagination.error.cta" = "OK";
 
 "workspace.switcher.endOfList.message" = "You’ve reached the end of the list";
-"workspace.switcher.pagination.error.title" = "Failed to load workspaces";
 "workspace.switcher.pagination.error.message" = "Please try again later or contact your system administrator for support";
-"workspace.switcher.pagination.error.cta" = "OK";
+"workspace.switcher.pagination.error.cta" = "It's okay";
 
 "lokalise.demo" = "Hey there";
+"lokalize.wow.is.this.working" = "Hey, welcom to the demo!";
