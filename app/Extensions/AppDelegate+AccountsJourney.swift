@@ -13,9 +13,9 @@ import GoldenAccountsUseCase
 
 extension AppDelegate {
     func setupAccountsJourney() {
-//        Resolver.register { CustomAccountListSummaryUseCase() as AccountsListUseCase}
-        Resolver.register { AccountsListSummaryUseCaseImp(client: self.productSummaryClient) as AccountsListUseCase }
-        Resolver.register { AccountDetailUseCaseImp(client: self.arrangementsClient) as AccountDetailsUseCase}
+        Resolver.register { CustomAccountListSummaryUseCaseImpl() as AccountsListUseCase}
+//        Resolver.register { AccountsListSummaryUseCaseImp(client: self.productSummaryClient) as AccountsListUseCase }
+//        Resolver.register { AccountDetailUseCaseImp(client: self.arrangementsClient) as AccountDetailsUseCase}
         Resolver.register { AccountsJourney.Configuration() }
     }
     

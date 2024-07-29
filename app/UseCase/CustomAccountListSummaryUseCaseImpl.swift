@@ -8,7 +8,7 @@
 import Foundation
 import AccountsJourney
 
-final class CustomAccountListSummaryUseCase: AccountsListUseCase {
+final class CustomAccountListSummaryUseCaseImpl: AccountsListUseCase {
     func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsJourney.ErrorResponse>) -> Void) {
         let accountSummary = AccountsJourney.AccountsSummary(
             customProducts: [],
@@ -27,15 +27,17 @@ final class CustomAccountListSummaryUseCase: AccountsListUseCase {
     }
 }
 
-extension CustomAccountListSummaryUseCase {
+extension CustomAccountListSummaryUseCaseImpl {
     private func generatedCurrentAccounts(amount: Int = Int.random(in: 2...10)) -> AccountsJourney.CurrentAccounts {
         
         var accounts = [AccountsJourney.CurrentAccount]()
         for _ in 0...amount {
             let status = Bool.random() ? "Active": "Closed"
+            let balance = String(Int.random(in: 0..<10000))
             let account = AccountsJourney.CurrentAccount(
-                availableBalance: String(Int.random(in: 0..<10000)),
-                bban: "*******************" + String(Int.random(in: 1..<100)),
+                bookedBalance: balance,
+                availableBalance: balance,
+                bban: "*******************" + String(Int.random(in: 1..<100)), currency: "KES,",
                 debitCardsItems: [],
                 name: randomString(for: "Current Account"),
                 userPreferences: AccountsJourney.UserPreferences(
@@ -60,15 +62,17 @@ extension CustomAccountListSummaryUseCase {
     }
 }
 
-extension CustomAccountListSummaryUseCase {
+extension CustomAccountListSummaryUseCaseImpl {
     private func generateSavingsAccounts(amount: Int = Int.random(in: 2...10)) -> AccountsJourney.SavingsAccounts {
         
         var savingsAccounts = [AccountsJourney.SavingsAccount]()
         for _ in 0...amount {
             let status = Bool.random() ? "Active": "Closed"
+            let balance = String(Int.random(in: 0..<10000))
             let account = AccountsJourney.SavingsAccount(
-                availableBalance: String(Int.random(in: 0..<10000)),
-                bban: "*******************" + String(Int.random(in: 1..<100)),
+                bookedBalance: balance,
+                availableBalance: balance,
+                bban: "*******************" + String(Int.random(in: 1..<100)), currency: "KES",
                 userPreferences: AccountsJourney.UserPreferences(
                     alias: randomString(for: "Savings"),
                     visible: Bool.random(),
@@ -91,7 +95,7 @@ extension CustomAccountListSummaryUseCase {
     }
 }
 
-extension CustomAccountListSummaryUseCase {
+extension CustomAccountListSummaryUseCaseImpl {
     private func randomString(for sample: String) -> String {
         return sample
     }
