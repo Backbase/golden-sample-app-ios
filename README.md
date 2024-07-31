@@ -15,6 +15,8 @@ echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bash_profile
 # for Zsh
 echo 'eval "$(~/.rbenv/bin/rbenv init - zsh)"' >> ~/.zshrc
 ```
+The ruby version used in this project is defined in the file `.ruby-version`living in the root of the application.
+Before proceeding run `rbenv install {VERSION}` where VERSION is version defined in `.ruby-version` file
 
 2. [Bundler](https://bundler.io/)
 Bundler provides a consintent environment for Ruby projects by tracking and installing the exact gems and versions that are needed.
