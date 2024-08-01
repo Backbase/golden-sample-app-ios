@@ -16,13 +16,16 @@ echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bash_profile
 echo 'eval "$(~/.rbenv/bin/rbenv init - zsh)"' >> ~/.zshrc
 ```
 
-2. [Bundler](https://bundler.io/)
+2. The ruby version used in this project is defined in the file `.ruby-version`living in the root of the application.
+Before proceeding run `rbenv install {VERSION}` where VERSION is version defined in `.ruby-version` file
+
+3. [Bundler](https://bundler.io/)
 Bundler provides a consintent environment for Ruby projects by tracking and installing the exact gems and versions that are needed.
 Bundler is an exit from dependency hell, and ensures that the the gems you need are present in development, staging, and production. Starting work on a project is as simple as 
 ```bash
 bundle install
 ```
-3. Artifactory credentials
+4. Artifactory credentials
 repo-art uses authentication as specified in your standard [netrc](https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html) file. 
 Open `~/.netrc` on your computer. If this file does not exist, create it.
  ```bash
