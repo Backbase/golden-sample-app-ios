@@ -1,17 +1,18 @@
 # Golden Sample iOS App
 
 ## Overview
-The golden sample is a public repository that contains samples, examples and best practices. This repository should be used internally and externally to show the Backbase approach, architecture and way of working to our developers and customers.
+This repository serves as a public reference point, showcasing various components, examples, and recommended practices employed within the Backbase development environment. Its intended audience encompasses both internal and external developers, offering insights into Backbase's development approach, architecture, and workflow.
 
 ## Prerequisites
-This project depends on various artifacts published to repositories on [Backbase Repo](https://repo.backbase.com). You must have read access to these repositories to build this project. 
-This project connects to the EBP Sandbox Environment, for that you need to request an API key as [mentioned here](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/ios-guide/). Add the key to the [config.json](./app/assets/backbase/config.json) file in the assets folder.
+Building and running this project necessitates access to artifacts hosted in designated [Backbase repository](https://repo.backbase.com). Read permissions for these repositories are required.
 
-## Running and building
+Furthermore, the application establishes a connection with the EBP Sandbox Environment. To facilitate this connection, an API key is necessary. Instructions for obtaining this key are provided in the documentation [mentioned here](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/ios-guide/). Once obtained, the key should be integrated into the [config.json](./app/assets/backbase/config.json) file located within the application's assets directory.
+
+## Running and Execution
 
 ### Get started
 1. [rbenv](https://github.com/rbenv/rbenv)
-Use rbenv to pick a Ruby version for you application and guarantee that your development environment matches production. This enables painless Ruby upgrades and bulletproof deployments
+Utilizing rbenv ensures that a consistent Ruby version is employed for both your development environment and production. This simplifies upgrades and streamlines deployment processes. Follow the provided steps to install and configure rbenv:
 ```bash
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 # for bash_profile
@@ -20,18 +21,18 @@ echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bash_profile
 echo 'eval "$(~/.rbenv/bin/rbenv init - zsh)"' >> ~/.zshrc
 ```
 
-2. The ruby version used in this project is defined in the file `.ruby-version`living in the root of the application.
-Before proceeding run `rbenv install {VERSION}` where VERSION is version defined in `.ruby-version` file
+2. The `.ruby-version` file within the project's root directory defines the required Ruby version. Before proceeding, execute the following command to install the specified version using rbenv:
+```bash
+rbenv install {VERSION}
+```
 
 3. [Bundler](https://bundler.io/)
-Bundler provides a consintent environment for Ruby projects by tracking and installing the exact gems and versions that are needed.
-Bundler is an exit from dependency hell, and ensures that the the gems you need are present in development, staging, and production. Starting work on a project is as simple as 
+Bundler safeguards a uniform development environment for Ruby projects by managing exact gem dependencies and versions. It eliminates dependency-related issues and ensures consistency across development, staging, and production environments. To initiate dependency installation, execute: 
 ```bash
 bundle install
 ```
 4. Artifactory credentials
-repo-art uses authentication as specified in your standard [netrc](https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html) file. 
-Open `~/.netrc` on your computer. If this file does not exist, create it.
+Authentication for repo-art leverages the standard `.netrc` file located on your system. If this file doesn't exist, create it using your text editor and input the following credentials (replace placeholders with your actual credentials):
  ```bash
 machine repo.backbase.com
     login {username}
@@ -39,16 +40,16 @@ machine repo.backbase.com
 ``` 
 
 ### Setup
-- Install required environment tools
+- Install necessary environment tools via:
 ```bash
 bundle install
 ```
 
-- Setup Xcode project.
+- Configure the Xcode project using:
 ```bash
 bundle exec fastlane setup
 ```
-- Setup pod repos.
+- Set up CocoaPods repositories:
 ```bash
 pod repo-art add backbase-pods3 "https://repo.backbase.com/artifactory/api/pods/ios3" &&
 pod repo-art add backbase-pods-retail3 "https://repo.backbase.com/artifactory/api/pods/ios-retail3" &&
@@ -58,27 +59,29 @@ pod repo-art add backbase-pods-design "https://repo.backbase.com/artifactory/api
 ```
 
 ## Usage and login
-
-The Golden Sample App is configured to use the API Sandbox environment out of the box. To be able to connect to this environment you need a Sandbox API key which can be obtained from the API Sandbox team and needs to be added to config.json. To login to the app the API Sandbox [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/) can be used.
+Out-of-the-box, the Golden Sample App connects to the API Sandbox environment. To establish this connection, a Sandbox API key is required. Acquisition of this key is explained in the provided API Sandbox documentation. The key should be incorporated into the config.json file. Authenticating within the app can be achieved by leveraging the API Sandbox's [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/).
 
 ### Test plan
-The testplan is part of the project, but Xcodegen cannot add it. In order to do so:
+The project includes a test plan; however, Xcodegen cannot automatically include it. To integrate the test plan, follow these steps:
 
-```bash
-1. Go to the Snapshot scheme
-2. Click on the Edit the scheme
-3. Click on the respective test plan
-4. Modify the details
-```
+- Navigate to the Snapshot scheme.
+- Select "Edit the scheme."
+- Choose the corresponding test plan.
+- Modify details as necessary.
+
 ## The Journey Architecture
-Backbase mobile is built with the journey architecture, where a journey is an independent set of screens that form a typical user journey. To learn more about the Backbase journey architecture read this [guide](https://backbase.io/developers/documentation/retail-banking-universal/latest/system-wide/architecture/mobile-journey-architecture-understand/).
+Backbase Mobile leverages the Journey Architecture, a design pattern where isolated sets of screens, representing a typical user flow, are grouped into "journeys." This modular approach facilitates the construction and maintenance of mobile applications by compartmentalizing functionality.
 
-## Samples
-Every sample lives on its own branch. The [CATALOG.md](CATALOG.md) file lists all the samples that the repo contains. The repository is updated with every LTS releases and these updates are tagged, you can easily compare a sample to the tag to see the code changes. 
+For a deeper understanding of the Journey Architecture, please refer to the official Backbase documentation: [guide](https://backbase.io/developers/documentation/retail-banking-universal/latest/system-wide/architecture/mobile-journey-architecture-understand/)
+
+
+## Samples (Sample Code Exploration)
+
+Each sample application resides within its dedicated branch. A comprehensive inventory of available samples is maintained in the [CATALOG.md](CATALOG.md) file. The repository undergoes updates with each LTS release, each iteration accompanied by a corresponding tag. This mechanism enables developers to effortlessly compare code changes within a sample by referencing its associated tag.
 
 ### Contribution
-If you want to create your own samples check the [CONTRIBUTING.md](CONTRIBUTING.md) for the guidelines.
+Developers are encouraged to contribute custom samples by adhering to the guidelines outlined in the [CONTRIBUTING.md](CONTRIBUTING.md) file.  This document provides a roadmap for successful integration of your sample code
 
-## Discussion
+## Discussion (Collaborative Discussions)
 
-You can discuss samples, request new examples and report problems on Github Discussions. 
+The Github Discussions forum serves as a platform for sample-related discourse. Users may engage in discussions, request new sample applications, and report any encountered issues.
