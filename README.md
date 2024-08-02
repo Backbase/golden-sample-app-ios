@@ -3,6 +3,10 @@
 ## Overview
 The golden sample is a public repository that contains samples, examples and best practices. This repository should be used internally and externally to show the Backbase approach, architecture and way of working to our developers and customers.
 
+## Prerequisites
+This project depends on various artifacts published to repositories on [Backbase Repo](https://repo.backbase.com). You must have read access to these repositories to build this project. 
+This project connects to the EBP Sandbox Environment, for that you need to request an API key as [mentioned here](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/ios-guide/). Add the key to the [config.json](./app/assets/backbase/config.json) file in the assets folder.
+
 ## Running and building
 
 ### Get started
