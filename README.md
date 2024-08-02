@@ -70,6 +70,8 @@ The testplan is part of the project, but Xcodegen cannot add it. In order to do 
 3. Click on the respective test plan
 4. Modify the details
 ```
+## The Journey Architecture
+Backbase mobile is built with the journey architecture, where a journey is an independent set of screens that form a typical user journey. To learn more about the Backbase journey architecture read this [guide](https://backbase.io/developers/documentation/retail-banking-universal/latest/system-wide/architecture/mobile-journey-architecture-understand/).
 
 ## Samples
 Every sample lives on its own branch. The [CATALOG.md](CATALOG.md) file lists all the samples that the repo contains. The repository is updated with every LTS releases and these updates are tagged, you can easily compare a sample to the tag to see the code changes. 
