@@ -32,7 +32,7 @@ Bundler safeguards a uniform development environment for Ruby projects by managi
 bundle install
 ```
 4. Artifactory credentials
-Authentication for repo-art leverages the standard `.netrc` file located on your system. If this file doesn't exist, create it using your text editor and input the following credentials (replace placeholders with your actual credentials):
+Authentication for repo-art leverages the standard `.netrc` file located on your system. If this file doesn't exist, create it following the instructions [here](https://backbase.io/developers/documentation/mobile-devkit/getting-started/set-up-ios-development/):
  ```bash
 machine repo.backbase.com
     login {username}
