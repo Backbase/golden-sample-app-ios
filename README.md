@@ -6,7 +6,7 @@ This repository serves as a public reference point, showcasing various component
 ## Prerequisites
 Building and running this project necessitates access to artifacts hosted in designated [Backbase repository](https://repo.backbase.com). Read permissions for these repositories are required.
 
-Furthermore, the application establishes a connection with the EBP Sandbox Environment. To facilitate this connection, an API key is necessary. Instructions for obtaining this key are provided in the documentation [mentioned here](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/ios-guide/). Once obtained, the key should be integrated into the [config.json](./app/assets/backbase/config.json) file located within the application's assets directory.
+Furthermore, the application establishes a connection with the EBP Sandbox Environment. To facilitate this connection, an API key is necessary. Instructions for obtaining this key are found [here]( https://backbase.io/developers/documentation/api-sandbox/#_api_key). Once obtained, the key should be integrated into the [config.json](./app/assets/backbase/config.json) file located within the application's assets directory.
 
 ## Running and Execution
 
