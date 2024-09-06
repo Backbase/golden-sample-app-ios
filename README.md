@@ -58,8 +58,6 @@ pod repo-art add backbase-pods-business "https://repo.backbase.com/artifactory/a
 pod repo-art add backbase-pods-design "https://repo.backbase.com/artifactory/api/pods/design-ios"
 ```
 
-## Usage and login
-Out-of-the-box, the Golden Sample App connects to the API Sandbox environment. To establish this connection, a Sandbox API key is required. Acquisition of this key is explained in the provided API Sandbox documentation. The key should be incorporated into the config.json file. Authenticating within the app can be achieved by leveraging the API Sandbox's [test accounts](https://backbase.io/developers/documentation/api-sandbox/retail-banking-usa/retail-user-credentials/).
 
 ### Test plan
 The project includes a test plan; however, Xcodegen cannot automatically include it. To integrate the test plan, follow these steps:
