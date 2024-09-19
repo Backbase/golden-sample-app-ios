@@ -49,15 +49,6 @@ bundle install
 ```bash
 bundle exec fastlane setup
 ```
-- Set up CocoaPods repositories:
-```bash
-pod repo-art add backbase-pods3 "https://repo.backbase.com/artifactory/api/pods/ios3" &&
-pod repo-art add backbase-pods-retail3 "https://repo.backbase.com/artifactory/api/pods/ios-retail3" &&
-pod repo-art add backbase-pods-identity "https://repo.backbase.com/artifactory/api/pods/ios-identity" &&
-pod repo-art add backbase-pods-business "https://repo.backbase.com/artifactory/api/pods/ios-business" &&
-pod repo-art add backbase-pods-design "https://repo.backbase.com/artifactory/api/pods/design-ios"
-```
-
 
 ### Test plan
 The project includes a test plan; however, Xcodegen cannot automatically include it. To integrate the test plan, follow these steps:
