@@ -1,21 +1,8 @@
 platform :ios, '15.0'
 
-# The following JFrog artifactory repositories should include
-# - https://repo.backbase.com/api/pods/ios3/ (backbase-pods3)
-# - https://repo.backbase.com/api/pods/ios-retail3/ (backbase-pods-retail3)
-# - https://repo.backbase.com/api/pods/ios-identity/ (backbase-pods-identity)
-# - https://repo.backbase.com/api/pods/ios-business/ (backbase-pods-business)
-# - https://repo.backbase.com/api/pods/design-ios/ (backbase-pods-design)
-plugin 'cocoapods-art', sources: %w[
-  backbase-pods3
-  backbase-pods-retail3
-  backbase-pods-identity
-  backbase-pods-business
-  backbase-pods-design
-]
-
 install! 'cocoapods', deterministic_uuids: false
 source 'https://cdn.cocoapods.org/'
+source 'https://repo.backbase.com/api/pods/pods'
 
 use_frameworks!
 inhibit_all_warnings!
