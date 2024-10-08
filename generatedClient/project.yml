@@ -1,0 +1,12 @@
+name: ArrangementsApi
+options:
+  bundleIdPrefix: "com.backbase"
+targets:
+  ArrangementsApi:
+    type: framework
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: [ArrangementsApi]
+    info:
+      path: ./Info.plist
+      version: 1.0.0

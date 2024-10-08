@@ -1,0 +1,10 @@
+# ArrangementGroupResponse
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**metadata** | [**ArrangementGroupMetadata**](ArrangementGroupMetadata.md) |  | [optional] 
+**elements** | [ArrangementGroupElement] |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

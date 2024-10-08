@@ -8,9 +8,9 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
-  - ArrangementsClient2Gen2 (1.2.1):
+  - ArrangementsApi (1.0.0):
     - Backbase (>= 9.0)
-    - ClientCommonGen2 (~> 1.0)
+    - ClientCommonGen2 (>= 1.0)
   - Backbase (11.2.0):
     - BackbaseSDKSwiftWrapper (~> 2.0.0)
   - BackbaseCountryCore (1.1.0)
@@ -97,7 +97,7 @@ PODS:
     - SnapKit (~> 5.0.0)
 
 DEPENDENCIES:
-  - ArrangementsClient2Gen2 (~> 1.2.1)
+  - ArrangementsApi (from `./generatedClient`)
   - Backbase (= 11.2.0)
   - BackbaseDesignSystem (= 4.2.2)
   - BackbaseObservability (~> 1.0)
@@ -113,7 +113,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://repo.backbase.com/api/pods/design-ios:
     - BackbaseCountryCore
-  https://repo.backbase.com/api/pods/ios-business/:
+  https://repo.backbase.com/api/pods/ios-business:
     - BackbaseObservability
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
@@ -125,7 +125,6 @@ SPEC REPOS:
     - UserProfileJourney
   https://repo.backbase.com/api/pods/ios-retail3:
     - AccessControlClient3Gen2
-    - ArrangementsClient2Gen2
     - BackbaseDesignSystem
     - ClientCommon
     - ClientCommonGen2
@@ -147,10 +146,14 @@ SPEC REPOS:
     - SnapKit
     - SwiftLint
 
+EXTERNAL SOURCES:
+  ArrangementsApi:
+    :path: "./generatedClient"
+
 SPEC CHECKSUMS:
   AccessControlClient3Gen2: c0f0cececd2a8bcac83eed36d1e68f61530f7436
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
-  ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
+  ArrangementsApi: 12eb0d9f5a0fa0b8f67f18e8549eff22b8e277b8
   Backbase: d75e61a0fd48ce48c4b2377ca09d325408acb948
   BackbaseCountryCore: cc9065841f9e4ed8a829aff15896438240eab031
   BackbaseDesignSystem: ba1b063143ff3c854af5c9e30a6dff37d45bf5f1
@@ -178,6 +181,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 815483ec83429637fcd19363e87c4facd4b9f02b
   UserProfileJourney: 497a5bbb443c42eb0cee3f7a9606f5539fb0f2e4
 
-PODFILE CHECKSUM: fe37cf9968cce62f6c93e2500762e3799c2a425b
+PODFILE CHECKSUM: 92df8274bd95bc7d1d8033c7ed49cfacef5b640e
 
 COCOAPODS: 1.15.2

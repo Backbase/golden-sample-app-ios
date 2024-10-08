@@ -16,7 +16,8 @@ abstract_target 'Common' do
   pod 'IdentityAuthenticationJourney','~> 6.0'
   pod 'BusinessWorkspacesJourney'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
-  pod 'ArrangementsClient2Gen2','~> 1.2.1'
+  # pod 'ArrangementsClient2Gen2','~> 1.2.1'
+  pod 'ArrangementsApi', :path => './generatedClient'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
   pod 'BackbaseDesignSystem', '4.2.2'
