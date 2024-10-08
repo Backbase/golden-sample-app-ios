@@ -7,7 +7,7 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
 
 class MockAccountDetailsUseCase: AccountDetailsUseCase {
@@ -27,7 +27,7 @@ class MockAccountDetailsUseCase: AccountDetailsUseCase {
             } else {
                 let data = Bundle.data(from: fileName)
                 
-                guard let arrangementDetails = try? JSONDecoder().decode(ArrangementsClient2Gen2.AccountArrangementItem.self, from: data) else {
+                guard let arrangementDetails = try? JSONDecoder().decode(ArrangementsApi.AccountArrangementItem.self, from: data) else {
                     completion(.failure(.init()))
                     return
                 }

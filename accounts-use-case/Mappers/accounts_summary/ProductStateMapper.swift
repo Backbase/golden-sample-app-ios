@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.StateItem {
+extension ArrangementsApi.StateItem {
     public func toDomainModel() -> AccountsJourney.ProductState {
         AccountsJourney.ProductState(
             externalStateId: self.externalStateId,

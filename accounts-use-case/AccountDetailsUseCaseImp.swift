@@ -7,10 +7,10 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
 public final class AccountDetailUseCaseImp: AccountDetailsUseCase {
-    private let client: ArrangementsClient2Gen2.ArrangementsAPIProtocol
+    private let client: ArrangementsApi.ArrangementsAPIProtocol
     
     // MARK: - Init
     public init(client: ArrangementsAPIProtocol) {

@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.BaseProduct {
+extension ArrangementsApi.BaseProduct {
     public func toDomainModel() -> AccountsJourney.BaseProduct {
         AccountsJourney.BaseProduct(
             identifier: self.id,

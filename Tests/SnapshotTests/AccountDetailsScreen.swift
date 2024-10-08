@@ -4,7 +4,7 @@ import Resolver
 @testable import GoldenAccountsUseCase
 @testable import AccountsJourney
 import AccessControlClient3Gen2
-import ArrangementsClient2Gen2
+import ArrangementsApi
 import Backbase
 
 class AccountDetailsScreenSnapshotTests: XCTestCase {

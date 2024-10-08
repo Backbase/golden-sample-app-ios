@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.CurrentAccount {
+extension ArrangementsApi.CurrentAccount {
 // swiftlint:disable function_body_length
     public func toDomainModel() -> AccountsJourney.CurrentAccount {
         AccountsJourney.CurrentAccount(
@@ -74,7 +74,7 @@ extension ArrangementsClient2Gen2.CurrentAccount {
 // swiftlint:enable function_body_length
 }
 
-extension ArrangementsClient2Gen2.CurrentAccountProductKinds {
+extension ArrangementsApi.CurrentAccountProductKinds {
     public func toDomainModel() -> AccountsJourney.CurrentAccounts {
         let result =
         AccountsJourney.CurrentAccounts(

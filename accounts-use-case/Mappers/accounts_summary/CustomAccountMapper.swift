@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.GeneralAccount {
+extension ArrangementsApi.GeneralAccount {
     // swiftlint:disable function_body_length
     public func toDomainModel() -> AccountsJourney.GeneralAccount {
         AccountsJourney.GeneralAccount(
@@ -97,7 +97,7 @@ extension ArrangementsClient2Gen2.GeneralAccount {
     // swiftlint:enable function_body_length
 }
 
-extension ArrangementsClient2Gen2.CustomProductKind {
+extension ArrangementsApi.CustomProductKind {
     public func toDomainModel() -> AccountsJourney.CustomProducts {
         AccountsJourney.CustomProducts(
             products: self.products.map { $0.toDomainModel() },

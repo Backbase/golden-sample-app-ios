@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.UserPreferences {
+extension ArrangementsApi.UserPreferences {
    public func toDomainModel() -> AccountsJourney.UserPreferences {
         AccountsJourney.UserPreferences(
             alias: self.alias,

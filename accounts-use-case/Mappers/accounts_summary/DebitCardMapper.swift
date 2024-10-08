@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.DebitCard {
+extension ArrangementsApi.DebitCard {
     public func toDomainModel() -> AccountsJourney.DebitCard {
         AccountsJourney.DebitCard(
             number: self.number,
@@ -52,7 +52,7 @@ extension ArrangementsClient2Gen2.DebitCard {
     }
 }
 
-extension ArrangementsClient2Gen2.DebitCardItem {
+extension ArrangementsApi.DebitCardItem {
     public func toDomainModel() -> AccountsJourney.DebitCardItem {
         AccountsJourney.DebitCardItem(
             number: self.number,
@@ -66,7 +66,7 @@ extension ArrangementsClient2Gen2.DebitCardItem {
     }
 }
 
-extension ArrangementsClient2Gen2.DebitCardProductKinds {
+extension ArrangementsApi.DebitCardProductKinds {
     public func toDomainModel() -> AccountsJourney.DebitCards {
         AccountsJourney.DebitCards(
             products: self.products.map { $0.toDomainModel() },

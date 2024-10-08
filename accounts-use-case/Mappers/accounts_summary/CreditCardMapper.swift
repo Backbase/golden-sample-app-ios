@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.CreditCard {
+extension ArrangementsApi.CreditCard {
     public func toDomainModel() -> AccountsJourney.CreditCard {
         AccountsJourney.CreditCard(
             bookedBalance: self.bookedBalance,
@@ -63,7 +63,7 @@ extension ArrangementsClient2Gen2.CreditCard {
     }
 }
 
-extension ArrangementsClient2Gen2.CreditCardProductKinds {
+extension ArrangementsApi.CreditCardProductKinds {
     public func toDomainModel() -> AccountsJourney.CreditCards {
         AccountsJourney.CreditCards(
             products: self.products.map { $0.toDomainModel() },

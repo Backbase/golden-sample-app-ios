@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.CardDetails {
+extension ArrangementsApi.CardDetails {
     public func toDomainModel() -> AccountsJourney.CardDetails {
         AccountsJourney.CardDetails(
             additions: self.additions,

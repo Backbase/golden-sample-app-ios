@@ -15,7 +15,7 @@ import BusinessJourneyCommon
 import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     // MARK: Properties
-    lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
-    lazy var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
+    lazy var productSummaryClient = clientFactory(ArrangementsApi.ProductSummaryAPI(), "api/arrangement-manager")
+    lazy var arrangementsClient = clientFactory(ArrangementsApi.ArrangementsAPI(), "api/arrangement-manager")
     
     // MARK: Identity Journey properties
 

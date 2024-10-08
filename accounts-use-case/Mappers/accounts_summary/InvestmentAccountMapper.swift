@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.InvestmentAccount {
+extension ArrangementsApi.InvestmentAccount {
     public func toDomainModel() -> AccountsJourney.InvestmentAccount {
         AccountsJourney.InvestmentAccount(
             currentInvestmentValue: self.currentInvestmentValue,
@@ -51,7 +51,7 @@ extension ArrangementsClient2Gen2.InvestmentAccount {
     }
 }
 
-extension ArrangementsClient2Gen2.InvestmentAccountProductKinds {
+extension ArrangementsApi.InvestmentAccountProductKinds {
     public func toDomainModel() -> AccountsJourney.InvestmentAccounts {
         AccountsJourney.InvestmentAccounts(
             products: self.products.map { $0.toDomainModel() },

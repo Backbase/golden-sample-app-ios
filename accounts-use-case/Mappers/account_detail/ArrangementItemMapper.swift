@@ -6,10 +6,10 @@
 //
 
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
 // swiftlint:disable function_body_length
-extension ArrangementsClient2Gen2.AccountArrangementItem {
+extension ArrangementsApi.AccountArrangementItem {
     public func toDomainModel() -> AccountsJourney.AccountDetailsModel {
         AccountsJourney.AccountDetailsModel(
             id: self.id,

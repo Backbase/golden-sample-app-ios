@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.ProductSummary {
+extension ArrangementsApi.ProductSummary {
     public func toDomainModel() -> AccountsJourney.AccountsSummary {
         AccountsJourney.AccountsSummary(
             customProducts:

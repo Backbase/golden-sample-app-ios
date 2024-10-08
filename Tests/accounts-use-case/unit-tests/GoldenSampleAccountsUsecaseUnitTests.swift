@@ -7,13 +7,13 @@
 
 import XCTest
 import Foundation
-import ArrangementsClient2Gen2
+import ArrangementsApi
 import AccountsJourney
 import GoldenAccountsUseCase
 
 final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     func test_UserPreferences_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.UserPreferences.Builder()
+        let sut = ArrangementsApi.UserPreferences.Builder()
             .set(alias: "IamAnAlias")
             .set(visible: true)
             .set(favorite: true)
@@ -27,7 +27,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_TimeUnit_toDomainModel_mapping() {
-        ArrangementsClient2Gen2.TimeUnit.allCases.forEach { timeUnit in
+        ArrangementsApi.TimeUnit.allCases.forEach { timeUnit in
             switch timeUnit {
             case .m:
                 XCTAssertEqual(timeUnit.toDomainModel(), AccountsJourney.TimeUnit.month)
@@ -42,7 +42,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_TermDeposit_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.TermDeposit.Builder()
+        let sut = ArrangementsApi.TermDeposit.Builder()
             .set(id: "sick-id")
             .set(name: "Term Depo")
             .set(currency: "USH")
@@ -54,7 +54,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_SavingsAccounts_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.SavingsAccount.Builder()
+        let sut = ArrangementsApi.SavingsAccount.Builder()
             .set(id: "savings-account")
             .set(town: "Amsterdam")
             .set(visible: true)
@@ -67,7 +67,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_StateItem_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.StateItem.Builder()
+        let sut = ArrangementsApi.StateItem.Builder()
             .set(state: "my-local-state")
             .set(externalStateId: "external-id")
             .set(additions: ["additional-info":"happy"])
@@ -79,7 +79,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_MaskableAttributes_toDomainModel_mapping() {
-        ArrangementsClient2Gen2.MaskableAttribute.allCases.forEach { maskableAttribute in
+        ArrangementsApi.MaskableAttribute.allCases.forEach { maskableAttribute in
             switch maskableAttribute {
             case .bban:
                 XCTAssertEqual(maskableAttribute.toDomainModel(), AccountsJourney.MaskableAttribute.bban)
@@ -93,7 +93,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_Loan_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.Loan.Builder()
+        let sut = ArrangementsApi.Loan.Builder()
             .set(id: "loan-id")
             .set(bookedBalance: "4.000")
             .set(currency: "WIERD")
@@ -103,7 +103,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_InvestmentAccount_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.InvestmentAccount.Builder()
+        let sut = ArrangementsApi.InvestmentAccount.Builder()
             .set(id: "investment-account")
             .set(visible: true)
             .set(parentId: "parent-id")
@@ -116,7 +116,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_InterestDetails_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.InterestDetails.Builder()
+        let sut = ArrangementsApi.InterestDetails.Builder()
             .set(additions: [:])
             .set(dividendWithheldYTD: "4.000")
             .set(cashAdvanceInterestRate: 50.00)
@@ -128,7 +128,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_DebitCard_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.DebitCard
+        let sut = ArrangementsApi.DebitCard
             .Builder(debitCardsItems: [
                 .Builder()
                 .set(number: "CardNumber")
@@ -149,7 +149,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_GeneralAccount_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.GeneralAccount.Builder(
+        let sut = ArrangementsApi.GeneralAccount.Builder(
             debitCardsItems: [
                 .Builder()
                 .set(number: "CardNumber")
@@ -171,7 +171,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_CreditCard_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.CreditCard.Builder()
+        let sut = ArrangementsApi.CreditCard.Builder()
             .set(id: "credit-card-id")
             .set(name: "Awesome Card")
             .set(visible: true)
@@ -183,7 +183,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_CardDetails_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.CardDetails.Builder(cardProvider: "AwesomeBank")
+        let sut = ArrangementsApi.CardDetails.Builder(cardProvider: "AwesomeBank")
             .set(latePaymentFee: "Nothing to pay")
             .set(additions: [:])
             .set(statementBalance: 3.0)
@@ -195,7 +195,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_BaseProduct_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.BaseProduct.Builder()
+        let sut = ArrangementsApi.BaseProduct.Builder()
             .set(id: "Base-id")
             .set(name: "Some Product")
             .set(visible: false)
@@ -207,7 +207,7 @@ final class GoldenSampleAccountsMappersUnitTests: XCTestCase {
     }
     
     func test_SummaryAggregatedBalance_toDomainModel_mapping() {
-        let sut = ArrangementsClient2Gen2.SummaryAggregatedBalance.Builder()
+        let sut = ArrangementsApi.SummaryAggregatedBalance.Builder()
             .set(value: "10,000")
             .set(currency: "KES")
             .set(additions: [:])

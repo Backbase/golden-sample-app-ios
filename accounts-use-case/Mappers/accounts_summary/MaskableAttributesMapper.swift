@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.MaskableAttribute {
+extension ArrangementsApi.MaskableAttribute {
     public func toDomainModel() -> AccountsJourney.MaskableAttribute {
         AccountsJourney.MaskableAttribute(rawValue: self.rawValue) ?? .bban
     }

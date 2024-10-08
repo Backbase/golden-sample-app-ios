@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.Loan {
+extension ArrangementsApi.Loan {
     // swiftlint:disable function_body_length
     public func toDomainModel() -> AccountsJourney.Loan {
         AccountsJourney.Loan(
@@ -67,7 +67,7 @@ extension ArrangementsClient2Gen2.Loan {
     // swiftlint:enable function_body_length
 }
 
-extension ArrangementsClient2Gen2.LoanProductKinds {
+extension ArrangementsApi.LoanProductKinds {
     public func toDomainModel() -> AccountsJourney.Loans {
         AccountsJourney.Loans(
             products: self.products.map { $0.toDomainModel() },

@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.TermDeposit {
+extension ArrangementsApi.TermDeposit {
     // swiftlint:disable function_body_length
    public func toDomainModel() -> AccountsJourney.TermDeposit {
         AccountsJourney.TermDeposit(
@@ -71,7 +71,7 @@ extension ArrangementsClient2Gen2.TermDeposit {
     // swiftlint:enable function_body_length
 }
 
-extension ArrangementsClient2Gen2.TermDepositProductKinds {
+extension ArrangementsApi.TermDepositProductKinds {
     func toDomainModel() -> AccountsJourney.TermDeposits {
         AccountsJourney.TermDeposits(
             products: self.products.map { $0.toDomainModel() },

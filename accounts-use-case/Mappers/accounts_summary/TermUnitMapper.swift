@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.TimeUnit {
+extension ArrangementsApi.TimeUnit {
     public func toDomainModel() -> AccountsJourney.TimeUnit {
         switch self {
         case .d:

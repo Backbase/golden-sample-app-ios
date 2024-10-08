@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.ExternalProductItem {
+extension ArrangementsApi.ExternalProductItem {
     public func toDomainModel() -> AccountsJourney.ExternalProductItem {
         AccountsJourney.ExternalProductItem(
             externalId: self.externalId,
@@ -20,7 +20,7 @@ extension ArrangementsClient2Gen2.ExternalProductItem {
     }
 }
 
-extension ArrangementsClient2Gen2.ExternalProductKindItem {
+extension ArrangementsApi.ExternalProductKindItem {
     public func toDomainModel() -> AccountsJourney.ExternalProductKindItem {
         AccountsJourney.ExternalProductKindItem(
             externalKindId: self.externalKindId,

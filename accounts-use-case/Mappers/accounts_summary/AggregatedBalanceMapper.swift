@@ -7,9 +7,9 @@
 
 import Foundation
 import AccountsJourney
-import ArrangementsClient2Gen2
+import ArrangementsApi
 
-extension ArrangementsClient2Gen2.SummaryAggregatedBalance {
+extension ArrangementsApi.SummaryAggregatedBalance {
     public func toDomainModel() -> AccountsJourney.AggregatedBalance {
         AccountsJourney.AggregatedBalance(
             currency: self.currency,
