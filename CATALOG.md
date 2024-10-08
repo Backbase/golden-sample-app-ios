@@ -46,6 +46,15 @@ This example shows how to connect to a Backbase powered backend with a custom ne
 \
 LTS 24.03
 
+## [sample/devs/generate-a-client](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/generate-a-client)
+This example shows how to generate and use a BOAT api client
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Not maintained
+\
+LTS 24.03
+
 ## [sample/devs/theme-switching](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/theme-switching)
 This example shows how to switch themes at run time via the Backbase Design System.
 \
