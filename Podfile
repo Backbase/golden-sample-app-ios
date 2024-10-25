@@ -8,20 +8,20 @@ use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '11.2.0'
+$backbaseVersion = '~> 12'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase'
-  pod 'IdentityAuthenticationJourney','~> 6.0'
+  pod 'IdentityAuthenticationJourney','~> 7'
   pod 'BusinessWorkspacesJourney'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '4.2.2'
+  pod 'BackbaseDesignSystem', '~> 5.6'
   pod 'UserManagerUserProfileUseCase'
-  pod 'RetailMoreJourney', '4.1.0'
+  pod 'RetailMoreJourney', '~> 4.3'
   pod 'BackbaseObservability', '~> 1.0'
 
   target 'AccountsJourney' do
