@@ -20,7 +20,6 @@ extension AppDelegate {
     
     func setupIdentityJourney() {
         Resolver.register { self.navCoordinator as AuthenticationNavigationCoordinator }
-        authenticationUseCase.initializeNavigationEventListener()
         authenticationUseCase.validateSession()
     }
     
