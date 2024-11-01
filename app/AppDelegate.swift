@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAccountsJourney()
         UserProfileUseCaseHelper().setupUserProfileUseCase()
         MoreMenuConfiguration.setupMoreMenu()
+        setupObservability()
         return true
     }
 }
