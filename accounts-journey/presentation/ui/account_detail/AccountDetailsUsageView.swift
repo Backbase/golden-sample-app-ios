@@ -7,7 +7,6 @@
 
 import UIKit
 import Resolver
-import SnapKit
 import BackbaseDesignSystem
 
 final class AccountDetailsUsageView: UIView {
@@ -68,9 +67,6 @@ final class AccountDetailsUsageView: UIView {
     
     // MARK: - Private Methods
     private func setupConstraints() {
-//        guard let superview = self.superview else { return }
-        
-
         NSLayoutConstraint.activate([
             // Title Label
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
@@ -83,7 +79,7 @@ final class AccountDetailsUsageView: UIView {
             card.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
             card.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
             
-            //StackView
+            // StackView
             stackView.topAnchor.constraint(equalTo: card.topAnchor, constant: DesignSystem.shared.spacer.md),
             stackView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: DesignSystem.shared.spacer.md),
             stackView.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
