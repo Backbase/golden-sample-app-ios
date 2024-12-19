@@ -18,6 +18,7 @@ final class AccountDetailsUsageView: UIView {
         view.axis = .vertical
         view.alignment = .fill
         view.spacing = DesignSystem.shared.spacer.md
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -29,6 +30,7 @@ final class AccountDetailsUsageView: UIView {
     
     private lazy var card: Card = {
         let card = Card(DesignSystem.shared.styles.cardView)
+        card.translatesAutoresizingMaskIntoConstraints = false
         return card
     }()
     
@@ -66,16 +68,26 @@ final class AccountDetailsUsageView: UIView {
     
     // MARK: - Private Methods
     private func setupConstraints() {
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(DesignSystem.shared.spacer.lg)
-        }
-        card.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(DesignSystem.shared.spacer.xs)
-            make.leading.trailing.bottom.equalToSuperview().inset(DesignSystem.shared.spacer.md)
-        }
-        stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(DesignSystem.shared.spacer.md)
-        }
+//        guard let superview = self.superview else { return }
+        
+
+        NSLayoutConstraint.activate([
+            // Title Label
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.shared.spacer.lg),
+            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.shared.spacer.lg),
+            
+            // Card
+            card.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: DesignSystem.shared.spacer.xs),
+            card.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            card.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            card.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
+            
+            //StackView
+            stackView.topAnchor.constraint(equalTo: card.topAnchor, constant: DesignSystem.shared.spacer.md),
+            stackView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            stackView.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            stackView.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -DesignSystem.shared.spacer.md)
+        ])
     }
 }
