@@ -17,7 +17,6 @@ final class AccountsListTests: BaseTestCase {
     override func setUp() {
         super.setUp()
         LoginScreen().authenticateUserWith(name: UserEnrollment.userName, password: UserEnrollment.password)
-        WorkspacesSelectorScreen().selectServiceAgreementIfNeeded(workspaceName: UserEnrollment.defaultWorkspace)
     }
     
     func testAccountIsDisplayedInTheList() {
