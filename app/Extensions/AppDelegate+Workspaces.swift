@@ -38,6 +38,7 @@ extension AppDelegate {
     func getWorkspacesConfiguration() -> Workspaces.Configuration {
         var configuration = Workspaces.Configuration()
         let didSelect = configuration.selector.router.didSelectWorkspaceV2
+        configuration.selector.autoSelectSingleWorkspace = true
         let dashboardHelper = DashboardHelper()
 
         configuration.selector.router.didSelectWorkspaceV2 = { [weak self] navigationController in

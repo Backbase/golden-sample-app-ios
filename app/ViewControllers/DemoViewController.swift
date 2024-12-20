@@ -21,9 +21,12 @@ final class DemoViewController: UIViewController {
         let stateView = getStateView()
         stateView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stateView)
-        stateView.snp.makeConstraints { make in
-            make.trailing.leading.centerY.equalToSuperview()
-        }
+       
+        NSLayoutConstraint.activate([
+            stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
         view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
     }
 
