@@ -16,6 +16,7 @@ import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
 import ArrangementsClient2Gen2
+import AppCommon
 
 //@UIApplicationMain
 class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
@@ -23,24 +24,6 @@ class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
     
     override init() {
         super.init()
-        setupBackbaseSDK()
-    }
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        let window = createWindow()
-        self.window = window
-        
-        let router = Router()
-        Resolver.register { router }.implements(AppRouter.self)
-        
-        router.didStartApp(window: window)
-        return true
-    }
-    
-    private func createWindow() -> UIWindow {
-        let newWindow = UIWindow()
-        newWindow.makeKeyAndVisible()
-        return newWindow
     }
 }
 

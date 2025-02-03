@@ -1,6 +1,6 @@
 //
 //  AppDependency.swift
-//  GoldenSampleApp
+//  AppCommon
 //
 //  Created by George Nyakundi on 31/01/2025.
 //
