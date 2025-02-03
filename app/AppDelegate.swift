@@ -17,54 +17,80 @@ import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
 import ArrangementsClient2Gen2
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+//@UIApplicationMain
+class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
-    // MARK: Properties
-    lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
-    lazy var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
-    
-    // MARK: Identity Journey properties
-
-    lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
-        let useCase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
-        Backbase.register(authClient: useCase)
-
-        Resolver.register { Authentication.Configuration() }
-        Resolver.register { useCase as AuthenticationUseCase }
-
-        return useCase
-    }()
-
-    lazy var authenticationConfiguration: Authentication.Configuration = {
-        var config = Authentication.Configuration()
-        config.login.autoLoginEnabled = true
-        return config
-    }()
-
-    lazy var navCoordinator: AuthenticationNavigationCoordinator = { [weak self] in
-        guard let window = self?.window else { fatalError("Failed to get window") }
-        return Authentication.NavigationCoordinator(window: window)
-    }()
-
-    // MARK: Default methods
-
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customisation after application launch.
-        let window = UIWindow()
-        window.rootViewController = UIViewController()
-        window.makeKeyAndVisible()
-        self.window = window
-
+    override init() {
+        super.init()
         setupBackbaseSDK()
-        setupIdentityJourney()
-        setupWorkspacesJourney()
-        setupAccountsJourney()
-        UserProfileUseCaseHelper().setupUserProfileUseCase()
-        MoreMenuConfiguration.setupMoreMenu()
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        let window = createWindow()
+        self.window = window
+        
+        let router = Router()
+        Resolver.register { router }.implements(AppRouter.self)
+        
+        router.didStartApp(window: window)
         return true
     }
+    
+    private func createWindow() -> UIWindow {
+        let newWindow = UIWindow()
+        newWindow.makeKeyAndVisible()
+        return newWindow
+    }
 }
+
+//class AppDelegate: UIResponder, UIApplicationDelegate {
+//
+//    var window: UIWindow?
+//    
+//    // MARK: Properties
+//    lazy var productSummaryClient = clientFactory(ArrangementsClient2Gen2.ProductSummaryAPI(), "api/arrangement-manager")
+//    lazy var arrangementsClient = clientFactory(ArrangementsClient2Gen2.ArrangementsAPI(), "api/arrangement-manager")
+//    
+//    // MARK: Identity Journey properties
+//
+//    lazy var authenticationUseCase: IdentityAuthenticationUseCase = { [weak self] in
+//        let useCase = IdentityAuthenticationUseCase(sessionChangeHandler: self?.handleSessionChange(newSession:))
+//        Backbase.register(authClient: useCase)
+//
+//        Resolver.register { Authentication.Configuration() }
+//        Resolver.register { useCase as AuthenticationUseCase }
+//
+//        return useCase
+//    }()
+//
+//    lazy var authenticationConfiguration: Authentication.Configuration = {
+//        var config = Authentication.Configuration()
+//        config.login.autoLoginEnabled = true
+//        return config
+//    }()
+//
+//    lazy var navCoordinator: AuthenticationNavigationCoordinator = { [weak self] in
+//        guard let window = self?.window else { fatalError("Failed to get window") }
+//        return Authentication.NavigationCoordinator(window: window)
+//    }()
+//
+//    // MARK: Default methods
+//
+//    func application(_ application: UIApplication,
+//                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        // Override point for customisation after application launch.
+//        let window = UIWindow()
+//        window.rootViewController = UIViewController()
+//        window.makeKeyAndVisible()
+//        self.window = window
+//
+//        setupBackbaseSDK()
+//        setupIdentityJourney()
+//        setupWorkspacesJourney()
+//        setupAccountsJourney()
+//        UserProfileUseCaseHelper().setupUserProfileUseCase()
+//        MoreMenuConfiguration.setupMoreMenu()
+//        return true
+//    }
+//}

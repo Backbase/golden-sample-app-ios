@@ -37,7 +37,7 @@ extension Workspaces.Configuration: AppDependency {
         let userRepository = UserRepository(secureStorage: secureStorageInfo.storage)
         Resolver.register { userRepository }
     }
-    func register() {
+    public func register() {
         let client = clientFactory(defaultClient: UsersAPI(), clientPath: "api/access-control")
         let entitlementsUseCase = AccessControlEntitlementsUseCase(client: client)
         
@@ -51,7 +51,7 @@ extension Workspaces.Configuration: AppDependency {
 }
 
 extension Workspaces.Configuration: Configurable {
-    static var appDefault: Workspaces.Configuration = {
+    public static var appDefault: Workspaces.Configuration = {
         var configuration = Workspaces.Configuration()
         configuration.selector.autoSelectSingleWorkspace = true
         

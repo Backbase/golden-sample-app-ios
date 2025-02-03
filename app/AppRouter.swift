@@ -7,6 +7,10 @@
 
 import UIKit
 import BackbaseDesignSystem
+import Backbase
+import IdentityAuthenticationJourney
+import Resolver
+import BusinessWorkspacesJourney
 
 /// `UIWindow` builder
 typealias AppWindowUpdater = (UIWindow) -> Void
@@ -20,9 +24,59 @@ open class AppRouter {
     /// Create a new router instance
     required public init() { }
     
+    public var shouldAutoLogin: Bool {
+        true
+    }
+    
     func didStartApp(window: UIWindow) {
         // TODO: Do we need Splash screen?
         window.rootViewController = navigationController
+    }
+    
+    public func dismissViewController(animated: Bool = true) {
+        navigationController.dismiss(animated: animated)
+    }
+    
+    public func set(viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            if animated {
+                self.addFadeAnimation(self.navigationController, completion: completion)
+            }
+            self.navigationController.setViewControllers([viewController], animated: false)
+        }
+    }
+    
+    func set(builder: @escaping AppScreenBuilder, animated: Bool = true, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            if animated {
+                self.addFadeAnimation(self.navigationController, completion: completion)
+            }
+            self.navigationController.setViewControllers([builder(self.navigationController)], animated: false)
+        }
+    }
+    
+    open func handleSessionChange(newSession session: Session) {
+        DispatchQueue.main.async {
+            switch session {
+            case .valid:
+                Workspaces.Configuration.appDefault.register()
+                self.dismissViewController(animated: false)
+            case .none:
+                let authenticationUseCase: AuthenticationUseCase = Resolver.resolve()
+                if authenticationUseCase.isEnrolled {
+                    self.set(builder: Login.build(shouldAutoLogin: self.shouldAutoLogin))
+                } else {
+                    self.set(builder: Register.build())
+                }
+            case .locked:
+                self.set(builder: Register.build(session: .locked))
+            case .expired:
+                self.dismissViewController()
+                self.set(builder: Login.build(session: .expired))
+            @unknown default:
+                fatalError()
+            }
+        }
     }
 }
 
