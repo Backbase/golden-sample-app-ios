@@ -8,6 +8,7 @@
 import UIKit
 import Resolver
 import Backbase
+import IdentityAuthenticationJourney
 
 open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
@@ -24,6 +25,9 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         
         let router = AppRouter()
         Resolver.register { router }.implements(AppRouter.self)
+        
+        Splash.Configuration.appDefault.register()
+        Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange(newSession: ))
         
         router.didStartApp(window: window)
         

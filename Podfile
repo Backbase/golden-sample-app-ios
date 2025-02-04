@@ -23,6 +23,8 @@ abstract_target 'Common' do
   pod 'UserManagerUserProfileUseCase'
   pod 'RetailMoreJourney', '~> 4'
   pod 'BackbaseObservability', '~> 1.0'
+  pod 'BackbaseAnimation', '~> 5'
+  pod 'BackbaseLottieAnimation', '~> 5'
 
   target 'AccountsJourney' do
   end
@@ -30,12 +32,14 @@ abstract_target 'Common' do
   target 'GoldenAccountsUseCase' do
   end
 
+  target 'AppCommon' do
+  end
+
   target 'GoldenSampleApp' do
     use_frameworks!
   end
 
-  target 'AppCommon' do
-  end
+  
 end
 
 abstract_target 'Tests' do 

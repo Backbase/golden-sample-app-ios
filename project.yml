@@ -119,6 +119,8 @@ targets:
         embed: true
       - target: AccountsJourney
         embed: true
+      - target: AppCommon
+        embed: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -136,6 +138,8 @@ targets:
       - target: AccountsJourney
         link: false
       - target: GoldenAccountsUseCase
+        link: false
+      - target: AppCommon
         link: false
     scheme:
       gatherCoverageData: true

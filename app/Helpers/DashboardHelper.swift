@@ -9,6 +9,7 @@ import GoldenAccountsUseCase
 import Resolver
 import UserManagerUserProfileUseCase
 import UserProfileJourney
+import AppCommon
 
 private struct UserPresentable: TabHeaderViewControllerUserPresentable {
     var name: String

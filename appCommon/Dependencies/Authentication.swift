@@ -14,15 +14,13 @@ extension Authentication.Configuration: AppDependency {
     
     public func register(sessionChangeHandler: IdentityAuthenticationUseCase.SessionHandler?) {
         let authenticationUseCase = IdentityAuthenticationUseCase(sessionChangeHandler: sessionChangeHandler)
+        let sessionResolver = Authentication.InvalidRefreshTokenResolver(useCase: authenticationUseCase)
+        try? authenticationUseCase.register(invalidRefreshTokenResolver: sessionResolver)
         Backbase.register(authClient: authenticationUseCase)
         
-        setupAuthNavigationCoordinator()
-        
-        var configuration = Authentication.Configuration()
-        configuration.login.autoLoginEnabled = true
-        
-        Resolver.register { configuration as Authentication.Configuration }
         Resolver.register { authenticationUseCase as AuthenticationUseCase }
+        
+        setupAuthNavigationCoordinator()
         
         Resolver.register { self }
         
@@ -32,8 +30,35 @@ extension Authentication.Configuration: AppDependency {
         guard let window = UIApplication.shared.mainKeyWindow else { fatalError("Failed to get window")}
         let authenticationNavCoordinator: AuthenticationNavigationCoordinator = Authentication.NavigationCoordinator(window: window)
         Resolver.register { authenticationNavCoordinator as AuthenticationNavigationCoordinator }
-        // TODO: Temporary call to `validateSession()` might need to move this somewhere else
-        let authenticationUseCase: AuthenticationUseCase = Resolver.resolve()
-        authenticationUseCase.validateSession { _ in }
+    }
+}
+
+extension Authentication.Configuration: Configurable {
+    public static var appDefault: Authentication.Configuration {
+        var configuration = Authentication.Configuration()
+        configuration.login.autoLoginEnabled = true
+        return configuration
+    }
+}
+
+// MARK: - Authentication Listener
+
+extension Authentication {
+    final class InvalidRefreshTokenResolver: BBOAuth2InvalidRefreshTokenResolver {
+        init(useCase: IdentityAuthenticationUseCase) {
+            self.useCase = useCase
+            super.init(authClient: useCase)
+        }
+
+        override func handle(
+            _ response: URLResponse,
+            data: Data,
+            from request: URLRequest,
+            delegate: ErrorResponseDelegate & NSObjectProtocol
+        ) {
+            useCase?.expireSession()
+        }
+
+        private weak var useCase: IdentityAuthenticationUseCase?
     }
 }

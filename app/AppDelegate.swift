@@ -18,9 +18,7 @@ import AccessControlClient3Gen2
 import ArrangementsClient2Gen2
 import AppCommon
 
-//@UIApplicationMain
-class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+class AppDelegate: AppCommon.AppDelegate<Router> {
     
     override init() {
         super.init()

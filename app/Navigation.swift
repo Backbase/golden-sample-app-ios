@@ -8,5 +8,7 @@
 import Foundation
 
 enum Navigation {
-    private static var defaultNavigation: ()
+//    private static var defaultNavigation: ()
 }
+
+// Figure out Navigation: Do we need NavigationConfiguration? this is a type defined in BackbaseExperienceManager

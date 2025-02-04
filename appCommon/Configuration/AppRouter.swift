@@ -21,6 +21,8 @@ typealias AppScreenBuilder = (UINavigationController) -> UIViewController
 open class AppRouter {
     private var navigationController: UINavigationController = NavigationController()
     
+    internal var userInactivityTracker = UserInactivityTracker()
+    
     /// Create a new router instance
     required public init() { }
     
@@ -29,7 +31,8 @@ open class AppRouter {
     }
     
     func didStartApp(window: UIWindow) {
-        // TODO: Do we need Splash screen?
+        let viewController = Splash.build(navigationController: navigationController)
+        navigationController.setViewControllers([viewController], animated: false)
         window.rootViewController = navigationController
     }
     
@@ -75,6 +78,16 @@ open class AppRouter {
                 self.set(builder: Login.build(session: .expired))
             @unknown default:
                 fatalError()
+            }
+            
+            if session != .valid {
+                // Reset Resolver cache so we can create new configurations for the updated context
+                Resolver.cached.reset()
+                // Workaround: Re-register authentication to refresh theme colors dynamically
+                // Note: Convert authentication variable to a computed property for automatic updates
+                Resolver.register { Authentication.Configuration.appDefault }
+
+                self.userInactivityTracker.stopInactivityTimer()
             }
         }
     }
