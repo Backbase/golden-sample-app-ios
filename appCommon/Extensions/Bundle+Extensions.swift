@@ -15,7 +15,7 @@ extension Bundle {
 }
 
 extension Bundle {
-    static var appCommon: Bundle? {
+    public static var appCommon: Bundle? {
         let podBundle = Bundle(for: BundleToken.self)
         guard let resourceUrl = podBundle.url(forResource: "Assets", withExtension: "bundle") else { return podBundle }
         guard let resourceBundle = Bundle(url: resourceUrl) else { return podBundle }

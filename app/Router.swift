@@ -7,7 +7,6 @@
 
 import AppCommon
 
-
 final class Router: AppRouter {
     
 }

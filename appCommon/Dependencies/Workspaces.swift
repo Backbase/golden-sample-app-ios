@@ -4,7 +4,7 @@
 //
 //  Created by George Nyakundi on 31/01/2025.
 //
-
+import UIKit
 import Resolver
 import Backbase
 import BackbaseSecureStorage
@@ -22,6 +22,33 @@ import BackbaseDesignSystem
 
 extension Workspaces.Configuration: AppDependency {
     
+    static let  workspaceChecker = WorkspaceChecker()
+    
+    class WorkspaceChecker {
+        @LazyInjected
+        private var workspaceUseCase: WorkspacesUseCase
+        
+        // This function is used to decide between selecting a workspace or,
+        // automatically generating a user context based on a previously saved workspace.
+        func handleWorkspaceSelection() {
+            Workspaces.Configuration.appDefault.register()
+            let userRepository: UserRepository = Resolver.resolve()
+            let router = Resolver.resolve(AppRouter.self)
+            
+            if let aggreementName = userRepository.persistedServiceAgreementName, let agreementId = userRepository.persistedServiceAgreementIdentifier {
+                let workspace = Workspace(id: agreementId, name: aggreementName, description: "", isMaster: false)
+                let workspaceScreenBuilder: (Workspace) -> AppScreenBuilder = { workspace -> (UINavigationController) -> UIViewController in
+                    { navigation in
+                        Workspaces.buildSelector(navigationController: navigation, workspace: workspace)
+                    }
+                }
+                router.set(builder: workspaceScreenBuilder(workspace))
+            } else {
+                router.set(builder: Workspaces.buildSelector(navigationController:))
+            }
+        }
+    }
+    
     func registerUserRepository() {
         if Resolver.optional(SecureStorageInfo.self) == nil {
             let secureStorageInfo: SecureStorageInfo = SecureStorageFactory.createWithMigration()
@@ -37,7 +64,9 @@ extension Workspaces.Configuration: AppDependency {
         let userRepository = UserRepository(secureStorage: secureStorageInfo.storage)
         Resolver.register { userRepository }
     }
+    
     public func register() {
+        registerUserRepository()
         let client = clientFactory(defaultClient: UsersAPI(), clientPath: "api/access-control")
         let entitlementsUseCase = AccessControlEntitlementsUseCase(client: client)
         
@@ -61,6 +90,7 @@ extension Workspaces.Configuration: Configurable {
             }
         }
         
+        configuration.selector.router.didSelectWorkspaceV2 = selectWorkspace
         configuration.switcher.router.didSelectWorkspaceV2 = configuration.selector.router.didSelectWorkspaceV2
         return configuration
     }()
@@ -83,6 +113,7 @@ extension Workspaces.Configuration: Configurable {
         
         // Reset Resolver cache so we can create new configuration for the update context
         Resolver.cached.reset()
+        Resolver.resolve(AppRouter.self).transitionToApp()
     }
         
 }

@@ -20,9 +20,14 @@ import AppCommon
 
 class AppDelegate: AppCommon.AppDelegate<Router> {
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
+    
+//    override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+//        let flag = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+//        return flag
+//    }
 }
 
 //class AppDelegate: UIResponder, UIApplicationDelegate {

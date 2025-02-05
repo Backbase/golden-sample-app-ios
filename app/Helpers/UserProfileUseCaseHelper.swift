@@ -4,42 +4,22 @@
 
 import Resolver
 import Backbase
+import AppCommon
 import UserManagerClient2
 import UserProfileJourney
 import UserManagerUserProfileUseCase
 
 /// A helper struct to setup UserProfileUseCase.
-struct UserProfileUseCaseHelper {
-    func setupUserProfileUseCase() {
+///
+
+extension UserManagerUserProfileUseCase: AppCommon.AppDependency {
+    public func register() {
         if Resolver.optional(UserProfileUseCase.self) == nil {
-            let userProfileUseCase = UserManagerUserProfileUseCase(client: getUserProfileClient())
+            
+            let userProfileClient = clientFactory(defaultClient: UserProfileManagementAPI(), clientPath: "api/user-manager")
+            
+            let userProfileUseCase = UserManagerUserProfileUseCase(client: userProfileClient)
             Resolver.register { userProfileUseCase as UserProfileUseCase }
-        }
-    }
-
-    private func getUserProfileClient() -> UserProfileManagementAPIProtocol {
-        guard let serverURL = URL(string: Backbase.configuration().backbase.serverURL) else {
-            fatalError("Invalid or no serverURL found in the SDK configuration.")
-        }
-
-        let userManagerUrl = serverURL
-            .appendingPathComponent("api")
-            .appendingPathComponent("user-manager")
-
-        let client = UserProfileManagementAPI()
-        client.baseURL = userManagerUrl
-
-        if let dataProvider = Resolver.optional(DBSDataProvider.self) {
-            client.dataProvider = dataProvider
-            return client
-        } else {
-            try? Backbase.register(client: client)
-            guard let dbsClient = Backbase.registered(client: UserProfileManagementAPI.self),
-                  let client = dbsClient as? UserProfileManagementAPI
-            else {
-                fatalError("Failed to retrieve User Manager client")
-            }
-            return client
         }
     }
 }

@@ -11,6 +11,7 @@ import Backbase
 import IdentityAuthenticationJourney
 import Resolver
 import BusinessWorkspacesJourney
+import BackbaseAnimation
 
 /// `UIWindow` builder
 typealias AppWindowUpdater = (UIWindow) -> Void
@@ -34,6 +35,31 @@ open class AppRouter {
         let viewController = Splash.build(navigationController: navigationController)
         navigationController.setViewControllers([viewController], animated: false)
         window.rootViewController = navigationController
+    }
+    
+    open func didFinishLogin() {
+        fatalError("Function should be overriden to configure journeys")
+    }
+    
+    public func transitionToApp() {
+        let animationSource: AnimationSource = .bundle { _ in
+            return .init(resourceName: "transition_animation.json", in: .main)
+        }
+        
+        var configuration = AnimationTransition.Configuration()
+        
+        configuration.router.didFinishTransition = { [weak self] _ in {
+            self?.didFinishLogin()
+            }
+        }
+        
+        configuration.animation.source = animationSource
+        
+        let animationViewController = AnimationTransition.build(
+            navigationController: navigationController,
+            configuration: configuration
+        )
+        navigationController.setViewControllers([animationViewController], animated: false)
     }
     
     public func dismissViewController(animated: Bool = true) {
@@ -64,6 +90,7 @@ open class AppRouter {
             case .valid:
                 Workspaces.Configuration.appDefault.register()
                 self.dismissViewController(animated: false)
+                Workspaces.Configuration.workspaceChecker.handleWorkspaceSelection()
             case .none:
                 let authenticationUseCase: AuthenticationUseCase = Resolver.resolve()
                 if authenticationUseCase.isEnrolled {
