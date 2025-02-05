@@ -35,7 +35,8 @@ extension Workspaces.Configuration: AppDependency {
             let userRepository: UserRepository = Resolver.resolve()
             let router = Resolver.resolve(AppRouter.self)
             
-            if let aggreementName = userRepository.persistedServiceAgreementName, let agreementId = userRepository.persistedServiceAgreementIdentifier {
+            if let aggreementName = userRepository.persistedServiceAgreementName,
+               let agreementId = userRepository.persistedServiceAgreementIdentifier {
                 let workspace = Workspace(id: agreementId, name: aggreementName, description: "", isMaster: false)
                 let workspaceScreenBuilder: (Workspace) -> AppScreenBuilder = { workspace -> (UINavigationController) -> UIViewController in
                     { navigation in
@@ -44,7 +45,7 @@ extension Workspaces.Configuration: AppDependency {
                 }
                 router.set(builder: workspaceScreenBuilder(workspace))
             } else {
-                router.set(builder: Workspaces.buildSelector(navigationController:))
+                router.set(builder: Workspaces.buildSelector)
             }
         }
     }

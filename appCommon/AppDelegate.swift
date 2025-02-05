@@ -18,7 +18,10 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         setupBackbaseSDK()
     }
     
-    open func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    open func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
         
         let window = createWindow()
         self.window = window
@@ -26,7 +29,7 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         let router = Router()
         Resolver.register { router }.implements(AppRouter.self)
         
-        Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange(newSession: ))
+        Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
         
         router.didStartApp(window: window)
         
