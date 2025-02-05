@@ -2,7 +2,7 @@
 //  Workspaces.swift
 //  GoldenSampleApp
 //
-//  Created by George Nyakundi on 31/01/2025.
+//  Created by Backbase on 31/01/2025.
 //
 import UIKit
 import Resolver

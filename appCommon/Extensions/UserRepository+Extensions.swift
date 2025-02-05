@@ -2,7 +2,7 @@
 //  UserRepository+Extensions.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 31/01/2025.
+//  Created by Backbase on 31/01/2025.
 //
 
 import Resolver

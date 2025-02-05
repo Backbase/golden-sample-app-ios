@@ -2,7 +2,7 @@
 //  Navigation.swift
 //  AccountsJourney
 //
-//  Created by George Nyakundi on 03/02/2025.
+//  Created by Backbase on 03/02/2025.
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  Router.swift
 //  GoldenSampleApp
 //
-//  Created by George Nyakundi on 04/02/2025.
+//  Created by Backbase on 04/02/2025.
 //
 
 import UIKit
