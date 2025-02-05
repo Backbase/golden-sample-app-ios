@@ -23,8 +23,6 @@ abstract_target 'Common' do
   pod 'UserManagerUserProfileUseCase'
   pod 'RetailMoreJourney', '~> 4'
   pod 'BackbaseObservability', '~> 1.0'
-  pod 'BackbaseAnimation', '~> 5'
-  pod 'BackbaseLottieAnimation', '~> 5'
 
   target 'AccountsJourney' do
   end
