@@ -11,7 +11,6 @@ import Backbase
 import IdentityAuthenticationJourney
 import Resolver
 import BusinessWorkspacesJourney
-import BackbaseAnimation
 
 /// `UIWindow` builder
 typealias AppWindowUpdater = (UIWindow) -> Void
@@ -32,9 +31,9 @@ open class AppRouter {
     }
     
     func didStartApp(window: UIWindow) {
-        let viewController = Splash.build(navigationController: navigationController)
-        navigationController.setViewControllers([viewController], animated: false)
         window.rootViewController = navigationController
+        let authenticationUseCase = Resolver.resolve(AuthenticationUseCase.self)
+        authenticationUseCase.validateSession(callback: nil)
     }
     
     open func didFinishLogin(navigationController: UINavigationController) {
@@ -42,27 +41,7 @@ open class AppRouter {
     }
     
     public func transitionToApp() {
-        let animationSource: AnimationSource = .bundle { _ in
-                .init(resourceName: "transition_animation.json", in: .main)
-        }
-        
-        var configuration = AnimationTransition.Configuration()
-        
-        configuration.router.didFinishTransition = { [weak self] _ in {
-            guard let self else { return }
-            self.didFinishLogin(navigationController: self.navigationController)
-            }
-        }
-        
-        configuration.animation.source = animationSource
-        // TODO: Switch to using Theme
-        configuration.animation.backgroundColor = .blue
-        
-        let animationViewController = AnimationTransition.build(
-            navigationController: navigationController,
-            configuration: configuration
-        )
-        navigationController.setViewControllers([animationViewController], animated: false)
+        didFinishLogin(navigationController: self.navigationController)
     }
     
     public func dismissViewController(animated: Bool = true) {
