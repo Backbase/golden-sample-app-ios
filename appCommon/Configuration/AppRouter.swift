@@ -37,23 +37,26 @@ open class AppRouter {
         window.rootViewController = navigationController
     }
     
-    open func didFinishLogin() {
+    open func didFinishLogin(navigationController: UINavigationController) {
         fatalError("Function should be overriden to configure journeys")
     }
     
     public func transitionToApp() {
         let animationSource: AnimationSource = .bundle { _ in
-            return .init(resourceName: "transition_animation.json", in: .main)
+                .init(resourceName: "transition_animation.json", in: .main)
         }
         
         var configuration = AnimationTransition.Configuration()
         
         configuration.router.didFinishTransition = { [weak self] _ in {
-            self?.didFinishLogin()
+            guard let self else { return }
+            self.didFinishLogin(navigationController: self.navigationController)
             }
         }
         
         configuration.animation.source = animationSource
+        // TODO: Switch to using Theme
+        configuration.animation.backgroundColor = .blue
         
         let animationViewController = AnimationTransition.build(
             navigationController: navigationController,

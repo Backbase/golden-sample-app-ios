@@ -28,6 +28,7 @@ extension Splash.Configuration: Configurable {
             .init(resourceName: "splash_animation.json", in: .main)
         }
         
+        // TODO: Switch to using Theme
         configuration.splashScreenType = .animated(animationSource: .init(source: source), backgroundColor: .blue)
         return configuration
     }

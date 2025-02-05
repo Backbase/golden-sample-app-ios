@@ -12,7 +12,7 @@ import UserManagerUserProfileUseCase
 /// A helper struct to setup UserProfileUseCase.
 ///
 
-extension UserManagerUserProfileUseCase: AppCommon.AppDependency {
+extension UserProfileJourney.UserProfile.Configuration: AppCommon.AppDependency {
     public func register() {
         if Resolver.optional(UserProfileUseCase.self) == nil {
             
@@ -22,4 +22,8 @@ extension UserManagerUserProfileUseCase: AppCommon.AppDependency {
             Resolver.register { userProfileUseCase as UserProfileUseCase }
         }
     }
+}
+
+extension UserProfileJourney.UserProfile: AppCommon.Configurable {
+    public static var appDefault = UserProfileJourney.UserProfile.Configuration()
 }

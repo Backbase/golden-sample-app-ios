@@ -5,12 +5,11 @@ import AppCommon
 import BackbaseDesignSystem
 import IdentityAuthenticationJourney
 
-struct MoreMenuConfiguration: AppCommon.AppDependency {
-    
-    func register() {
+extension More.Configuration: AppCommon.AppDependency {
+    public func register() {
         Resolver.register { self }.scope(Resolver.cached)
     }
-
+    
     private static var demoSection: More.MenuSection {
         let securityItems: [More.MenuItem] = [
             .init(
@@ -43,8 +42,8 @@ struct MoreMenuConfiguration: AppCommon.AppDependency {
     }
 }
 
-extension MoreMenuConfiguration: AppCommon.Configurable {
-    static var appDefault: More.Configuration {
+extension More.Configuration: AppCommon.Configurable {
+    public static var appDefault: More.Configuration {
         let menu = More.Menu(deferredSections: [demoSection, securitySection])
         var configuration = More.Configuration()
         configuration.analytics.journeyName = "more_menu"

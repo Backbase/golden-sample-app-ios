@@ -17,17 +17,26 @@ import RetailFeatureFilterAccessControlEntitlementsUseCase
 import AccessControlClient3Gen2
 import ArrangementsClient2Gen2
 import AppCommon
+import RetailMoreJourney
+import UserProfileJourney
+import AccountsJourney
 
 class AppDelegate: AppCommon.AppDelegate<Router> {
     
-//    override init() {
-//        super.init()
-//    }
+    override init() {
+        super.init()
+    }
     
-//    override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-//        let flag = super.application(application, didFinishLaunchingWithOptions: launchOptions)
-//        return flag
-//    }
+    override func application(_ application: UIApplication,
+                              didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
+        let flag = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+        More.Configuration.appDefault.register()
+        UserProfileJourney.UserProfile.appDefault.register()
+        AccountsJourney.Configuration.appDefault.register()
+        
+        return flag
+    }
 }
 
 //class AppDelegate: UIResponder, UIApplicationDelegate {
