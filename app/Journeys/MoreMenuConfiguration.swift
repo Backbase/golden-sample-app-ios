@@ -44,7 +44,7 @@ extension More.Configuration: AppCommon.AppDependency {
 
 extension More.Configuration: AppCommon.Configurable {
     public static var appDefault: More.Configuration {
-        let menu = More.Menu(deferredSections: [demoSection, securitySection])
+        let menu = More.Menu(showSeparators: false, deferredSections: [demoSection, securitySection])
         var configuration = More.Configuration()
         configuration.analytics.journeyName = "more_menu"
         configuration.analytics.screenLabel = "more_menu"

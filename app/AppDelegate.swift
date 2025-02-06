@@ -22,11 +22,7 @@ import UserProfileJourney
 import AccountsJourney
 
 class AppDelegate: AppCommon.AppDelegate<Router> {
-    
-    override init() {
-        super.init()
-    }
-    
+  
     override func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -35,7 +31,6 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         More.Configuration.appDefault.register()
         UserProfileJourney.UserProfile.appDefault.register()
         AccountsJourney.Configuration.appDefault.register()
-        
         return flag
     }
 }

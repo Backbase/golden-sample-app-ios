@@ -12,8 +12,6 @@ import IdentityAuthenticationJourney
 import Resolver
 import BusinessWorkspacesJourney
 
-/// `UIWindow` builder
-typealias AppWindowUpdater = (UIWindow) -> Void
 
 /// `UIViewController` builder using a `UINavigationController`.
 typealias AppScreenBuilder = (UINavigationController) -> UIViewController
@@ -25,11 +23,7 @@ open class AppRouter {
     
     /// Create a new router instance
     required public init() { }
-    
-    public var shouldAutoLogin: Bool {
-        true
-    }
-    
+  
     func didStartApp(window: UIWindow) {
         window.rootViewController = navigationController
         let authenticationUseCase = Resolver.resolve(AuthenticationUseCase.self)
@@ -76,7 +70,7 @@ open class AppRouter {
             case .none:
                 let authenticationUseCase: AuthenticationUseCase = Resolver.resolve()
                 if authenticationUseCase.isEnrolled {
-                    self.set(builder: Login.build(shouldAutoLogin: self.shouldAutoLogin))
+                    self.set(builder: Login.build(shouldAutoLogin: true))
                 } else {
                     self.set(builder: Register.build())
                 }
@@ -105,10 +99,10 @@ open class AppRouter {
 private extension AppRouter {
     func addFadeAnimation(_ navigationController: UINavigationController, completion: (() -> Void)? = nil) {
         let transition = CATransition()
-        let animationCompleter = TransitionCompleter(onComplete: completion)
+        let transitionDelegate = TransitionDelegate(onComplete: completion)
         transition.duration = 0.3
         transition.type = .fade
-        transition.delegate = animationCompleter
+        transition.delegate = transitionDelegate
         navigationController.view.layer.add(transition, forKey: "kCATransition")
     }
     
@@ -120,7 +114,7 @@ private extension AppRouter {
     }
 }
 
-private class TransitionCompleter: NSObject, CAAnimationDelegate {
+private class TransitionDelegate: NSObject, CAAnimationDelegate {
     private var onComplete: (() -> Void)?
     
     init(onComplete: (() -> Void)?) {
