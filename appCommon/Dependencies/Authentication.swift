@@ -41,7 +41,7 @@ extension Authentication.Configuration: Configurable {
     }
 }
 
-// MARK: - Authentication Listener
+// MARK: - Authentication InvalidRefreshTokenResolver
 
 extension Authentication {
     final class InvalidRefreshTokenResolver: BBOAuth2InvalidRefreshTokenResolver {

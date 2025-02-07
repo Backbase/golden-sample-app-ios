@@ -9,10 +9,22 @@ import UIKit
 import Resolver
 import IdentityAuthenticationJourney
 
+/**
+ *  A class for tracking user inactivity.
+ *
+ *  `UserInactivityTracker` monitors user interaction and triggers actions
+ *  after a specified period of inactivity. It uses a timer to track the
+ *  elapsed time and stores the timeout duration, the time of the last user
+ *  interaction, and any remaining time if the tracking is paused.
+ */
 final class UserInactivityTracker {
+    /// The timer used to track user inactivity.
     private var userInactivityTimer: Timer?
+    /// The timeout duration in seconds.
     private var timeoutInSeconds: TimeInterval
+    /// The time when user inactivity started (i.e., last user interaction).
     private var inactiveStartTime: Date?
+    /// The remaining time until timeout, if tracking is paused.
     private var remainingTime: TimeInterval?
     
     init(timeOut: TimeInterval = 5 * 60) {
@@ -24,6 +36,16 @@ final class UserInactivityTracker {
         NotificationCenter.default.removeObserver(self)
     }
     
+     ///
+     /// Handles a UI event, resetting the user inactivity timer.
+     ///
+     /// This method should be called whenever a UI event occurs, indicating user
+     /// interaction.  It resets the internal timer, effectively restarting the
+     /// inactivity period.  This ensures that the inactivity timeout is only triggered
+     /// after a period of *no* user interaction.
+     ///
+     /// - Parameter event: The UI event that occurred.
+     ///
     func handleSendEvent(_ event: UIEvent) {
         guard userInactivityTimer != nil else { return }
         
@@ -32,18 +54,41 @@ final class UserInactivityTracker {
         self.resetIdleTimer()
     }
     
-    /// Function to update timeout duration
+     ///
+     /// Updates the timeout threshold for user inactivity.
+     ///
+     /// This method allows changing the duration of inactivity before the tracker
+     /// considers the user inactive.  It cancels any existing timer and restarts
+     /// it with the new timeout value.
+     ///
+     /// - Parameter threshold: The new timeout duration in seconds.
+     ///
     func updateTimeOut(threshold: TimeInterval) {
         timeoutInSeconds = threshold
         startInactivityTimer()
     }
     
-    /// Function to start inactivity timer
+     ///
+     /// Starts the user inactivity timer.
+     ///
+     /// This method initiates the timer that tracks user inactivity.  It schedules
+     /// the timer to fire after the configured timeout duration, at which point
+     /// the tracker will consider the user inactive and trigger any associated
+     /// actions.  If the timer is already running, this method will restart it.
+     ///
     func startInactivityTimer(){
         resetIdleTimer()
     }
     
-    /// Function to stop inactivity timer
+     ///
+     /// Stops the user inactivity timer.
+     ///
+     /// This method invalidates the timer, preventing it from firing and thus
+     /// stopping the tracking of user inactivity.  It effectively pauses the
+     /// inactivity monitoring.  Calling this method will prevent any actions
+     /// associated with the inactivity timeout from being triggered until the
+     /// timer is restarted.
+     ///
     func stopInactivityTimer(){
         userInactivityTimer?.invalidate()
         userInactivityTimer = nil
@@ -103,7 +148,15 @@ final class UserInactivityTracker {
 }
 
 extension UserInactivityTracker {
-    // reset the timer because there was user interaction
+    ///
+    /// Resets the user inactivity timer.
+    ///
+    /// This method resets the inactivity timer, effectively restarting the inactivity
+    /// period. It is typically called when user interaction is detected, signaling
+    /// that the user is still active.  This prevents the inactivity timeout from
+    /// being triggered prematurely.  It does *not* necessarily stop and restart
+    /// the timer; it may simply reset the timer's internal counter.
+    ///
     private func resetIdleTimer() {
         if let userInactivityTimer, userInactivityTimer.isValid {
             userInactivityTimer.invalidate()

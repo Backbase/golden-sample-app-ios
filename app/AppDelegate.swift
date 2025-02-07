@@ -28,9 +28,11 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         let flag = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         More.Configuration.appDefault.register()
         UserProfileJourney.UserProfile.appDefault.register()
         AccountsJourney.Configuration.appDefault.register()
+        
         return flag
     }
 }

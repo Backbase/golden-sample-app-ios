@@ -9,8 +9,6 @@ import UserManagerClient2
 import UserProfileJourney
 import UserManagerUserProfileUseCase
 
-/// A helper struct to setup UserProfileUseCase.
-///
 
 extension UserProfileJourney.UserProfile.Configuration: AppCommon.AppDependency {
     public func register() {

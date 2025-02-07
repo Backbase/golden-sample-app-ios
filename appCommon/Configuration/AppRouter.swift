@@ -13,27 +13,71 @@ import Resolver
 import BusinessWorkspacesJourney
 
 
-/// `UIViewController` builder using a `UINavigationController`.
+/**
+ * A typealias for a function that builds a UIViewController for a specific app screen.
+ *
+ * `AppScreenBuilder` defines a type for functions that take a
+ * `UINavigationController` as input and return a `UIViewController`.  This is
+ * commonly used in navigation systems to create and configure view
+ * controllers on demand.
+ * The navigation controller is typically provided to allow the
+ * created view controller to perform navigation actions.
+ */
 typealias AppScreenBuilder = (UINavigationController) -> UIViewController
 
+/**
+ * An open class responsible for navigating between screens in the application.
+ *
+ * `AppRouter` manages the navigation flow of the application. It holds an internal
+ *  mechanism which it uses to push and present view controllers.  It also contains a
+ *  mechanism to monitor and respond to user inactivity.
+ */
 open class AppRouter {
     private var navigationController: UINavigationController = NavigationController()
     
     internal var userInactivityTracker = UserInactivityTracker()
     
-    /// Create a new router instance
+    /// Create a new `AppRouter` instance
     required public init() { }
   
+    ///
+    /// Called when the application has finished launching.
+    ///
+    /// This method sets up the initial view controller and performs initial app
+    /// setup, including session validation.
+    ///
+    /// - Parameter window: The `UIWindow` object associated with the application.
+    ///
     func didStartApp(window: UIWindow) {
         window.rootViewController = navigationController
         let authenticationUseCase = Resolver.resolve(AuthenticationUseCase.self)
         authenticationUseCase.validateSession(callback: nil)
     }
     
+    ///
+    /// Called when the user has successfully finished the login process.
+    ///
+    /// This method is called after a successful login. It's responsible for
+    /// updating the navigation stack, typically by replacing the login flow with
+    /// the main application content.  It receives the navigation controller used
+    /// during the login process, which might be different from the main
+    /// `navigationController` held by the `AppRouter`. This allows for a clean
+    /// transition and potentially different navigation configurations post-login.
+    ///
+    /// - Parameter navigationController: The navigation controller used during the login flow.
+    ///
     open func didFinishLogin(navigationController: UINavigationController) {
         fatalError("Function should be overriden to configure journeys")
     }
     
+    ///
+    /// Transitions the user to the main application interface.
+    ///
+    /// This method is responsible for navigating the user from the initial setup
+    /// or authentication flows to the core content of the application.  It typically
+    /// involves setting the root view controller of the main window or performing
+    /// a navigation stack reset/replacement to display the primary user interface.
+    ///
     public func transitionToApp() {
         didFinishLogin(navigationController: self.navigationController)
     }
@@ -42,6 +86,20 @@ open class AppRouter {
         navigationController.dismiss(animated: animated)
     }
     
+    ///
+    /// Sets the root view controller of the navigation controller.
+    ///
+    /// This method replaces the entire view controller stack of the navigation
+    /// controller with the provided view controller.  It performs this operation
+    /// on the main thread to ensure proper UI updates.  It optionally applies a
+    /// fade-in animation to the navigation controller during the transition.
+    ///
+    /// - Parameters:
+    /// - viewController: The new root view controller to set.
+    /// - animated: A boolean value indicating whether to animate the transition.
+        /// Defaults to `true`.
+    /// - completion: An optional closure to be executed after the transition is complete.
+    ///
     public func set(viewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             if animated {
@@ -60,6 +118,17 @@ open class AppRouter {
         }
     }
     
+    ///
+    /// Handles a change in the user's session.
+    ///
+    /// This method is called when the user's session is updated, such as after a
+    /// successful login, logout, or session refresh.  It receives the new session
+    /// object, which can be used to update the application's state and UI
+    /// accordingly.
+    ///
+    /// - Parameter session: The new `Session` object representing the user's
+    /// updated session.
+    ///
     open func handleSessionChange(newSession session: Session) {
         DispatchQueue.main.async {
             switch session {
