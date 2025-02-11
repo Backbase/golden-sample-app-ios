@@ -20,6 +20,7 @@ import AppCommon
 import RetailMoreJourney
 import UserProfileJourney
 import AccountsJourney
+import RetailContactsJourney
 
 class AppDelegate: AppCommon.AppDelegate<Router> {
   
@@ -32,7 +33,7 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         More.Configuration.appDefault.register()
         UserProfileJourney.UserProfile.appDefault.register()
         AccountsJourney.Configuration.appDefault.register()
-        
+        RetailContactsJourney.Contacts.Configuration.appDefault.register()
         return flag
     }
 }

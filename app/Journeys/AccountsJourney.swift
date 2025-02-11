@@ -13,13 +13,7 @@ import GoldenAccountsUseCase
 
 extension AccountsJourney.Configuration: AppCommon.AppDependency {
     public func register() {
-        let productSummaryClient = clientFactory(defaultClient: ArrangementsClient2Gen2.ProductSummaryAPI(), clientPath: "api/arrangement-manager")
-        
-        let arrangementsClient = clientFactory(defaultClient: ArrangementsClient2Gen2.ArrangementsAPI(), clientPath: "api/arrangement-manager")
-        
-        Resolver.register { AccountsListSummaryUseCaseImp(client: productSummaryClient) as AccountsListUseCase }
-        Resolver.register { AccountDetailUseCaseImp(client: arrangementsClient) as AccountDetailsUseCase}
-        
+        Resolver.register { CustomAccountListSummaryUseCaseImpl() as AccountsListUseCase}
         Resolver.register { self }.scope(Resolver.cached)
     }
 }
