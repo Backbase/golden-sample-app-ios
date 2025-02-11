@@ -32,6 +32,8 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         More.Configuration.appDefault.register()
         UserProfileJourney.UserProfile.appDefault.register()
         AccountsJourney.Configuration.appDefault.register()
+
+        setupObservability()
         
         return flag
     }
