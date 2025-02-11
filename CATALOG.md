@@ -63,3 +63,12 @@ This example shows how to switch themes at run time via the Backbase Design Syst
 **Status**: Maintained
 \
 LTS 24.03
+
+## [sample/devs/extending-a-journey](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/extending-a-journey)
+This example shows how to extend a journey with custom business logic and a custom screen.
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Not Maintained
+\
+LTS 24.03

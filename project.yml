@@ -69,6 +69,30 @@ targets:
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
 
+  AppCommon:
+    type: framework
+    platform: iOS
+    deploymentTarget:
+      iOS: 15.0
+    info:
+      path: appCommon/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+    settings:
+      base:
+        SUPPORTS_MACCATALYST: NO
+        MARKETING_VERSION: 0.0.1
+        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
+    sources:
+      - path: appCommon
+        excludes:
+          - Info.plist
+        createIntermediateGroups: true
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
+
   GoldenSampleApp:
     type: application
     platform: iOS
@@ -95,6 +119,8 @@ targets:
         embed: true
       - target: AccountsJourney
         embed: true
+      - target: AppCommon
+        embed: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -112,6 +138,8 @@ targets:
       - target: AccountsJourney
         link: false
       - target: GoldenAccountsUseCase
+        link: false
+      - target: AppCommon
         link: false
     scheme:
       gatherCoverageData: true

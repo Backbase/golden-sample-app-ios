@@ -10,7 +10,6 @@ import Combine
 import BackbaseObservability
 import Resolver
 import BackbaseDesignSystem
-import SnapKit
 
 final class AccountsListViewController: UIViewController {
     
@@ -35,15 +34,22 @@ final class AccountsListViewController: UIViewController {
     // MARK: - UI Properties
     private var refreshControl: UIRefreshControl {
         let refreshControl = UIRefreshControl()
+        refreshControl.translatesAutoresizingMaskIntoConstraints = false
         refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
         return refreshControl
     }
 
     private var stateView: StateView?
-    private let loadingView = LoadingView()
+    
+    private let loadingView: LoadingView = {
+        let view = LoadingView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var accountsListTableView: UITableView = {
         let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
         let inset = DesignSystem.shared.spacer.md
         table.contentInset = UIEdgeInsets(top: inset, left: 0, bottom: inset, right: 0)
         table.alwaysBounceVertical = false
@@ -83,20 +89,15 @@ final class AccountsListViewController: UIViewController {
     }
     
     private func setupLayout() {
-        accountsListTableView.snp.makeConstraints { make in
-            make.trailing.leading
-                .equalToSuperview()
-                .inset(DesignSystem.shared.spacer.md)
-            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        loadingView.snp.makeConstraints { make in
-            make.leading.trailing
-                .equalToSuperview()
-                .inset(DesignSystem.shared.spacer.md)
-            make.centerY
-                .equalToSuperview()
-        }
+        NSLayoutConstraint.activate([
+            accountsListTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            accountsListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            accountsListTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            accountsListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func setupBindings() {
@@ -175,20 +176,21 @@ final class AccountsListViewController: UIViewController {
         // Add state view to the view hierarchy
         if isEmptyState {
             accountsListTableView.addSubview(stateView)
-            stateView.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
+            NSLayoutConstraint.activate([
+                stateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                stateView.centerYAnchor.constraint(equalTo: view.superview!.centerYAnchor)
+            ])
         } else {
             // HIDE TABLE
             accountsListTableView.isHidden = true
             // Add state view to the view hierarchy
             view.addSubview(stateView)
-
-            stateView.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                    .inset(DesignSystem.shared.spacer.md)
-                make.centerY.equalToSuperview()
-            }
+            
+            NSLayoutConstraint.activate([
+                stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+                stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+                stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
         }
     }
     

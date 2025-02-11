@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 import Combine
 import Resolver
 import BackbaseDesignSystem
@@ -22,7 +21,11 @@ final class AccountDetailsViewController: UIViewController {
     
     // MARK: - UI Properties
     private var stateView: StateView?
-    private let loadingView = LoadingView()
+    private let loadingView: LoadingView = {
+        let view = LoadingView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let header = SummaryStackView()
     
@@ -31,12 +34,14 @@ final class AccountDetailsViewController: UIViewController {
         stackView.spacing = DesignSystem.shared.spacer.sm
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
@@ -93,22 +98,26 @@ final class AccountDetailsViewController: UIViewController {
     }
     
     private func setupLayout() {
-        scrollView.snp.makeConstraints { make in
-            make.edges.width.equalToSuperview()
-        }
-        
-        stackView.snp.makeConstraints { make in
-            make.leading.trailing.width.equalToSuperview()
-            make.top.equalToSuperview().inset(DesignSystem.shared.spacer.sm)
-            make.bottom.equalToSuperview().inset(DesignSystem.shared.spacer.md)
-        }
-        
-        loadingView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-                .inset(DesignSystem.shared.spacer.md)
-            make.centerY.equalToSuperview()
-        }
-        
+        NSLayoutConstraint.activate([
+            // ScrollView
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            // StackView
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: DesignSystem.shared.spacer.sm),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -DesignSystem.shared.spacer.md),
+            
+            // LoadingView
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func setupBindings() {
@@ -246,16 +255,12 @@ final class AccountDetailsViewController: UIViewController {
         stateView.accessibilityIdentifier = "AccountDetailsStateView"
         
         view.addSubview(stateView)
-        stateView.snp.makeConstraints { make in
-            make
-                .leading
-                .trailing
-                .equalToSuperview()
-                .inset(DesignSystem.shared.spacer.md)
-            make
-                .centerY
-                .equalToSuperview()
-        }
+        
+        NSLayoutConstraint.activate([
+            stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     private func removeStateView() {
