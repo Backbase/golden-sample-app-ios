@@ -25,6 +25,7 @@ final class AccountDetailsUsageRowView: UIView {
     
     private lazy var stackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.distribution = .fill
         view.spacing = DesignSystem.shared.spacer.sm
@@ -65,8 +66,11 @@ final class AccountDetailsUsageRowView: UIView {
     }
     
     private func setupConstraints() {
-        stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
     }
 }

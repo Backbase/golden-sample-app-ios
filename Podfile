@@ -33,9 +33,14 @@ abstract_target 'Common' do
   target 'GoldenAccountsUseCase' do
   end
 
+  target 'AppCommon' do
+  end
+
   target 'GoldenSampleApp' do
     use_frameworks!
   end
+
+  
 end
 
 abstract_target 'Tests' do 

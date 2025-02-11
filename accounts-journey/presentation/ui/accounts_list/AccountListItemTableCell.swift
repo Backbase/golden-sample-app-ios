@@ -7,7 +7,6 @@
 
 import UIKit
 import Resolver
-import SnapKit
 import BackbaseDesignSystem
 
 final class AccountListItemTableCell: UITableViewCell, Reusable, CellCornerModifier {
@@ -21,6 +20,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable, CellCornerModif
         stackView.alignment = .leading
         stackView.spacing = DesignSystem.shared.sizer.sm
         stackView.backgroundColor = .clear
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -99,12 +99,13 @@ final class AccountListItemTableCell: UITableViewCell, Reusable, CellCornerModif
         infoStackView.addArrangedSubview(accountNameLabel)
         infoStackView.addArrangedSubview(accountStateLabel)
         infoStackView.addArrangedSubview(accountBalanceLabel)
-        
-        containerStackView.snp.makeConstraints { make in
-            make.leading.top.trailing.bottom
-                .equalToSuperview().inset(DesignSystem.shared.spacer.md)
-        }
-        
+              
+        NSLayoutConstraint.activate([
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: DesignSystem.shared.spacer.md),
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: DesignSystem.shared.spacer.md),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -DesignSystem.shared.spacer.md),
+            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -DesignSystem.shared.spacer.md)
+        ])
     }
     
     func setup(_ account: AccountUIModel?) {

@@ -8,15 +8,21 @@
 import Foundation
 import UIKit
 import BackbaseDesignSystem
-import SnapKit
 import Resolver
 
 final class LoadingView: UIView {
-    private lazy var containerView = UIView()
+    
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
         activityIndicator.tintColor = DesignSystem.shared.colors.primary.lighter
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
     
@@ -49,17 +55,15 @@ final class LoadingView: UIView {
     }
     private func configureDesign() {
         addSubview(containerView)
-        
-        containerView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
         containerView.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalTo(DesignSystem.shared.sizer.xl)
-            make.height.equalTo(DesignSystem.shared.sizer.xl)
-        }
+        
+        NSLayoutConstraint.activate([
+            containerView.centerXAnchor.constraint(equalTo: self.centerXAnchor ),
+            containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: containerView.topAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: DesignSystem.shared.sizer.xl),
+            activityIndicator.heightAnchor.constraint(equalToConstant: DesignSystem.shared.sizer.xl)
+        ])
     }
 }
