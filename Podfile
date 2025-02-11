@@ -1,40 +1,27 @@
 platform :ios, '15.0'
 
-# The following JFrog artifactory repositories should include
-# - https://repo.backbase.com/api/pods/ios3/ (backbase-pods3)
-# - https://repo.backbase.com/api/pods/ios-retail3/ (backbase-pods-retail3)
-# - https://repo.backbase.com/api/pods/ios-identity/ (backbase-pods-identity)
-# - https://repo.backbase.com/api/pods/ios-business/ (backbase-pods-business)
-# - https://repo.backbase.com/api/pods/design-ios/ (backbase-pods-design)
-plugin 'cocoapods-art', sources: %w[
-  backbase-pods3
-  backbase-pods-retail3
-  backbase-pods-identity
-  backbase-pods-business
-  backbase-pods-design
-]
-
 install! 'cocoapods', deterministic_uuids: false
 source 'https://cdn.cocoapods.org/'
+source 'https://repo.backbase.com/api/pods/pods'
 
 use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '11.2.0'
+$backbaseVersion = '~> 12'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase'
-  pod 'IdentityAuthenticationJourney','~> 6.0'
-  pod 'BusinessWorkspacesJourney'
-  pod 'BusinessWorkspacesJourneyWorkspacesUseCase2'
+  pod 'IdentityAuthenticationJourney','~> 7'
+  pod 'BusinessWorkspacesJourney' , '~> 7'
+  pod 'BusinessWorkspacesJourneyWorkspacesUseCase2', '~> 7'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '~> 4'
+  pod 'BackbaseDesignSystem', '~> 5.6'
   pod 'UserManagerUserProfileUseCase'
-  pod 'RetailMoreJourney', '4.1.0'
+  pod 'RetailMoreJourney', '~> 4'
   pod 'BackbaseObservability', '~> 1.0'
   pod 'RetailContactsJourney', '4.1.1'
   pod 'RetailContactsJourneyUseCase', '4.1.1'
@@ -45,9 +32,14 @@ abstract_target 'Common' do
   target 'GoldenAccountsUseCase' do
   end
 
+  target 'AppCommon' do
+  end
+
   target 'GoldenSampleApp' do
     use_frameworks!
   end
+
+  
 end
 
 abstract_target 'Tests' do

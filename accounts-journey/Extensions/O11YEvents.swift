@@ -2,7 +2,7 @@
 //  O11YEvents.swift
 //  AccountsJourney
 //
-//  Created by Backbase R&D B.V. on 07/02/2024.
+//  Created by Backbase on 07/02/2024.
 //
 
 import Foundation

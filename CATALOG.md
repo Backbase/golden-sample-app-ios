@@ -17,7 +17,7 @@ The minimal sample that includes all the required Backbase SDKs to get started t
 \
 **Status**: Maintained
 \
-LTS 24.03
+LTS 24.09
 
 ## [sample/devs/O11Y](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/O11Y)
 An implementation of Backbase Observability that makes it easy to add 3rd party tracking libraries to your project.
@@ -26,7 +26,7 @@ An implementation of Backbase Observability that makes it easy to add 3rd party 
 \
 **Status**: Maintained
 \
-LTS 24.03
+LTS 24.09
 
 ## [sample/devs/open-telemetry](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/open-telemetry)
 An implementation of Backbase OpenTelemetry Connector to track screen views and user actions.
@@ -35,10 +35,19 @@ An implementation of Backbase OpenTelemetry Connector to track screen views and 
 \
 **Status**: Maintained
 \
-LTS 24.03
+LTS 24.09
 
 ## [sample/devs/custom-network](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/custom-networking)
 This example shows how to connect to a Backbase powered backend with a custom networking library.
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Not maintained
+\
+LTS 24.03
+
+## [sample/devs/generate-a-client](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/generate-a-client)
+This example shows how to generate and use a BOAT api client
 \
 **Maintainer**: Mobile-Foundation
 \
@@ -52,5 +61,14 @@ This example shows how to switch themes at run time via the Backbase Design Syst
 **Maintainer**: Mobile-UI
 \
 **Status**: Maintained
+\
+LTS 24.03
+
+## [sample/devs/extending-a-journey](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/extending-a-journey)
+This example shows how to extend a journey with custom business logic and a custom screen.
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Not Maintained
 \
 LTS 24.03

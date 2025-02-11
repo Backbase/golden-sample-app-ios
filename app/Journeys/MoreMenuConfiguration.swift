@@ -1,31 +1,19 @@
 import Foundation
 import RetailMoreJourney
 import Resolver
+import AppCommon
 import BackbaseDesignSystem
 import IdentityAuthenticationJourney
-import RetailContactsJourney
 
-struct MoreMenuConfiguration {
-    
-    private static var contactsSection: More.MenuSection {
-        let contactsItems: [More.MenuItem] = [
-            .init(
-                title: .init(key: "goldenSampleApp.more.items.contacts", in: .app),
-                icon: UIImage(systemName: "book.pages"),
-                iconBackgroundColor: DesignSystem.shared.colors.primary.default,
-                iconTintColor: DesignSystem.shared.colors.primary.onDefault,
-                action: { navigationController in
-                    navigationController.pushViewController(RetailContactsJourney.ContactList.build(navigationController: navigationController), animated: true)
-                }
-            )
-        ]
-        return .init(title: "", items: contactsItems)
+extension More.Configuration: AppCommon.AppDependency {
+    public func register() {
+        Resolver.register { self }.scope(Resolver.cached)
     }
-
+    
     private static var demoSection: More.MenuSection {
         let securityItems: [More.MenuItem] = [
             .init(
-                title: .init(key: "goldenSampleApp.more.items.demo", in: .app),
+                title: .init(key: "retailUniversalApp.more.items.demo", in: .appCommon),
                 icon: UIImage(systemName: "d.square"),
                 iconBackgroundColor: DesignSystem.shared.colors.primary.default,
                 iconTintColor: DesignSystem.shared.colors.primary.onDefault,
@@ -40,7 +28,7 @@ struct MoreMenuConfiguration {
     private static var securitySection: More.MenuSection {
         let securityItems: [More.MenuItem] = [
             .init(
-                title: .init(key: "goldenSampleApp.more.items.logout", in: .app),
+                title: .init(key: "retailUniversalApp.more.items.logout", in: .appCommon),
                 icon: UIImage(systemName: "iphone.and.arrow.forward"),
                 iconBackgroundColor: DesignSystem.shared.colors.danger.default,
                 iconTintColor: DesignSystem.shared.colors.primary.onDefault,
@@ -52,13 +40,11 @@ struct MoreMenuConfiguration {
         ]
         return .init(title: nil, items: securityItems)
     }
+}
 
-    static func setupMoreMenu() {
-        Resolver.register { appDefault }
-    }
-
-    static var appDefault: More.Configuration {
-        let menu = More.Menu(deferredSections: [contactsSection, demoSection, securitySection])
+extension More.Configuration: AppCommon.Configurable {
+    public static var appDefault: More.Configuration {
+        let menu = More.Menu(showSeparators: false, deferredSections: [demoSection, securitySection])
         var configuration = More.Configuration()
         configuration.analytics.journeyName = "more_menu"
         configuration.analytics.screenLabel = "more_menu"
@@ -67,15 +53,3 @@ struct MoreMenuConfiguration {
         return configuration
     }
 }
-
-// This is needed by the More Menu configuration
-private extension Bundle {
-    static var app: Bundle? {
-        let podBundle = Bundle(for: BundleToken.self)
-        guard let resourceUrl = podBundle.url(forResource: "Assets", withExtension: "bundle") else { return podBundle }
-        guard let resourceBundle = Bundle(url: resourceUrl) else { return podBundle }
-        return resourceBundle
-    }
-}
-
-private final class BundleToken { }
