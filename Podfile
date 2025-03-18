@@ -37,7 +37,6 @@ abstract_target 'Common' do
     use_frameworks!
   end
 
-  
 end
 
 abstract_target 'Tests' do 
