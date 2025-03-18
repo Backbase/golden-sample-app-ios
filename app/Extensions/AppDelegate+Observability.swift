@@ -26,5 +26,13 @@ extension AppDelegate {
             debugPrint("User Action Event Journey Name => \(event.journey)")
             debugPrint("User Action Event Attributes => \(event.attributes)")
         }
+
+        tracker.subscribe(subscriber: self, eventClass: APIRequestEvent.self) { event in
+            debugPrint("API Event => Url:\(event.url), Method:\(event.httpMethod)")
+        }
+
+        tracker.subscribe(subscriber: self, eventClass: APIResponseEvent.self) { event in
+            debugPrint("API Event => Url:\(event.url), StatusCode:\(event.statusCode)")
+        }
     }
 }

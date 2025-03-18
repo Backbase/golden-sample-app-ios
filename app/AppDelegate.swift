@@ -34,7 +34,10 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         AccountsJourney.Configuration.appDefault.register()
 
         setupObservability()
-        
+
+        let customNetworkDataProvider = CustomNetworkDataProvider()
+        Resolver.register { customNetworkDataProvider as DBSDataProvider }
+
         return flag
     }
 }

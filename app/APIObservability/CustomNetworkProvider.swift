@@ -14,12 +14,12 @@ class CustomNetworkDataProvider: NSObject, DBSDataProvider {
                                                 httpHeaderFields: request.allHTTPHeaderFields))
         URLSession(configuration: Backbase.securitySessionConfiguration(),
                    delegate: nil,
-                   delegateQueue: nil).dataTask(with: request) { data, response, error in
+                   delegateQueue: nil).dataTask(with: request) { [weak self] data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
-                tracker?.publish(event: APIResponseEvent(url: httpRes.url,
+                self?.tracker?.publish(event: APIResponseEvent(url: httpResponse.url!.absoluteString,
                                                          statusCode: httpResponse.statusCode,
                                                          requestRoundTrip: Date().timeIntervalSince(requestStartTime),
-                                                         httpHeaderFields: httpResponse.allHeaderFields))
+                                                         httpHeaderFields: httpResponse.allHeaderFields as? [String: String]))
             }
             DispatchQueue.main.async {
                 completionHandler?(response, data, error)

@@ -9,7 +9,7 @@ struct APIRequestEvent {
 
 struct APIResponseEvent {
     let url: String
-    let statusCode: String
+    let statusCode: Int
     let requestRoundTrip: Double
     let httpHeaderFields: [String: String]?
 }
