@@ -16,5 +16,5 @@ struct LoadingStateView: View {
 }
 
 #Preview {
-    LoadingView()
+    LoadingStateView()
 }

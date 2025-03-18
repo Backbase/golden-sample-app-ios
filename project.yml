@@ -2,7 +2,7 @@ name: ios-golden-sample-app
 options:
   bundleIdPrefix: com.backbase
   deploymentTarget:
-    iOS: 15.0
+    iOS: 17.0
   # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
   # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
   postGenCommand: >-
@@ -13,7 +13,7 @@ targets:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: 17.0
     info:
       path: accounts-journey/Info.plist
       properties:
@@ -42,7 +42,7 @@ targets:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: 17.0
     info:
       path: accounts-use-case/Info.plist
       properties:
@@ -73,7 +73,7 @@ targets:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: 17.0
     info:
       path: appCommon/Info.plist
       properties:
@@ -97,7 +97,7 @@ targets:
     type: application
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: 17.0
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.ebpsandbox.retailus
@@ -193,7 +193,7 @@ targets:
       path: appUITests/Info.plist
     codeSign: false
     deploymentTarget:
-      iOS: 15.0
+      iOS: 17.0
     sources:
       - path: appUITests
         excludes: Info.plist
@@ -216,7 +216,7 @@ targets:
           randomExecutionOrder: true
     type: bundle.ui-testing
     platform: iOS
-    deploymentTarget: 15.0
+    deploymentTarget: 17.0
     info:
       path: Tests/SnapshotTests/Info.plist
     codeSign: false

@@ -1,4 +1,4 @@
-platform :ios, '15.0'
+platform :ios, '17.0'
 
 install! 'cocoapods', deterministic_uuids: false
 source 'https://cdn.cocoapods.org/'
@@ -69,7 +69,7 @@ post_install do |installer_representation|
     end
 
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '17.0'
       # Our frameworks are built with library evolution support enabled,
       # and they are linked against dependencies with the same setting.
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'

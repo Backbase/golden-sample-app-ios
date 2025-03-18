@@ -581,6 +581,12 @@
         }
       }
     },
+    "Loading..." : {
+
+    },
+    "New transaction" : {
+
+    },
     "retailUniversalApp.more.items.demo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -603,6 +609,9 @@
         }
       }
     },
+    "Something went wrong...\n(%@)" : {
+
+    },
     "tabBar.dashboard.tabTitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -613,6 +622,9 @@
           }
         }
       }
+    },
+    "Transactions" : {
+
     }
   },
   "version" : "1.0"
