@@ -72,3 +72,12 @@ This example shows how to extend a journey with custom business logic and a cust
 **Status**: Not Maintained
 \
 LTS 24.03
+
+## [sample/devs/O11Y-API](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/O11Y-API)
+This example shows how to monitor API calls with custom DBS provider and Observability.
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Not Maintained
+\
+LTS 24.03
