@@ -28,11 +28,11 @@ extension AppDelegate {
         }
 
         tracker.subscribe(subscriber: self, eventClass: APIRequestEvent.self) { event in
-            debugPrint("API Event => Url:\(event.url), Method:\(event.httpMethod)")
+            debugPrint("API Event => RequestId: \(event.requestId), Url:\(event.url), Method:\(event.httpMethod)")
         }
 
         tracker.subscribe(subscriber: self, eventClass: APIResponseEvent.self) { event in
-            debugPrint("API Event => Url:\(event.url), StatusCode:\(event.statusCode)")
+            debugPrint("API Event => RequestId: \(event.requestId), Url:\(event.url), StatusCode:\(event.statusCode)")
         }
     }
 }
