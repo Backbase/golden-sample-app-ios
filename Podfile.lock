@@ -14,7 +14,7 @@ PODS:
   - BackbaseAnimation (5.0.2):
     - Resolver (= 1.2.1)
   - BackbaseCountryCore (1.2.0)
-  - BackbaseDesignSystem (6.5.8):
+  - BackbaseDesignSystem (6.5.9):
     - BackbaseCountryCore (>= 1.1.1)
     - Resolver (~> 1.2.1)
   - BackbaseIdentity (8.2.0):
@@ -89,7 +89,7 @@ PODS:
     - RxSwift (= 6.9.0)
   - RxSwift (6.9.0)
   - SnapKit (5.7.1)
-  - SwiftLint (0.54.0)
+  - SwiftLint (0.59.0)
   - UserManagerClient2 (1.0.1):
     - Backbase (>= 7.8.0)
     - ClientCommon (~> 1.1)
@@ -109,7 +109,7 @@ PODS:
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (~> 13)
-  - BackbaseDesignSystem (~> 6)
+  - BackbaseDesignSystem (~> 6.0)
   - BackbaseLottieAnimation (~> 5)
   - BackbaseObservability (~> 2)
   - BusinessWorkspacesJourney (~> 8)
@@ -122,11 +122,10 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase (~> 7)
 
 SPEC REPOS:
-  https://repo.backbase.com/api/pods/ios-retail3:
-    - ArrangementsClient2Gen2
   https://repo.backbase.com/api/pods/pods/:
     - AccessControlApiV3
     - AccessControlClient3Gen2
+    - ArrangementsClient2Gen2
     - Backbase
     - BackbaseAnimation
     - BackbaseCountryCore
@@ -163,11 +162,11 @@ SPEC CHECKSUMS:
   AccessControlApiV3: a7c740e3c16c9ff5be36039d393b5bcd082d25f7
   AccessControlClient3Gen2: 72cdcc718a885fbfff05f01e29f08396d6107002
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
-  ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
+  ArrangementsClient2Gen2: b1e2297c159dda5c644b2df9283a47f32be9b0b3
   Backbase: b5e10465d5feac0d628691eb3b2433ec8ca1db35
   BackbaseAnimation: 071e91abf409604502b3e63448c528d3cc67be50
   BackbaseCountryCore: 170c41457f27f7350f839e24379e86bb29a2b6ba
-  BackbaseDesignSystem: 0d50eeebd5da05a5b91fb0c438c74b0e9721436a
+  BackbaseDesignSystem: 5e1cefb20ff0402edd258c7a745af367a706f001
   BackbaseIdentity: 4b8d4bc328b6d325589618f284c38776e98b50d1
   BackbaseLottieAnimation: 52de2a82e1472931bb8cf40cd60bfac27e0d634f
   BackbaseObservability: 933e5f81322d990bf7b59272dcdca7354f44b386
@@ -189,11 +188,11 @@ SPEC CHECKSUMS:
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
-  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  SwiftLint: bb7ba8326d0d93e60d6d1715fc7d4609dec5c76d
   UserManagerClient2: 45d41f51897a67354dc55da04c7625999401625a
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 947edd65aea802ade51bffbd0cd9a1b9ad889312
+PODFILE CHECKSUM: f479a80a783ecb266c4c57de89cb62a9a07894db
 
 COCOAPODS: 1.15.2
