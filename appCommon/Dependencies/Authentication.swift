@@ -9,16 +9,19 @@ import UIKit
 import Backbase
 import Resolver
 import IdentityAuthenticationJourney
+import BackbaseAnimation
+import BackbaseLottieAnimation
 
 extension Authentication.Configuration: AppDependency {
     
-    public func register(sessionChangeHandler: IdentityAuthenticationUseCase.SessionHandler?) {
-        let authenticationUseCase = IdentityAuthenticationUseCase(sessionChangeHandler: sessionChangeHandler)
+    public func register(sessionHandler: IdentityAuthenticationUseCase.SessionHandler?) {
+        let authenticationUseCase = IdentityAuthenticationUseCase(sessionHandler: sessionHandler)
         let sessionResolver = Authentication.InvalidRefreshTokenResolver(useCase: authenticationUseCase)
         try? authenticationUseCase.register(invalidRefreshTokenResolver: sessionResolver)
         Backbase.register(authClient: authenticationUseCase)
         
         Resolver.register { authenticationUseCase as AuthenticationUseCase }
+        Resolver.register { LottieAnimationViewFactory.self as AnimationViewFactory.Type }
         
         setupAuthNavigationCoordinator()
         

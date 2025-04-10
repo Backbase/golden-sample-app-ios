@@ -28,7 +28,6 @@ platform :ios do
   desc 'Update cocoapods and repo-art automatically if pod install fails'
   lane :pods_update do
     error_callback = lambda { |_|
-      pod_repo_art_update
       cocoapods(repo_update: true)
     }
     cocoapods(error_callback: error_callback)
