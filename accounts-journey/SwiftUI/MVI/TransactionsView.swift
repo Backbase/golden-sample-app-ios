@@ -1,23 +1,26 @@
 import SwiftUI
 
-struct TransactionsView: View {
+public struct TransactionsView: View {
 
-    @State var viewModel = ViewModel(initialState: TransactionsViewState.initial, reducer: TransactionsReducer())
+    @StateObject var viewModel = TransactionsViewModel<Void>(initialState: TransactionsState<Void>.initial)
 
-    var body: some View {
-        NavigationStack{
+    public init() { }
+
+    public var body: some View {
+        NavigationStack {
             VStack {
                 if viewModel.state.isLoading {
                     LoadingStateView()
-                }
-                else if let errorMessage = viewModel.state.errorMessage {
+                } else if let errorMessage = viewModel.state.errorMessage {
                     ErrorView(message: errorMessage)
                 } else if let transactions = viewModel.state.transactions {
                     TransactionsListView(transactions: transactions)
                 }
                 Spacer()
                 Button(action: {
-                    viewModel.send(.newTransaction)
+                    Task {
+                        await viewModel.handleIntent(intent: .newTransaction)
+                    }
                 }) {
                     Text("New transaction")
                         .foregroundColor(.white)
@@ -28,7 +31,9 @@ struct TransactionsView: View {
                 .padding()
 
             }.onAppear {
-                viewModel.send(.viewAppeared)
+                Task {
+                    await viewModel.handleIntent(intent: .viewAppeared)
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.black,
@@ -37,7 +42,9 @@ struct TransactionsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        viewModel.send(.refresh)
+                        Task {
+                            await viewModel.handleIntent(intent: .refresh)
+                        }
                     }) {
                         Image(systemName: "arrow.clockwise")
                     }
