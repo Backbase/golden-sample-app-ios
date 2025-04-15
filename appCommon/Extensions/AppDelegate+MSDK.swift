@@ -5,6 +5,7 @@
 //  Created by Backbase R&D B.V. on 13/10/2023.
 //
 
+import Foundation
 import Backbase
 
 // MARK: Backbase SDK methods

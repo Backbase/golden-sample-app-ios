@@ -102,6 +102,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.ebpsandbox.retailus
         MARKETING_VERSION: 0.0.1
+        SUPPORTS_MACCATALYST: NO
     info:
       path: app/Info.plist
       properties:
@@ -128,12 +129,15 @@ targets:
   GoldenSampleAllTests:
     type: framework
     platform: iOS
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/all-tests/Info.plist
     codeSign: false
     settings:
       base:
         MARKETING_VERSION: 0.0.1
+        SUPPORTS_MACCATALYST: NO
     dependencies:
       - target: AccountsJourney
         link: false
@@ -157,32 +161,44 @@ targets:
   AccountsJourneyUnitTests:
     type: bundle.unit-test
     platform: iOS
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/accounts-journey/unit-tests/Info.plist
-    codeSign: false
     dependencies:
       - target: AccountsJourney
-        link: true
+        link: false
     sources:
       - path: Tests/accounts-journey/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
+    settings:
+      base:
+        CODE_SIGN_STYLE: Manual
+        DEVELOPMENT_TEAM: LMC4CG556D
+        SUPPORTS_MACCATALYST: NO
   
   GoldenAccountsUseCaseUnitTests:
     type: bundle.unit-test
     platform: iOS
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/accounts-use-case/unit-tests/Info.plist
-    codeSign: false
     dependencies:
       - target: AccountsJourney
-        link: true
+        link: false
       - target: GoldenAccountsUseCase
-        link: true
+        link: false
     sources:
       - path: Tests/accounts-use-case/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
+    settings:
+      base:
+        CODE_SIGN_STYLE: Manual
+        DEVELOPMENT_TEAM: LMC4CG556D
+        SUPPORTS_MACCATALYST: NO
 
   # UITests1
 
@@ -206,6 +222,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
+        SUPPORTS_MACCATALYST: NO
 
     # Snapshot tests
     
@@ -216,7 +233,8 @@ targets:
           randomExecutionOrder: true
     type: bundle.ui-testing
     platform: iOS
-    deploymentTarget: 15.0
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/SnapshotTests/Info.plist
     codeSign: false
@@ -224,8 +242,10 @@ targets:
       - package: SnapshotTesting
       - target: GoldenSampleApp
         link: true
+        codeSign: false
       - target: AccountsJourney
         link: true
+        codeSign: false
     sources:
       - path: Tests/SnapshotTests
         excludes:

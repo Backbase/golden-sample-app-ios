@@ -35,5 +35,5 @@ runs:
         echo Changing ~/.netrc file permissions
         chmod -R 0600 ~/.netrc
            
-    - name: Add repositories from repo.backbase.com
-      uses: ./.github/actions/repo-art
+    # - name: Add repositories from repo.backbase.com
+    #   uses: ./.github/actions/repo-art

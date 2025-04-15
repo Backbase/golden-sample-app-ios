@@ -4,10 +4,9 @@ source "https://rubygems.org"
 
 # gem "rails"
 
-gem "cocoapods", "~> 1.13"
-gem "cocoapods-art", "~> 1.1"
-gem "fastlane", "~> 2.216"
-gem "activesupport", "~> 7.0", "<= 7.0.8"
+gem "cocoapods", "~> 1.15"
+gem "fastlane"
+gem "activesupport", "~> 7.0", "<= 7.2.2.1"
 gem "slather"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')

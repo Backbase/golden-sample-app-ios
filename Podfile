@@ -32,6 +32,7 @@ abstract_target 'Common' do
   end
 
   target 'AppCommon' do
+    use_frameworks!
     pod 'BackbaseLottieAnimation', $backaseAnimationVersion
   end
 
@@ -51,9 +52,11 @@ abstract_target 'Tests' do
     end
 
   target 'AccountsJourneyUnitTests' do 
+    use_frameworks!
   end
 
   target 'GoldenAccountsUseCaseUnitTests' do 
+    use_frameworks!
   end
 end
 
@@ -75,6 +78,8 @@ post_install do |installer_representation|
       # Our frameworks are built with library evolution support enabled,
       # and they are linked against dependencies with the same setting.
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      # config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
     end
   end
 end
