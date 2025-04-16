@@ -1,6 +1,7 @@
 name: ios-golden-sample-app
 options:
   bundleIdPrefix: com.backbase
+  platform: [iOS]
   deploymentTarget:
     iOS: 15.0
   # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
@@ -11,7 +12,7 @@ options:
 targets:
   AccountsJourney:
     type: framework
-    platform: iOS
+    platform: [iOS]
     deploymentTarget:
       iOS: 15.0
     info:
@@ -40,7 +41,7 @@ targets:
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
   GoldenAccountsUseCase:
     type: framework
-    platform: iOS
+    platform: [iOS]
     deploymentTarget:
       iOS: 15.0
     info:
@@ -71,7 +72,7 @@ targets:
 
   AppCommon:
     type: framework
-    platform: iOS
+    platform: [iOS]
     deploymentTarget:
       iOS: 15.0
     info:
@@ -95,7 +96,7 @@ targets:
 
   GoldenSampleApp:
     type: application
-    platform: iOS
+    platform: [iOS]
     deploymentTarget:
       iOS: 15.0
     settings:
@@ -127,7 +128,7 @@ targets:
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
   GoldenSampleAllTests:
     type: framework
-    platform: iOS
+    platform: [iOS]
     deploymentTarget:
       iOS: 15.0
     info:
@@ -158,7 +159,7 @@ targets:
 
   AccountsJourneyUnitTests:
     type: bundle.unit-test
-    platform: iOS
+    platform: [iOS]
     deploymentTarget:
       iOS: 15.0
     info:
