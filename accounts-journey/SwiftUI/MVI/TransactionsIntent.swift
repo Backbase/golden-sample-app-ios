@@ -1,4 +1,4 @@
-enum TransactionsIntent {
+public enum TransactionsIntent {
     case viewAppeared
     case refresh
     case newTransaction

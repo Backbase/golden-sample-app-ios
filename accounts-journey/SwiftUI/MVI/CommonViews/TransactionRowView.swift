@@ -1,10 +1,14 @@
 import SwiftUI
 
-struct TransactionRowView: View {
+public struct TransactionRowView: View {
 
-    let transaction: Transaction
+    let transaction: TransactionData
 
-    var body: some View {
+    public init(transaction: TransactionData) {
+        self.transaction = transaction
+    }
+
+    public var body: some View {
         HStack {
             Image(systemName: transaction.iconName)
                 .resizable()
@@ -35,7 +39,7 @@ struct TransactionRowView: View {
 }
 
 #Preview {
-    let sample = Transaction(id: "0",
+    let sample = TransactionData(id: "0",
                               date: "1 January 2025, 10:00",
                               name: "Apple services",
                               amount: "€ -19.0",

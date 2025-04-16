@@ -1,7 +1,10 @@
 import SwiftUI
 
-struct LoadingStateView: View {
-    var body: some View {
+public struct LoadingStateView: View {
+    
+    public init() { }
+
+    public var body: some View {
         VStack {
             Text("Loading...")
                 .fontWeight(.light)

@@ -1,14 +1,7 @@
-//
-//  TransactionsViewModel.swift
-//  ios-golden-sample-app
-//
-//  Created by Tibor Kántor on 11/04/2025.
-//
-
 import SwiftUI
 
 @MainActor
-class TransactionsViewModel<T>: ObservableObject {
+open class TransactionsViewModel<T>: ObservableObject {
     @Published var state: TransactionsState<T>
 
     private lazy var intentHandler: TransactionsIntentHandler<T> = {
@@ -21,7 +14,7 @@ class TransactionsViewModel<T>: ObservableObject {
         self.state = initialState
     }
 
-    func handleIntent(intent: TransactionsIntent) async {
+    func handleIntent(_ intent: TransactionsIntent) async {
         await intentHandler.handleIntent(intent)
     }
 }

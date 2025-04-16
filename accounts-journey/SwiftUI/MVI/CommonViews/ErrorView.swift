@@ -1,10 +1,14 @@
 import SwiftUI
 
-struct ErrorView: View {
+public struct ErrorView: View {
 
     let message: String
 
-    var body: some View {
+    public init(message: String) {
+        self.message = message
+    }
+
+    public var body: some View {
         VStack(alignment: .center) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.largeTitle)

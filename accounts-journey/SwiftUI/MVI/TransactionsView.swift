@@ -19,7 +19,7 @@ public struct TransactionsView: View {
                 Spacer()
                 Button(action: {
                     Task {
-                        await viewModel.handleIntent(intent: .newTransaction)
+                        await viewModel.handleIntent( .newTransaction)
                     }
                 }) {
                     Text("New transaction")
@@ -32,7 +32,7 @@ public struct TransactionsView: View {
 
             }.onAppear {
                 Task {
-                    await viewModel.handleIntent(intent: .viewAppeared)
+                    await viewModel.handleIntent( .viewAppeared)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -43,7 +43,7 @@ public struct TransactionsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         Task {
-                            await viewModel.handleIntent(intent: .refresh)
+                            await viewModel.handleIntent( .refresh)
                         }
                     }) {
                         Image(systemName: "arrow.clockwise")

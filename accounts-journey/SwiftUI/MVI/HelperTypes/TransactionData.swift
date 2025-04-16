@@ -1,11 +1,11 @@
 import Foundation
 
-struct Transaction: Identifiable, Equatable {
-    let id: String
-    let date: String
-    let name: String
-    let amount: String
-    let iconName: String
+public struct TransactionData: Identifiable, Equatable {
+    public let id: String
+    public let date: String
+    public let name: String
+    public let amount: String
+    public let iconName: String
 
     init (from dto: TransactionDTO) {
         id = dto.id
@@ -25,7 +25,7 @@ struct Transaction: Identifiable, Equatable {
         amount = formatter.string(from: NSNumber(value: dto.amount))!
     }
 
-    init(id: String, date: String, name: String, amount: String, iconName: String) {
+    public init(id: String, date: String, name: String, amount: String, iconName: String) {
         self.id = id
         self.date = date
         self.name = name
