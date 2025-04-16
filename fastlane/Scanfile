@@ -7,6 +7,7 @@
 # Remove the # in front of the line to enable the option
 
 scheme("GoldenSampleAllTests")
+devices(["iPhone SE"])
 
 clean(true)
 code_coverage(true)
