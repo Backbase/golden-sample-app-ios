@@ -6,7 +6,7 @@ source "https://rubygems.org"
 
 gem "cocoapods", "~> 1.13"
 gem "cocoapods-art", "~> 1.1"
-gem "fastlane", "~> 2.216"
+gem "fastlane"
 gem "activesupport", "~> 7.0", "<= 7.0.8"
 gem "slather"
 
