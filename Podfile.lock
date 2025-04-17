@@ -20,6 +20,9 @@ PODS:
   - BackbaseIdentity (8.2.0):
     - AppAuth/Core (~> 1.3)
     - Backbase (>= 13.0.1)
+  - BackbaseLottieAnimation (5.0.2):
+    - BackbaseAnimation (~> 5.0)
+    - lottie-ios (~> 4.4)
   - BackbaseObservability (2.0.1)
   - BackbaseSDKSwiftWrapper (2.1.2):
     - BackbaseSecureStorage (~> 2.1)
@@ -64,6 +67,7 @@ PODS:
     - RxCocoa (~> 6)
     - RxSwift (~> 6)
     - SnapKit (~> 5.7)
+  - lottie-ios (4.5.1)
   - Resolver (1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (4.1.0):
     - AccessControlApiV3 (~> 1.0)
@@ -106,6 +110,7 @@ DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (~> 13)
   - BackbaseDesignSystem (~> 6)
+  - BackbaseLottieAnimation
   - BackbaseObservability (~> 2.0)
   - BusinessWorkspacesJourney (~> 8)
   - BusinessWorkspacesJourneyWorkspacesUseCase2 (~> 8)
@@ -127,6 +132,7 @@ SPEC REPOS:
     - BackbaseCountryCore
     - BackbaseDesignSystem
     - BackbaseIdentity
+    - BackbaseLottieAnimation
     - BackbaseObservability
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
@@ -145,6 +151,7 @@ SPEC REPOS:
     - UserProfileJourney
   trunk:
     - AppAuth
+    - lottie-ios
     - Resolver
     - RxCocoa
     - RxRelay
@@ -162,6 +169,7 @@ SPEC CHECKSUMS:
   BackbaseCountryCore: 170c41457f27f7350f839e24379e86bb29a2b6ba
   BackbaseDesignSystem: 5e1cefb20ff0402edd258c7a745af367a706f001
   BackbaseIdentity: 4b8d4bc328b6d325589618f284c38776e98b50d1
+  BackbaseLottieAnimation: 52de2a82e1472931bb8cf40cd60bfac27e0d634f
   BackbaseObservability: 933e5f81322d990bf7b59272dcdca7354f44b386
   BackbaseSDKSwiftWrapper: 027150743c664a289cc879d82eabd8e775dcf7f2
   BackbaseSecureStorage: 8b8a3e1cda29f4144fc6389add15249227ca838e
@@ -171,6 +179,7 @@ SPEC CHECKSUMS:
   ClientCommon: 8463e99e29056623dc50e809c817ec7a7e00944c
   ClientCommonGen2: f074d4bf6b702744df24ef04a3ec8df168ab795e
   IdentityAuthenticationJourney: a24407ac5b3a3f76480adab2a36aad24f5db6bb2
+  lottie-ios: 248b380fa1b97d18e792c37d90da7ab2aa0d6562
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
   RetailFeatureFilterAccessControlEntitlementsUseCase: ed5d126b86f6fcc55c5e3637ac32a51220eb05ad
   RetailFeatureFilterUseCase: 6051b515183e167318546f4010a6b1d860e17e9e
@@ -185,6 +194,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 8de0daf13e01abe9019b25ba7130074e0b58e304
+PODFILE CHECKSUM: 6f19d95a50418d474717250854cdc7037c5feee2
 
 COCOAPODS: 1.15.2

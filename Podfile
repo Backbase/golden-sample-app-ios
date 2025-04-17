@@ -31,6 +31,7 @@ abstract_target 'Common' do
   end
 
   target 'AppCommon' do
+    pod 'BackbaseLottieAnimation'
   end
 
   target 'GoldenSampleApp' do

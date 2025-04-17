@@ -9,6 +9,8 @@ import UIKit
 import Backbase
 import Resolver
 import IdentityAuthenticationJourney
+import BackbaseAnimation
+import BackbaseLottieAnimation
 
 extension Authentication.Configuration: AppDependency {
     
@@ -19,6 +21,7 @@ extension Authentication.Configuration: AppDependency {
         Backbase.register(authClient: authenticationUseCase)
         
         Resolver.register { authenticationUseCase as AuthenticationUseCase }
+        Resolver.register { LottieAnimationViewFactory.self as AnimationViewFactory.Type }
         
         setupAuthNavigationCoordinator()
         
