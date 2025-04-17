@@ -25,7 +25,7 @@ final class DemoViewController: UIViewController {
         NSLayoutConstraint.activate([
             stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
     }
