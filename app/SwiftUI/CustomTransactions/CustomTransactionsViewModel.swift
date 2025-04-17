@@ -3,10 +3,6 @@ import SwiftUI
 
 struct CustomData {
     let graphShown: Bool
-
-    init(graphShown: Bool) {
-        self.graphShown = graphShown
-    }
 }
 
 enum CustomIntent {
@@ -19,7 +15,9 @@ open class CustomTransactionsViewModel: ObservableObject {
     @Published var state: TransactionsState<CustomData>
 
     private lazy var intentHandler: TransactionsIntentHandler<CustomData> = {
-        TransactionsIntentHandler(setState: { [weak self] newValue in
+        TransactionsIntentHandler(
+            configuration: TransactionsConfiguration(isActive: true),
+            setState: { [weak self] newValue in
             self?.state = TransactionsState(isLoading: newValue.isLoading,
                                             errorMessage: newValue.errorMessage,
                                             transactions: newValue.transactions,

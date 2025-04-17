@@ -1,12 +1,19 @@
 import SwiftUI
 
-public struct TransactionsView: View {
+internal struct TransactionsView: View {
 
-    @StateObject var viewModel = TransactionsViewModel<Void>(initialState: TransactionsState<Void>.initial)
+    @StateObject var viewModel: TransactionsViewModel<Void>
 
-    public init() { }
+    init(configuration: TransactionsConfiguration) {
+        _viewModel = StateObject(
+            wrappedValue: TransactionsViewModel<Void>(
+                configuration: configuration,
+                initialState: TransactionsState<Void>.initial
+            )
+        )
+    }
 
-    public var body: some View {
+    internal var body: some View {
         NavigationStack {
             VStack {
                 if viewModel.state.isLoading {
@@ -61,5 +68,5 @@ public struct TransactionsView: View {
 }
 
 #Preview {
-    TransactionsView()
+    TransactionsView(configuration: TransactionsConfiguration(isActive: true))
 }

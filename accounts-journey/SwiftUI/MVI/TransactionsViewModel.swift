@@ -1,16 +1,24 @@
 import SwiftUI
 
 @MainActor
-open class TransactionsViewModel<T>: ObservableObject {
+public class TransactionsViewModel<T>: ObservableObject {
     @Published var state: TransactionsState<T>
+    private let configuration: TransactionsConfiguration
 
     private lazy var intentHandler: TransactionsIntentHandler<T> = {
-        TransactionsIntentHandler(setState: { [weak self] newValue in
-            self?.state = newValue
-        })
+        TransactionsIntentHandler(
+            configuration: configuration,
+            setState: { [weak self] newValue in
+                self?.state = newValue
+            }
+        )
     }()
 
-    init(initialState: TransactionsState<T> = TransactionsState<T>.initial) {
+    init(
+        configuration: TransactionsConfiguration,
+        initialState: TransactionsState<T> = TransactionsState<T>.initial
+    ) {
+        self.configuration = configuration
         self.state = initialState
     }
 

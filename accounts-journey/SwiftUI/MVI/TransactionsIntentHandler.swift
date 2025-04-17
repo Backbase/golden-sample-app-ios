@@ -5,10 +5,12 @@ import Combine
 public class TransactionsIntentHandler<T> {
 
     private let client = TransactionsClient()
+    private let configuration: TransactionsConfiguration
 
     private let setState: (TransactionsState<T>) -> Void
 
-    public init(setState: @escaping (TransactionsState<T>) -> Void) {
+    public init(configuration: TransactionsConfiguration, setState: @escaping (TransactionsState<T>) -> Void) {
+        self.configuration = configuration
         self.setState = setState
     }
 
