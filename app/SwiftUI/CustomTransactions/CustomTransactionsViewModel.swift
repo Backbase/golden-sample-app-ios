@@ -20,10 +20,7 @@ open class CustomTransactionsViewModel: ObservableObject {
 
     private lazy var intentHandler: TransactionsIntentHandler<CustomData> = {
         TransactionsIntentHandler(setState: { [weak self] newValue in
-            self?.state = TransactionsState(isLoading: newValue.isLoading,
-                                            errorMessage: newValue.errorMessage,
-                                            transactions: newValue.transactions,
-                                            stateExtension: self?.state.stateExtension)
+            self?.state = newValue
         })
     }()
 
@@ -34,12 +31,9 @@ open class CustomTransactionsViewModel: ObservableObject {
     func handleIntent(_ intent: CustomIntent) async {
         switch intent {
         case .defaultIntent(let wrappedIntent):
-            await intentHandler.handleIntent(wrappedIntent)
+            await intentHandler.handleIntent(wrappedIntent, state)
         case .toggleGraph:
-            self.state = TransactionsState(isLoading: state.isLoading,
-                                           errorMessage: state.errorMessage,
-                                           transactions: state.transactions,
-                                           stateExtension: CustomData(graphShown: !state.stateExtension!.graphShown))
+            self.state.stateExtension = CustomData(graphShown: !state.stateExtension!.graphShown)
         }
     }
 }

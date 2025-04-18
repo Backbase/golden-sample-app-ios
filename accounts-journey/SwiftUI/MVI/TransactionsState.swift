@@ -1,21 +1,40 @@
 import SwiftUI
 import Foundation
+import Combine
 
-public struct TransactionsState<T> {
-    public let isLoading: Bool
-    public let errorMessage: String?
-    public let transactions: [TransactionData]?
-
-    public let stateExtension: T?
-
-    public init(isLoading: Bool, errorMessage: String?, transactions: [TransactionData]?, stateExtension: T?) {
-        self.isLoading = isLoading
-        self.errorMessage = errorMessage
-        self.transactions = transactions
-        self.stateExtension = stateExtension
+extension Transactions {
+    
+    @propertyWrapper
+    public final class StatePublisher<T> {
+        @Published private var value: T
+        
+        public var projectedValue: AnyPublisher<T, Never> {
+            $value.eraseToAnyPublisher()
+        }
+        
+        public var wrappedValue: T {
+            get { value }
+            set { fatalError("This property is read-only") }
+        }
+        
+        public init(wrappedValue: T) {
+            self.value = wrappedValue
+        }
+        
+        // Internal setter method
+        func set(_ newValue: T) {
+            self.value = newValue
+        }
     }
-
-    static var initial: TransactionsState<T> {
-        TransactionsState(isLoading: true, errorMessage: nil, transactions: nil, stateExtension: nil)
+    
+    public class State<E> {
+        @StatePublisher public var isLoading: Bool = true
+        @StatePublisher public var errorMessage: String?
+        @StatePublisher public var transactions: [TransactionData]?
+        @StatePublisher public var stateExtension: E?
+        
+        public init(stateExtension: E? = nil) {
+            self.stateExtension = stateExtension
+        }
     }
 }

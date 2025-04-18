@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct TransactionsView: View {
 
-    @StateObject var viewModel = TransactionsViewModel<Void>(initialState: TransactionsState<Void>.initial)
+    @StateObject var viewModel = TransactionsViewModel<Void>(initialState: TransactionsState<Void>())
 
     public init() { }
 

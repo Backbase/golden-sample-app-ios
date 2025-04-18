@@ -3,8 +3,7 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @StateObject var viewModel = CustomTransactionsViewModel(initialState: TransactionsState(isLoading: true,
-                                                                                                   errorMessage: nil, transactions: nil, stateExtension: CustomData(graphShown: false)))
+    @StateObject var viewModel = CustomTransactionsViewModel(initialState: TransactionsState(stateExtension: CustomData(graphShown: false)))
     public init() { }
 
     public var body: some View {
