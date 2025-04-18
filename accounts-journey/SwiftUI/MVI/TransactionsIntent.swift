@@ -1,5 +1,7 @@
-public enum TransactionsIntent {
-    case viewAppeared
-    case refresh
-    case newTransaction
+extension Transactions {
+    public enum Intent {
+        case viewAppeared
+        case refresh
+        case newTransaction
+    }
 }

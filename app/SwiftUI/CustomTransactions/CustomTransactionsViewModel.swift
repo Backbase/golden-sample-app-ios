@@ -1,39 +1,37 @@
 import AccountsJourney
 import SwiftUI
 
-struct CustomData {
-    let graphShown: Bool
-
+@Observable
+class CustomData {
+    var graphShown: Bool
+    let transactions = Transactions.State()
+    
     init(graphShown: Bool) {
         self.graphShown = graphShown
     }
 }
 
 enum CustomIntent {
-    case defaultIntent(TransactionsIntent)
+    case transactions(Transactions.Intent)
     case toggleGraph
 }
 
 @MainActor
-open class CustomTransactionsViewModel: ObservableObject {
-    @Published var state: TransactionsState<CustomData>
-
-    private lazy var intentHandler: TransactionsIntentHandler<CustomData> = {
-        TransactionsIntentHandler(setState: { [weak self] newValue in
-            self?.state = newValue
-        })
-    }()
-
-    init(initialState: TransactionsState<CustomData>) {
-        self.state = initialState
+class CustomTransactionsViewModel: Interactor<CustomData, CustomIntent> {
+    
+    var transactions: Transactions.ViewModel
+    
+    override init(_ state: CustomData) {
+        transactions = Transactions.ViewModel(state.transactions)
+        super.init(state)
     }
 
-    func handleIntent(_ intent: CustomIntent) async {
+    override func handleIntent(_ intent: CustomIntent) async {
         switch intent {
-        case .defaultIntent(let wrappedIntent):
-            await intentHandler.handleIntent(wrappedIntent, state)
         case .toggleGraph:
-            self.state.stateExtension = CustomData(graphShown: !state.stateExtension!.graphShown)
+            state.graphShown.toggle()
+        case .transactions(let intent):
+            await transactions.handleIntent(intent)
         }
     }
 }
