@@ -3,29 +3,28 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @StateObject var viewModel = CustomTransactionsViewModel(initialState: TransactionsState(isLoading: true,
-                                                                                                   errorMessage: nil, transactions: nil, stateExtension: CustomData(graphShown: false)))
-    public init() { }
+    @State var viewModel: CustomViewModel
+    public init(client: Client) {
+        viewModel = CustomViewModel(CustomState(), client: client)
+    }
 
     public var body: some View {
         NavigationStack {
             VStack {
-                if viewModel.state.stateExtension!.graphShown {
+                if viewModel.state.graphShown {
                     TransactionsChartView()
                 }
                 VStack {
-                    if viewModel.state.isLoading {
+                    if viewModel.state.transactions.isLoading {
                         LoadingStateView()
-                    } else if let errorMessage = viewModel.state.errorMessage {
+                    } else if let errorMessage = viewModel.state.transactions.errorMessage {
                         ErrorView(message: errorMessage)
-                    } else if let transactions = viewModel.state.transactions {
+                    } else if let transactions = viewModel.state.transactions.data {
                         TransactionsListView(transactions: transactions)
                     }
                     Spacer()
                     Button(action: {
-                        Task {
-                            await viewModel.handleIntent(.defaultIntent(.newTransaction))
-                        }
+                       viewModel.sendIntent(.transactions(.newTransaction))
                     }) {
                         Text("New transaction")
                             .foregroundColor(.white)
@@ -36,23 +35,19 @@ struct CustomTransactionsView: View {
                     .padding()
                     
                 }.onAppear {
-                    Task {
-                        await viewModel.handleIntent(.defaultIntent(.viewAppeared))
-                    }
+                    viewModel.sendIntent(.transactions(.viewAppeared))
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(Color.black,
                                    for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .toolbar {
-                    if (viewModel.state.transactions != nil) {
+                    if viewModel.state.transactions.data != nil {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button(action: {
-                                Task {
-                                    await viewModel.handleIntent(.toggleGraph)
-                                }
+                                viewModel.sendIntent(.toggleGraph)
                             }) {
-                                Image(systemName: viewModel.state.stateExtension!.graphShown ? "chart.bar.fill" : "chart.bar" )
+                                Image(systemName: viewModel.state.graphShown ? "chart.bar.fill" : "chart.bar" )
                             }
                             .foregroundStyle(.white)
                         }
@@ -64,9 +59,7 @@ struct CustomTransactionsView: View {
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            Task {
-                                await viewModel.handleIntent(.defaultIntent(.refresh))
-                            }
+                            viewModel.sendIntent(.transactions(.refresh))
                         }) {
                             Image(systemName: "arrow.clockwise")
                         }
@@ -79,5 +72,5 @@ struct CustomTransactionsView: View {
 }
 
 #Preview {
-    CustomTransactionsView()
+    CustomTransactionsView(client: TransactionsClient())
 }

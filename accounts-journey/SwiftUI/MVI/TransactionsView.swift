@@ -2,9 +2,11 @@ import SwiftUI
 
 public struct TransactionsView: View {
 
-    @StateObject var viewModel = TransactionsViewModel<Void>(initialState: TransactionsState<Void>.initial)
+    @State var viewModel: Transactions.ViewModel
 
-    public init() { }
+    public init(client: Client) {
+        viewModel = Transactions.ViewModel(Transactions.State(), client: client)
+    }
 
     public var body: some View {
         NavigationStack {
@@ -13,14 +15,12 @@ public struct TransactionsView: View {
                     LoadingStateView()
                 } else if let errorMessage = viewModel.state.errorMessage {
                     ErrorView(message: errorMessage)
-                } else if let transactions = viewModel.state.transactions {
+                } else if let transactions = viewModel.state.data {
                     TransactionsListView(transactions: transactions)
                 }
                 Spacer()
                 Button(action: {
-                    Task {
-                        await viewModel.handleIntent( .newTransaction)
-                    }
+                    viewModel.sendIntent(.newTransaction)
                 }) {
                     Text("New transaction")
                         .foregroundColor(.white)
@@ -31,9 +31,7 @@ public struct TransactionsView: View {
                 .padding()
 
             }.onAppear {
-                Task {
-                    await viewModel.handleIntent( .viewAppeared)
-                }
+                viewModel.sendIntent(.viewAppeared)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.black,
@@ -42,9 +40,7 @@ public struct TransactionsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        Task {
-                            await viewModel.handleIntent( .refresh)
-                        }
+                        viewModel.sendIntent(.refresh)
                     }) {
                         Image(systemName: "arrow.clockwise")
                     }
@@ -61,5 +57,5 @@ public struct TransactionsView: View {
 }
 
 #Preview {
-    TransactionsView()
+    TransactionsView(client: TransactionsClient())
 }

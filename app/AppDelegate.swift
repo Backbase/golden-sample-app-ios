@@ -37,7 +37,8 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
 //        return flag
 
         super.application(application, didFinishLaunchingWithOptions: launchOptions)
-        let transactions = UIHostingController(rootView: TransactionsView())
+        let client = TransactionsClient()
+        let transactions = UIHostingController(rootView: CustomTransactionsView(client: client))
         window?.rootViewController = transactions
         window?.makeKeyAndVisible()
         return true
