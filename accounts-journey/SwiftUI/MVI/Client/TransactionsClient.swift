@@ -4,7 +4,15 @@ public enum TransactionClientError: Error {
     case apiError
 }
 
-final public class TransactionsClient: Sendable {
+public protocol Client {
+    
+    func getTransactions(completion: @escaping (Result<[TransactionDTO], TransactionClientError>) -> Void)
+    func fetchTransactions() async -> Result<[TransactionDTO], TransactionClientError>
+}
+
+final public class TransactionsClient: Client, Sendable {
+    
+    public init() {}
 
     public func getTransactions(completion: @escaping (Result<[TransactionDTO], TransactionClientError>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

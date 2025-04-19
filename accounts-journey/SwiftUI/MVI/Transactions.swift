@@ -4,15 +4,31 @@ public enum Transactions { }
 
 extension Transactions {
     
-    open class ViewModel: Interactor<State, Intent> {
+    public enum Intent {
+        case viewAppeared
+        case refresh
+        case newTransaction
+    }
+    
+    @Observable
+    public class State {
+        public var isLoading: Bool = true
+        public var errorMessage: String?
+        public var data: [TransactionData]?
         
-        public override init(_ state: State) {
+        public init() {}
+    }
+    
+    public class ViewModel: IntentHandler<State, Intent> {
+        
+        public let client: Client
+        
+        public init(_ state: State, client: Client) {
+            self.client = client
             super.init(state)
         }
         
-        public let client = TransactionsClient()
-        
-        open override func handleIntent(_ intent: Intent) async {
+        public override func handleIntent(_ intent: Intent) async {
             switch intent {
             case .viewAppeared:
                 state.isLoading = true
@@ -28,7 +44,7 @@ extension Transactions {
             }
         }
         
-        open func loadTransactions() async {
+        public func loadTransactions() async {
             let result = await client.fetchTransactions()
             switch result {
             case .success(let transactionsDTOs):
@@ -43,27 +59,5 @@ extension Transactions {
     }
 }
 
-@MainActor
-open class Interactor<State: Observable, Intent>: IntentHandlerProtocol {
-    public let state: State
-    
-    public init(_ initialState: State) {
-        self.state = initialState
-    }
-    
-    public func sendIntent(_ intent: Intent) {
-        Task {
-            await handleIntent(intent)
-        }
-    }
-    
-    open func handleIntent(_ intent: Intent) async {
-        
-    }
-}
 
-public protocol IntentHandlerProtocol {
-    associatedtype State
-    associatedtype Intent
-    func handleIntent(_ intent: Intent) async
-}
+

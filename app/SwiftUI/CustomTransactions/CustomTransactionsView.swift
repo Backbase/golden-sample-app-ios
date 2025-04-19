@@ -3,8 +3,10 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @State var viewModel = CustomTransactionsViewModel(CustomData(graphShown: false))
-    public init() { }
+    @State var viewModel: CustomViewModel
+    public init(client: Client) {
+        viewModel = CustomViewModel(CustomData(), client: client)
+    }
 
     public var body: some View {
         NavigationStack {
@@ -70,5 +72,5 @@ struct CustomTransactionsView: View {
 }
 
 #Preview {
-    CustomTransactionsView()
+    CustomTransactionsView(client: TransactionsClient())
 }

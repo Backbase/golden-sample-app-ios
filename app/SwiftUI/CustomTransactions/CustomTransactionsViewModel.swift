@@ -3,12 +3,10 @@ import SwiftUI
 
 @Observable
 class CustomData {
-    var graphShown: Bool
+    var graphShown: Bool = false
     let transactions = Transactions.State()
     
-    init(graphShown: Bool) {
-        self.graphShown = graphShown
-    }
+    init() {}
 }
 
 enum CustomIntent {
@@ -17,12 +15,12 @@ enum CustomIntent {
 }
 
 @MainActor
-class CustomTransactionsViewModel: Interactor<CustomData, CustomIntent> {
+class CustomViewModel: IntentHandler<CustomData, CustomIntent> {
     
     var transactions: Transactions.ViewModel
     
-    override init(_ state: CustomData) {
-        transactions = Transactions.ViewModel(state.transactions)
+    init(_ state: CustomData, client: Client) {
+        transactions = Transactions.ViewModel(state.transactions, client: client)
         super.init(state)
     }
 

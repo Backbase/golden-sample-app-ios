@@ -2,9 +2,11 @@ import SwiftUI
 
 public struct TransactionsView: View {
 
-    @State var viewModel = Transactions.ViewModel(Transactions.State())
+    @State var viewModel: Transactions.ViewModel
 
-    public init() { }
+    public init(client: Client) {
+        viewModel = Transactions.ViewModel(Transactions.State(), client: client)
+    }
 
     public var body: some View {
         NavigationStack {
@@ -18,7 +20,7 @@ public struct TransactionsView: View {
                 }
                 Spacer()
                 Button(action: {
-                    viewModel.sendIntent( .newTransaction)
+                    viewModel.sendIntent(.newTransaction)
                 }) {
                     Text("New transaction")
                         .foregroundColor(.white)
@@ -29,7 +31,7 @@ public struct TransactionsView: View {
                 .padding()
 
             }.onAppear {
-                viewModel.sendIntent( .viewAppeared)
+                viewModel.sendIntent(.viewAppeared)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.black,
@@ -38,7 +40,7 @@ public struct TransactionsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        viewModel.sendIntent( .refresh)
+                        viewModel.sendIntent(.refresh)
                     }) {
                         Image(systemName: "arrow.clockwise")
                     }
@@ -55,5 +57,5 @@ public struct TransactionsView: View {
 }
 
 #Preview {
-    TransactionsView()
+    TransactionsView(client: TransactionsClient())
 }
