@@ -8,7 +8,7 @@ public enum Transactions {
         case newTransaction
     }
     
-    @Observable
+    @MainActor @Observable
     public class State {
         public var isLoading: Bool = true
         public var errorMessage: String?

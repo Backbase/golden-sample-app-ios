@@ -6,7 +6,7 @@ enum CustomIntent {
     case toggleGraph
 }
 
-@Observable
+@MainActor @Observable
 class CustomState {
     var graphShown: Bool = false
     
@@ -22,7 +22,7 @@ class CustomState {
     // viewModel.state.transactions.something
     //                 ^^^^^^^^^^^^-- sub state of CustomState
     //
-    // The former makes it slightly less code in the CustomState
+    // The former makes it slightly less code in the CustomState and no dependency on Transactions.State
     // The latter makes the CustomState a one stop shop for all state
     // Overall no difference, just different ways to access state
     let transactions = Transactions.State()
