@@ -1,8 +1,6 @@
 import SwiftUI
 
-public enum Transactions { }
-
-extension Transactions {
+public enum Transactions {
     
     public enum Intent {
         case viewAppeared
@@ -58,6 +56,3 @@ extension Transactions {
         }
     }
 }
-
-
-

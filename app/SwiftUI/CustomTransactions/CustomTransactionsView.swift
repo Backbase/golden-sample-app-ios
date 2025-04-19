@@ -5,7 +5,7 @@ struct CustomTransactionsView: View {
 
     @State var viewModel: CustomViewModel
     public init(client: Client) {
-        viewModel = CustomViewModel(CustomData(), client: client)
+        viewModel = CustomViewModel(CustomState(), client: client)
     }
 
     public var body: some View {
