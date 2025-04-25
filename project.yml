@@ -1,6 +1,7 @@
 name: ios-golden-sample-app
 options:
   bundleIdPrefix: com.backbase
+  platform: iOS
   deploymentTarget:
     iOS: 15.0
   # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
