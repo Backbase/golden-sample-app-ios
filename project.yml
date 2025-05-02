@@ -1,6 +1,7 @@
 name: ios-golden-sample-app
 options:
   bundleIdPrefix: com.backbase
+  platform: iOS
   deploymentTarget:
     iOS: 15.0
   # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
@@ -128,6 +129,8 @@ targets:
   GoldenSampleAllTests:
     type: framework
     platform: iOS
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/all-tests/Info.plist
     codeSign: false
@@ -157,6 +160,8 @@ targets:
   AccountsJourneyUnitTests:
     type: bundle.unit-test
     platform: iOS
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/accounts-journey/unit-tests/Info.plist
     codeSign: false
@@ -171,6 +176,8 @@ targets:
   GoldenAccountsUseCaseUnitTests:
     type: bundle.unit-test
     platform: iOS
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/accounts-use-case/unit-tests/Info.plist
     codeSign: false
@@ -216,7 +223,8 @@ targets:
           randomExecutionOrder: true
     type: bundle.ui-testing
     platform: iOS
-    deploymentTarget: 15.0
+    deploymentTarget:
+      iOS: 15.0
     info:
       path: Tests/SnapshotTests/Info.plist
     codeSign: false
