@@ -9,7 +9,6 @@ import UserManagerClient2
 import UserProfileJourney
 import UserManagerUserProfileUseCase
 
-
 extension UserProfileJourney.UserProfile.Configuration: AppCommon.AppDependency {
     public func register() {
         if Resolver.optional(UserProfileUseCase.self) == nil {
