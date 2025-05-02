@@ -24,6 +24,9 @@ PODS:
     - BackbaseAnimation (~> 5.0)
     - lottie-ios (~> 4.4)
   - BackbaseObservability (2.0.1)
+  - BackbaseOpenTelemetryConnector (1.0.1):
+    - BackbaseObservability (~> 2.0)
+    - SwiftProtobuf (= 1.20.2)
   - BackbaseSDKSwiftWrapper (2.1.2):
     - BackbaseSecureStorage (~> 2.1)
   - BackbaseSecureStorage (2.1.8)
@@ -90,6 +93,7 @@ PODS:
   - RxSwift (6.9.0)
   - SnapKit (5.7.1)
   - SwiftLint (0.54.0)
+  - SwiftProtobuf (1.20.2)
   - UserManagerClient2 (1.0.1):
     - Backbase (>= 7.8.0)
     - ClientCommon (~> 1.1)
@@ -112,6 +116,7 @@ DEPENDENCIES:
   - BackbaseDesignSystem (~> 6)
   - BackbaseLottieAnimation
   - BackbaseObservability (~> 2.0)
+  - BackbaseOpenTelemetryConnector (~> 1.0)
   - BusinessWorkspacesJourney (~> 8)
   - BusinessWorkspacesJourneyWorkspacesUseCase2 (~> 8)
   - IdentityAuthenticationJourney (~> 8)
@@ -122,8 +127,6 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase (~> 7)
 
 SPEC REPOS:
-  https://repo.backbase.com/api/pods/ios-retail3:
-    - ArrangementsClient2Gen2
   https://repo.backbase.com/api/pods/pods/:
     - AccessControlApiV3
     - AccessControlClient3Gen2
@@ -135,6 +138,7 @@ SPEC REPOS:
     - BackbaseIdentity
     - BackbaseLottieAnimation
     - BackbaseObservability
+    - BackbaseOpenTelemetryConnector
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
     - BusinessJourneyCommon
@@ -165,7 +169,7 @@ SPEC CHECKSUMS:
   AccessControlApiV3: a7c740e3c16c9ff5be36039d393b5bcd082d25f7
   AccessControlClient3Gen2: 72cdcc718a885fbfff05f01e29f08396d6107002
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
-  ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
+  ArrangementsClient2Gen2: b1e2297c159dda5c644b2df9283a47f32be9b0b3
   Backbase: b5e10465d5feac0d628691eb3b2433ec8ca1db35
   BackbaseAnimation: 071e91abf409604502b3e63448c528d3cc67be50
   BackbaseCountryCore: 170c41457f27f7350f839e24379e86bb29a2b6ba
@@ -173,6 +177,7 @@ SPEC CHECKSUMS:
   BackbaseIdentity: 4b8d4bc328b6d325589618f284c38776e98b50d1
   BackbaseLottieAnimation: 52de2a82e1472931bb8cf40cd60bfac27e0d634f
   BackbaseObservability: 933e5f81322d990bf7b59272dcdca7354f44b386
+  BackbaseOpenTelemetryConnector: 8b91e5b0fbe563f13e63d329e3ea2143c906ac9f
   BackbaseSDKSwiftWrapper: 027150743c664a289cc879d82eabd8e775dcf7f2
   BackbaseSecureStorage: 8b8a3e1cda29f4144fc6389add15249227ca838e
   BusinessJourneyCommon: a269192573900798427ed207bc56da4405290620
@@ -192,10 +197,11 @@ SPEC CHECKSUMS:
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  SwiftProtobuf: 9f458aaa7844a2fc0b910053e66578bc4e2da9c1
   UserManagerClient2: 45d41f51897a67354dc55da04c7625999401625a
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 6f19d95a50418d474717250854cdc7037c5feee2
+PODFILE CHECKSUM: ec40e728c060a906257fa5c9a5439d2e49a84fad
 
 COCOAPODS: 1.15.2

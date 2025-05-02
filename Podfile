@@ -24,6 +24,7 @@ abstract_target 'Common' do
   pod 'UserManagerUserProfileUseCase', '~> 7'
   pod 'RetailMoreJourney', '~> 5'
   pod 'BackbaseObservability', '~> 2.0'
+  pod 'BackbaseOpenTelemetryConnector', '~> 1.0'
 
   target 'AccountsJourney' do
   end
