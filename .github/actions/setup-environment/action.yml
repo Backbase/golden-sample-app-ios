@@ -34,6 +34,3 @@ runs:
         echo -e "machine repo.backbase.com\nlogin ${{ inputs.bb_artifactory_ios_username }}\npassword ${{ inputs.bb_artifactory_ios_password }}" > ~/.netrc
         echo Changing ~/.netrc file permissions
         chmod -R 0600 ~/.netrc
-           
-    - name: Add repositories from repo.backbase.com
-      uses: ./.github/actions/repo-art
