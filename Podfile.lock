@@ -122,11 +122,10 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase (~> 7)
 
 SPEC REPOS:
-  https://repo.backbase.com/api/pods/ios-retail3:
-    - ArrangementsClient2Gen2
   https://repo.backbase.com/api/pods/pods/:
     - AccessControlApiV3
     - AccessControlClient3Gen2
+    - ArrangementsClient2Gen2
     - Backbase
     - BackbaseAnimation
     - BackbaseCountryCore
@@ -163,7 +162,7 @@ SPEC CHECKSUMS:
   AccessControlApiV3: a7c740e3c16c9ff5be36039d393b5bcd082d25f7
   AccessControlClient3Gen2: 72cdcc718a885fbfff05f01e29f08396d6107002
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
-  ArrangementsClient2Gen2: 03a1c5b5593a32143801879eefaac825bca68c55
+  ArrangementsClient2Gen2: b1e2297c159dda5c644b2df9283a47f32be9b0b3
   Backbase: b5e10465d5feac0d628691eb3b2433ec8ca1db35
   BackbaseAnimation: 071e91abf409604502b3e63448c528d3cc67be50
   BackbaseCountryCore: 170c41457f27f7350f839e24379e86bb29a2b6ba
@@ -194,6 +193,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 6f19d95a50418d474717250854cdc7037c5feee2
+PODFILE CHECKSUM: 28a6fe8f775b8bc01732a2298f1bf91b9940b418
 
 COCOAPODS: 1.15.2
