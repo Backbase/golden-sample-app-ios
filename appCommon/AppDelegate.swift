@@ -8,6 +8,7 @@
 import UIKit
 import Resolver
 import Backbase
+import AccountsJourney
 import IdentityAuthenticationJourney
 
 /**
@@ -59,13 +60,21 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         let window = createWindow()
         self.window = window
         
-        let router = Router()
-        Resolver.register { router }.implements(AppRouter.self)
-        
-        Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
-        
-        router.didStartApp(window: window)
-        
+        if !shouldUseMocks() {
+            prepareForUITesting()
+            let router = MockedAppRouter()
+            Resolver.register { router }.implements(AppRouter.self)
+            // Register Mocks
+            Resolver.register { FakeAccountUseCase() as AccountsListUseCase }
+            Resolver.register { AccountsJourney.Configuration() }
+            router.didStartApp(window: window)
+        } else {
+            let router = Router()
+            Resolver.register { router }.implements(AppRouter.self)
+            
+            Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
+            router.didStartApp(window: window)
+        }
         return true
     }
     
@@ -73,5 +82,24 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         let newWindow = UIWindow()
         newWindow.makeKeyAndVisible()
         return newWindow
+    }
+}
+
+extension AppDelegate {
+    func prepareForUITesting() {
+        if ProcessInfo.processInfo.arguments.contains("UITests") {
+            UIView.setAnimationsEnabled(false)
+            window?.layer.speed = 100
+        }
+    }
+    
+    func shouldUseMocks() -> Bool {
+        return ProcessInfo.processInfo.environment["UseMocks"] == "TRUE"
+    }
+}
+
+final class FakeAccountUseCase: AccountsListUseCase {
+    func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsJourney.ErrorResponse>) -> Void) {
+        completion(.success(.init(customProducts: [], aggregatedBalance: .none, currentAccounts: .none, savingsAccounts: .none, termDeposits: .none, loans: .none, creditCards: .none, debitCards: .none, investmentAccounts: .none, additions: .none)))
     }
 }
