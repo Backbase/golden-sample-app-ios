@@ -24,10 +24,8 @@ extension AccountsList {
             didSelectProduct: { navigationController in
                 return { arrangementId in
                     
-                    let viewController = AccountDetails.build(
-                        navigationController: navigationController,
-                        arrangementId: arrangementId
-                    )
+                    let viewController = TransactionsView.build(navigationController: navigationController)
+
                     navigationController.pushViewController(viewController, animated: true)
                 }
             }

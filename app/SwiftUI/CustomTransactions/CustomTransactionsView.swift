@@ -3,8 +3,8 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @StateObject var viewModel = CustomTransactionsViewModel(initialState: TransactionsState(isLoading: true,
-                                                                                                   errorMessage: nil, transactions: nil, stateExtension: CustomData(graphShown: false)))
+    @StateObject var viewModel = CustomTransactionsViewModel()
+
     public init() { }
 
     public var body: some View {
@@ -17,15 +17,23 @@ struct CustomTransactionsView: View {
                     if viewModel.state.isLoading {
                         LoadingStateView()
                     } else if let errorMessage = viewModel.state.errorMessage {
-                        ErrorView(message: errorMessage)
+                        ErrorView(message: errorMessage, onRefresh: {
+                            Task {
+                                await viewModel.handle(RefreshIntent())
+                            }
+                        })
                     } else if let transactions = viewModel.state.transactions {
-                        TransactionsListView(transactions: transactions)
+                        TransactionsListView(transactions: transactions, onRefresh: {
+                                                Task {
+                                                    await viewModel.handle(RefreshIntent())
+                                                }
+                                            })
                     }
                     Spacer()
                     Button(action: {
-                        Task {
-                            await viewModel.handleIntent(.defaultIntent(.newTransaction))
-                        }
+//                        Task {
+//                            await viewModel.handle(.newTransaction))
+//                        }
                     }) {
                         Text("New transaction")
                             .foregroundColor(.white)
@@ -37,7 +45,7 @@ struct CustomTransactionsView: View {
                     
                 }.onAppear {
                     Task {
-                        await viewModel.handleIntent(.defaultIntent(.viewAppeared))
+                        await viewModel.handle(ViewAppearedIntent())
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
@@ -49,7 +57,7 @@ struct CustomTransactionsView: View {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button(action: {
                                 Task {
-                                    await viewModel.handleIntent(.toggleGraph)
+                                    await viewModel.handle(ToggleGraphIntent())
                                 }
                             }) {
                                 Image(systemName: viewModel.state.stateExtension!.graphShown ? "chart.bar.fill" : "chart.bar" )
@@ -62,16 +70,6 @@ struct CustomTransactionsView: View {
                             .foregroundColor(.white)
                             .bold()
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            Task {
-                                await viewModel.handleIntent(.defaultIntent(.refresh))
-                            }
-                        }) {
-                            Image(systemName: "arrow.clockwise")
-                        }
-                        .foregroundStyle(.white)
-                    }
                 }
             }
         }
@@ -81,3 +79,5 @@ struct CustomTransactionsView: View {
 #Preview {
     CustomTransactionsView()
 }
+
+

@@ -587,6 +587,9 @@
     "New transaction" : {
 
     },
+    "Pull down to retry" : {
+
+    },
     "retailUniversalApp.more.items.demo" : {
       "extractionState" : "manual",
       "localizations" : {

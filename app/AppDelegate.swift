@@ -28,18 +28,12 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-//        let flag = super.application(application, didFinishLaunchingWithOptions: launchOptions)
-//        
-//        More.Configuration.appDefault.register()
-//        UserProfileJourney.UserProfile.appDefault.register()
-//        AccountsJourney.Configuration.appDefault.register()
-//        
-//        return flag
-
-        super.application(application, didFinishLaunchingWithOptions: launchOptions)
-        let transactions = UIHostingController(rootView: TransactionsView())
-        window?.rootViewController = transactions
-        window?.makeKeyAndVisible()
-        return true
+        let flag = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        More.Configuration.appDefault.register()
+        UserProfileJourney.UserProfile.appDefault.register()
+        AccountsJourney.Configuration.appDefault.register()
+        
+        return flag
     }
 }

@@ -59,12 +59,12 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         let window = createWindow()
         self.window = window
         
-       // let router = Router()
-       // Resolver.register { router }.implements(AppRouter.self)
+       let router = Router()
+       Resolver.register { router }.implements(AppRouter.self)
         
-       // Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
+        Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
 
-       // router.didStartApp(window: window)
+       router.didStartApp(window: window)
 
         return true
     }

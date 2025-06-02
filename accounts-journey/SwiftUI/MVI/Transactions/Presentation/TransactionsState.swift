@@ -15,7 +15,7 @@ public struct TransactionsState<T> {
         self.stateExtension = stateExtension
     }
 
-    static var initial: TransactionsState<T> {
+    public static var initial: TransactionsState<T> {
         TransactionsState(isLoading: true, errorMessage: nil, transactions: nil, stateExtension: nil)
     }
 }

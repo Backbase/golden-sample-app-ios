@@ -3,43 +3,57 @@ import SwiftUI
 
 struct CustomData {
     let graphShown: Bool
-
-    init(graphShown: Bool) {
-        self.graphShown = graphShown
-    }
 }
 
-enum CustomIntent {
-    case defaultIntent(TransactionsIntent)
-    case toggleGraph
+struct ToggleGraphIntent: TransactionsIntent {}
+
+@MainActor
+class ToggleGraphHandler: IntentHandler {
+    typealias Intent = any TransactionsIntent
+    typealias State = TransactionsState<CustomData>
+
+    var intentType: String {
+        String(describing: ToggleGraphIntent.self)
+    }
+
+    func handle(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<CustomData>>) async {
+        guard intentContext.intent is ToggleGraphIntent else { return }
+
+        let currentState = intentContext.currentState()
+
+        let currentExtension = currentState.stateExtension ?? CustomData(graphShown: false)
+        let newExtension = CustomData(graphShown: !currentExtension.graphShown)
+
+        intentContext.updateState(TransactionsState(
+                isLoading: currentState.isLoading,
+                errorMessage: currentState.errorMessage,
+                transactions: currentState.transactions,
+                stateExtension: newExtension
+            )
+        )
+    }
 }
 
 @MainActor
-open class CustomTransactionsViewModel: ObservableObject {
-    @Published var state: TransactionsState<CustomData>
+class CustomTransactionsViewModel: TransactionsViewModel<CustomData> {
 
-    private lazy var intentHandler: TransactionsIntentHandler<CustomData> = {
-        TransactionsIntentHandler(setState: { [weak self] newValue in
-            self?.state = TransactionsState(isLoading: newValue.isLoading,
-                                            errorMessage: newValue.errorMessage,
-                                            transactions: newValue.transactions,
-                                            stateExtension: self?.state.stateExtension)
-        })
-    }()
+    init() {
+        let initialState = TransactionsState<CustomData>(
+            isLoading: false,
+            errorMessage: nil,
+            transactions: nil,
+            stateExtension: CustomData(graphShown: false)
+        )
 
-    init(initialState: TransactionsState<CustomData>) {
-        self.state = initialState
-    }
-
-    func handleIntent(_ intent: CustomIntent) async {
-        switch intent {
-        case .defaultIntent(let wrappedIntent):
-            await intentHandler.handleIntent(wrappedIntent)
-        case .toggleGraph:
-            self.state = TransactionsState(isLoading: state.isLoading,
-                                           errorMessage: state.errorMessage,
-                                           transactions: state.transactions,
-                                           stateExtension: CustomData(graphShown: !state.stateExtension!.graphShown))
-        }
+        super.init(
+            initialState: initialState,
+            // You can override default handlers if needed
+            viewAppearedHandler: TransactionsViewAppearedIntentHandler<CustomData>(client: DefaultTransactionsClient()),
+            refreshHandler: TransactionsRefreshIntentHandler<CustomData>(client: DefaultTransactionsClient()),
+            // Add your custom handlers
+            additionalHandlers: [
+                ToggleGraphHandler()
+            ]
+        )
     }
 }

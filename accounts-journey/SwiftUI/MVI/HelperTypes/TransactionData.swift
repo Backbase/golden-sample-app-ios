@@ -33,4 +33,3 @@ public struct TransactionData: Identifiable, Equatable {
         self.iconName = iconName
     }
 }
-

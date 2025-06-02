@@ -3,9 +3,11 @@ import SwiftUI
 public struct TransactionsListView: View {
 
     let transactions: [TransactionData]
+    let onRefresh: () -> Void
 
-    public init(transactions: [TransactionData]) {
+    public init(transactions: [TransactionData], onRefresh: @escaping () -> Void) {
         self.transactions = transactions
+        self.onRefresh = onRefresh
     }
 
     public var body: some View {
@@ -13,6 +15,9 @@ public struct TransactionsListView: View {
             TransactionRowView(transaction: transaction)
         }
         .listStyle(.plain)
+        .refreshable {
+            onRefresh()
+        }
     }
 }
 
@@ -22,5 +27,5 @@ public struct TransactionsListView: View {
                               name: "Apple services",
                               amount: "€ -19.0",
                               iconName: "arrow.down.right.circle.fill")
-    TransactionsListView(transactions: Array(repeating: sample, count: 30))
+    TransactionsListView(transactions: Array(repeating: sample, count: 30), onRefresh: {})
 }
