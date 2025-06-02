@@ -23,7 +23,7 @@ targets:
       base:
         SUPPORTS_MACCATALYST: NO
         MARKETING_VERSION: 0.0.1
-        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
+        BUILD_LIBRARY_FOR_DISTRIBUTION: YES
     sources:
       - path: accounts-journey
         excludes:
