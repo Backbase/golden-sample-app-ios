@@ -49,10 +49,6 @@ abstract_target 'Tests' do
       inherit! :search_paths
   end
 
-  target 'GoldenSampleUITests' do 
-    inherit! :search_paths
-  end
-
   target 'AccountsJourneyUnitTests' do 
   end
 

@@ -207,8 +207,6 @@ targets:
     dependencies:
       - target: GoldenSampleApp
         link: true
-      - target: AccountsJourney
-        link: true
     scheme:
       testTargets:
         - GoldenSampleUITests
