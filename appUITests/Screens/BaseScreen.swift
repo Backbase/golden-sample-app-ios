@@ -38,11 +38,11 @@ class BaseScreen {
     
     // MARK: Other Method
     @discardableResult
-    func expect(element: XCUIElement, status: UIStatus = .hittable, timeout: TimeInterval = Timeouts.defaultTimeout, message: String? = nil) -> XCUIElement {
+    func expect(element: XCUIElement, status: UIStatus = .hittable, timeout: TimeInterval = Timeouts.defaultTimeout, message: String? = nil, file: StaticString = #file, line: UInt = #line) -> XCUIElement {
         let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: status.rawValue), object: element)
         let result = XCTWaiter.wait(for: [expectation], timeout: timeout)
         if result == .timedOut {
-            XCTFail(message ?? expectation.description)
+            XCTFail(message ?? expectation.description, file: file, line: line)
         }
         return element
     }

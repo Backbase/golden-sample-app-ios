@@ -12,51 +12,51 @@ final class LoginScreen: BaseScreen {
     
     private enum Identifier {
             static let titleLabelId = "register.titleLabel"
-            static let loginBtnId = "register.loginButton"
-            static let usernameTfId = "register.usernameInput.textInput.textField"
-            static let passwordTfId = "register.passwordInput.textInput.textField"
-            static let allowBtnId = "biometricRegistration.allowButton"
-            static let denyBtnId = "biometricRegistration.denyButton"
-            static let passcodeBtnId = "login.passcodeButton"
+            static let loginButtonId = "register.loginButton"
+            static let usernameTextfieldId = "register.usernameInput.textInput.textField"
+            static let passwordTextfieldId = "register.passwordInput.textInput.textField"
+            static let allowButtonId = "biometricRegistration.allowButton"
+            static let denyButtonId = "biometricRegistration.denyButton"
+            static let passcodeButtonId = "login.passcodeButton"
     }
     
     // MARK: ELEMENTS
-    private lazy var titleLbl = app.staticTexts.matching(identifier: Identifier.titleLabelId).firstMatch
-    private lazy var loginBtn = app.buttons.matching(identifier: Identifier.loginBtnId).firstMatch
-    private lazy var usernameTf = app.textFields.matching(identifier: Identifier.usernameTfId).firstMatch
-    private lazy var passwordTf = app.secureTextFields.matching(identifier: Identifier.passwordTfId).firstMatch
-    private lazy var allowBtn = app.buttons.matching(identifier: Identifier.allowBtnId).firstMatch
-    private lazy var denyBtn = app.buttons.matching(identifier: Identifier.denyBtnId).firstMatch
-    private lazy var passcodeBtn = app.buttons.matching(identifier: Identifier.passcodeBtnId).firstMatch
+    private lazy var titleLabel = app.staticTexts.matching(identifier: Identifier.titleLabelId).firstMatch
+    private lazy var loginButton = app.buttons.matching(identifier: Identifier.loginButtonId).firstMatch
+    private lazy var usernameTextfield = app.textFields.matching(identifier: Identifier.usernameTextfieldId).firstMatch
+    private lazy var passwordTextfield = app.secureTextFields.matching(identifier: Identifier.passwordTextfieldId).firstMatch
+    private lazy var allowButton = app.buttons.matching(identifier: Identifier.allowButtonId).firstMatch
+    private lazy var denyButton = app.buttons.matching(identifier: Identifier.denyButtonId).firstMatch
+    private lazy var passcodeButton = app.buttons.matching(identifier: Identifier.passcodeButtonId).firstMatch
 
     private lazy var passcodeScreen = PasscodeScreen()
     
     // MARK: METHODS - ACTION
     @discardableResult
     func denyBiometricUsage() -> Self {
-        expect(element: denyBtn, status: .hittable).tap()
+        expect(element: denyButton, status: .hittable).tap()
         return self
     }
     
     @discardableResult
     func taploginWithPasscodeButton() -> Self {
-        expect(element: passcodeBtn, status: .hittable).tap()
+        expect(element: passcodeButton, status: .hittable).tap()
         return self
     }
 
     @discardableResult
     func login(withUsername username: String, password: String) -> Self {
-        expect(element: usernameTf, status: .hittable).tap()
-        usernameTf.typeText(username)
-        passwordTf.tap()
-        passwordTf.typeText(password)
-        loginBtn.tap()
+        expect(element: usernameTextfield, status: .hittable).tap()
+        usernameTextfield.typeText(username)
+        passwordTextfield.tap()
+        passwordTextfield.typeText(password)
+        loginButton.tap()
         return self
     }
     
     @discardableResult
     func authenticateUserWith(name: String, password: String) -> Self {
-        if titleLbl.exists {
+        if titleLabel.exists {
             login(withUsername: name, password: password)
             denyBiometricUsage()
             passcodeScreen
