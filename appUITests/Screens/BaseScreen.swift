@@ -37,6 +37,7 @@ class BaseScreen {
     }
     
     // MARK: Other Method
+    // swiftlint:disable line_length
     @discardableResult
     func expect(element: XCUIElement, status: UIStatus = .hittable, timeout: TimeInterval = Timeouts.defaultTimeout, message: String? = nil, file: StaticString = #file, line: UInt = #line) -> XCUIElement {
         let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: status.rawValue), object: element)
@@ -46,4 +47,5 @@ class BaseScreen {
         }
         return element
     }
+    // swiftlint:enable line_length
 }
