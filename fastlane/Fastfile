@@ -35,7 +35,6 @@ platform :ios do
 
   desc "Test and generate coverage data"
   lane :test do
-    clear_derived_data
     scan
     # slather
   end
