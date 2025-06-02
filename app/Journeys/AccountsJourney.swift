@@ -21,7 +21,7 @@ extension AccountsJourney.Configuration: AppCommon.AppDependency {
         if Resolver.optional(AccountDetailsUseCase.self) == nil {
             let arrangementsClient = clientFactory(defaultClient: ArrangementsClient2Gen2.ArrangementsAPI(), clientPath: "api/arrangement-manager")
             
-            Resolver.register { AccountDetailUseCaseImp(client: arrangementsClient) as AccountDetailsUseCase}
+            Resolver.register { AccountDetailUseCaseImp(client: arrangementsClient) as AccountDetailsUseCase }
         }
         
         Resolver.register { self }.scope(Resolver.cached)
