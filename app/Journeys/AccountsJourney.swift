@@ -27,7 +27,13 @@ extension AccountsJourney.Configuration: AppCommon.AppDependency {
 extension AccountsJourney.Configuration: AppCommon.Configurable {
     static public var appDefault: AccountsJourney.Configuration {
         if let configuration = Resolver.optional(AccountsJourney.Configuration.self) { return configuration }
-        let configuration = AccountsJourney.Configuration()
+        var configuration = AccountsJourney.Configuration()
+        configuration.accountsList.router.didSelectProduct = { navigationController in
+            { _ in
+                let vc = CustomTransactionsView.build(navigationController: navigationController)
+                navigationController.pushViewController(vc, animated: true)
+            }
+        }
         return configuration
     }
 }

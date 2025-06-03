@@ -10,6 +10,6 @@ import UIKit
 extension AccountsList {
     /// Accounts List router
     public struct Router {
-        var didSelectProduct: (UINavigationController) -> (String) -> Void
+        public var didSelectProduct: (UINavigationController) -> (String) -> Void
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 @MainActor
-public class TransactionsRefreshIntentHandler<S>: IntentHandler {
+public class TransactionsRefreshIntentHandler<S, DataType>: IntentHandler {
 
     let client: any TransactionsClient
 
@@ -12,26 +12,26 @@ public class TransactionsRefreshIntentHandler<S>: IntentHandler {
         self.client = client
     }
 
-    public func handle(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<S>, TransactionEffect?>) async {
+    public func handle(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<S, DataType>, TransactionEffect?>) async {
         guard intentContext.intent is RefreshIntent else { return }
 
         intentContext.updateState(
-            TransactionsState(isLoading: true, errorMessage: nil, transactions: nil, stateExtension: intentContext.currentState().stateExtension)
+            .loading(TransactionsState.LoadingData(stateExtension: intentContext.currentState().stateExtension))
         )
         await loadTransactions(intentContext)
     }
 
-    private func loadTransactions(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<S>, TransactionEffect?>) async {
+    private func loadTransactions(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<S, DataType>, TransactionEffect?>) async {
         let result = await client.fetchTransactions()
         switch result {
         case .success(let transactionsDTOs):
             let transactions = transactionsDTOs.map { TransactionData(from: $0) }
             intentContext.updateState(
-                TransactionsState(isLoading: false, errorMessage: nil, transactions: transactions, stateExtension: intentContext.currentState().stateExtension)
+                .loaded(TransactionsState.LoadedData(transactions: transactions, stateExtension: intentContext.currentState().stateExtension))
             )
         case .failure(let error):
             intentContext.updateState(
-                TransactionsState(isLoading: false, errorMessage: error.localizedDescription, transactions: nil, stateExtension: intentContext.currentState().stateExtension)
+                .error(TransactionsState.ErrorData(errorMessage: error.localizedDescription, stateExtension: intentContext.currentState().stateExtension))
             )
         }
     }

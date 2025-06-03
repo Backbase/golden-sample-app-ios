@@ -2,26 +2,30 @@ import SwiftUI
 
 public struct TransactionsView: View {
 
-    @StateObject var viewModel = TransactionsViewModel<Void>()
+    @StateObject var viewModel = TransactionsViewModel<Void, Void>()
 
     public init() { }
 
     public var body: some View {
             VStack {
-                if viewModel.state.isLoading {
+                switch viewModel.state {
+                case .loading:
                     LoadingStateView()
-                } else if let errorMessage = viewModel.state.errorMessage {
-                    ErrorView(message: errorMessage, onRefresh: {
+                case .loaded(let transactionsData):
+                    TransactionsListView(transactions: transactionsData.transactions,
+                                         onRefresh: {
                         Task {
                             await viewModel.handle(RefreshIntent())
                         }
                     })
-                } else if let transactions = viewModel.state.transactions {
-                    TransactionsListView(transactions: transactions, onRefresh: {
+                case .error(let errorData):
+                    ErrorView(message: errorData.errorMessage, onRefresh: {
                         Task {
                             await viewModel.handle(RefreshIntent())
                         }
                     })
+                case .custom:
+                    fatalError("Unexpected state in TransactionsView")
                 }
                 Spacer()
                 Button(action: {

@@ -4,35 +4,36 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @StateObject var viewModel = TransactionsViewModel<CustomData>(initialState:      TransactionsState<CustomData>(
-        isLoading: false,
-        errorMessage: nil,
-        transactions: nil,
-        stateExtension: CustomData(graphShown: false)), additionalHandlers: [ToggleGraphHandler()])
+    @StateObject var viewModel = TransactionsViewModel<CustomTransactionsState, CustomData>(initialState:
+            .loading(TransactionsState.LoadingData(stateExtension: CustomData(graphShown: true))), additionalHandlers: [ToggleGraphHandler()])
 
     public init() { }
 
     public var body: some View {
         NavigationStack {
             VStack {
-                if viewModel.state.stateExtension!.graphShown {
+                if viewModel.state.isGraphShown {
                     TransactionsChartView()
                 }
                 VStack {
-                    if viewModel.state.isLoading {
+                    switch viewModel.state {
+                    case .loading:
                         LoadingStateView()
-                    } else if let errorMessage = viewModel.state.errorMessage {
-                        ErrorView(message: errorMessage, onRefresh: {
+                    case .loaded(let transactionsData):
+                        TransactionsListView(transactions: transactionsData.transactions,
+                                             onRefresh: {
                             Task {
                                 await viewModel.handle(RefreshIntent())
                             }
                         })
-                    } else if let transactions = viewModel.state.transactions {
-                        TransactionsListView(transactions: transactions, onRefresh: {
-                                                Task {
-                                                    await viewModel.handle(RefreshIntent())
-                                                }
-                                            })
+                    case .error(let errorData):
+                        ErrorView(message: errorData.errorMessage, onRefresh: {
+                            Task {
+                                await viewModel.handle(RefreshIntent())
+                            }
+                        })
+                    case .custom:
+                        fatalError("Unexpected state in TransactionsView")
                     }
                     Spacer()
                     HStack {
@@ -41,7 +42,7 @@ struct CustomTransactionsView: View {
                                 await viewModel.handle(ToggleGraphIntent())
                             }
                         }) {
-                            Image(systemName: viewModel.state.stateExtension!.graphShown ? "chart.bar.fill" : "chart.bar" )
+                            Image(systemName: viewModel.state.isGraphShown ? "chart.bar.fill" : "chart.bar" )
                                 .resizable()
                                 .foregroundColor(.white)
                                 .padding()
@@ -74,6 +75,7 @@ struct CustomTransactionsView: View {
     static func build(navigationController: UINavigationController) -> UIViewController {
         let view = CustomTransactionsView()
         let controller = UIHostingController(rootView: view)
+        controller.title = "Custom Transactions"
         return controller
     }
 }
