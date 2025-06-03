@@ -49,6 +49,6 @@ public struct TransactionsView: View {
     }
 }
 //
-//#Preview {
-//    TransactionsView()
-//}
+#Preview {
+    TransactionsView()
+}

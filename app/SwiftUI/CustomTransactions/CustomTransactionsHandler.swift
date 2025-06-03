@@ -9,9 +9,6 @@ struct ToggleGraphIntent: TransactionsIntent {}
 
 @MainActor
 class ToggleGraphHandler: IntentHandler {
-    typealias Intent = any TransactionsIntent
-    typealias State = TransactionsState<CustomData>
-    typealias Effect = TransactionEffect
 
     var intentType: String {
         String(describing: ToggleGraphIntent.self)
