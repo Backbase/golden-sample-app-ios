@@ -3,9 +3,6 @@ import Combine
 
 @MainActor
 public class TransactionsViewAppearedIntentHandler<S>: IntentHandler {
-    public typealias Intent = any TransactionsIntent
-    public typealias State = TransactionsState<S>
-    public typealias Effect = TransactionEffect
 
     let client: any TransactionsClient
 
