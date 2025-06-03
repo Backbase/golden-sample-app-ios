@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AccountsListTestData{
+struct AccountsListTestData {
     // NOTE : Please adjust this based on the test data available
     static let defaultAccountName = "Sara's Current Account"
     static let defaultAccountNumber = "****************0025"

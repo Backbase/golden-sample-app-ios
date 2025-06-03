@@ -12,12 +12,12 @@ final class AccountsListScreen: BaseScreen {
     
     private enum Identifier {
             static let myAccountsHeaderLabelId = "My Accounts"
-            static let accountsDetailsHeaderLabelId = "Account Details"
+            static let accountDetailsHeaderLabelId = "Account Details"
         }
 
     // MARK: ELEMENTS
     private lazy var myAccountsHeaderLabel = app.staticTexts[Identifier.myAccountsHeaderLabelId]
-    private lazy var accountsDetailsHeaderLabel = app.staticTexts[Identifier.accountsDetailsHeaderLabelId]
+    private lazy var accountDetailsHeaderLabel = app.staticTexts[Identifier.accountDetailsHeaderLabelId]
     private lazy var searchAccountTextfield = app.searchFields.firstMatch
     private lazy var accountListTable = app.tables.firstMatch
     private var predicate: (String) -> NSPredicate = { query in
@@ -110,7 +110,7 @@ final class AccountsListScreen: BaseScreen {
     
     @discardableResult
     func assertAccountDetailsIsDisplayed(file: StaticString = #file, line: UInt = #line) -> Self {
-        expect(element: accountsDetailsHeaderLabel, status: .exist, file: file, line: line)
+        expect(element: accountDetailsHeaderLabel, status: .exist, file: file, line: line)
         return self
     }
     
