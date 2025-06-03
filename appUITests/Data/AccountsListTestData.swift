@@ -12,4 +12,5 @@ struct AccountsListTestData{
     static let defaultAccountName = "Sara's Current Account"
     static let defaultAccountNumber = "****************0025"
     static let defaultBalance = ""
+    static let dummyInexistentAccount = "Tomorrow never comes"
 }

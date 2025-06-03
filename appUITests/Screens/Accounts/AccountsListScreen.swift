@@ -12,10 +12,12 @@ final class AccountsListScreen: BaseScreen {
     
     private enum Identifier {
             static let myAccountsHeaderLabelId = "My Accounts"
+            static let accountsDetailsHeaderLabelId = "Account Details"
         }
 
     // MARK: ELEMENTS
     private lazy var myAccountsHeaderLabel = app.staticTexts[Identifier.myAccountsHeaderLabelId]
+    private lazy var accountsDetailsHeaderLabel = app.staticTexts[Identifier.accountsDetailsHeaderLabelId]
     private lazy var searchAccountTextfield = app.searchFields.firstMatch
     private lazy var accountListTable = app.tables.firstMatch
     private var predicate: (String) -> NSPredicate = { query in
@@ -24,10 +26,13 @@ final class AccountsListScreen: BaseScreen {
     
     // MARK: METHODS - ACTION
     @discardableResult
-    func searchAccount(query: String) -> Self {
-        expect(element: accountListTable, status: .hittable)
-        searchAccountTextfield.tap()
-        searchAccountTextfield.typeText(query)
+    func searchAccount(query: String, file: StaticString = #file, line: UInt = #line) -> Self {
+        expect(element: accountListTable, status: .hittable, file: file, line: line)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2 ) {[weak self] in
+            self?.searchAccountTextfield.tap()
+            self?.searchAccountTextfield.typeText(query)
+        }
+        
         return self
     }
     
@@ -60,7 +65,10 @@ final class AccountsListScreen: BaseScreen {
     @discardableResult
     func assertNoResultsDisplayed(file: StaticString = #file, line: UInt = #line) -> Self {
         let noAccountsLabel = app.staticTexts.containing(predicate("No accounts")).firstMatch
-        expect(element: noAccountsLabel, status: .exist, file: file, line: line)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2 ) {[weak self] in
+            self?.expect(element: noAccountsLabel, status: .exist, file: file, line: line)
+        }
+        
         return self
     }
     
@@ -92,6 +100,20 @@ final class AccountsListScreen: BaseScreen {
         }
         return self
     }
+    
+    @discardableResult
+    func tapFirstAccount(file: StaticString = #file, line: UInt = #line) -> Self {
+        expect(element: accountListTable, status: .hittable, file: file, line: line)
+        accountListTable.cells.element(boundBy: 0).tap()
+        return self
+    }
+    
+    @discardableResult
+    func assertAccountDetailsIsDisplayed(file: StaticString = #file, line: UInt = #line) -> Self {
+        expect(element: accountsDetailsHeaderLabel, status: .exist, file: file, line: line)
+        return self
+    }
+    
 }
 
 extension XCUIElement {

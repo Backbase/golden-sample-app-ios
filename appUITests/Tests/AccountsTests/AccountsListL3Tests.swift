@@ -25,9 +25,21 @@ final class AccountsListL3Tests: BaseTestCase {
             .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumber: testData.defaultAccountNumber)
     }
     
-    func testSearchResultIsDisplayed() {
+    func testCorrectSearchResultIsDisplayed() {
         AccountsListScreen()
             .searchAccount(query: testData.defaultAccountName)
             .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumber: testData.defaultAccountNumber)
+    }
+    
+    func testEmptySearchResultIsDisplayed() {
+        AccountsListScreen()
+            .searchAccount(query: testData.dummyInexistentAccount)
+            .assertNoResultsDisplayed()
+    }
+    
+    func testAccountDetailIsDisplayedUponSelectingAnAccount() {
+        AccountsListScreen()
+            .tapFirstAccount()
+            .assertAccountDetailsIsDisplayed()
     }
 }

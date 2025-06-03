@@ -55,16 +55,16 @@ final class LoginScreen: BaseScreen {
     }
     
     @discardableResult
-    func authenticateUserWith(name: String, password: String) -> Self {
+    func authenticateUserWith(name: String, password: String, file: StaticString = #file, line: UInt = #line) -> Self {
         if titleLabel.exists {
             login(withUsername: name, password: password)
             denyBiometricUsage()
             passcodeScreen
-                .enterPasscode(UserEnrollment.validPasscode)
-                .enterPasscode(UserEnrollment.validPasscode)
+                .enterPasscode(UserEnrollment.validPasscode, file: file, line: line)
+                .enterPasscode(UserEnrollment.validPasscode, file: file, line: line)
             SuccessAuthScreen().dismissLetsGetStartedScreen()
         } else {
-            passcodeScreen.enterPasscode(UserEnrollment.validPasscode)
+            passcodeScreen.enterPasscode(UserEnrollment.validPasscode, file: file, line: line)
         }
         return self
     }
