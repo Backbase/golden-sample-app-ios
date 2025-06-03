@@ -11,12 +11,13 @@ struct ToggleGraphIntent: TransactionsIntent {}
 class ToggleGraphHandler: IntentHandler {
     typealias Intent = any TransactionsIntent
     typealias State = TransactionsState<CustomData>
+    typealias Effect = TransactionEffect
 
     var intentType: String {
         String(describing: ToggleGraphIntent.self)
     }
 
-    func handle(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<CustomData>>) async {
+    func handle(_ intentContext: IntentContext<any TransactionsIntent, TransactionsState<CustomData>, TransactionEffect?>) async {
         guard intentContext.intent is ToggleGraphIntent else { return }
 
         let currentState = intentContext.currentState()
@@ -47,10 +48,6 @@ class CustomTransactionsViewModel: TransactionsViewModel<CustomData> {
 
         super.init(
             initialState: initialState,
-            // You can override default handlers if needed
-            viewAppearedHandler: TransactionsViewAppearedIntentHandler<CustomData>(client: DefaultTransactionsClient()),
-            refreshHandler: TransactionsRefreshIntentHandler<CustomData>(client: DefaultTransactionsClient()),
-            // Add your custom handlers
             additionalHandlers: [
                 ToggleGraphHandler()
             ]

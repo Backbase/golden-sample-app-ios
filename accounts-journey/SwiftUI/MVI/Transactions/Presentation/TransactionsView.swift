@@ -25,10 +25,9 @@ public struct TransactionsView: View {
                 }
                 Spacer()
                 Button(action: {
-                    print("Lofasz")
-                    /*Task {
-                        await viewModel.handle()
-                    }*/
+                    Task {
+                        await viewModel.handle(NewTransactionIntent())
+                    }
                 }) {
                     Text("New transaction")
                         .foregroundColor(.white)
@@ -42,10 +41,14 @@ public struct TransactionsView: View {
                 Task {
                     await viewModel.handle(ViewAppearedIntent())
                 }
-        }
+            }.onChange(of: viewModel.effect) { oldValue, newValue in
+                if let newValue = newValue {
+                    print(newValue)
+                }
+            }
     }
 }
-
-#Preview {
-    TransactionsView()
-}
+//
+//#Preview {
+//    TransactionsView()
+//}

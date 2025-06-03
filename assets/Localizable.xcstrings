@@ -587,6 +587,9 @@
     "New transaction" : {
 
     },
+    "New Transaction" : {
+
+    },
     "Pull down to retry" : {
 
     },
@@ -625,9 +628,6 @@
           }
         }
       }
-    },
-    "Transactions" : {
-
     }
   },
   "version" : "1.0"

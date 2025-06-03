@@ -1,12 +1,13 @@
 import Foundation
 
 @MainActor
-open class ViewModel<Intent, State>: ObservableObject {
+open class ViewModel<Intent, State, Effect>: ObservableObject {
     @Published public var state: State
+    @Published public var effect: Effect?
 
-    private var handlers: [String: any IntentHandler<Intent, State>] = [:]
+    private var handlers: [String: any IntentHandler<Intent, State, Effect>] = [:]
 
-    init(initialState: State, handlers: [any IntentHandler<Intent, State>]) {
+    init(initialState: State, handlers: [any IntentHandler<Intent, State, Effect>]) {
         self.state = initialState
 
         for handler in handlers {
@@ -29,6 +30,9 @@ open class ViewModel<Intent, State>: ObservableObject {
             },
             updateState: { [weak self] newState in
                 self?.state = newState
+            },
+            emitEffect: { [weak self] newEffect in
+                self?.effect = newEffect
             }
         )
 

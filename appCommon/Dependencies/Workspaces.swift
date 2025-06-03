@@ -116,5 +116,6 @@ extension Workspaces.Configuration: Configurable {
         Resolver.cached.reset()
         Resolver.resolve(AppRouter.self).transitionToApp()
     }
-        
 }
+
+

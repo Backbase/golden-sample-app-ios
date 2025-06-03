@@ -8,6 +8,7 @@
 import Foundation
 import BackbaseDesignSystem
 import Resolver
+import SwiftUI
 
 extension AccountsList {
     public struct Configuration {
@@ -23,7 +24,7 @@ extension AccountsList {
         public var router = Router(
             didSelectProduct: { navigationController in
                 return { arrangementId in
-                    
+
                     let viewController = TransactionsView.build(navigationController: navigationController)
 
                     navigationController.pushViewController(viewController, animated: true)

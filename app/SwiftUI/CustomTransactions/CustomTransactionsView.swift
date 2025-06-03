@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import AccountsJourney
 
 struct CustomTransactionsView: View {
@@ -30,54 +31,49 @@ struct CustomTransactionsView: View {
                                             })
                     }
                     Spacer()
-                    Button(action: {
-//                        Task {
-//                            await viewModel.handle(.newTransaction))
-//                        }
-                    }) {
-                        Text("New transaction")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
+                    HStack {
+                        Button(action: {
+                            Task {
+                                await viewModel.handle(ToggleGraphIntent())
+                            }
+                        }) {
+                            Image(systemName: viewModel.state.stateExtension!.graphShown ? "chart.bar.fill" : "chart.bar" )
+                                .resizable()
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(width: 50, height: 50)
+                        }
+                        .background(Color.black)
+                        Button(action: {
+                            Task {
+                                await viewModel.handle(NewTransactionIntent())
+                            }
+                        }) {
+                            Text("New transaction")
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity, maxHeight: 50)
+                        }                        .background(Color.black)
+
+
                     }
-                    .background(Color.black)
                     .padding()
-                    
                 }.onAppear {
                     Task {
                         await viewModel.handle(ViewAppearedIntent())
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbarBackground(Color.black,
-                                   for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
-                .toolbar {
-                    if (viewModel.state.transactions != nil) {
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            Button(action: {
-                                Task {
-                                    await viewModel.handle(ToggleGraphIntent())
-                                }
-                            }) {
-                                Image(systemName: viewModel.state.stateExtension!.graphShown ? "chart.bar.fill" : "chart.bar" )
-                            }
-                            .foregroundStyle(.white)
-                        }
-                    }
-                    ToolbarItem(placement: .principal) {
-                        Text("Transactions")
-                            .foregroundColor(.white)
-                            .bold()
-                    }
-                }
             }
         }
+    }
+
+    static func build(navigationController: UINavigationController) -> UIViewController {
+        let view = CustomTransactionsView()
+        let controller = UIHostingController(rootView: view)
+        return controller
     }
 }
 
 #Preview {
     CustomTransactionsView()
 }
-
-

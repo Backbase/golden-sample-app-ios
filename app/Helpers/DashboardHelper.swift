@@ -43,8 +43,10 @@ struct DashboardHelper {
     private func createTabHeaderViewController(_ navigationController: UINavigationController,
                                                _ userName: String,
                                                _ serviceAgreementName: String) -> UIViewController {
-        let accountsListViewController = AccountsList.build(navigationController: navigationController)
+       let accountsListViewController = AccountsList.build(navigationController: navigationController)
         accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
+        //let accountsListViewController = CustomTransactionsView.build(navigationController: navigationController)
+        //accountsListViewController.title = "Transactions"
         let tab2ViewController = DemoViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
         let tab3ViewController = DemoViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
