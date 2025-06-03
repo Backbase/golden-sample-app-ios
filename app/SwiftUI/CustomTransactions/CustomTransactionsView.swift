@@ -4,7 +4,11 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @StateObject var viewModel = CustomTransactionsViewModel()
+    @StateObject var viewModel = TransactionsViewModel<CustomData>(initialState:      TransactionsState<CustomData>(
+        isLoading: false,
+        errorMessage: nil,
+        transactions: nil,
+        stateExtension: CustomData(graphShown: false)), additionalHandlers: [ToggleGraphHandler()])
 
     public init() { }
 

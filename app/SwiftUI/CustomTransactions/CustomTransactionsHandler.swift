@@ -34,23 +34,3 @@ class ToggleGraphHandler: IntentHandler {
         )
     }
 }
-
-@MainActor
-class CustomTransactionsViewModel: TransactionsViewModel<CustomData> {
-
-    init() {
-        let initialState = TransactionsState<CustomData>(
-            isLoading: false,
-            errorMessage: nil,
-            transactions: nil,
-            stateExtension: CustomData(graphShown: false)
-        )
-
-        super.init(
-            initialState: initialState,
-            additionalHandlers: [
-                ToggleGraphHandler()
-            ]
-        )
-    }
-}
