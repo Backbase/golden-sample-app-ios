@@ -4,8 +4,10 @@ import AccountsJourney
 
 struct CustomTransactionsView: View {
 
-    @StateObject var viewModel = TransactionsViewModel<CustomTransactionsState, CustomData>(initialState:
-            .loading(TransactionsState.LoadingData(stateExtension: CustomData(graphShown: true))), additionalHandlers: [ToggleGraphHandler()])
+    @StateObject var viewModel = TransactionsViewModel<CustomTransactionsState, CustomData>.Builder()
+        .with(initialState: .loading(TransactionsState.LoadingData(stateExtension: CustomData(graphShown: true))))
+        .with(additionalHandlers: [ToggleGraphHandler()])
+        .build()
 
     public init() { }
 

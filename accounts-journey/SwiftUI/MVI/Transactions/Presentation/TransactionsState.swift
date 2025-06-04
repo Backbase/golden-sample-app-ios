@@ -47,18 +47,6 @@ public enum TransactionsState<T, DataType> {
             return nil // Custom state does not have a defined extension
         }
     }
-//    public let isLoading: Bool
-//    public let errorMessage: String?
-//    public let transactions: [TransactionData]?
-
-//    public let stateExtension: T?
-
-//    public init(isLoading: Bool, errorMessage: String?, transactions: [TransactionData]?, stateExtension: T?) {
-//        self.isLoading = isLoading
-//        self.errorMessage = errorMessage
-//        self.transactions = transactions
-//        self.stateExtension = stateExtension
-//    }
 
     public static var initial: TransactionsState<T, DataType> {
         .loading(LoadingData(stateExtension: nil))
