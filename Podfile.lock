@@ -19,14 +19,19 @@ PODS:
     - Backbase (>= 12.0.1)
   - BackbaseObservability (1.0.0):
     - BackbaseObservability/Sources (= 1.0.0)
+    - BackbaseObservability/Tests (= 1.0.0)
   - BackbaseObservability/Sources (1.0.0)
+  - BackbaseObservability/Tests (1.0.0)
   - BackbaseSDKSwiftWrapper (2.1.2):
     - BackbaseSecureStorage (~> 2.1)
   - BackbaseSecureStorage (2.1.3)
   - BusinessJourneyCommon (4.0.1):
     - Backbase (>= 12.0)
     - BusinessJourneyCommon/Sources (= 4.0.1)
+    - BusinessJourneyCommon/Tests (= 4.0.1)
   - BusinessJourneyCommon/Sources (4.0.1):
+    - Backbase (>= 12.0)
+  - BusinessJourneyCommon/Tests (4.0.1):
     - Backbase (>= 12.0)
   - BusinessWorkspacesJourney (7.1.0):
     - BackbaseAnimation (>= 4.0)
@@ -34,9 +39,17 @@ PODS:
     - BackbaseObservability (>= 1.0)
     - BusinessJourneyCommon (~> 4.0)
     - BusinessWorkspacesJourney/Sources (= 7.1.0)
+    - BusinessWorkspacesJourney/Tests (= 7.1.0)
     - Resolver (~> 1.2.1)
     - RetailFeatureFilterUseCase (>= 3.0)
   - BusinessWorkspacesJourney/Sources (7.1.0):
+    - BackbaseAnimation (>= 4.0)
+    - BackbaseDesignSystem (>= 4.0)
+    - BackbaseObservability (>= 1.0)
+    - BusinessJourneyCommon (~> 4.0)
+    - Resolver (~> 1.2.1)
+    - RetailFeatureFilterUseCase (>= 3.0)
+  - BusinessWorkspacesJourney/Tests (7.1.0):
     - BackbaseAnimation (>= 4.0)
     - BackbaseDesignSystem (>= 4.0)
     - BackbaseObservability (>= 1.0)
@@ -47,7 +60,11 @@ PODS:
     - AccessControlClient3Gen2 (~> 1.0.0)
     - BusinessWorkspacesJourney (~> 7.1.0)
     - BusinessWorkspacesJourneyWorkspacesUseCase2/Sources (= 7.1.0)
+    - BusinessWorkspacesJourneyWorkspacesUseCase2/Tests (= 7.1.0)
   - BusinessWorkspacesJourneyWorkspacesUseCase2/Sources (7.1.0):
+    - AccessControlClient3Gen2 (~> 1.0.0)
+    - BusinessWorkspacesJourney (~> 7.1.0)
+  - BusinessWorkspacesJourneyWorkspacesUseCase2/Tests (7.1.0):
     - AccessControlClient3Gen2 (~> 1.0.0)
     - BusinessWorkspacesJourney (~> 7.1.0)
   - ClientCommon (1.1.5):
@@ -121,7 +138,6 @@ SPEC REPOS:
     - BackbaseCountryCore
     - BackbaseDesignSystem
     - BackbaseIdentity
-    - BackbaseObservability
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
     - BusinessJourneyCommon
@@ -157,12 +173,12 @@ SPEC CHECKSUMS:
   BackbaseCountryCore: 49599b2d360c5371e33377b371703390e3f6c633
   BackbaseDesignSystem: 7e723a38324ec9ec04dca2d4d8fca0b19c6a327b
   BackbaseIdentity: 3182fd32cdc10f13e8228250847bdfc74ffae628
-  BackbaseObservability: 851816bad0fc2af6bff1d7c81dc0c4c6fd1abbb4
+  BackbaseObservability: 1955450fa7c31e0213fb7e402fab360392bc5a54
   BackbaseSDKSwiftWrapper: 027150743c664a289cc879d82eabd8e775dcf7f2
   BackbaseSecureStorage: 0f1273c4ab4a238e21578f4ec32807dbe1cde963
-  BusinessJourneyCommon: ad0fd23dc5000fbf88b7377dde133156c5e88b85
-  BusinessWorkspacesJourney: 8a0f23edc8459dc7d1e647a5e6dcb3044c790a5c
-  BusinessWorkspacesJourneyWorkspacesUseCase2: 01d1f0858b043c336a2eee7acacbe16fb17896e3
+  BusinessJourneyCommon: fcdd883c1c16de0a8168c61d5aae963dcb342039
+  BusinessWorkspacesJourney: 8217c5c4646b88363400e0a14436955d0153d081
+  BusinessWorkspacesJourneyWorkspacesUseCase2: 1882452b0d9bdd3eb8fedd7becc1ddad7b76d137
   ClientCommon: c2b40fe459e67a70f969ff4ec227876270c8e461
   ClientCommonGen2: aa43d1ebe53f0f838be8b6fb8b71bd4f7c800b9f
   IdentityAuthenticationJourney: dd5b98aafc7bdd0f3b062853edf951edbb23aead

@@ -69,6 +69,14 @@ struct CustomTransactionsView: View {
                     Task {
                         await viewModel.handle(ViewAppearedIntent())
                     }
+                }.onReceive(viewModel.effectSubject) { effect in
+                    print("Received effect in CustomTransactionsView: \(effect)")
+                    // Handle navigation effects here
+                    switch effect {
+                    case .navigateToNewTransaction:
+                        // Handle navigation to new transaction
+                        print("Navigate to new transaction from custom view")
+                    }
                 }
             }
         }

@@ -45,14 +45,18 @@ public struct TransactionsView: View {
                 Task {
                     await viewModel.handle(ViewAppearedIntent())
                 }
-            }.onChange(of: viewModel.effect) { oldValue, newValue in
-                if let newValue = newValue {
-                    print(newValue)
+            }.onReceive(viewModel.effectSubject) { effect in
+                print("Received effect: \(effect)")
+                // Handle navigation effects here
+                switch effect {
+                case .navigateToNewTransaction:
+                    // Handle navigation to new transaction
+                    print("Navigate to new transaction")
                 }
             }
     }
 }
 //
-#Preview {
-    TransactionsView()
-}
+//#Preview {
+//    TransactionsView()
+//}

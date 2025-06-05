@@ -1,9 +1,10 @@
 import Foundation
+import Combine
 
 @MainActor
 open class ViewModel<Intent, State, Effect>: ObservableObject {
     @Published public var state: State
-    @Published public var effect: Effect?
+    public let effectSubject = PassthroughSubject<Effect, Never>()
 
     private var handlers: [String: any IntentHandler<Intent, State, Effect>] = [:]
 
@@ -23,7 +24,7 @@ open class ViewModel<Intent, State, Effect>: ObservableObject {
             return
         }
 
-        let context = IntentContext(
+        let context = IntentContext<Intent, State, Effect?>(
             intent: intent,
             currentState: { [weak self] in
                 self?.state ?? self!.state
@@ -32,7 +33,9 @@ open class ViewModel<Intent, State, Effect>: ObservableObject {
                 self?.state = newState
             },
             emitEffect: { [weak self] newEffect in
-                self?.effect = newEffect
+                if let newEffect = newEffect {
+                    self?.effectSubject.send(newEffect)
+                }
             }
         )
 
