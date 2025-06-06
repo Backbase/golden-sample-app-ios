@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "78BFD794-0E17-4083-854A-4162A5FAEA7F",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "AccountsListTests",
+        "AccountsListTests\/testAccountIsDisplayedInTheList()",
+        "AccountsListTests\/testEmptySearchResultIsDisplayed()",
+        "BaseTestCase"
+      ],
+      "target" : {
+        "containerPath" : "container:ios-golden-sample-app.xcodeproj",
+        "identifier" : "A86788992F31A0D2D60D2113",
+        "name" : "GoldenSampleUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
