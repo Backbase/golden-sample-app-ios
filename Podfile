@@ -54,6 +54,9 @@ abstract_target 'Tests' do
 
   target 'GoldenAccountsUseCaseUnitTests' do 
   end
+
+  target 'GoldenSampleUITests' do 
+  end
 end
 
 
