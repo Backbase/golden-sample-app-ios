@@ -11,7 +11,7 @@ import BackbaseDesignSystem
 import AccountsJourney
 
 class MockedAppRouter: AppRouter {
-    private var navigationController: UINavigationController = NavigationController()
+    private var navigationController = NavigationController()
 
     override func didStartApp(window: UIWindow) {
         let vc = AccountsList.build(navigationController: self.navigationController)
