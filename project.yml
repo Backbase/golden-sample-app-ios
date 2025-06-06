@@ -213,6 +213,8 @@ targets:
       testPlans:
         - path: appUITests/TestPlans/L2.xctestplan
           defaultPlan: true
+        - path: appUITests/TestPlans/L3.xctestplan
+          defaultPlan: false
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
