@@ -4,11 +4,6 @@ options:
   platform: iOS
   deploymentTarget:
     iOS: 15.0
-  # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
-  # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
-  postGenCommand: >-
-    FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
-    sed -i '' -E 's/<\/Testables>/<\/Testables><TestPlans><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan"><\/TestPlanReference><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan" default="YES"><\/TestPlanReference><\/TestPlans>/g' $FILE;
 targets:
   AccountsJourney:
     type: framework
@@ -215,6 +210,9 @@ targets:
     scheme:
       testTargets:
         - GoldenSampleUITests
+      testPlans:
+        - path: appUITests/TestPlans/L2.xctestplan
+          defaultPlan: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
