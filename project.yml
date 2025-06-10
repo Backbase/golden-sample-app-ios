@@ -34,7 +34,7 @@ targets:
       - name: SwiftLint
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-            
+
   MockedAccountsUseCase:
     type: framework
     platform: iOS
@@ -244,6 +244,8 @@ targets:
         - path: appUITests/TestPlans/L2.xctestplan
           defaultPlan: true
         - path: appUITests/TestPlans/L3.xctestplan
+          defaultPlan: false
+        - path: appUITests/TestPlans/L4.xctestplan
           defaultPlan: false
     settings:
       base:

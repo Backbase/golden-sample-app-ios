@@ -8,7 +8,7 @@
 import XCTest
 import Foundation
 
-final class AccountsListL2Tests: XCTestCase {
+final class AccountsListMockedTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

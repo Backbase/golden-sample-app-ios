@@ -32,14 +32,7 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "AccountsListL3Tests",
-        "AccountsListL3Tests\/testAccountDetailIsDisplayedUponSelectingAnAccount()",
-        "AccountsListL3Tests\/testAccountIsDisplayedInTheList()",
-        "AccountsListL3Tests\/testCorrectSearchResultIsDisplayed()",
-        "AccountsListL3Tests\/testEmptySearchResultIsDisplayed()",
         "AccountsListTests",
-        "AccountsListTests\/testAccountIsDisplayedInTheList()",
-        "AccountsListTests\/testEmptySearchResultIsDisplayed()",
         "BaseTestCase"
       ],
       "target" : {

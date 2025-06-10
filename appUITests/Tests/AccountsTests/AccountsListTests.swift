@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 
-final class AccountsListL3Tests: BaseTestCase {
+final class AccountsListTests: BaseTestCase {
     
     // Before running UI Tests, please adjust your testing account and test data accordingly.
         
