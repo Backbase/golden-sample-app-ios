@@ -17,8 +17,8 @@ final class PasscodeScreen: BaseScreen {
     }
     
     @discardableResult
-    func enterPasscode(_ passcode: String) -> Self {
-        expect(element: app.keyboards.firstMatch, status: .hittable)
+    func enterPasscode(_ passcode: String, file: StaticString = #file, line: UInt = #line) -> Self {
+        expect(element: app.keyboards.firstMatch, status: .hittable, file: file, line: line)
         passcode.map { String($0) }.forEach { tapKey($0) }
         return self
     }

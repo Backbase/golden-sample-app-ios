@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "39AE819B-80A6-4C0C-94ED-172CA5C57258",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "AccountsListL2Tests",
+        "AccountsListL2Tests\/testAccountIsDisplayedInTheList()",
+        "AccountsListL2Tests\/testCorrectSearchResultIsDisplayed()",
+        "AccountsListL2Tests\/testEmptySearchResultIsDisplayed()",
+        "AccountsListL2Tests\/testNoInternetErrorIsDisplayedInTheList()",
+        "AccountsListL2Tests\/testPullToRefreshAccountsDisplayed()",
+        "BaseTestCase"
+      ],
+      "target" : {
+        "containerPath" : "container:ios-golden-sample-app.xcodeproj",
+        "identifier" : "A86788992F31A0D2D60D2113",
+        "name" : "GoldenSampleUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
