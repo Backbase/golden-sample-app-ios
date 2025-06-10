@@ -4,11 +4,29 @@
       "id" : "78BFD794-0E17-4083-854A-4162A5FAEA7F",
       "name" : "Configuration 1",
       "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "\"UITests\""
+          },
+          {
+            "argument" : "\"UseMocks\""
+          }
+        ],
+        "environmentVariableEntries" : [
 
+        ]
       }
     }
   ],
   "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "UITests"
+      },
+      {
+        "argument" : "UseMocks"
+      }
+    ],
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [

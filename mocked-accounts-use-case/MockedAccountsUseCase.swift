@@ -2,7 +2,6 @@
 import Foundation
 import AccountsJourney
 
-
 // swiftlint:disable line_length
 final public class MockedAccountsUseCase: AccountsListUseCase {
     private var responseType: Result<Void, Error>

@@ -34,6 +34,7 @@ targets:
       - name: SwiftLint
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
+            
   MockedAccountsUseCase:
     type: framework
     platform: iOS
