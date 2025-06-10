@@ -30,6 +30,9 @@ abstract_target 'Common' do
   target 'GoldenAccountsUseCase' do
   end
 
+  target 'MockedAccountsUseCase' do
+  end
+
   target 'AppCommon' do
     pod 'BackbaseLottieAnimation'
   end
