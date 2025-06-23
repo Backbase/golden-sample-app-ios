@@ -8,14 +8,15 @@
 import Foundation
 import BackbaseDesignSystem
 import Resolver
+import ArrangementsClient2Gen2
 
-extension AccountsJourney.AccountsSummary {
-    
+extension ProductSummary {
+
     func toMapUI() -> AccountSummaryUIModel {
         
         var accountSummaryUIModel = AccountSummaryUIModel()
-        if !customProducts.isEmpty {
-            accountSummaryUIModel.customProducts =  customProducts.map {
+        if !customProductKinds.isEmpty {
+            accountSummaryUIModel.customProducts =  customProductKinds.map {
                 $0.mapToUi()
             }
         }
@@ -44,7 +45,8 @@ extension AccountsJourney.AccountsSummary {
         return accountSummaryUIModel
     }
 }
-func formatState(_ productState: AccountsJourney.ProductState?, number: String?) -> String? {
+
+func formatState(_ productState: ArrangementsClient2Gen2.StateItem?, number: String?) -> String? {
     if let state = productState?.state, let number {
         if state == "Active" {
             return number

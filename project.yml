@@ -39,36 +39,6 @@ targets:
       - name: SwiftLint
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-  GoldenAccountsUseCase:
-    type: framework
-    platform: iOS
-    deploymentTarget:
-      iOS: 15.0
-    info:
-      path: accounts-use-case/Info.plist
-      properties:
-        CFBundleShortVersionString: $(MARKETING_VERSION)
-    settings:
-      base:
-        SUPPORTS_MACCATALYST: NO
-        MARKETING_VERSION: 0.0.1
-        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
-    sources:
-      - path: accounts-use-case
-        excludes:
-          - Info.plist
-        createIntermediateGroups: true
-    scheme:
-      testTargets:
-        - GoldenAccountsUseCaseUnitTests
-      gatherCoverageData: true
-    dependencies:
-      - target: AccountsJourney
-        link: true
-    preBuildScripts:
-      - name: SwiftLint
-        script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
 
   AppCommon:
     type: framework
@@ -116,8 +86,6 @@ targets:
       - path: assets
         createIntermediateGroups: true
     dependencies:
-      - target: GoldenAccountsUseCase
-        embed: true
       - target: AccountsJourney
         embed: true
       - target: AppCommon
@@ -140,17 +108,12 @@ targets:
     dependencies:
       - target: AccountsJourney
         link: false
-      - target: GoldenAccountsUseCase
-        link: false
       - target: AppCommon
         link: false
     scheme:
       gatherCoverageData: true
       testTargets: 
         - name: AccountsJourneyUnitTests
-          parallelizable: false
-          randomExecutionOrder: true
-        - name: GoldenAccountsUseCaseUnitTests
           parallelizable: false
           randomExecutionOrder: true
         # - name: GoldenSampleUITests
@@ -170,24 +133,6 @@ targets:
         link: true
     sources:
       - path: Tests/accounts-journey/unit-tests
-        excludes: Info.plist
-        createIntermediateGroups: true
-  
-  GoldenAccountsUseCaseUnitTests:
-    type: bundle.unit-test
-    platform: iOS
-    deploymentTarget:
-      iOS: 15.0
-    info:
-      path: Tests/accounts-use-case/unit-tests/Info.plist
-    codeSign: false
-    dependencies:
-      - target: AccountsJourney
-        link: true
-      - target: GoldenAccountsUseCase
-        link: true
-    sources:
-      - path: Tests/accounts-use-case/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
 

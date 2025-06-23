@@ -7,8 +7,9 @@
 
 import Foundation
 import Resolver
+import ArrangementsClient2Gen2
 
-extension AccountsJourney.CustomProducts {
+extension CustomProductKind {
     func mapToUi() -> AccountsUIModel {
         
         var accountsUIModel = AccountsUIModel()
@@ -18,7 +19,7 @@ extension AccountsJourney.CustomProducts {
                 header: config.accountsList.strings.generalAccountTitle(),
                 products: products.map {
                     AccountUIModel(
-                        id: $0.identifier,
+                        id: $0.id,
                         name: $0.name,
                         balance: Currency(
                             amount: $0.bookedBalance,
