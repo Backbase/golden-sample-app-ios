@@ -1,5 +1,5 @@
 //
-//  AccountsListTests.swift
+//  AccountsListL3Tests.swift
 //  GoldenSampleUITests
 //
 //  Created by Backbase on 15/12/2023.
@@ -25,9 +25,21 @@ final class AccountsListTests: BaseTestCase {
             .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumber: testData.defaultAccountNumber)
     }
     
-    func testEmptySearchResultIsDisplayed() {
+    func testCorrectSearchResultIsDisplayed() {
         AccountsListScreen()
             .searchAccount(query: testData.defaultAccountName)
             .assertAccountIsDisplayed(name: testData.defaultAccountName, accountNumber: testData.defaultAccountNumber)
+    }
+    
+    func testEmptySearchResultIsDisplayed() {
+        AccountsListScreen()
+            .searchAccount(query: testData.dummyInexistentAccount)
+            .assertNoResultsDisplayed()
+    }
+    
+    func testAccountDetailIsDisplayedUponSelectingAnAccount() {
+        AccountsListScreen()
+            .tapFirstAccount()
+            .assertAccountDetailsIsDisplayed()
     }
 }

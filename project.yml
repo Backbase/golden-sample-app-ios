@@ -4,11 +4,6 @@ options:
   platform: iOS
   deploymentTarget:
     iOS: 15.0
-  # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
-  # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
-  postGenCommand: >-
-    FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
-    sed -i '' -E 's/<\/Testables>/<\/Testables><TestPlans><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan"><\/TestPlanReference><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan" default="YES"><\/TestPlanReference><\/TestPlans>/g' $FILE;
 targets:
   AccountsJourney:
     type: framework
@@ -39,6 +34,34 @@ targets:
       - name: SwiftLint
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
+
+  MockedAccountsUseCase:
+    type: framework
+    platform: iOS
+    deploymentTarget: 
+      iOS: 15.0
+    info:
+      path: mocked-accounts-use-case/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+    settings:
+      base:
+        SUPPORTS_MACCATALYST: NO
+        MARKETING_VERSION: 0.0.1
+        BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+    sources:
+      - path: mocked-accounts-use-case
+        excludes:
+          - Info.plist
+        createIntermediateGroups: true
+    dependencies:
+      - target: AccountsJourney
+        link: true
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
+
   GoldenAccountsUseCase:
     type: framework
     platform: iOS
@@ -89,6 +112,11 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+    dependencies:
+      - target: AccountsJourney
+        embed: true
+      - target: MockedAccountsUseCase
+        embed: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -207,9 +235,18 @@ targets:
     dependencies:
       - target: GoldenSampleApp
         link: true
+      - target: AccountsJourney
+        link: true
     scheme:
       testTargets:
         - GoldenSampleUITests
+      testPlans:
+        - path: appUITests/TestPlans/L2.xctestplan
+          defaultPlan: true
+        - path: appUITests/TestPlans/L3.xctestplan
+          defaultPlan: false
+        - path: appUITests/TestPlans/L4.xctestplan
+          defaultPlan: false
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
