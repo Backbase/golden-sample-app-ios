@@ -5,7 +5,6 @@
 import BackbaseDesignSystem
 import UIKit
 import AccountsJourney
-import GoldenAccountsUseCase
 import Resolver
 import UserManagerUserProfileUseCase
 import UserProfileJourney

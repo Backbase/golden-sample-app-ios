@@ -9,7 +9,6 @@ import AccountsJourney
 import AppCommon
 import Resolver
 import ArrangementsClient2Gen2
-import GoldenAccountsUseCase
 
 extension AccountsJourney.Configuration: AppCommon.AppDependency {
     public func register() {
