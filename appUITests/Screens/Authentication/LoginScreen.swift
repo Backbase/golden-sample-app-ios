@@ -11,13 +11,13 @@ import XCTest
 final class LoginScreen: BaseScreen {
     
     private enum Identifier {
-            static let titleLabelId = "register.titleLabel"
-            static let loginButtonId = "register.loginButton"
-            static let usernameTextfieldId = "register.usernameInput.textInput.textField"
-            static let passwordTextfieldId = "register.passwordInput.textInput.textField"
-            static let allowButtonId = "biometricRegistration.allowButton"
-            static let denyButtonId = "biometricRegistration.denyButton"
-            static let passcodeButtonId = "login.passcodeButton"
+        static let titleLabelId = "register.titleLabel"
+        static let loginButtonId = "register.loginButton"
+        static let usernameTextfieldId = "register.usernameInput.textInput.textField"
+        static let passwordTextfieldId = "register.passwordInput.textInput.textField"
+        static let allowButtonId = "biometricRegistration.allowButton"
+        static let denyButtonId = "biometricRegistration.denyButton"
+        static let passcodeButtonId = "login.passcodeButton"
     }
     
     // MARK: ELEMENTS

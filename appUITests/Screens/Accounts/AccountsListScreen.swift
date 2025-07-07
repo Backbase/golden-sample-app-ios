@@ -11,9 +11,9 @@ import XCTest
 final class AccountsListScreen: BaseScreen {
     
     private enum Identifier {
-            static let myAccountsHeaderLabelId = "My Accounts"
-            static let accountDetailsHeaderLabelId = "Account Details"
-        }
+        static let myAccountsHeaderLabelId = "My Accounts"
+        static let accountDetailsHeaderLabelId = "Account Details"
+    }
 
     // MARK: ELEMENTS
     private lazy var myAccountsHeaderLabel = app.staticTexts[Identifier.myAccountsHeaderLabelId]

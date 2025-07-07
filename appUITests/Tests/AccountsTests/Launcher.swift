@@ -17,7 +17,6 @@ class Launcher {
         app.launchArguments += ["UseMocks"]
         arguments.forEach { app.launchEnvironment[$0.key] = $0.value }
         app.launch()
-        return AccountsListScreen()
-
+        return AccountsListScreen(app)
     }
 }
