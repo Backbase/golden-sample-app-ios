@@ -241,10 +241,8 @@ targets:
       testTargets:
         - GoldenSampleUITests
       testPlans:
-        - path: appUITests/TestPlans/L2.xctestplan
-          defaultPlan: true
         - path: appUITests/TestPlans/L3.xctestplan
-          defaultPlan: false
+          defaultPlan: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests

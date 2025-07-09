@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "39AE819B-80A6-4C0C-94ED-172CA5C57258",
+      "id" : "D46D7198-45A2-48B5-8689-4E4BAE9AF498",
       "name" : "Configuration 1",
       "options" : {
 
@@ -14,12 +14,6 @@
   "testTargets" : [
     {
       "skippedTests" : [
-        "AccountsListL2Tests",
-        "AccountsListL2Tests\/testAccountIsDisplayedInTheList()",
-        "AccountsListL2Tests\/testCorrectSearchResultIsDisplayed()",
-        "AccountsListL2Tests\/testEmptySearchResultIsDisplayed()",
-        "AccountsListL2Tests\/testNoInternetErrorIsDisplayedInTheList()",
-        "AccountsListL2Tests\/testPullToRefreshAccountsDisplayed()",
         "BaseTestCase"
       ],
       "target" : {
