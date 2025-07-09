@@ -8,34 +8,17 @@ import Foundation
 import UIKit
 import Resolver
 import AccountsJourney
-import MockedAccountsUseCase
 import IdentityAuthenticationJourney
 import ClientCommonGen2
 
 
 extension AppDelegate {
     func setupRouter(with window: UIWindow) {
-        if shouldUseMocks() {
-            prepareForUITesting()
-            let router = MockedAppRouter()
-            Resolver.register { router }.implements(AppRouter.self)
-            if let error = ProcessInfo.processInfo.environment["hasError"] {
-                let callError = CallError.errorFromString(error)
-                let mockedAccountsUseCase = MockedAccountsUseCase(responseType: .failure(callError))
-                Resolver.register { mockedAccountsUseCase as AccountsListUseCase }
-            } else {
-                Resolver.register { MockedAccountsUseCase(responseType: .success(())) as AccountsListUseCase }
-            }
+        let router = Router()
+        Resolver.register { router }.implements(AppRouter.self)
 
-            Resolver.register { AccountsJourney.Configuration() }
-            router.didStartApp(window: window)
-        } else {
-            let router = Router()
-            Resolver.register { router }.implements(AppRouter.self)
-
-            Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
-            router.didStartApp(window: window)
-        }
+        Authentication.Configuration.appDefault.register(sessionChangeHandler: router.handleSessionChange)
+        router.didStartApp(window: window)
     }
 }
 

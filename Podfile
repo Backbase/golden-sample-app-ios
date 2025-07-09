@@ -27,9 +27,6 @@ abstract_target 'Common' do
   target 'AccountsJourney' do
   end
 
-  target 'MockedAccountsUseCase' do
-  end
-
   target 'AppCommon' do
     pod 'BackbaseLottieAnimation'
   end
@@ -46,8 +43,8 @@ abstract_target 'Tests' do
   pod 'Resolver', $resolverVersion
   
   target 'SnapshotTests' do
-      inherit! :search_paths
-    end
+    inherit! :search_paths
+  end
 
   target 'AccountsJourneyUnitTests' do 
   end

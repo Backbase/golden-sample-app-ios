@@ -34,63 +34,7 @@ targets:
       - name: SwiftLint
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml            
-  MockedAccountsUseCase:
-    type: framework
-    platform: iOS
-    deploymentTarget: 
-      iOS: 15.0
-    info:
-      path: mocked-accounts-use-case/Info.plist
-      properties:
-        CFBundleShortVersionString: $(MARKETING_VERSION)
-    settings:
-      base:
-        SUPPORTS_MACCATALYST: NO
-        MARKETING_VERSION: 0.0.1
-        BUILD_LIBRARY_FOR_DISTRIBUTION: YES
-    sources:
-      - path: mocked-accounts-use-case
-        excludes:
-          - Info.plist
-        createIntermediateGroups: true
-    dependencies:
-      - target: AccountsJourney
-        link: true
-    preBuildScripts:
-      - name: SwiftLint
-        script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-
-  GoldenAccountsUseCase:
-    type: framework
-    platform: iOS
-    deploymentTarget:
-      iOS: 15.0
-    info:
-      path: accounts-use-case/Info.plist
-      properties:
-        CFBundleShortVersionString: $(MARKETING_VERSION)
-    settings:
-      base:
-        SUPPORTS_MACCATALYST: NO
-        MARKETING_VERSION: 0.0.1
-        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
-    sources:
-      - path: accounts-use-case
-        excludes:
-          - Info.plist
-        createIntermediateGroups: true
-    scheme:
-      testTargets:
-        - GoldenAccountsUseCaseUnitTests
-      gatherCoverageData: true
-    dependencies:
-      - target: AccountsJourney
-        link: true
-    preBuildScripts:
-      - name: SwiftLint
-        script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
+  
   AppCommon:
     type: framework
     platform: iOS
@@ -112,8 +56,6 @@ targets:
         createIntermediateGroups: true
     dependencies:
       - target: AccountsJourney
-        embed: true
-      - target: MockedAccountsUseCase
         embed: true
     preBuildScripts:
       - name: SwiftLint
