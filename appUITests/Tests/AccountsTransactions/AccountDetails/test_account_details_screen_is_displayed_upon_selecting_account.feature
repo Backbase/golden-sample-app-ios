@@ -12,11 +12,11 @@ Feature: Account Details Display
     When I complete the login process
     Then I should be securely logged into the golden sample app and presented with the account list screen.
     
-Scenario: Display Account Details Upon Selection
-  Given I am on the Account List screen, which displays a comprehensive list of Accounts
-  When I carefully select and tap on the very first account listed in the visible accounts list
-  Then the application should navigate me directly to the Account Details screen for the selected account
-  And I should see all the specific details pertaining to that particular account, such as it's balance, account name and any other info, clearly displayed on the screen
+  Scenario: Display Account Details Upon Selection
+    Given I am on the Account List screen, which displays a comprehensive list of Accounts
+    When I carefully select and tap on the very first account listed in the visible accounts list
+    Then the application should navigate me directly to the Account Details screen for the selected account
+    And I should see all the specific details pertaining to that particular account, such as it's balance, account name and any other info, clearly displayed on the screen
   
         
     
