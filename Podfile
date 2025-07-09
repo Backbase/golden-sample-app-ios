@@ -26,9 +26,6 @@ abstract_target 'Common' do
 
   target 'AccountsJourney' do
   end
-  
-  target 'GoldenAccountsUseCase' do
-  end
 
   target 'MockedAccountsUseCase' do
   end
@@ -53,9 +50,6 @@ abstract_target 'Tests' do
     end
 
   target 'AccountsJourneyUnitTests' do 
-  end
-
-  target 'GoldenAccountsUseCaseUnitTests' do 
   end
 
   target 'GoldenSampleUITests' do 

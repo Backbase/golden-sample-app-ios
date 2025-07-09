@@ -33,8 +33,7 @@ targets:
     preBuildScripts:
       - name: SwiftLint
         script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-            
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml            
   MockedAccountsUseCase:
     type: framework
     platform: iOS
@@ -92,7 +91,6 @@ targets:
       - name: SwiftLint
         script: |
             ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-
   AppCommon:
     type: framework
     platform: iOS
@@ -144,8 +142,6 @@ targets:
       - path: assets
         createIntermediateGroups: true
     dependencies:
-      - target: GoldenAccountsUseCase
-        embed: true
       - target: AccountsJourney
         embed: true
       - target: AppCommon
@@ -168,17 +164,12 @@ targets:
     dependencies:
       - target: AccountsJourney
         link: false
-      - target: GoldenAccountsUseCase
-        link: false
       - target: AppCommon
         link: false
     scheme:
       gatherCoverageData: true
       testTargets: 
         - name: AccountsJourneyUnitTests
-          parallelizable: false
-          randomExecutionOrder: true
-        - name: GoldenAccountsUseCaseUnitTests
           parallelizable: false
           randomExecutionOrder: true
         # - name: GoldenSampleUITests
@@ -198,24 +189,6 @@ targets:
         link: true
     sources:
       - path: Tests/accounts-journey/unit-tests
-        excludes: Info.plist
-        createIntermediateGroups: true
-  
-  GoldenAccountsUseCaseUnitTests:
-    type: bundle.unit-test
-    platform: iOS
-    deploymentTarget:
-      iOS: 15.0
-    info:
-      path: Tests/accounts-use-case/unit-tests/Info.plist
-    codeSign: false
-    dependencies:
-      - target: AccountsJourney
-        link: true
-      - target: GoldenAccountsUseCase
-        link: true
-    sources:
-      - path: Tests/accounts-use-case/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
 

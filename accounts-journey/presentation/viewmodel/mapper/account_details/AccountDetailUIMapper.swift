@@ -7,8 +7,9 @@
 
 import Foundation
 import Resolver
+import ArrangementsClient2Gen2
 
-extension AccountsJourney.AccountDetailsModel {
+extension AccountArrangementItem {
     func toMapUI() -> AccountDetailsUIModel {
         let config: AccountsJourney.Configuration = Resolver.resolve()
         return AccountDetailsUIModel(
