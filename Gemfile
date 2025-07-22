@@ -4,9 +4,9 @@ source "https://rubygems.org"
 
 # gem "rails"
 
-gem "cocoapods", "~> 1.13"
+gem "cocoapods" #, "~> 1.13"
 gem "fastlane"
-gem "activesupport", "~> 7.0", "<= 7.0.8"
+gem "activesupport" #, "~> 7.0", "<= 7.0.8"
 gem "slather"
 gem "bigdecimal"
 gem "abbrev"
