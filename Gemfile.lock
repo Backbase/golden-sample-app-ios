@@ -6,11 +6,18 @@ GEM
       nkf
       rexml
     abbrev (0.1.2)
-    activesupport (7.0.8)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+    activesupport (7.2.2.1)
+      base64
+      benchmark (>= 0.3)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.3.1)
+      connection_pool (>= 2.2.5)
+      drb
       i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
       minitest (>= 5.1)
-      tzinfo (~> 2.0)
+      securerandom (>= 0.3)
+      tzinfo (~> 2.0, >= 2.0.5)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     algoliasearch (1.27.5)
@@ -38,6 +45,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     babosa (1.0.4)
     base64 (0.3.0)
+    benchmark (0.4.1)
     bigdecimal (3.2.2)
     claide (1.1.0)
     clamp (1.3.2)
@@ -83,11 +91,13 @@ GEM
     commander (4.6.0)
       highline (~> 2.0.0)
     concurrent-ruby (1.3.4)
+    connection_pool (2.5.3)
     declarative (0.0.20)
     digest-crc (0.7.0)
       rake (>= 12.0.0, < 14.0.0)
     domain_name (0.6.20240107)
     dotenv (2.8.1)
+    drb (2.2.3)
     emoji_regex (3.2.3)
     escape (0.0.4)
     ethon (0.16.0)
@@ -272,6 +282,7 @@ GEM
     ruby-macho (2.5.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
+    securerandom (0.4.1)
     security (0.1.5)
     signet (0.20.0)
       addressable (~> 2.8)
@@ -327,9 +338,9 @@ PLATFORMS
 
 DEPENDENCIES
   abbrev
-  activesupport (~> 7.0, <= 7.0.8)
+  activesupport
   bigdecimal
-  cocoapods (~> 1.13)
+  cocoapods
   concurrent-ruby (= 1.3.4)
   fastlane
   fastlane-plugin-xcodegen
