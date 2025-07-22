@@ -58,6 +58,9 @@ PODS:
     - Backbase (>= 7.8.0)
   - ClientCommonGen2 (1.0.1):
     - Backbase (>= 9.0)
+  - ContactsClient2Gen2 (1.4.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - IdentityAuthenticationJourney (8.2.0):
     - BackbaseAnimation (>= 5.0.1)
     - BackbaseDesignSystem (>= 6.0.0)
@@ -68,6 +71,9 @@ PODS:
     - RxSwift (~> 6)
     - SnapKit (~> 5.7)
   - lottie-ios (4.5.1)
+  - PaymentOrderClient3Gen2 (1.3.0):
+    - Backbase (>= 9.0)
+    - ClientCommonGen2 (~> 1.0)
   - Resolver (1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (4.1.0):
     - AccessControlApiV3 (~> 1.0)
@@ -82,6 +88,26 @@ PODS:
     - BackbaseDesignSystem (>= 6.5.4)
     - BackbaseObservability (>= 1.0)
     - RetailJourneyCommon (>= 3.0)
+  - RetailPaymentJourney (7.2.4):
+    - Backbase (>= 13.0)
+    - BackbaseAnimation (>= 4.0)
+    - BackbaseDesignSystem (>= 6.0)
+    - BackbaseObservability (>= 2.0)
+    - Resolver
+    - RetailJourneyCommon (>= 3.0)
+    - SnapKit (~> 5.7)
+  - RetailPaymentJourneyAccountArrangementsUseCase (7.2.4):
+    - ArrangementsClient2Gen2 (~> 1.0)
+    - Resolver
+    - RetailPaymentJourney (~> 7.2.0)
+  - RetailPaymentJourneyContactsUseCase (7.2.4):
+    - ContactsClient2Gen2 (~> 1.0)
+    - Resolver
+    - RetailPaymentJourney (~> 7.2.0)
+  - RetailPaymentJourneyPaymentOrdersUseCase (7.2.4):
+    - PaymentOrderClient3Gen2 (~> 1.2)
+    - Resolver
+    - RetailPaymentJourney (~> 7.2.0)
   - RxCocoa (6.9.0):
     - RxRelay (= 6.9.0)
     - RxSwift (= 6.9.0)
@@ -118,6 +144,10 @@ DEPENDENCIES:
   - Resolver (= 1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (~> 4)
   - RetailMoreJourney (~> 5)
+  - RetailPaymentJourney (~> 7.2.4)
+  - RetailPaymentJourneyAccountArrangementsUseCase (~> 7.2.4)
+  - RetailPaymentJourneyContactsUseCase (~> 7.2.4)
+  - RetailPaymentJourneyPaymentOrdersUseCase (~> 7.2.4)
   - SwiftLint
   - UserManagerUserProfileUseCase (~> 7)
 
@@ -148,6 +178,13 @@ SPEC REPOS:
     - UserManagerClient2
     - UserManagerUserProfileUseCase
     - UserProfileJourney
+  https://repo.backbase.com/artifactory/api/pods/pods/:
+    - ContactsClient2Gen2
+    - PaymentOrderClient3Gen2
+    - RetailPaymentJourney
+    - RetailPaymentJourneyAccountArrangementsUseCase
+    - RetailPaymentJourneyContactsUseCase
+    - RetailPaymentJourneyPaymentOrdersUseCase
   trunk:
     - AppAuth
     - lottie-ios
@@ -177,13 +214,19 @@ SPEC CHECKSUMS:
   BusinessWorkspacesJourneyWorkspacesUseCase2: 411f4b5e0ea19aacc9f00f2c5413d4acc7909302
   ClientCommon: 8463e99e29056623dc50e809c817ec7a7e00944c
   ClientCommonGen2: f074d4bf6b702744df24ef04a3ec8df168ab795e
+  ContactsClient2Gen2: 9db08629958f8be2b5dc05c981e668f49859b5e1
   IdentityAuthenticationJourney: a24407ac5b3a3f76480adab2a36aad24f5db6bb2
   lottie-ios: 248b380fa1b97d18e792c37d90da7ab2aa0d6562
+  PaymentOrderClient3Gen2: dc9a450f0084ab48c24b47ac818306dd14dcead3
   Resolver: 764e380b2ddb26bba48c6e45ab393c968894a156
   RetailFeatureFilterAccessControlEntitlementsUseCase: ed5d126b86f6fcc55c5e3637ac32a51220eb05ad
   RetailFeatureFilterUseCase: 6051b515183e167318546f4010a6b1d860e17e9e
   RetailJourneyCommon: ed07d82c0b4efda25329e0e31f9b047c4a344055
   RetailMoreJourney: 79e3d396b7d01ae58abf1f0663e470f8c40789c6
+  RetailPaymentJourney: aed9cc64e88f1e84c0f383571a7f140e36f1e776
+  RetailPaymentJourneyAccountArrangementsUseCase: bd33867fca1fde689e8b24353aeaf40a44378b00
+  RetailPaymentJourneyContactsUseCase: 3e9e78f2610d9b239ccdd869d5da290bd4bb849b
+  RetailPaymentJourneyPaymentOrdersUseCase: e7dbc4579c0d5e76f22c45cfee68b97d4a86686c
   RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
@@ -193,6 +236,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 55dfd5e59d0973299d35440daa694ceba816a8c9
+PODFILE CHECKSUM: 7a60be39fa1867a9a407e72f05552b9221b3fc5b
 
 COCOAPODS: 1.15.2

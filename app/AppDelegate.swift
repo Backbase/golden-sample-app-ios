@@ -20,6 +20,7 @@ import AppCommon
 import RetailMoreJourney
 import UserProfileJourney
 import AccountsJourney
+import RetailPaymentJourney
 
 class AppDelegate: AppCommon.AppDelegate<Router> {
   
@@ -32,6 +33,7 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         More.Configuration.appDefault.register()
         UserProfileJourney.UserProfile.appDefault.register()
         AccountsJourney.Configuration.appDefault.register()
+        RetailPayment.Configuration.appDefault.register()
         
         return flag
     }
