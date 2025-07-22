@@ -61,6 +61,10 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         
         setupRouter(with: window)
         
+        #if DEBUG
+        prepareForUITesting()
+        #endif
+        
         return true
     }
     
