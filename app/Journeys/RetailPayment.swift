@@ -40,11 +40,24 @@ extension RetailPayment.Configuration: AppCommon.Configurable {
         if let configuration = Resolver.optional(RetailPayment.Configuration.self) {
             return configuration
         }
-        guard let createPaymentOrderUseCare = Resolver.optional(CreatePaymentOrderUseCase.self), let getPaymentPartiesUseCase = Resolver.optional(GetPaymentPartiesServiceUseCase.self), let contactsUseCase = Resolver.optional(ContactsUseCase.self) else {
-            fatalError()
+        guard let createPaymentOrderUseCare = Resolver.optional(CreatePaymentOrderUseCase.self),
+              let getPaymentPartiesUseCase = Resolver.optional(GetPaymentPartiesServiceUseCase.self),
+              let contactsUseCase = Resolver.optional(ContactsUseCase.self) else {
+            
+            let retailContactsUseCase = RetailContactsUseCase()
+            let getPaymentPartiesServiceUseCase = RetailGetPaymentPartiesServiceUseCase()
+            let createPaymentOrderUseCase = RetailCreatePaymentOrderUseCase()
+            
+            return RetailPayment.Configuration(
+                createPaymentOrderUseCase: createPaymentOrderUseCase,
+                getPaymentPartiesUseCase: getPaymentPartiesServiceUseCase,
+                contactsUseCase: retailContactsUseCase
+            )
         }
-        let configuration = RetailPayment.Configuration(createPaymentOrderUseCase: createPaymentOrderUseCare, getPaymentPartiesUseCase: getPaymentPartiesUseCase, contactsUseCase: contactsUseCase)
+        let configuration = RetailPayment.Configuration(
+            createPaymentOrderUseCase: createPaymentOrderUseCare,
+            getPaymentPartiesUseCase: getPaymentPartiesUseCase,
+            contactsUseCase: contactsUseCase)
         return configuration
     }
 }
-
