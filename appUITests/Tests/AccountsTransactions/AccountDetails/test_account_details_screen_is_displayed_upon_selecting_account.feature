@@ -8,7 +8,7 @@ Feature: Account Details Display
     Given I have successfully lauched the golden sample app
     And the environment is setup up
     And I am presented with the login screen 
-    And I provide valid credentials (e.g a correct username and password, or valid passcode)
+    And I provide valid credentials (e.g a correct username e.g `sdbxaz-dev-emily` and password e.g `wRmGXkuaD5vYVHmz`, or valid passcode). Other test users can be found here https://backbase.io/documentation/api-sandbox/retail-banking-usa/retail-user-credentials
     When I complete the login process
     Then I should be securely logged into the golden sample app and presented with the account list screen.
     
