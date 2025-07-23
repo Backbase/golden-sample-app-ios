@@ -64,18 +64,15 @@ final class AccountsListScreen: BaseScreen {
     
     @discardableResult
     func assertNoResultsDisplayed(file: StaticString = #file, line: UInt = #line) -> Self {
-        let noAccountsLabel = app.staticTexts.containing(predicate("No accounts")).firstMatch
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2 ) {[weak self] in
-            self?.expect(element: noAccountsLabel, status: .exist, file: file, line: line)
-        }
-        
+        let noAccountsLabel = app.staticTexts.containing(predicate(AccountsListTestData.noAccountsLabel)).firstMatch
+        expect(element: noAccountsLabel, status: .exist, file: file, line: line)
         return self
     }
     
     @discardableResult
     func assertNoInternetMessageDisplayed(file: StaticString = #file, line: UInt = #line) -> Self {
-        let notConnectedLabel = app.staticTexts.containing(predicate("Ohhh Shooot")).firstMatch
-        let somethingWentWrongLabel = app.staticTexts.containing(predicate("Something wrong happened")).firstMatch
+        let notConnectedLabel = app.staticTexts.containing(predicate(AccountsListTestData.ohhShootLabel)).firstMatch
+        let somethingWentWrongLabel = app.staticTexts.containing(predicate(AccountsListTestData.somethingWentWrongLabel)).firstMatch
         expect(element: notConnectedLabel, status: .exist, file: file, line: line)
         expect(element: somethingWentWrongLabel, status: .exist, file: file, line: line)
         return self
@@ -90,13 +87,13 @@ final class AccountsListScreen: BaseScreen {
     // Helpers
     @discardableResult
     func pullToRefreshElement(element: XCUIElement) -> Self {
-        XCTAssertTrue(element.waitForExistence(timeout: 2))
+        XCTAssertTrue(element.waitForExistence(timeout: Timeouts.shorterTimeout))
         let start = element.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
         let finish = element.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 100))
         start.press(forDuration: 0, thenDragTo: finish)
-        XCTAssertTrue(element.waitForExistence(timeout: 20))
+        XCTAssertTrue(element.waitForExistence(timeout: Timeouts.defaultTimeout))
         if !element.visible(app) {
-            XCTFail("Could not pull to refresh")
+            XCTFail(AccountsListTestData.couldNotPullToRefresh)
         }
         return self
     }
