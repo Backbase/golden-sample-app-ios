@@ -18,6 +18,13 @@ Feature: Account Search - Positive Results
     Then the search results area should clearly and accurately display an account matching the query
     And specifically, the displayed account should have the name "Default Account Name"
     And additionally, its corresponding account number should be "Default Account Number", confirming the Successful and precise retrieval of the intended account.
+
+  Scenario: Display of Empty Search Results for Non-Existent Account
+    Given I am on the Account List screen, which displays a comprehensive list of Accounts
+    When I utilize the search functionality to perform a query for an account that I know does not exist, specifically "Dummy Inexistent Account"
+    Then the application should indicate that no search results were found for my query
+    And I should explicityly see a message or visual cue such as "No Results" prominently displayed in the search results are, signifying that no accounts matched my non-existent search term.
+    
     
         
     
