@@ -32,6 +32,7 @@ extension CallError {
     }
 }
 
+#if DEBUG
 extension AppDelegate {
     func prepareForUITesting() {
         if ProcessInfo.processInfo.arguments.contains("UITests") {
@@ -44,5 +45,6 @@ extension AppDelegate {
         return ProcessInfo.processInfo.arguments.contains("UseMocks")
     }
 }
+#endif
 
 
