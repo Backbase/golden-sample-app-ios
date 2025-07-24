@@ -10,11 +10,28 @@ import XCTest
 class BaseTestCase: XCTestCase {
     
     // MARK: ELEMENTS
-    var app = XCUIApplication()
+    var app: XCUIApplication!
     
     override func setUp() {
         super.setUp()
         self.continueAfterFailure = false
+        app = XCUIApplication()
+        prepare(app)
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        XCUIApplication().terminate()
+    }
+    
+    func prepare(_ app: XCUIApplication) {
+        app.launchArguments += ["UITests"]
         app.launch()
+        
+        LoginScreen()
+            .authenticateUserWith(
+                name: UserEnrollment.userName,
+                password: UserEnrollment.password
+            )
     }
 }

@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "D46D7198-45A2-48B5-8689-4E4BAE9AF498",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "BaseTestCase"
+      ],
+      "target" : {
+        "containerPath" : "container:ios-golden-sample-app.xcodeproj",
+        "identifier" : "A86788992F31A0D2D60D2113",
+        "name" : "GoldenSampleUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

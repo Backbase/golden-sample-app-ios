@@ -4,11 +4,6 @@ options:
   platform: iOS
   deploymentTarget:
     iOS: 15.0
-  # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
-  # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
-  postGenCommand: >-
-    FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
-    sed -i '' -E 's/<\/Testables>/<\/Testables><TestPlans><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan"><\/TestPlanReference><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan" default="YES"><\/TestPlanReference><\/TestPlans>/g' $FILE;
 targets:
   AccountsJourney:
     type: framework
@@ -38,8 +33,8 @@ targets:
     preBuildScripts:
       - name: SwiftLint
         script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml            
+  
   AppCommon:
     type: framework
     platform: iOS
@@ -59,6 +54,9 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+    dependencies:
+      - target: AccountsJourney
+        embed: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -152,9 +150,14 @@ targets:
     dependencies:
       - target: GoldenSampleApp
         link: true
+      - target: AccountsJourney
+        link: true
     scheme:
       testTargets:
         - GoldenSampleUITests
+      testPlans:
+        - path: appUITests/TestPlans/L3.xctestplan
+          defaultPlan: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
