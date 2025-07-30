@@ -18,6 +18,3 @@ Feature: Account Details Display
     Then the application should navigate me directly to the Account Details screen for the selected account
     And I should see all the specific details pertaining to that particular account, such as it's balance, account name and any other info, clearly displayed on the screen
   
-        
-    
-        

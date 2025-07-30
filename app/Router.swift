@@ -8,6 +8,7 @@
 import UIKit
 import Resolver
 import AppCommon
+import RetailPaymentJourney
 import RetailMoreJourney
 import BackbaseDesignSystem
 import BusinessJourneyCommon
@@ -18,6 +19,8 @@ final class Router: AppRouter {
         let dashboardHelper = DashboardHelper()
         let moreNavigationController = NavigationController()
         let moreViewController = More.build(navigationController: moreNavigationController)
+        let paymentConfiguration = Resolver.resolve(RetailPayment.Configuration.self)
+        let paymentViewController = RetailPayment.build(navigationController: navigationController, configuration: paymentConfiguration)
         
         let userRepository = Resolver.resolve(UserRepository.self)
         
@@ -34,6 +37,7 @@ final class Router: AppRouter {
                 guard let self else { return }
                 tabBarViewController.viewControllers = [
                     dashboardViewController,
+                    paymentViewController,
                     moreNavigationController
                 ]
                 

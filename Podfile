@@ -23,6 +23,14 @@ abstract_target 'Common' do
   pod 'UserManagerUserProfileUseCase', '~> 7'
   pod 'RetailMoreJourney', '~> 5'
   pod 'BackbaseObservability', '~> 2.0'
+  # Payments Pods
+  pod 'RetailPaymentJourney', '~> 7.2.4'
+  pod 'RetailPaymentJourneyAccountArrangementsUseCase', '~> 7.2.4'
+  pod 'RetailPaymentJourneyContactsUseCase', '~> 7.2.4'
+#  pod 'RetailPaymentJourneyExternalAccountsUseCase', '~> 7.2.4'
+#  pod 'RetailPaymentJourneyLoansUseCase', '~> 7.2.4'
+  pod 'RetailPaymentJourneyPaymentOrdersUseCase', '~> 7.2.4'
+#  pod 'RetailPaymentJourneyBeneficiaryValidationUseCaseV2', '~> 7.2.4'
 
   target 'AccountsJourney' do
   end
@@ -35,7 +43,6 @@ abstract_target 'Common' do
     use_frameworks!
   end
 
-  
 end
 
 abstract_target 'Tests' do 

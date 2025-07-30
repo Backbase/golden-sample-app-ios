@@ -17,7 +17,4 @@ Feature: Account List Display
     When I navigate to the Accounts List screen
     Then I should observe that the Accounts list screen is correctly displayed
     And it should present a clear and organized listing of all my associated accounts, ensuring they are readily visible and accessible for further interaction.
-    
-        
-    
-        
+   

@@ -25,7 +25,3 @@ Feature: Account Search - Positive Results
     Then the application should indicate that no search results were found for my query
     And I should explicityly see a message or visual cue such as "No Results" prominently displayed in the search results are, signifying that no accounts matched my non-existent search term.
     
-    
-        
-    
-        
