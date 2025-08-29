@@ -537,6 +537,50 @@
         }
       }
     },
+    "authentication.registration.custom.alertMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set your preferences to get the most personalized experience tailored just for you"
+          }
+        }
+      }
+    },
+    "authentication.registration.custom.alertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Customize Your Experience"
+          }
+        }
+      }
+    },
+    "authentication.registration.custom.closeButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "authentication.registration.custom.continueButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        }
+      }
+    },
     "dashboard.menu.tab2" : {
       "extractionState" : "manual",
       "localizations" : {

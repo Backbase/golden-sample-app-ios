@@ -7,19 +7,20 @@
 
 import UIKit
 import Resolver
+import AccessControlClient3Gen2
+import AccountsJourney
+import AppCommon
+import ArrangementsClient2Gen2
 import Backbase
 import IdentityAuthenticationJourney
+import BackbaseIdentity
+import BusinessJourneyCommon
 import BusinessWorkspacesJourney
 import BusinessWorkspacesJourneyWorkspacesUseCase2
-import BusinessJourneyCommon
 import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
-import AccessControlClient3Gen2
-import ArrangementsClient2Gen2
-import AppCommon
 import RetailMoreJourney
 import UserProfileJourney
-import AccountsJourney
 
 class AppDelegate: AppCommon.AppDelegate<Router> {
   
@@ -33,6 +34,36 @@ class AppDelegate: AppCommon.AppDelegate<Router> {
         UserProfileJourney.UserProfile.appDefault.register()
         AccountsJourney.Configuration.appDefault.register()
         
+        registerChallengeResponseResolver()
+        
         return flag
+    }
+    
+    private func registerChallengeResponseResolver() {
+        guard let client = Backbase.authClient() as? BBIDAuthClient else {
+            return
+        }
+
+        let context = BBIDRouterContext()
+        // swiftlint:disable:next force_try
+        try! client.addRouter(
+            CustomRouter(testWindow: window, context: context))
+
+        Backbase.register(authClient: client)
+
+        let accessTokenResolver = BBOAuth2InvalidAccessTokenResolver()
+        let identityResolver = BBIDChallengeResolver(
+            authClient: client,
+            extraHeaders: nil,
+            scope: nil)
+        let chainResolver = BBChainErrorResponseResolver(
+            resolversChain: [
+                accessTokenResolver,
+                CustomStepUpResolver(client: client, testWindow: window),
+                identityResolver,
+            ]
+        )
+        // swiftlint:disable:next force_try
+        try! client.register(challengeResponseResolver: chainResolver)
     }
 }
