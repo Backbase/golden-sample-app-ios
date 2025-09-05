@@ -88,6 +88,9 @@ targets:
         embed: true
       - target: AppCommon
         embed: true
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
     preBuildScripts:
       - name: SwiftLint
         script: |
