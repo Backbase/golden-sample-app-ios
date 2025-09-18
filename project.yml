@@ -1,15 +1,16 @@
 name: ios-golden-sample-app
+deploymentTarget: &deploymentTarget "17.0"
 options:
   bundleIdPrefix: com.backbase
   platform: iOS
   deploymentTarget:
-    iOS: 15.0
+    iOS: *deploymentTarget
 targets:
   AccountsJourney:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: accounts-journey/Info.plist
       properties:
@@ -39,7 +40,7 @@ targets:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: appCommon/Info.plist
       properties:
@@ -66,7 +67,7 @@ targets:
     type: application
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.ebpsandbox.retailus
@@ -99,7 +100,7 @@ targets:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: Tests/all-tests/Info.plist
     codeSign: false
@@ -125,7 +126,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: Tests/accounts-journey/unit-tests/Info.plist
     codeSign: false
@@ -146,7 +147,7 @@ targets:
       path: appUITests/Info.plist
     codeSign: false
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     sources:
       - path: appUITests
         excludes: Info.plist
@@ -175,7 +176,7 @@ targets:
     type: bundle.ui-testing
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: Tests/SnapshotTests/Info.plist
     codeSign: false

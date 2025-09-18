@@ -8,7 +8,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '~> 13'
+$backbaseVersion = '~> 14.1.2'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion

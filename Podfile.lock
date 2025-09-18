@@ -9,7 +9,7 @@ PODS:
   - ArrangementsClient2Gen2 (1.2.1):
     - Backbase (>= 9.0)
     - ClientCommonGen2 (~> 1.0)
-  - Backbase (13.1.1):
+  - Backbase (14.1.2):
     - BackbaseSDKSwiftWrapper (~> 2.1)
   - BackbaseAnimation (5.0.2):
     - Resolver (= 1.2.1)
@@ -26,7 +26,7 @@ PODS:
   - BackbaseObservability (2.0.1)
   - BackbaseSDKSwiftWrapper (2.1.2):
     - BackbaseSecureStorage (~> 2.1)
-  - BackbaseSecureStorage (2.1.8)
+  - BackbaseSecureStorage (2.2.2)
   - BusinessJourneyCommon (6.0.0):
     - Backbase (>= 12.0)
     - BusinessJourneyCommon/Sources (= 6.0.0)
@@ -108,7 +108,7 @@ PODS:
 
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
-  - Backbase (~> 13)
+  - Backbase (~> 14.1.2)
   - BackbaseDesignSystem (~> 6)
   - BackbaseLottieAnimation
   - BackbaseObservability (~> 2.0)
@@ -126,15 +126,12 @@ SPEC REPOS:
     - AccessControlApiV3
     - AccessControlClient3Gen2
     - ArrangementsClient2Gen2
-    - Backbase
     - BackbaseAnimation
     - BackbaseCountryCore
     - BackbaseDesignSystem
     - BackbaseIdentity
     - BackbaseLottieAnimation
     - BackbaseObservability
-    - BackbaseSDKSwiftWrapper
-    - BackbaseSecureStorage
     - BusinessJourneyCommon
     - BusinessWorkspacesJourney
     - BusinessWorkspacesJourneyWorkspacesUseCase2
@@ -148,6 +145,10 @@ SPEC REPOS:
     - UserManagerClient2
     - UserManagerUserProfileUseCase
     - UserProfileJourney
+  https://repo.backbase.com/artifactory/api/pods/pods/:
+    - Backbase
+    - BackbaseSDKSwiftWrapper
+    - BackbaseSecureStorage
   trunk:
     - AppAuth
     - lottie-ios
@@ -163,7 +164,7 @@ SPEC CHECKSUMS:
   AccessControlClient3Gen2: 72cdcc718a885fbfff05f01e29f08396d6107002
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   ArrangementsClient2Gen2: b1e2297c159dda5c644b2df9283a47f32be9b0b3
-  Backbase: b5e10465d5feac0d628691eb3b2433ec8ca1db35
+  Backbase: 768a0536fb49e56bf4dd2de41d444c85aee8ffce
   BackbaseAnimation: 071e91abf409604502b3e63448c528d3cc67be50
   BackbaseCountryCore: 170c41457f27f7350f839e24379e86bb29a2b6ba
   BackbaseDesignSystem: 5e1cefb20ff0402edd258c7a745af367a706f001
@@ -171,7 +172,7 @@ SPEC CHECKSUMS:
   BackbaseLottieAnimation: 52de2a82e1472931bb8cf40cd60bfac27e0d634f
   BackbaseObservability: 933e5f81322d990bf7b59272dcdca7354f44b386
   BackbaseSDKSwiftWrapper: 027150743c664a289cc879d82eabd8e775dcf7f2
-  BackbaseSecureStorage: 8b8a3e1cda29f4144fc6389add15249227ca838e
+  BackbaseSecureStorage: 9fe5a3d4687c0443163aabc731c6e6fd1d8c2f03
   BusinessJourneyCommon: a269192573900798427ed207bc56da4405290620
   BusinessWorkspacesJourney: 3fc8ace811af6e6c0654465695dad725f62f51b3
   BusinessWorkspacesJourneyWorkspacesUseCase2: 411f4b5e0ea19aacc9f00f2c5413d4acc7909302
@@ -193,6 +194,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 55dfd5e59d0973299d35440daa694ceba816a8c9
+PODFILE CHECKSUM: 3d82d213751b82dfcff1c049223fbe7e9ebe58f9
 
 COCOAPODS: 1.16.2
