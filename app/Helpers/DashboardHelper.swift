@@ -7,7 +7,7 @@ import UIKit
 import AccountsJourney
 import Resolver
 import UserManagerUserProfileUseCase
-import UserProfileJourney
+@preconcurrency import UserProfileJourney
 
 private struct UserPresentable: TabHeaderViewControllerUserPresentable {
     var name: String

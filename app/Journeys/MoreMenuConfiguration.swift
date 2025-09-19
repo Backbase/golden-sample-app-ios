@@ -15,8 +15,8 @@ extension More.Configuration: AppCommon.AppDependency {
             .init(
                 title: .init(key: "retailUniversalApp.more.items.demo", in: .appCommon),
                 icon: UIImage(systemName: "d.square"),
-                iconBackgroundColor: DesignSystem.shared.colors.primary.default,
-                iconTintColor: DesignSystem.shared.colors.primary.onDefault,
+                iconBackgroundColor: Theme.colors.background.brand,
+                iconTintColor: Theme.colors.foreground.onColor,
                 action: { navigationController in
                     navigationController.pushViewController(DemoViewController(title: "Demo"), animated: true)
                 }
@@ -30,8 +30,8 @@ extension More.Configuration: AppCommon.AppDependency {
             .init(
                 title: .init(key: "retailUniversalApp.more.items.logout", in: .appCommon),
                 icon: UIImage(systemName: "iphone.and.arrow.forward"),
-                iconBackgroundColor: DesignSystem.shared.colors.danger.default,
-                iconTintColor: DesignSystem.shared.colors.primary.onDefault,
+                iconBackgroundColor: Theme.colors.background.danger,
+                iconTintColor: Theme.colors.foreground.onColor,
                 action: { _ in
                     let useCase: AuthenticationUseCase = Resolver.resolve()
                     useCase.endSession(callback: nil)

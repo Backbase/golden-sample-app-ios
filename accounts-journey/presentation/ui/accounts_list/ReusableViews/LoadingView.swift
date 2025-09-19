@@ -21,7 +21,7 @@ final class LoadingView: UIView {
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
-        activityIndicator.tintColor = DesignSystem.shared.colors.primary.lighter
+        activityIndicator.tintColor = Theme.colors.background.brandSubtle
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
@@ -50,8 +50,8 @@ final class LoadingView: UIView {
     }
     
     private func configureLayout() {
-        backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
-        containerView.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+        backgroundColor = Theme.colors.background.surface1
+        containerView.backgroundColor = Theme.colors.background.surface1
     }
     private func configureDesign() {
         addSubview(containerView)

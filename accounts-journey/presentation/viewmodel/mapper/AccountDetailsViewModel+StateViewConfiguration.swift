@@ -26,7 +26,8 @@ extension AccountDetailsViewModel {
             subtitle: error.subtitle,
             animationView: nil,
             firstButtonConfiguration: primaryButtonConfiguration,
-            secondButtonConfiguration: nil
+            secondButtonConfiguration: nil,
+            thirdButtonConfiguration: nil
         )
     }
 }

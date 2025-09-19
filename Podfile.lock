@@ -32,15 +32,15 @@ PODS:
     - BusinessJourneyCommon/Sources (= 6.0.0)
   - BusinessJourneyCommon/Sources (6.0.0):
     - Backbase (>= 12.0)
-  - BusinessWorkspacesJourney (8.2.0):
+  - BusinessWorkspacesJourney (8.2.9):
     - BackbaseAnimation (>= 5.0)
     - BackbaseDesignSystem (>= 6.5.4)
     - BackbaseObservability (>= 1.0)
     - BusinessJourneyCommon (>= 5.0)
-    - BusinessWorkspacesJourney/Sources (= 8.2.0)
+    - BusinessWorkspacesJourney/Sources (= 8.2.9)
     - Resolver (~> 1.2.1)
     - RetailFeatureFilterUseCase (>= 4.0)
-  - BusinessWorkspacesJourney/Sources (8.2.0):
+  - BusinessWorkspacesJourney/Sources (8.2.9):
     - BackbaseAnimation (>= 5.0)
     - BackbaseDesignSystem (>= 6.5.4)
     - BackbaseObservability (>= 1.0)
@@ -109,12 +109,12 @@ PODS:
 DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (~> 14.1.2)
-  - BackbaseDesignSystem (~> 6)
+  - BackbaseDesignSystem (~> 6.5.7)
   - BackbaseLottieAnimation
   - BackbaseObservability (~> 2.0)
-  - BusinessWorkspacesJourney (~> 8)
+  - BusinessWorkspacesJourney (~> 8.2.9)
   - BusinessWorkspacesJourneyWorkspacesUseCase2 (~> 8)
-  - IdentityAuthenticationJourney (~> 8)
+  - IdentityAuthenticationJourney (~> 8.2.0)
   - Resolver (= 1.2.1)
   - RetailFeatureFilterAccessControlEntitlementsUseCase (~> 4)
   - RetailMoreJourney (~> 5)
@@ -132,8 +132,6 @@ SPEC REPOS:
     - BackbaseIdentity
     - BackbaseLottieAnimation
     - BackbaseObservability
-    - BusinessJourneyCommon
-    - BusinessWorkspacesJourney
     - BusinessWorkspacesJourneyWorkspacesUseCase2
     - ClientCommon
     - ClientCommonGen2
@@ -149,6 +147,8 @@ SPEC REPOS:
     - Backbase
     - BackbaseSDKSwiftWrapper
     - BackbaseSecureStorage
+    - BusinessJourneyCommon
+    - BusinessWorkspacesJourney
   trunk:
     - AppAuth
     - lottie-ios
@@ -174,7 +174,7 @@ SPEC CHECKSUMS:
   BackbaseSDKSwiftWrapper: 027150743c664a289cc879d82eabd8e775dcf7f2
   BackbaseSecureStorage: 9fe5a3d4687c0443163aabc731c6e6fd1d8c2f03
   BusinessJourneyCommon: a269192573900798427ed207bc56da4405290620
-  BusinessWorkspacesJourney: 3fc8ace811af6e6c0654465695dad725f62f51b3
+  BusinessWorkspacesJourney: 2b68d37bb11e32115c3825c5730a61065d295d62
   BusinessWorkspacesJourneyWorkspacesUseCase2: 411f4b5e0ea19aacc9f00f2c5413d4acc7909302
   ClientCommon: 8463e99e29056623dc50e809c817ec7a7e00944c
   ClientCommonGen2: f074d4bf6b702744df24ef04a3ec8df168ab795e
@@ -194,6 +194,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: d0968d24225379fe77ecb4753bd9f799039761e2
   UserProfileJourney: b57a96da58cb4b67ebf711dd7d50dd9a51f16943
 
-PODFILE CHECKSUM: 3d82d213751b82dfcff1c049223fbe7e9ebe58f9
+PODFILE CHECKSUM: 4d9650c91e1c8b3f70d6a8bf005c3b8e1818c8a9
 
 COCOAPODS: 1.16.2

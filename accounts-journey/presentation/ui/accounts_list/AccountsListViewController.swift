@@ -144,7 +144,7 @@ final class AccountsListViewController: UIViewController {
         view.addSubview(loadingView)
         setupLayout()
         
-        view.backgroundColor = DesignSystem.shared.colors.foundation.default
+        view.backgroundColor = Theme.colors.background.page
         title = configuration.accountsList.strings.screenTitle()
         
         if let bar = navigationController?.navigationBar {

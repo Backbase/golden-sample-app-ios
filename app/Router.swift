@@ -23,20 +23,19 @@ final class Router: AppRouter {
         
         moreNavigationController.viewControllers = [moreViewController]
         
-        let tabBarViewController = BackbaseDesignSystem.TabBarController()
-        Task {
+        Task { [weak self] in
+            guard let self = self else { return }
             let dashboardViewController = await dashboardHelper.getViewController(
                 navigationController: navigationController,
                 serviceAgreementName: userRepository.persistedServiceAgreementName ?? ""
             )
-            
-            DispatchQueue.main.async {[weak self] in
-                guard let self else { return }
+
+            await MainActor.run {
+                let tabBarViewController = BackbaseDesignSystem.TabBarController()
                 tabBarViewController.viewControllers = [
                     dashboardViewController,
                     moreNavigationController
                 ]
-                
                 self.set(viewController: tabBarViewController)
             }
         }

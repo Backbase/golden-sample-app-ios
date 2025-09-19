@@ -19,7 +19,11 @@ extension XCUIElement {
     }
     
     @discardableResult
-    func expect(status: UIStatus, timeout: TimeInterval = Timeouts.defaultTimeout, message: String? = nil, file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
+    func expect(status: UIStatus,
+                timeout: TimeInterval = Timeouts.defaultTimeout,
+                message: String? = nil,
+                file: StaticString = #filePath,
+                line: UInt = #line) -> XCUIElement {
         let isElementFound = self.waitForExistence(timeout: timeout)
         let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: status.rawValue), object: self)
         let result = XCTWaiter.wait(for: [expectation], timeout: timeout)

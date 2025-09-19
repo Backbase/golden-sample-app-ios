@@ -13,13 +13,13 @@ $backbaseVersion = '~> 14.1.2'
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase', '~> 4'
-  pod 'IdentityAuthenticationJourney','~> 8'
-  pod 'BusinessWorkspacesJourney' , '~> 8'
+  pod 'IdentityAuthenticationJourney','~> 8.2.0'
+  pod 'BusinessWorkspacesJourney' , '~> 8.2.9'
   pod 'BusinessWorkspacesJourneyWorkspacesUseCase2', '~> 8'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '~> 6'
+  pod 'BackbaseDesignSystem', '~> 6.5.7'
   pod 'UserManagerUserProfileUseCase', '~> 7'
   pod 'RetailMoreJourney', '~> 5'
   pod 'BackbaseObservability', '~> 2.0'
