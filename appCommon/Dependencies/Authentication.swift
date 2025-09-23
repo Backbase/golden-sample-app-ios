@@ -39,7 +39,7 @@ extension Authentication.Configuration: AppDependency {
 extension Authentication.Configuration: Configurable {
     public static var appDefault: Authentication.Configuration {
         var configuration = Authentication.Configuration()
-        configuration.login.autoLoginEnabled = true
+        configuration.login.v2.autoLoginEnabled = true
         return configuration
     }
 }
