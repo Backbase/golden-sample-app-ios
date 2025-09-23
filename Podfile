@@ -1,4 +1,4 @@
-platform :ios, '15.0'
+platform :ios, '17.0'
 
 install! 'cocoapods', deterministic_uuids: false
 source 'https://cdn.cocoapods.org/'
