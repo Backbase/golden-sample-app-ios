@@ -30,14 +30,23 @@ final class Router: AppRouter {
                 serviceAgreementName: userRepository.persistedServiceAgreementName ?? ""
             )
 
-            await MainActor.run {
-                let tabBarViewController = BackbaseDesignSystem.TabBarController()
-                tabBarViewController.viewControllers = [
-                    dashboardViewController,
-                    moreNavigationController
-                ]
-                self.set(viewController: tabBarViewController)
-            }
+            await self.setupTabBar(
+                dashboardViewController: dashboardViewController,
+                moreNavigationController: moreNavigationController
+            )
         }
+    }
+    
+    @MainActor
+    private func setupTabBar(
+        dashboardViewController: UIViewController,
+        moreNavigationController: UINavigationController
+    ) {
+        let tabBarViewController = BackbaseDesignSystem.TabBarController()
+        tabBarViewController.viewControllers = [
+            dashboardViewController,
+            moreNavigationController
+        ]
+        self.set(viewController: tabBarViewController)
     }
 }
