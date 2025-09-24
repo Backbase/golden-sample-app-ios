@@ -2,7 +2,7 @@ platform :ios, '17.0'
 
 install! 'cocoapods', deterministic_uuids: false
 source 'https://cdn.cocoapods.org/'
-source 'https://repo.backbase.com/artifactory/api/pods/pods'
+source 'https://repo.backbase.com/api/pods/pods'
 
 use_frameworks!
 inhibit_all_warnings!
