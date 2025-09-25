@@ -14,23 +14,20 @@ extension AppDelegate {
             let configuration = BBConfiguration()
 
             let identityConfig = BBIdentityConfiguration(
-                baseURL: "https://identity.dev.sdbxaz.azure.backbaseservices.com",
-                realm: "retail",
-                clientId: "mobile-client",
-                applicationKey: "retail"
+                baseURL: BBConfigurationConstants.identityBaseURL,
+                realm: BBConfigurationConstants.realm,
+                clientId: BBConfigurationConstants.clientId,
+                applicationKey: BBConfigurationConstants.applicationKey
             )
             configuration.backbase = BBBackbaseConfiguration(
-                serverURL: "https://app.dev.sdbxaz.azure.backbaseservices.com",
-                version: "6.1.5",
+                serverURL: BBConfigurationConstants.backbaseServerURL,
+                version: BBConfigurationConstants.version,
                 identity: identityConfig
             )
             configuration.security = BBSecurityConfiguration(
-                allowedDomains: ["*"]
+                allowedDomains: BBConfigurationConstants.allowedDomains
             )
-            configuration.bankTimeZone = "Europe/Amsterdam"
-            configuration.persistentHeaders = [
-                "default-http-headers": ["X-SDBXAZ-API-KEY": "Add your API key here"],
-            ]
+            configuration.bankTimeZone = BBConfigurationConstants.bankTimeZone
             try Backbase.initialize(fromConfig: configuration)
             appendCustomHeader()
         } catch {
@@ -39,12 +36,8 @@ extension AppDelegate {
     }
 
     func appendCustomHeader() {
-        if let defaultHTTPHeaders = Backbase.configuration().persistentHeaders["default-http-headers"] as? [String: String] {
-            var backbaseHeaders = Backbase.securitySessionConfiguration().httpAdditionalHeaders ?? [:]
-                for (key, value) in defaultHTTPHeaders {
-                    backbaseHeaders.updateValue(value, forKey: key)
-                }
-            Backbase.securitySessionConfiguration().httpAdditionalHeaders = backbaseHeaders
-        }
+        var backbaseHeaders = Backbase.securitySessionConfiguration().httpAdditionalHeaders ?? [:]
+        backbaseHeaders["X-SDBXAZ-API-KEY"] = BBConfigurationConstants.apiKey
+        Backbase.securitySessionConfiguration().httpAdditionalHeaders = backbaseHeaders
     }
 }
