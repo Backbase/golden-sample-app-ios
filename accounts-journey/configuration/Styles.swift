@@ -16,8 +16,8 @@ extension AccountsJourney.Design {
         public var accountIconView: Style<IconView> = { view in
             DesignSystem.shared.styles.iconViewWithBackground(view)
             view.imageView.tintColor = UIColor(
-                light: DesignSystem.shared.colors.charts.two.default.light,
-                dark: DesignSystem.shared.colors.charts.two.lightest.dark
+                light: Theme.colors.background.category2,
+                dark: Theme.colors.background.category2Subtle
             )
             
             let width = view.widthAnchor.constraint(equalToConstant: DesignSystem.shared.sizer.xl)

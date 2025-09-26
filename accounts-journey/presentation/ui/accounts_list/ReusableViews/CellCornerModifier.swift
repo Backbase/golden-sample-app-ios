@@ -12,7 +12,7 @@ protocol CellCornerModifier: UITableViewCell {
 extension CellCornerModifier {
     func setupCornerRadius(position: CellPosition) {
         let view = UIView()
-        let color = UIColor(light: DesignSystem.shared.colors.primary.lightest, dark: DesignSystem.shared.colors.primary.darkest)
+        let color = UIColor(light: Theme.colors.background.brandSubtle, dark: Theme.colors.background.brand)
         view.backgroundColor = color
         view.layer.cornerRadius = DesignSystem.shared.cornerRadius.large
         view.layer.maskedCorners = position.maskedCorners

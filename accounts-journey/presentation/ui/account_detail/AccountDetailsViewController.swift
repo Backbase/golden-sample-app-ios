@@ -80,8 +80,8 @@ final class AccountDetailsViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = DesignSystem.shared.colors.foundation.default
-        scrollView.backgroundColor = DesignSystem.shared.colors.foundation.default
+        view.backgroundColor = Theme.colors.background.page
+        scrollView.backgroundColor = Theme.colors.background.page
         title = configuration.accountDetails.strings.screenTitle()
         
         if let navigationBar = navigationController?.navigationBar {

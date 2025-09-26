@@ -15,7 +15,7 @@ import BackbaseLottieAnimation
 extension Authentication.Configuration: AppDependency {
     
     public func register(sessionChangeHandler: IdentityAuthenticationUseCase.SessionHandler?) {
-        let authenticationUseCase = IdentityAuthenticationUseCase(sessionChangeHandler: sessionChangeHandler)
+        let authenticationUseCase = IdentityAuthenticationUseCase(sessionHandler: sessionChangeHandler)
         let sessionResolver = Authentication.InvalidRefreshTokenResolver(useCase: authenticationUseCase)
         try? authenticationUseCase.register(invalidRefreshTokenResolver: sessionResolver)
         Backbase.register(authClient: authenticationUseCase)
@@ -39,7 +39,7 @@ extension Authentication.Configuration: AppDependency {
 extension Authentication.Configuration: Configurable {
     public static var appDefault: Authentication.Configuration {
         var configuration = Authentication.Configuration()
-        configuration.login.autoLoginEnabled = true
+        configuration.login.v2.autoLoginEnabled = true
         return configuration
     }
 }
