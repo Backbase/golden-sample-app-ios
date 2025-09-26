@@ -122,7 +122,7 @@ DEPENDENCIES:
   - UserManagerUserProfileUseCase (~> 8.0)
 
 SPEC REPOS:
-  https://repo.backbase.com/api/pods/pods/:
+  https://repo.backbase.com/artifactory/api/pods/pods/:
     - AccessControlApiV3
     - AccessControlClient3Gen2
     - ArrangementsClient2Gen2
@@ -193,6 +193,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 8cee3f5de68f0e84455d3ec7ed50fba73d948fa8
   UserProfileJourney: 5ae7c71ee3087396b5f1f7df5d397791c23b86ab
 
-PODFILE CHECKSUM: 81fa6de3bd2615f5e27ddc5c66cb9a4abf0ae47d
+PODFILE CHECKSUM: f13e4a520f0cd231eb4b9e70d04f5066790ffd60
 
 COCOAPODS: 1.16.2
