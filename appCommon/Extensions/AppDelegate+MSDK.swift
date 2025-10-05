@@ -11,7 +11,24 @@ import Backbase
 extension AppDelegate {
     func setupBackbaseSDK() {
         do {
-            try Backbase.initialize("config.json", forceDecryption: false)
+            let configuration = BBConfiguration()
+
+            let identityConfig = BBIdentityConfiguration(
+                baseURL: BBConfigurationConstants.identityBaseURL,
+                realm: BBConfigurationConstants.realm,
+                clientId: BBConfigurationConstants.clientId,
+                applicationKey: BBConfigurationConstants.applicationKey
+            )
+            configuration.backbase = BBBackbaseConfiguration(
+                serverURL: BBConfigurationConstants.backbaseServerURL,
+                version: BBConfigurationConstants.version,
+                identity: identityConfig
+            )
+            configuration.security = BBSecurityConfiguration(
+                allowedDomains: BBConfigurationConstants.allowedDomains
+            )
+            configuration.bankTimeZone = BBConfigurationConstants.bankTimeZone
+            try Backbase.initialize(fromConfig: configuration)
             appendCustomHeader()
         } catch {
             fatalError("Backbase MSDK initialization failed: \(error.localizedDescription)")
@@ -19,12 +36,8 @@ extension AppDelegate {
     }
 
     func appendCustomHeader() {
-        if let defaultHTTPHeaders = Backbase.configuration().custom["default-http-headers"] as? [String: String] {
-            var backbaseHeaders = Backbase.securitySessionConfiguration().httpAdditionalHeaders ?? [:]
-                for (key, value) in defaultHTTPHeaders {
-                    backbaseHeaders.updateValue(value, forKey: key)
-                }
-            Backbase.securitySessionConfiguration().httpAdditionalHeaders = backbaseHeaders
-        }
+        var backbaseHeaders = Backbase.securitySessionConfiguration().httpAdditionalHeaders ?? [:]
+        backbaseHeaders["X-SDBXAZ-API-KEY"] = BBConfigurationConstants.apiKey
+        Backbase.securitySessionConfiguration().httpAdditionalHeaders = backbaseHeaders
     }
 }

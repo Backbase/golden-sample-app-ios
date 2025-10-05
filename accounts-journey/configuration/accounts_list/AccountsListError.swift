@@ -14,14 +14,14 @@ extension AccountsList {
     public typealias ErrorFormatter<T> = MainErrorFormatter<AccountsList.Error, T>
     
     /// Accounts lists possible errors
-    public enum Error: Swift.Error, Equatable {
+    public enum Error: Swift.Error {
         case invalidResponse
         case notConnected
         case noAccounts
-        case loadingFailure(_ response: AccountsJourney.ErrorResponse? = nil)
+        case loadingFailure(_ response: ErrorResponse? = nil)
     }
     
-    static func getError(_ error: Swift.Error, response: AccountsJourney.ErrorResponse?) -> AccountsList.Error {
+    static func getError(_ error: Swift.Error, response: ErrorResponse?) -> AccountsList.Error {
         switch error as? ClientCommonGen2.CallError {
         case .nilHTTPResponse:
             return AccountsList.Error.notConnected

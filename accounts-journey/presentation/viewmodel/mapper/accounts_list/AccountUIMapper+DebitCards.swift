@@ -7,8 +7,9 @@
 
 import Foundation
 import Resolver
+import ArrangementsClient2Gen2
 
-extension AccountsJourney.DebitCards {
+extension DebitCardProductKinds {
     func mapToUi() -> AccountsUIModel? {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
@@ -16,7 +17,7 @@ extension AccountsJourney.DebitCards {
                 header: config.accountsList.strings.debitCardTitle(),
                 products: products.map {
                     return AccountUIModel(
-                        id: $0.identifier,
+                        id: $0.id,
                         name: $0.name,
                         balance: Currency(
                             amount: String($0.reservedAmount ?? 0),

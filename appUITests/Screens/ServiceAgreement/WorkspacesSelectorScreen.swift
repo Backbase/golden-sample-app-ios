@@ -11,18 +11,18 @@ import XCTest
 final class WorkspacesSelectorScreen: BaseScreen {
     
     private enum Identifier {
-        static let workspacesSelectorScreenTitleLblId = "workspaceSelectorView.screenTitle"
+        static let workspacesSelectorScreenTitleLabelId = "workspaceSelectorView.screenTitle"
     }
 
     // MARK: ELEMENTS
-    private lazy var workspacesSelectorScreenTitleLbl = app.staticTexts.matching(identifier: Identifier.workspacesSelectorScreenTitleLblId).firstMatch
-    private lazy var workspacesTbl = XCUIApplication().tables.element(boundBy: 0).firstMatch
+    private lazy var workspacesSelectorScreenTitleLabel = app.staticTexts.matching(identifier: Identifier.workspacesSelectorScreenTitleLabelId).firstMatch
+    private lazy var workspacesTable = XCUIApplication().tables.element(boundBy: 0).firstMatch
     private lazy var workspacesLoadingView = XCUIApplication().activityIndicators.element(boundBy: 0).firstMatch
     
     // MARK: METHODS - ACTION
     @discardableResult
     func selectWorkspaceBy(position: Int) -> Self {
-        let selectedWorkspace = workspacesTbl.cells.element(boundBy: position)
+        let selectedWorkspace = workspacesTable.cells.element(boundBy: position)
         selectedWorkspace.tap()
         return self
     }
@@ -36,13 +36,13 @@ final class WorkspacesSelectorScreen: BaseScreen {
     
     @discardableResult
     func selectServiceAgreementIfNeeded(workspaceName: String) -> Self {
-        expect(element: workspacesSelectorScreenTitleLbl, status: .exist)
+        expect(element: workspacesSelectorScreenTitleLabel, status: .exist)
         selectWorkspaceBy(text: workspaceName)
         return self
     }
     
     // MARK: Other Method
     func countWorkspaces() -> Int {
-        return workspacesTbl.cells.count
+        return workspacesTable.cells.count
     }
 }

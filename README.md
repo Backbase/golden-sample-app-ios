@@ -32,7 +32,7 @@ Bundler safeguards a uniform development environment for Ruby projects by managi
 bundle install
 ```
 4. Artifactory credentials
-Authentication for repo-art leverages the standard `.netrc` file located on your system. If this file doesn't exist, create it following the instructions [here](https://backbase.io/developers/documentation/mobile-devkit/getting-started/set-up-ios-development/):
+Authentication for Cocoapods leverages the standard `.netrc` file located on your system. If this file doesn't exist, create it following the instructions [here](https://backbase.io/developers/documentation/mobile-devkit/getting-started/set-up-ios-development/):
  ```bash
 machine repo.backbase.com
     login {username}
@@ -57,6 +57,23 @@ The project includes a test plan; however, Xcodegen cannot automatically include
 - Select "Edit the scheme."
 - Choose the corresponding test plan.
 - Modify details as necessary.
+  
+#### Running UITests
+Unlike L2 tests, L3 UI Tests require a live environment to run successfully. Please follow the steps below to configure your test environment properly.
+
+Make the necessary updates to the following files to ensure tests are properly configured:
+- `UserEnrollment.swift`
+- `Config.json`
+- `AccountsListTestData.swift`
+These files must reflect the correct settings and test data for the live environment.
+
+To avoid input issues during tests (especially on text fields), you may need to disable the simulator's hardware keyboard:
+
+Run the following command in Terminal:
+```bash
+defaults write com.apple.iphonesimulator ConnectHardwareKeyboard 0
+```
+This ensures the simulator uses the on-screen keyboard, preventing focus or input-related issues in the UI tests
 
 ## The Journey Architecture
 Backbase Mobile leverages the Journey Architecture, a design pattern where isolated sets of screens, representing a typical user flow, are grouped into "journeys." This modular approach facilitates the construction and maintenance of mobile applications by compartmentalizing functionality.

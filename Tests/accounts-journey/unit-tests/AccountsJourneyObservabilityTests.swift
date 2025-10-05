@@ -2,6 +2,8 @@ import XCTest
 import Combine
 import Resolver
 import BackbaseObservability
+import ClientCommonGen2
+import ArrangementsClient2Gen2
 @testable import AccountsJourney
 
 final class AccountsJourneyObservabilityTests: XCTestCase {
@@ -105,9 +107,9 @@ extension ScreenViewEvent: Equatable {
 }
 
 private final class DummyAccountsListUseCase: AccountsListUseCase {
-    func getAccountSummary(_ completion: @escaping (Result<AccountsJourney.AccountsSummary, AccountsJourney.ErrorResponse>) -> Void) {}
+    func getAccountSummary(_ completion: @escaping (Result<ArrangementsClient2Gen2.ProductSummary, ClientCommonGen2.ErrorResponse>) -> Void) {}
 }
 
 private final class DummyAccountDetailsUseCase: AccountDetailsUseCase {
-    func getAccountDetail(arrangementId: String, _ completion: @escaping (Result<AccountsJourney.AccountDetailsModel, AccountsJourney.ErrorResponse>) -> Void) {}
+    func getAccountDetail(arrangementId: String, _ completion: @escaping (Result<ArrangementsClient2Gen2.AccountArrangementItem, ClientCommonGen2.ErrorResponse>) -> Void) {}
 }

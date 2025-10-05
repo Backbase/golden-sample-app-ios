@@ -27,7 +27,8 @@ extension AccountsListViewModel {
             subtitle: error.subtitle,
             animationView: nil,
             firstButtonConfiguration: primaryButtonConfiguration,
-            secondButtonConfiguration: nil
+            secondButtonConfiguration: nil,
+            thirdButtonConfiguration: nil
         )
     }
 }

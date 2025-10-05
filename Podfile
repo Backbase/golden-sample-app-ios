@@ -1,33 +1,30 @@
-platform :ios, '15.0'
+platform :ios, '17.0'
 
 install! 'cocoapods', deterministic_uuids: false
 source 'https://cdn.cocoapods.org/'
-source 'https://repo.backbase.com/api/pods/pods'
+source 'https://repo.backbase.com/artifactory/api/pods/pods'
 
 use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '~> 13'
+$backbaseVersion = '~> 14.1.2'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
   pod 'RetailFeatureFilterAccessControlEntitlementsUseCase', '~> 4'
-  pod 'IdentityAuthenticationJourney','~> 8'
-  pod 'BusinessWorkspacesJourney' , '~> 8'
-  pod 'BusinessWorkspacesJourneyWorkspacesUseCase2', '~> 8'
+  pod 'IdentityAuthenticationJourney','~> 9.0.0'
+  pod 'BusinessWorkspacesJourney' , '~> 9.0.0'
+  pod 'BusinessWorkspacesJourneyWorkspacesUseCase2', '~> 9.0.0'
   pod 'ArrangementsClient2Gen2','~> 1.2.1'
   pod 'Resolver',  $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '~> 6'
-  pod 'UserManagerUserProfileUseCase', '~> 7'
-  pod 'RetailMoreJourney', '~> 5'
-  pod 'BackbaseObservability', '~> 2.0'
+  pod 'BackbaseDesignSystem', '~> 7.1.1'
+  pod 'UserManagerUserProfileUseCase', '~> 8.0'
+  pod 'RetailMoreJourney', '~> 6.1.0'
+  pod 'BackbaseObservability', '~> 2.0.1'
 
   target 'AccountsJourney' do
-  end
-  
-  target 'GoldenAccountsUseCase' do
   end
 
   target 'AppCommon' do
@@ -46,13 +43,13 @@ abstract_target 'Tests' do
   pod 'Resolver', $resolverVersion
   
   target 'SnapshotTests' do
-      inherit! :search_paths
-    end
+    inherit! :search_paths
+  end
 
   target 'AccountsJourneyUnitTests' do 
   end
 
-  target 'GoldenAccountsUseCaseUnitTests' do 
+  target 'GoldenSampleUITests' do 
   end
 end
 
