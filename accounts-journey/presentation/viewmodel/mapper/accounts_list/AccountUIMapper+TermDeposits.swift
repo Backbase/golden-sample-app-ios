@@ -7,8 +7,9 @@
 
 import Foundation
 import Resolver
+import ArrangementsClient2Gen2
 
-extension AccountsJourney.TermDeposits {
+extension TermDepositProductKinds {
     func mapToUi() -> AccountsUIModel? {
         if !products.isEmpty {
             let config: AccountsJourney.Configuration = Resolver.resolve()
@@ -16,13 +17,13 @@ extension AccountsJourney.TermDeposits {
                 header: config.accountsList.strings.termDepositTitle(),
                 products: products.map {
                     return AccountUIModel(
-                        id: $0.identifier,
+                        id: $0.id,
                         name: $0.name,
                         balance: Currency(
                             amount: $0.bookedBalance,
                             currencyCode: $0.currency
                         ),
-                        state: formatState($0.state, number: $0.bban ?? $0.iban),
+                        state: formatState($0.state, number: $0.BBAN ?? $0.IBAN),
                         isVisible: $0.visible,
                         iconName: config.design.accountIcon(.termDeposit)
                     )

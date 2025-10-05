@@ -9,6 +9,8 @@ import Foundation
 
 final class PasscodeScreen: BaseScreen {
     
+    private lazy var cancelButton = app.buttons.matching(identifier: "passcode.cancelButton").firstMatch
+    
     // MARK: METHODS - ACTION
     @discardableResult
     func tapKey(_ keyToPress: String) -> Self {
@@ -17,9 +19,14 @@ final class PasscodeScreen: BaseScreen {
     }
     
     @discardableResult
-    func enterPasscode(_ passcode: String) -> Self {
-        expect(element: app.keyboards.firstMatch, status: .hittable)
+    func enterPasscode(_ passcode: String, file: StaticString = #file, line: UInt = #line) -> Self {
+        expect(element: app.keyboards.firstMatch, status: .hittable, file: file, line: line)
         passcode.map { String($0) }.forEach { tapKey($0) }
         return self
+    }
+    
+    func dismiss() {
+        cancelButton.waitForElementToAppear()
+        cancelButton.tap()
     }
 }

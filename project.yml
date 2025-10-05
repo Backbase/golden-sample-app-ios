@@ -1,20 +1,16 @@
 name: ios-golden-sample-app
+deploymentTarget: &deploymentTarget "17.0"
 options:
   bundleIdPrefix: com.backbase
   platform: iOS
   deploymentTarget:
-    iOS: 15.0
-  # While TestPlans are not supported by XcodeGen, we manually inject the XML into the scheme.
-  # This is enough for Xcode 11 or 12 to read in order to use the Test Plan.
-  postGenCommand: >-
-    FILE='ios-golden-sample-app.xcodeproj/xcshareddata/xcschemes/SnapshotTests.xcscheme';
-    sed -i '' -E 's/<\/Testables>/<\/Testables><TestPlans><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan"><\/TestPlanReference><TestPlanReference reference="container:TestPlans\/newTestPlan.xctestplan" default="YES"><\/TestPlanReference><\/TestPlans>/g' $FILE;
+    iOS: *deploymentTarget
 targets:
   AccountsJourney:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: accounts-journey/Info.plist
       properties:
@@ -38,43 +34,13 @@ targets:
     preBuildScripts:
       - name: SwiftLint
         script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-  GoldenAccountsUseCase:
-    type: framework
-    platform: iOS
-    deploymentTarget:
-      iOS: 15.0
-    info:
-      path: accounts-use-case/Info.plist
-      properties:
-        CFBundleShortVersionString: $(MARKETING_VERSION)
-    settings:
-      base:
-        SUPPORTS_MACCATALYST: NO
-        MARKETING_VERSION: 0.0.1
-        BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
-    sources:
-      - path: accounts-use-case
-        excludes:
-          - Info.plist
-        createIntermediateGroups: true
-    scheme:
-      testTargets:
-        - GoldenAccountsUseCaseUnitTests
-      gatherCoverageData: true
-    dependencies:
-      - target: AccountsJourney
-        link: true
-    preBuildScripts:
-      - name: SwiftLint
-        script: |
-            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml
-
+            ${PODS_ROOT}/SwiftLint/swiftlint --config .swiftlint.yml            
+  
   AppCommon:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: appCommon/Info.plist
       properties:
@@ -89,6 +55,9 @@ targets:
         excludes:
           - Info.plist
         createIntermediateGroups: true
+    dependencies:
+      - target: AccountsJourney
+        embed: true
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -98,7 +67,7 @@ targets:
     type: application
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.ebpsandbox.retailus
@@ -116,12 +85,13 @@ targets:
       - path: assets
         createIntermediateGroups: true
     dependencies:
-      - target: GoldenAccountsUseCase
-        embed: true
       - target: AccountsJourney
         embed: true
       - target: AppCommon
         embed: true
+    scheme:
+      testTargets: []
+      gatherCoverageData: false
     preBuildScripts:
       - name: SwiftLint
         script: |
@@ -130,7 +100,7 @@ targets:
     type: framework
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: Tests/all-tests/Info.plist
     codeSign: false
@@ -140,17 +110,12 @@ targets:
     dependencies:
       - target: AccountsJourney
         link: false
-      - target: GoldenAccountsUseCase
-        link: false
       - target: AppCommon
         link: false
     scheme:
       gatherCoverageData: true
       testTargets: 
         - name: AccountsJourneyUnitTests
-          parallelizable: false
-          randomExecutionOrder: true
-        - name: GoldenAccountsUseCaseUnitTests
           parallelizable: false
           randomExecutionOrder: true
         # - name: GoldenSampleUITests
@@ -161,7 +126,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: Tests/accounts-journey/unit-tests/Info.plist
     codeSign: false
@@ -170,24 +135,6 @@ targets:
         link: true
     sources:
       - path: Tests/accounts-journey/unit-tests
-        excludes: Info.plist
-        createIntermediateGroups: true
-  
-  GoldenAccountsUseCaseUnitTests:
-    type: bundle.unit-test
-    platform: iOS
-    deploymentTarget:
-      iOS: 15.0
-    info:
-      path: Tests/accounts-use-case/unit-tests/Info.plist
-    codeSign: false
-    dependencies:
-      - target: AccountsJourney
-        link: true
-      - target: GoldenAccountsUseCase
-        link: true
-    sources:
-      - path: Tests/accounts-use-case/unit-tests
         excludes: Info.plist
         createIntermediateGroups: true
 
@@ -200,16 +147,21 @@ targets:
       path: appUITests/Info.plist
     codeSign: false
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     sources:
       - path: appUITests
         excludes: Info.plist
     dependencies:
       - target: GoldenSampleApp
         link: true
+      - target: AccountsJourney
+        link: true
     scheme:
       testTargets:
         - GoldenSampleUITests
+      testPlans:
+        - path: appUITests/TestPlans/L3.xctestplan
+          defaultPlan: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.goldensampleapp.UITests
@@ -224,7 +176,7 @@ targets:
     type: bundle.ui-testing
     platform: iOS
     deploymentTarget:
-      iOS: 15.0
+      iOS: *deploymentTarget
     info:
       path: Tests/SnapshotTests/Info.plist
     codeSign: false

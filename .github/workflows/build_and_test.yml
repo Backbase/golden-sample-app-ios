@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build-and-tests:
-    runs-on: macos-14
+    runs-on: macos-15-large
     steps:
       - name: Check out repository
         uses: actions/checkout@v3

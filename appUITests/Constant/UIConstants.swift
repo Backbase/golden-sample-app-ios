@@ -8,7 +8,13 @@
 import Foundation
 
 enum Timeouts {
-    static let defaultTimeout: TimeInterval = 5.0
+    static let shorterTimeout: TimeInterval = 3.0
+    static let shortTimeout: TimeInterval = 5.0
+    static let defaultTimeout: TimeInterval = 15.0
+    static let averageTimeout: TimeInterval = 10.0
+    static let requestTimeout: TimeInterval = 30.0
+    static let authTimeout: TimeInterval = 60.0
+    static let sessionTimeout: TimeInterval = 300.0
 }
 
 enum Pagination {
