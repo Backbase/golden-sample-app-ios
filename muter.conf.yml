@@ -1,0 +1,7 @@
+arguments:
+  - exec
+  - fastlane
+  - test
+executable: /Users/dunya@backbase.com/.asdf/shims/bundle
+exclude: []
+excludeCalls: []
