@@ -9,6 +9,7 @@ import UIKit
 import Resolver
 import Backbase
 import IdentityAuthenticationJourney
+import BackbaseDeveloperMode
 
 /**
  * The application delegate for the app.
@@ -63,9 +64,20 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
         prepareForUITesting()
+        enableDeveloperMode()
         #endif
         
         return true
+    }
+    
+    private func enableDeveloperMode() {
+        Task {
+            do {
+                try await BBDeveloperMode.enable()
+            } catch {
+                print("Developer mode error: \(error)")
+            }
+        }
     }
     
     private func createWindow() -> UIWindow {

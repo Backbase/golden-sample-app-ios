@@ -23,6 +23,7 @@ abstract_target 'Common' do
   pod 'UserManagerUserProfileUseCase', '~> 8.0'
   pod 'RetailMoreJourney', '~> 6.1.0'
   pod 'BackbaseObservability', '~> 2.0.1'
+  pod 'BackbaseDeveloperMode'
 
   target 'AccountsJourney' do
   end

@@ -37,6 +37,15 @@ An implementation of Backbase OpenTelemetry Connector to track screen views and 
 \
 LTS 25.03
 
+## [sample/devs/developer-mode](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/developer-mode)
+An implementation of Backbase Developer Mode SDK to inspect network traffic, review application logs, and define custom developer actions. Shake the device to open the developer dashboard.
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Maintained
+\
+LTS 25.03
+
 ## [sample/devs/custom-network](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/custom-networking)
 This example shows how to connect to a Backbase powered backend with a custom networking library.
 \
