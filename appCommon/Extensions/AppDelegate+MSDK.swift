@@ -28,6 +28,7 @@ extension AppDelegate {
                 allowedDomains: BBConfigurationConstants.allowedDomains
             )
             configuration.bankTimeZone = BBConfigurationConstants.bankTimeZone
+            configuration.persistentHeaders = BBConfigurationConstants.peristentHeaders
             try Backbase.initialize(fromConfig: configuration)
             appendCustomHeader()
         } catch {
