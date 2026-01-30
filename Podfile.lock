@@ -17,7 +17,7 @@ PODS:
   - BackbaseDesignSystem (7.1.1):
     - BackbaseCountryCore (>= 1.1.1)
     - Resolver (~> 1.2.1)
-  - BackbaseDeveloperMode (1.0.0):
+  - BackbaseDeveloperMode (1.1.0):
     - Backbase (>= 13.0)
   - BackbaseIdentity (9.0.0):
     - AppAuth/Core (~> 1.3)
@@ -112,7 +112,7 @@ DEPENDENCIES:
   - ArrangementsClient2Gen2 (~> 1.2.1)
   - Backbase (~> 14.1.2)
   - BackbaseDesignSystem (~> 7.1.1)
-  - BackbaseDeveloperMode
+  - BackbaseDeveloperMode (~> 1.1.0)
   - BackbaseLottieAnimation
   - BackbaseObservability (~> 2.0.1)
   - BusinessWorkspacesJourney (~> 9.0.0)
@@ -171,7 +171,7 @@ SPEC CHECKSUMS:
   BackbaseAnimation: 1c69e645c5ca677943c51350b7f554246f4f6286
   BackbaseCountryCore: 9afff0d2f0cb0d40e94937669c0979bb50f1f113
   BackbaseDesignSystem: ee1e83844c1b217f083a0f34141dc5af4ce22429
-  BackbaseDeveloperMode: 445ac7aad36f4152eb27c045de2340b0fcac1ff5
+  BackbaseDeveloperMode: 3d3a46dd658214df80acce5ced10d8f8fc9b3de9
   BackbaseIdentity: cfc13059b1764c392ca3d3dcde57ec219220e9d0
   BackbaseLottieAnimation: 9ac64f3ea934ac22b2c659b0fec6e89a76208c0a
   BackbaseObservability: 933e5f81322d990bf7b59272dcdca7354f44b386
@@ -198,6 +198,6 @@ SPEC CHECKSUMS:
   UserManagerUserProfileUseCase: 8cee3f5de68f0e84455d3ec7ed50fba73d948fa8
   UserProfileJourney: 5ae7c71ee3087396b5f1f7df5d397791c23b86ab
 
-PODFILE CHECKSUM: aa94c370be4df79d7d4566c2a7830e6cc4150f77
+PODFILE CHECKSUM: 969cb47192fee43e4da4414f54f1546d1e9ea83a
 
 COCOAPODS: 1.16.2
