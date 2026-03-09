@@ -25,8 +25,8 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/setup-environment
         with: 
-          bb_artifactory_ios_username: ${{ secrets.REPO_USERNAME }}
-          bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD }}
+          bb_artifactory_ios_username: ${{ secrets.REPO_USER_TEST }}
+          bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD_TEST }}
       - name: Test netrc
         run: curl -n -s -o /dev/null -w "HTTP %{http_code}\n" --head "https://repo.backbase.com/pods-local/"
       # - name: Xcode Select Version
