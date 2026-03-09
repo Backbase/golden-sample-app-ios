@@ -26,11 +26,18 @@ runs:
         key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gem-
+
+    - name: Setup 
+      uses: extractions/netrc@v1
+      with:
+        machine: repo.backbase.com
+        username: ${{ inputs.bb_artifactory_ios_username }}
+        password: ${{ inputs.bb_artifactory_ios_password }}
     
-    - name: Setup repository credentials
-      shell: bash
-      run: |
-        echo Adding credentials to ~/.netrc file
-        echo -e "machine repo.backbase.com\nlogin ${{ inputs.bb_artifactory_ios_username }}\npassword ${{ inputs.bb_artifactory_ios_password }}" > ~/.netrc
-        echo Changing ~/.netrc file permissions
-        chmod -R 0600 ~/.netrc
+#    - name: Setup repository credentials
+#      shell: bash
+#      run: |
+#        echo Adding credentials to ~/.netrc file
+#        echo -e "machine repo.backbase.com\nlogin ${{ inputs.bb_artifactory_ios_username }}\npassword ${{ inputs.bb_artifactory_ios_password }}" > ~/.netrc
+#        echo Changing ~/.netrc file permissions
+#        chmod -R 0600 ~/.netrc
