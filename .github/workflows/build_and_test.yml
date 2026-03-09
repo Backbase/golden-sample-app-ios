@@ -27,17 +27,17 @@ jobs:
         with: 
           bb_artifactory_ios_username: ${{ secrets.REPO_USER_TEST }}
           bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD_TEST }}
-      - name: Test netrc
-        run: curl -n -s -o /dev/null -w "HTTP %{http_code}\n" --head "https://repo.backbase.com/pods-local/"
-      # - name: Xcode Select Version
-      #  uses: mobiledevops/xcode-select-version-action@v1
-      #  with:
-      #    xcode-select-version: 16.2
-      #- name: Generate the project file
-      #  run: bundle exec fastlane setup
-      #- name: Run tests
-      #  run: bundle exec fastlane test
-      # - name: Upload coverage reports to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #- name: Test netrc
+      #  run: curl -n -s -o /dev/null -w "HTTP %{http_code}\n" --head "https://repo.backbase.com/pods-local/"
+      - name: Xcode Select Version
+        uses: mobiledevops/xcode-select-version-action@v1
+        with:
+          xcode-select-version: 16.2
+      - name: Generate the project file
+        run: bundle exec fastlane setup
+      - name: Run tests
+        run: bundle exec fastlane test
+      #- name: Upload coverage reports to Codecov
+      #  uses: codecov/codecov-action@v3
+      #  env:
+      #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
