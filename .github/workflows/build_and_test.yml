@@ -28,9 +28,7 @@ jobs:
           bb_artifactory_ios_username: ${{ secrets.REPO_USER_TEST }}
           bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD_TEST }}
       - name: Xcode Select Version
-        uses: mobiledevops/xcode-select-version-action@v1
-        with:
-          xcode-select-version: 26.2
+        run: sudo xcode-select -s /Applications/Xcode_26.2.app
       - name: Generate the project file
         run: bundle exec fastlane setup
       - name: Run tests
