@@ -26,13 +26,6 @@ runs:
         key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gem-
-
-#    - name: Setup 
-#      uses: extractions/netrc@v1
-#      with:
-#        machine: repo.backbase.com
-#        username: ${{ inputs.bb_artifactory_ios_username }}
-#        password: ${{ inputs.bb_artifactory_ios_password }}
     
     - name: Setup repository credentials
       shell: bash
