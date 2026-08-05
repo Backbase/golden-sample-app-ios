@@ -8,55 +8,53 @@ use_frameworks!
 inhibit_all_warnings!
 
 $resolverVersion = '1.2.1'
-$backbaseVersion = '~> 14.1.2'
+$backbaseVersion = '~> 15.1.1'
+$backbaseDesignSystemVersion = '~> 8.3.1'
 
 abstract_target 'Common' do
   pod 'Backbase', $backbaseVersion
-  pod 'RetailFeatureFilterAccessControlEntitlementsUseCase', '~> 4'
-  pod 'IdentityAuthenticationJourney','~> 9.0.0'
-  pod 'BusinessWorkspacesJourney' , '~> 9.0.0'
-  pod 'BusinessWorkspacesJourneyWorkspacesUseCase2', '~> 9.0.0'
-  pod 'ArrangementsClient2Gen2','~> 1.2.1'
-  pod 'Resolver',  $resolverVersion
+  pod 'RetailFeatureFilterAccessControlEntitlementsUseCase', '~> 6.0.0'
+  pod 'IdentityAuthenticationJourney', '~> 10.0.0'
+  pod 'BusinessWorkspacesJourney', '~> 10.1.0'
+  pod 'BusinessWorkspacesJourneyWorkspacesUseCase2', '~> 10.1.0'
+  pod 'ArrangementsClient2Gen2', '~> 1.2.1'
+  pod 'Resolver', $resolverVersion
   pod 'SwiftLint'
-  pod 'BackbaseDesignSystem', '~> 7.1.1'
-  pod 'UserManagerUserProfileUseCase', '~> 8.0'
-  pod 'RetailMoreJourney', '~> 6.1.0'
-  pod 'BackbaseObservability', '~> 2.0.1'
+  pod 'BackbaseDesignSystem', $backbaseDesignSystemVersion
+  pod 'UserManagerUserProfileUseCase', '~> 9.1.0'
+  pod 'RetailMoreJourney', '~> 7.0.0'
+  pod 'BackbaseObservability', '~> 2.0'
 
   target 'AccountsJourney' do
   end
 
   target 'AppCommon' do
-    pod 'BackbaseLottieAnimation'
+    pod 'BackbaseLottieAnimation', '~> 6.0.3'
   end
 
   target 'GoldenSampleApp' do
     use_frameworks!
   end
-
-  
 end
 
-abstract_target 'Tests' do 
+abstract_target 'Tests' do
   pod 'Backbase', $backbaseVersion
   pod 'Resolver', $resolverVersion
-  
+
   target 'SnapshotTests' do
     inherit! :search_paths
   end
 
-  target 'AccountsJourneyUnitTests' do 
+  target 'AccountsJourneyUnitTests' do
   end
 
-  target 'GoldenSampleUITests' do 
+  target 'GoldenSampleUITests' do
   end
 end
 
-
 post_install do |installer_representation|
   installer_representation.pods_project.targets.each do |target|
-    
+
     if target.respond_to?(:product_type)
       puts(target.product_type)
       if target.product_type == "com.apple.product-type.bundle"

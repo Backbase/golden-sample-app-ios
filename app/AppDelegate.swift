@@ -14,7 +14,7 @@ import BusinessWorkspacesJourneyWorkspacesUseCase2
 import BusinessJourneyCommon
 import RetailFeatureFilterUseCase
 import RetailFeatureFilterAccessControlEntitlementsUseCase
-import AccessControlClient3Gen2
+import AccessControlApiV3
 import ArrangementsClient2Gen2
 import AppCommon
 import RetailMoreJourney

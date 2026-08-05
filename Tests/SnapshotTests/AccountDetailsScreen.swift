@@ -3,7 +3,7 @@ import SnapshotTesting
 import Resolver
 @testable import GoldenAccountsUseCase
 @testable import AccountsJourney
-import AccessControlClient3Gen2
+import AccessControlApiV3
 import ArrangementsClient2Gen2
 import Backbase
 
