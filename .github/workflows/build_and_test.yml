@@ -29,7 +29,9 @@ jobs:
       - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
-          xcode-select-version: 16.2
+          xcode-select-version: 16.4
+      - name: Warm up simulators
+        run: xcrun simctl list > /dev/null
       - name: Generate the project file
         run: bundle exec fastlane setup
       - name: Run tests
