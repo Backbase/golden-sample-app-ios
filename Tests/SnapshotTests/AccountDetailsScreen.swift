@@ -3,8 +3,6 @@ import SnapshotTesting
 import Resolver
 @testable import GoldenAccountsUseCase
 @testable import AccountsJourney
-import AccessControlApiV3
-import ArrangementsClient2Gen2
 import Backbase
 
 class AccountDetailsScreenSnapshotTests: XCTestCase {
