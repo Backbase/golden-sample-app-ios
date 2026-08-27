@@ -93,7 +93,7 @@ final class AccountListItemTableCell: UITableViewCell, Reusable, CellCornerModif
     private func setupSubviews() {
         contentView.addSubview(containerStackView)
         contentView.backgroundColor = .clear
-        backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+        backgroundColor = Theme.colors.background.surface1
         containerStackView.addArrangedSubview(accountIconView)
         containerStackView.addArrangedSubview(infoStackView)
         infoStackView.addArrangedSubview(accountNameLabel)

@@ -71,4 +71,4 @@ This example shows how to extend a journey with custom business logic and a cust
 \
 **Status**: Not Maintained
 \
-LTS 24.03
+LTS 26.03
