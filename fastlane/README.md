@@ -29,7 +29,7 @@ Setup the project
 [bundle exec] fastlane ios pods_update
 ```
 
-Update cocoapods and repo-art automatically if pod install fails
+Update cocoapods automatically if pod install fails
 
 ### ios test
 
