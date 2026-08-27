@@ -17,7 +17,7 @@ The minimal sample that includes all the required Backbase SDKs to get started t
 \
 **Status**: Maintained
 \
-LTS 25.03
+LTS 26.03
 
 ## [sample/devs/O11Y](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/O11Y)
 An implementation of Backbase Observability that makes it easy to add 3rd party tracking libraries to your project.

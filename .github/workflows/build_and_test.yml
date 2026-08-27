@@ -24,12 +24,14 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/setup-environment
         with: 
-          bb_artifactory_ios_username: ${{ secrets.REPO_USERNAME }}
-          bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD }}
+          bb_artifactory_ios_username: ${{ secrets.REPO_USER_TEST }}
+          bb_artifactory_ios_password: ${{ secrets.REPO_PASSWORD_TEST }}
       - name: Xcode Select Version
         uses: mobiledevops/xcode-select-version-action@v1
         with:
-          xcode-select-version: 16.2
+          xcode-select-version: 16.4
+      - name: Warm up simulators
+        run: xcrun simctl list > /dev/null
       - name: Generate the project file
         run: bundle exec fastlane setup
       - name: Run tests
