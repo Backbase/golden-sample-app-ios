@@ -6,6 +6,8 @@ This repository serves as a public reference point, showcasing various component
 ## Prerequisites
 Building and running this project necessitates access to artifacts hosted in designated [Backbase repository](https://repo.backbase.com). Read permissions for these repositories are required.
 
+**Minimum iOS version: 17.0.** The `AccountsJourney` pod (`AccountsJourney.podspec`) now declares `ios.deployment_target = '17.0'` (previously `15.0`), matching the app, the `Podfile` and `BackbaseDesignSystem` 8.3.x, which are already built for iOS 17. Consumers that target iOS 15 or 16 can't integrate the pod, and a prebuilt `AccountsJourney.xcframework` must be rebuilt with the iOS 17 target.
+
 Furthermore, the application establishes a connection with the EBP Sandbox Environment. To facilitate this connection, an API key is necessary. Instructions for obtaining this key are found [here]( https://backbase.io/developers/documentation/api-sandbox/#_api_key). Once obtained, the key should be integrated into the [config.json](./app/assets/backbase/config.json) file located within the application's assets directory.
 
 ## Running and Execution
