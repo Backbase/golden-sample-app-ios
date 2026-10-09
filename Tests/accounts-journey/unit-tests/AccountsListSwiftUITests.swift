@@ -1,10 +1,11 @@
-import XCTest
-import UIKit
-import Resolver
 import ArrangementsClient2Gen2
-import ClientCommonGen2
-import BackbaseDesignSystem
 @testable import AccountsJourney
+import BackbaseDesignSystem
+import ClientCommonGen2
+import Resolver
+import SwiftUI
+import UIKit
+import XCTest
 
 // MARK: - Account summary
 
@@ -215,6 +216,19 @@ final class AccountsListViewModelSwiftUITests: XCTestCase {
         XCTAssertFalse(viewModel.screenState.isError)
     }
 
+    func test_stateChanges_notifySwiftUI() throws {
+        let useCase = StubAccountsListUseCase(result: .success(try ProductSummary.fixture()))
+        Resolver.register { useCase as AccountsListUseCase }
+        let viewModel = AccountsListViewModel()
+        var notifications = 0
+        let cancellable = viewModel.objectWillChange.sink { notifications += 1 }
+
+        viewModel.onEvent(.getAccounts)
+
+        XCTAssertGreaterThan(notifications, 0)
+        cancellable.cancel()
+    }
+
     func test_search_filtersTheAccounts() throws {
         let useCase = StubAccountsListUseCase(result: .success(try ProductSummary.fixture()))
         Resolver.register { useCase as AccountsListUseCase }
@@ -261,5 +275,54 @@ private final class DelayedFailingUseCase: AccountsListUseCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             completion(.failure(.error(500, nil, AccountsList.Error.invalidResponse)))
         }
+    }
+}
+
+// MARK: - Entry point
+
+/// `AccountsList.buildSwiftUI(navigationController:)`, the entry point of the SwiftUI screen.
+@MainActor
+final class AccountsListBuildSwiftUITests: XCTestCase {
+
+    override func tearDown() {
+        Resolver.register { AccountsJourney.Configuration() }
+        super.tearDown()
+    }
+
+    func test_buildSwiftUI_returnsAHostingControllerForTheSwiftUIScreen() {
+        Resolver.register { AccountsJourney.Configuration() }
+
+        let viewController = AccountsList.buildSwiftUI(navigationController: UINavigationController())
+
+        XCTAssertTrue(viewController is UIHostingController<AccountsListView>)
+    }
+
+    func test_buildSwiftUI_asksTheRouterForTheSelectionHandler_ofTheGivenNavigationController() {
+        var configuration = AccountsJourney.Configuration()
+        var routedNavigationController: UINavigationController?
+        configuration.accountsList.router = AccountsList.Router(didSelectProduct: { navigationController in
+            routedNavigationController = navigationController
+            return { _ in }
+        })
+        Resolver.register { configuration }
+        let navigationController = UINavigationController()
+
+        _ = AccountsList.buildSwiftUI(navigationController: navigationController)
+
+        XCTAssertTrue(routedNavigationController === navigationController)
+    }
+}
+
+// MARK: - Strings
+
+final class AccountsListSearchStringsTests: XCTestCase {
+
+    func test_searchStrings_areLocalised() {
+        let strings = AccountsList.Strings()
+
+        XCTAssertFalse(strings.searchText().isEmpty)
+        XCTAssertFalse(strings.clearSearchText().isEmpty)
+        XCTAssertNotEqual(strings.clearSearchText(), "labels.clearSearchText")
+        XCTAssertNotEqual(strings.clearSearchText(), "accountsJourney.accountsList.labels.clearSearchText")
     }
 }
