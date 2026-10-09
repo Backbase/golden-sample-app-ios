@@ -61,7 +61,7 @@ struct AccountSummaryUIModel {
         let searchQuery = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
         if let products {
-            return searchQuery.isEmpty ? products : products.filter { $0.name!.lowercased().contains(searchQuery) }
+            return searchQuery.isEmpty ? products : products.filter { $0.name?.lowercased().contains(searchQuery) == true }
         }
         
         return []

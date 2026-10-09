@@ -17,6 +17,8 @@ extension AccountsList {
         public var screenTitle = localized(key: "labels.title")
         /// accountsJourney.accountsList.labels.searchText
         public var searchText = localized(key: "labels.searchText")
+        /// accountsJourney.accountsList.labels.clearSearchText
+        public var clearSearchText = localized(key: "labels.clearSearchText")
         /// accountsJourney.accountsList.labels.section.title.creditCards
         public var creditCardTitle = localized(key: "labels.section.title.creditCards")
         /// accountsJourney.accountsList.labels.section.title.currentAccounts

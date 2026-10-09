@@ -11,7 +11,7 @@ import Combine
 import BackbaseDesignSystem
 import BackbaseObservability
 
-final class AccountsListViewModel: NSObject {
+final class AccountsListViewModel: NSObject, ObservableObject {
     
     // MARK: - Properties
     @Published private(set) var allAccounts = [AccountUIModel]()
@@ -62,7 +62,7 @@ final class AccountsListViewModel: NSObject {
             query = searchString
         }
         
-        screenState  = .loading
+        screenState = .loading
         
         accountsListUseCase.getAccountSummary {[weak self] result in
             guard let self else {
@@ -87,6 +87,8 @@ final class AccountsListViewModel: NSObject {
                 }
                 
             case let .failure(errorResponse):
+                // Don't keep showing accounts from a previous load once it has failed.
+                allAccounts = []
                 screenState = .hasError(
                     stateViewConfiguration(
                         for: .loadingFailure(errorResponse),

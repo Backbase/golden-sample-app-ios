@@ -375,6 +375,23 @@
         }
       }
     },
+    "accountsJourney.accountsList.labels.clearSearchText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح النص"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear text"
+          }
+        }
+      }
+    },
     "accountsJourney.accountsList.labels.closed" : {
       "extractionState" : "manual",
       "localizations" : {
