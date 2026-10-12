@@ -6,10 +6,7 @@
 import BackbaseDesignSystem
 import SwiftUI
 
-/// SwiftUI replacement of `AccountDetailsUsageRowView`.
-///
-/// Shows a title and a subtitle stacked vertically. Fonts and colours are the design system tokens
-/// used by the default `accountDetailRowItemTitle` and `accountDetailRowItemSubtitle` styles.
+/// Shows a title and a subtitle stacked vertically, styled with design system tokens.
 struct AccountDetailsRowView: View {
 
     private let content: AccountDetailsRowContent

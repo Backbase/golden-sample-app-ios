@@ -10,9 +10,6 @@ import BackbaseDesignSystem
 
 extension AccountsJourney {
     public struct Design {
-        
-        var styles = Styles()
-        
         /// Account icon based of account / product type
         public var accountIcon: (AccountsJourney.AccountType) -> AccountIconInfo? = { accountType in
             switch accountType {

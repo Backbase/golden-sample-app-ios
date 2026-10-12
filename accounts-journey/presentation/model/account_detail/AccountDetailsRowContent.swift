@@ -5,8 +5,7 @@
 
 import Foundation
 
-/// The texts shown by `AccountDetailsRowView`. Same rules as the rows the UIKit
-/// `AccountDetailsViewController` passes to `AccountDetailsUsageRowView`, expressed as plain `String`s.
+/// The texts shown by `AccountDetailsRowView`.
 struct AccountDetailsRowContent: Equatable {
 
     let title: String

@@ -6,7 +6,6 @@
 import BackbaseDesignSystem
 import SwiftUI
 
-/// SwiftUI replacement of the UIKit `LoadingView`: a large spinner centered on the surface background.
 struct CustomProgressView: View {
 
     var backgroundColor: Color

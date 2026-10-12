@@ -11,7 +11,6 @@ struct AccountDetailsSectionContent: Equatable {
     let title: String?
     let rows: [AccountDetailsRowContent]
 
-    /// The title is shown in upper case, like the UIKit `AccountDetailsUsageView`.
     init(title: String? = nil, rows: [AccountDetailsRowContent]) {
         self.title = title?.uppercased()
         self.rows = rows

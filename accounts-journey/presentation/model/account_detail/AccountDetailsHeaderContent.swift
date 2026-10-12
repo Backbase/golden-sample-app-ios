@@ -6,8 +6,7 @@
 import BackbaseDesignSystem
 import Foundation
 
-/// The texts and the icon shown by `AccountDetailsHeaderView`. Same rows the UIKit
-/// `AccountDetailsViewController` puts in its `SummaryStackView`, expressed as plain values.
+/// The texts and the icon shown by `AccountDetailsHeaderView`.
 struct AccountDetailsHeaderContent: Equatable {
 
     let icon: AccountIconInfo?

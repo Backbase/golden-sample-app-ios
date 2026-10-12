@@ -6,8 +6,6 @@
 import BackbaseDesignSystem
 import SwiftUI
 
-/// SwiftUI replacement of the `SummaryStackView` shown at the top of `AccountDetailsViewController`.
-///
 /// Centers the account icon, the product name, the account number, the available balance and the
 /// credit limit in a vertical stack. Fonts, colours and spacing are design system tokens.
 struct AccountDetailsHeaderView: View {

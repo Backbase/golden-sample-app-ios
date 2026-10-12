@@ -23,7 +23,7 @@ extension AccountsList {
                 return { arrangementId in
                     // The selection handlers are called from the accounts list UI, always on the main thread.
                     MainActor.assumeIsolated {
-                        let viewController = AccountDetails.buildSwiftUI(
+                        let viewController = AccountDetails.build(
                             navigationController: navigationController,
                             arrangementId: arrangementId
                         )

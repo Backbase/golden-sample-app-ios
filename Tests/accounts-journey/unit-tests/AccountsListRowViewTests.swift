@@ -129,6 +129,34 @@ struct EmblemAppearanceTests {
         #expect(red != blue)
     }
 
+    // MARK: UIColor overload
+
+    @Test
+    func nilBackground_isNeutral() {
+        #expect(EmblemAppearance.appearance(forBackground: nil) == .neutral)
+    }
+
+    @Test("Design system UIColor tokens map to their appearance", arguments: [
+        (Theme.colors.background.brandSubtle, BB.Emblem.Appearance.brand),
+        (Theme.colors.background.dangerSubtle, .danger),
+        (Theme.colors.background.category3Subtle, .category3)
+    ])
+    func knownBackgroundTokens_mapToTheirAppearance(color: UIColor, expected: BB.Emblem.Appearance) {
+        #expect(EmblemAppearance.appearance(forBackground: color) == expected)
+    }
+
+    @Test
+    func unknownBackground_isNeutral() {
+        #expect(EmblemAppearance.appearance(forBackground: UIColor(red: 0.123, green: 0.456, blue: 0.789, alpha: 1)) == .neutral)
+    }
+
+    @Test
+    func backgroundOverload_matchesTheColorOverload() {
+        let uiColor = Theme.colors.background.successSubtle
+
+        #expect(EmblemAppearance.appearance(forBackground: uiColor) == EmblemAppearance.appearance(for: Color(uiColor: uiColor)))
+    }
+
     @Test
     func colorWithDarkModeOverride_isMatchedByItsLightValue() {
         let color = Color(UIColor(light: Theme.colors.background.brandSubtle, dark: Theme.colors.background.surface2))

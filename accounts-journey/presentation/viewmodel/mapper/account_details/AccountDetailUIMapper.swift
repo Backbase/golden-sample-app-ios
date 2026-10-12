@@ -6,12 +6,10 @@
 //
 
 import Foundation
-import Resolver
 import ArrangementsClient2Gen2
 
 extension AccountArrangementItem {
-    func toMapUI() -> AccountDetailsUIModel {
-        let config: AccountsJourney.Configuration = Resolver.resolve()
+    func toMapUI(configuration: AccountsJourney.Configuration) -> AccountDetailsUIModel {
         return AccountDetailsUIModel(
             id: id,
             name: name ?? "",
@@ -24,12 +22,12 @@ extension AccountArrangementItem {
             productTypeName: productTypeName ?? "",
             bankBranchCode: bankBranchCode,
             lastUpdateDate: lastUpdateDate?.description ?? "",
-            accountInterestRate: accountInterestRate?.description ?? "",
+            accountInterestRate: accountInterestRate?.description,
             accruedInterest: accruedInterest ?? .init(),
             creditLimit: creditLimit ?? .init(),
-            accountOpeningDate: accountOpeningDate?.description ?? "", accountState: state?.state,
-            iconName: config.design.accountIcon(.init(rawValue: product?.externalId ?? "") ?? .general
-        )
+            accountOpeningDate: accountOpeningDate?.description ?? "",
+            accountState: state?.state,
+            iconName: configuration.design.accountIcon(.init(rawValue: product?.externalId ?? "") ?? .general)
         )
     }
 }

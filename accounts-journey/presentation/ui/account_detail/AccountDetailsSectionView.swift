@@ -6,10 +6,8 @@
 import BackbaseDesignSystem
 import SwiftUI
 
-/// SwiftUI replacement of `AccountDetailsUsageView`.
-///
-/// Shows an optional section title above a card with one `AccountDetailsRowView` per row. Fonts and
-/// colours are the design system tokens used by the default `accountDetailSectionTitle` style.
+/// Shows an optional section title above a card with one `AccountDetailsRowView` per row, styled
+/// with design system tokens.
 struct AccountDetailsSectionView: View {
 
     private let content: AccountDetailsSectionContent
