@@ -21,6 +21,12 @@ enum EmblemAppearance {
         return candidates.first { resolve($0.color) == resolved }?.appearance ?? .neutral
     }
 
+    /// Same as ``appearance(for:)``, for the `UIColor` tokens the design system and the account
+    /// icons (`AccountIconInfo.backgroundColor`) are expressed in.
+    static func appearance(forBackground color: UIColor?) -> BB.Emblem.Appearance {
+        appearance(for: color.map(Color.init(uiColor:)))
+    }
+
     private static func resolve(_ color: Color) -> Color.Resolved {
         var environment = EnvironmentValues()
         environment.colorScheme = .light

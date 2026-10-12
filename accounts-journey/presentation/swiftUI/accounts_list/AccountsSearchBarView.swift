@@ -1,5 +1,5 @@
 //
-//  AccountsSearchBar.swift
+//  AccountsSearchBarView.swift
 //  AccountsJourney
 //
 
@@ -8,7 +8,7 @@ import Resolver
 import SwiftUI
 
 /// SwiftUI replacement of `AccountListSearchBarHeaderView`.
-struct AccountsSearchBar: View {
+struct AccountsSearchBarView: View {
 
     @Binding var text: String
 
@@ -115,7 +115,7 @@ private struct SearchFieldBackground: ViewModifier {
     @Previewable @State var text = ""
     @Previewable @FocusState var isFocused: Bool
     Resolver.register { AccountsJourney.Configuration() }
-    return AccountsSearchBar(text: $text, isFocused: $isFocused)
+    return AccountsSearchBarView(text: $text, isFocused: $isFocused)
         .background(Color(Theme.colors.background.page))
 }
 
@@ -123,7 +123,7 @@ private struct SearchFieldBackground: ViewModifier {
     @Previewable @State var text = "Savings"
     @Previewable @FocusState var isFocused: Bool
     Resolver.register { AccountsJourney.Configuration() }
-    return AccountsSearchBar(text: $text, isFocused: $isFocused)
+    return AccountsSearchBarView(text: $text, isFocused: $isFocused)
         .background(Color(Theme.colors.background.page))
 }
 #endif

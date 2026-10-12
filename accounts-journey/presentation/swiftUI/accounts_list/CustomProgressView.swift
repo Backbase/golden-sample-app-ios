@@ -19,7 +19,7 @@ struct CustomProgressView: View {
             .accessibilityIdentifier("CustomProgressView.spinner")
     }
 
-    public init(backgroundColor: Color = .clear) {
+    init(backgroundColor: Color = .clear) {
         self.backgroundColor = backgroundColor
     }
 }

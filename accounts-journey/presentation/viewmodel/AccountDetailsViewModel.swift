@@ -11,7 +11,8 @@ import Combine
 import BackbaseDesignSystem
 import BackbaseObservability
 
-final class AccountDetailsViewModel: NSObject {
+/// Shared by `AccountDetailsViewController` and the SwiftUI `AccountDetailsView`.
+final class AccountDetailsViewModel: NSObject, ObservableObject {
     
     // MARK: - Properties
     @Published private(set) var screenState: AccountDetailsScreenState = .loading

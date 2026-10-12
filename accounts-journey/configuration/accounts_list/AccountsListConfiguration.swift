@@ -23,12 +23,14 @@ extension AccountsList {
         public var router = Router(
             didSelectProduct: { navigationController in
                 return { arrangementId in
-                    
-                    let viewController = AccountDetails.build(
-                        navigationController: navigationController,
-                        arrangementId: arrangementId
-                    )
-                    navigationController.pushViewController(viewController, animated: true)
+                    // The selection handlers are called from the accounts list UI, always on the main thread.
+                    MainActor.assumeIsolated {
+                        let viewController = AccountDetails.buildSwiftUI(
+                            navigationController: navigationController,
+                            arrangementId: arrangementId
+                        )
+                        navigationController.pushViewController(viewController, animated: true)
+                    }
                 }
             }
         )

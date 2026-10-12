@@ -106,15 +106,18 @@ private struct AccountsListContentView: View {
     let onSelect: (String) -> Void
     let onRefresh: () async -> Void
 
+    private static let stateViewIdentifier = "AccountsListStateView"
+
     /// Owned here, not by the search bar, so a row tap can dismiss the keyboard.
     @FocusState private var isSearchFocused: Bool
 
     var body: some View {
         switch state {
         case let .hasError(stateConfiguration):
-            AccountsListStateView(
+            StateConfigurationView(
                 configuration: stateConfiguration,
-                appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.dangerSubtle))
+                appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.dangerSubtle)),
+                accessibilityIdentifier: Self.stateViewIdentifier
             )
             .padding(.horizontal, DesignSystem.shared.spacer.md)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -133,12 +136,13 @@ private struct AccountsListContentView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 if showsSearchBar {
-                    AccountsSearchBar(text: $searchText, isFocused: $isSearchFocused)
+                    AccountsSearchBarView(text: $searchText, isFocused: $isSearchFocused)
                 }
                 if case let .emptyResults(stateConfiguration) = state {
-                    AccountsListStateView(
+                    StateConfigurationView(
                         configuration: stateConfiguration,
-                        appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.neutralSubtle))
+                        appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.neutralSubtle)),
+                        accessibilityIdentifier: Self.stateViewIdentifier
                     )
                     .padding(.top, DesignSystem.shared.sizer.xl)
                 } else {
@@ -172,39 +176,6 @@ private struct AccountsListContentView: View {
             .buttonStyle(.plain)
             .allowsHitTesting(!showsProgress)
         }
-    }
-}
-
-// MARK: - State view
-
-/// SwiftUI `StateView` for the empty and error states. The emblem appearance comes from
-/// `EmblemAppearance`, the same way it does for the account icons.
-private struct AccountsListStateView: View {
-
-    let configuration: StateViewConfiguration
-    let appearance: BB.Emblem.Appearance
-
-    var body: some View {
-        BB.StateView(
-            graphic: BB.Emblem(icon: icon, appearance: appearance, layout: .xLarge),
-            labelPrimaryText: configuration.title,
-            labelSecondaryText: configuration.subtitle.isEmpty ? nil : configuration.subtitle,
-            primaryButton: button(for: configuration.firstButtonConfiguration),
-            secondaryButton: button(for: configuration.secondButtonConfiguration),
-            tertiaryButton: button(for: configuration.thirdButtonConfiguration)
-        )
-        .accessibilityIdentifier("AccountsListStateView")
-    }
-
-    private var icon: Image {
-        Image.named(
-            configuration.iconName ?? DesignSystem.Assets.icStateViewFailure,
-            in: .accountsJourney, .design, .main
-        )
-    }
-
-    private func button(for buttonConfiguration: ButtonConfiguration?) -> BB.Button? {
-        buttonConfiguration.map { BB.Button(text: $0.title, action: $0.action) }
     }
 }
 
