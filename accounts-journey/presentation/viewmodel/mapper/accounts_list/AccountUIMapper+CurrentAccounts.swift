@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import Resolver
 import ArrangementsClient2Gen2
 
 extension CurrentAccountProductKinds {
-    func mapToUi() -> AccountsUIModel? {
+    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsUIModel? {
         if !products.isEmpty {
-            let config: AccountsJourney.Configuration = Resolver.resolve()
             return AccountsUIModel(
                 header: config.accountsList.strings.currentAccountTitle(),
                 products: products.map {

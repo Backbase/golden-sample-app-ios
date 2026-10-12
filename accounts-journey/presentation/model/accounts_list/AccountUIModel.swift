@@ -92,6 +92,6 @@ public struct AccountIconInfo: Equatable {
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.icon == rhs.icon && rhs.backgroundColor?.cgColor == rhs.backgroundColor?.cgColor
+        lhs.icon == rhs.icon && lhs.backgroundColor?.cgColor == rhs.backgroundColor?.cgColor
     }
 }

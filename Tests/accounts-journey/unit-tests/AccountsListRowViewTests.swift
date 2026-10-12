@@ -1,32 +1,57 @@
-import XCTest
-import SwiftUI
-import UIKit
 import BackbaseDesignSystem
+import SwiftUI
+import Testing
+import UIKit
 @testable import AccountsJourney
 
-final class AccountsListRowContentTests: XCTestCase {
+@Suite("AccountsListRowContent")
+struct AccountsListRowContentTests {
 
     private let strings = AccountsList.Strings()
 
-    func test_name_defaultsToEmptyString() {
+    /// The caption a state is replaced with, resolved against the strings of the test.
+    private enum Caption: Sendable {
+        case closed, inactive
+
+        func text(_ strings: AccountsList.Strings) -> String {
+            switch self {
+            case .closed: strings.closedAccountSubtitle()
+            case .inactive: strings.inactiveAccountSubtitle()
+            }
+        }
+    }
+
+    @Test
+    func name_defaultsToEmptyString() {
         let content = AccountsListRowContent(account: AccountUIModel(), strings: strings)
 
-        XCTAssertEqual(content.name, "")
-        XCTAssertNil(content.state)
-        XCTAssertNil(content.balance)
+        #expect(content.name == "")
+        #expect(content.state == nil)
+        #expect(content.balance == nil)
     }
 
-    func test_state_usesLocalisedCaption_forClosedAndInactiveAccounts() {
-        XCTAssertEqual(AccountsListRowContent.stateText(for: "Closed", strings: strings), strings.closedAccountSubtitle())
-        XCTAssertEqual(AccountsListRowContent.stateText(for: "INACTIVE", strings: strings), strings.inactiveAccountSubtitle())
+    @Test("Closed and inactive states use a localised caption, whatever their case", arguments: [
+        ("Closed", Caption.closed),
+        ("closed", .closed),
+        ("INACTIVE", .inactive),
+        ("Inactive", .inactive)
+    ])
+    private func stateText_usesLocalisedCaption(state: String, caption: Caption) {
+        #expect(AccountsListRowContent.stateText(for: state, strings: strings) == caption.text(strings))
     }
 
-    func test_state_isKept_forAnyOtherState() {
-        XCTAssertEqual(AccountsListRowContent.stateText(for: "Active", strings: strings), "Active")
-        XCTAssertNil(AccountsListRowContent.stateText(for: nil, strings: strings))
+    @Test("Any other state is kept", arguments: ["Active", "Pending"])
+    func stateText_isKept(state: String) {
+        #expect(AccountsListRowContent.stateText(for: state, strings: strings) == state)
     }
 
-    func test_balance_isFormattedWithTheGivenFormatter() {
+    @Test
+    func stateText_isNil_withoutAState() {
+        #expect(AccountsListRowContent.stateText(for: nil, strings: strings) == nil)
+    }
+
+    @Test
+    func balance_isFormattedWithTheGivenFormatter() {
         let account = AccountUIModel(
             name: "Savings",
             balance: Currency(amount: "10", currencyCode: "EUR")
@@ -34,59 +59,80 @@ final class AccountsListRowContentTests: XCTestCase {
 
         let content = AccountsListRowContent(account: account, strings: strings, formatAmount: { "\($0.amount) \($0.currencyCode)!" })
 
-        XCTAssertEqual(content.name, "Savings")
-        XCTAssertEqual(content.balance, "10 EUR!")
+        #expect(content.name == "Savings")
+        #expect(content.balance == "10 EUR!")
     }
 
-    func test_state_isTakenFromTheAccount() {
+    @Test
+    func state_isTakenFromTheAccount() {
         let closed = AccountsListRowContent(account: AccountUIModel(state: "Closed"), strings: strings)
         let active = AccountsListRowContent(account: AccountUIModel(state: "Active"), strings: strings)
 
-        XCTAssertEqual(closed.state, strings.closedAccountSubtitle())
-        XCTAssertEqual(active.state, "Active")
+        #expect(closed.state == strings.closedAccountSubtitle())
+        #expect(active.state == "Active")
     }
 
-    func test_formatAmount_withDesignSystemFormatter_containsTheAmount() {
+    @Test
+    func formatAmount_withDesignSystemFormatter_containsTheAmount() {
         let formatted = AccountsListRowContent.formatAmount(Currency(amount: "1250.5", currencyCode: "EUR"))
 
-        XCTAssertFalse(formatted.isEmpty)
-        XCTAssertTrue(formatted.contains("1"), "Unexpected text: \(formatted)")
+        #expect(!formatted.isEmpty)
+        #expect(formatted.contains("1"), "Unexpected text: \(formatted)")
     }
 }
 
-final class EmblemAppearanceTests: XCTestCase {
+@Suite("EmblemAppearance")
+struct EmblemAppearanceTests {
 
-    func test_nilColor_isNeutral() {
-        XCTAssertEqual(EmblemAppearance.appearance(for: nil), .neutral)
+    @Test
+    func nilColor_isNeutral() {
+        #expect(EmblemAppearance.appearance(for: nil) == .neutral)
     }
 
-    func test_unknownColor_isNeutral() {
-        XCTAssertEqual(EmblemAppearance.appearance(for: Color(red: 0.123, green: 0.456, blue: 0.789)), .neutral)
+    @Test
+    func unknownColor_isNeutral() {
+        #expect(EmblemAppearance.appearance(for: Color(red: 0.123, green: 0.456, blue: 0.789)) == .neutral)
     }
 
-    func test_knownTokens_mapToTheirAppearance() {
-        XCTAssertEqual(EmblemAppearance.appearance(for: Color(Theme.colors.background.brandSubtle)), .brand)
-        XCTAssertEqual(EmblemAppearance.appearance(for: Color(Theme.colors.background.successSubtle)), .success)
-        XCTAssertEqual(EmblemAppearance.appearance(for: Color(Theme.colors.background.category2Subtle)), .category2)
-        XCTAssertEqual(EmblemAppearance.appearance(for: Color(Theme.colors.background.category5Subtle)), .category5)
+    @Test("Design system tokens map to their appearance", arguments: [
+        (Color(Theme.colors.background.brandSubtle), BB.Emblem.Appearance.brand),
+        (Color(Theme.colors.background.successSubtle), .success),
+        (Color(Theme.colors.background.category2Subtle), .category2),
+        (Color(Theme.colors.background.category5Subtle), .category5)
+    ])
+    func knownTokens_mapToTheirAppearance(color: Color, expected: BB.Emblem.Appearance) {
+        #expect(EmblemAppearance.appearance(for: color) == expected)
     }
 
     /// `AccountIconInfo` carries a `UIColor`; the row converts it with `Color(uiColor:)`.
-    func test_uiColorOfAnAccountIcon_isMatchedAfterTheConversionTheRowDoes() {
+    @Test
+    func uiColorOfAnAccountIcon_isMatchedAfterTheConversionTheRowDoes() {
         let info = AccountIconInfo(icon: UIImage(), backgroundColor: Theme.colors.background.successSubtle)
 
-        XCTAssertEqual(EmblemAppearance.appearance(for: info.backgroundColor.map(Color.init(uiColor:))), .success)
+        #expect(EmblemAppearance.appearance(for: info.backgroundColor.map(Color.init(uiColor:))) == .success)
     }
 
-    func test_iconWithoutBackgroundColor_isNeutral() {
+    @Test
+    func iconWithoutBackgroundColor_isNeutral() {
         let info = AccountIconInfo(icon: UIImage(), backgroundColor: nil)
 
-        XCTAssertEqual(EmblemAppearance.appearance(for: info.backgroundColor.map(Color.init(uiColor:))), .neutral)
+        #expect(EmblemAppearance.appearance(for: info.backgroundColor.map(Color.init(uiColor:))) == .neutral)
     }
 
-    func test_colorWithDarkModeOverride_isMatchedByItsLightValue() {
+    @Test
+    func iconInfo_isNotEqual_whenOnlyTheBackgroundColorDiffers() {
+        let icon = UIImage()
+        let red = AccountIconInfo(icon: icon, backgroundColor: .red)
+        let blue = AccountIconInfo(icon: icon, backgroundColor: .blue)
+
+        #expect(red == AccountIconInfo(icon: icon, backgroundColor: .red))
+        #expect(red != blue)
+    }
+
+    @Test
+    func colorWithDarkModeOverride_isMatchedByItsLightValue() {
         let color = Color(UIColor(light: Theme.colors.background.brandSubtle, dark: Theme.colors.background.surface2))
 
-        XCTAssertEqual(EmblemAppearance.appearance(for: color), .brand)
+        #expect(EmblemAppearance.appearance(for: color) == .brand)
     }
 }

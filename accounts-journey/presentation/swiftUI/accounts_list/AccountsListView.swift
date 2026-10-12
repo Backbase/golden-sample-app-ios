@@ -4,33 +4,20 @@
 //
 
 import BackbaseDesignSystem
-import BackbaseObservability
-import Combine
-import Resolver
 import SwiftUI
 
-/// SwiftUI replacement of `AccountsListViewController`.
-///
-/// Shares `AccountsListViewModel` with the UIKit screen. This view owns what is specific to
-/// SwiftUI: the search text (debounced into `.search` events), pull to refresh and the
-/// analytics subjects the view model binds to.
+/// The accounts list. The view model is driven by SwiftUI itself: the first load by `.task`,
+/// the search by `.task(id:)` as the search text changes and the reload by `.refreshable`.
 struct AccountsListView: View {
 
-    @ObservedObject private var viewModel: AccountsListViewModel
+    @Bindable private var viewModel: AccountsListViewModel
     private let configuration: AccountsJourney.Configuration
 
-    @State private var searchText = ""
-    @State private var lastSubmittedQuery = ""
     @State private var isPullRefreshing = false
-    @State private var hasStarted = false
-    @State private var viewDidAppearSubject = PassthroughSubject<Void, Never>()
-    @State private var userActionEventSubject = PassthroughSubject<UserActionEvent, Never>()
-
-    private static let searchDebounce: Duration = .milliseconds(500)
 
     init(
         viewModel: AccountsListViewModel,
-        configuration: AccountsJourney.Configuration = Resolver.resolve()
+        configuration: AccountsJourney.Configuration
     ) {
         self.viewModel = viewModel
         self.configuration = configuration
@@ -38,90 +25,64 @@ struct AccountsListView: View {
 
     var body: some View {
         AccountsListContentView(
-            accounts: viewModel.allAccounts,
-            state: viewModel.screenState,
-            searchText: $searchText,
+            configuration: configuration,
+            accounts: viewModel.accounts,
+            isLoading: viewModel.isLoading,
+            error: viewModel.error,
+            searchText: $viewModel.searchText,
             isRefreshing: isPullRefreshing,
-            onSelect: { viewModel.didSelectProduct?($0) },
-            onRefresh: refresh
+            onSelect: viewModel.select(accountID:),
+            onRefresh: pullToRefresh,
+            onRetry: { Task { await viewModel.refresh() } }
         )
         .background(Color(Theme.colors.background.page).ignoresSafeArea())
         .navigationTitle(configuration.accountsList.strings.screenTitle())
         .navigationBarTitleDisplayMode(.large)
-        .onAppear(perform: onAppear)
-        .task(id: searchText) { await submitSearch() }
-        .onChange(of: viewModel.screenState.isError) { _, isError in
-            // The list, and with it the search field, is replaced by the error state.
-            if isError { resetSearch() }
-        }
+        .onAppear { viewModel.screenDidAppear() }
+        .task { await viewModel.loadAccountsIfNeeded() }
+        .task(id: viewModel.searchText) { await viewModel.submitSearch() }
     }
 
     // MARK: - Private
 
-    private func onAppear() {
-        if !hasStarted {
-            hasStarted = true
-            viewModel.bind(
-                viewDidAppearPublisher: viewDidAppearSubject.eraseToAnyPublisher(),
-                userActionEventPublisher: userActionEventSubject.eraseToAnyPublisher()
-            )
-            viewModel.onEvent(.getAccounts)
-        }
-        viewDidAppearSubject.send()
-    }
-
-    /// Debounces the typed text. `task(id:)` cancels the pending sleep on every keystroke.
-    private func submitSearch() async {
-        guard searchText != lastSubmittedQuery else { return }
-        try? await Task.sleep(for: Self.searchDebounce)
-        guard !Task.isCancelled else { return }
-        lastSubmittedQuery = searchText
-        viewModel.onEvent(.search(searchText))
-    }
-
-    private func refresh() async {
+    private func pullToRefresh() async {
         isPullRefreshing = true
         defer { isPullRefreshing = false }
-        // A refresh loads the unfiltered list, so the field must not keep a stale query.
-        resetSearch()
-        userActionEventSubject.send(UserActionEvent(.refreshAccounts))
-        await viewModel.refreshAccounts()
-    }
-
-    private func resetSearch() {
-        searchText = ""
-        lastSubmittedQuery = ""
+        await viewModel.pullToRefresh()
     }
 }
 
 // MARK: - Content
 
 /// The screen for a given state. It knows nothing about the view model, which keeps it previewable.
-private struct AccountsListContentView: View {
+struct AccountsListContentView: View {
 
+    let configuration: AccountsJourney.Configuration
     let accounts: [AccountUIModel]
-    let state: AccountListScreenState
+    let isLoading: Bool
+    let error: AccountsList.Error?
     @Binding var searchText: String
     let isRefreshing: Bool
     let onSelect: (String) -> Void
     let onRefresh: () async -> Void
+    let onRetry: () -> Void
 
     private static let stateViewIdentifier = "AccountsListStateView"
+    private static let scrollViewIdentifier = "AccountsListScrollView"
 
     /// Owned here, not by the search bar, so a row tap can dismiss the keyboard.
     @FocusState private var isSearchFocused: Bool
 
     var body: some View {
-        switch state {
-        case let .hasError(stateConfiguration):
+        if let error {
             StateConfigurationView(
-                configuration: stateConfiguration,
+                configuration: error.stateViewConfiguration(configuration: configuration, primaryAction: onRetry),
                 appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.dangerSubtle)),
                 accessibilityIdentifier: Self.stateViewIdentifier
             )
             .padding(.horizontal, DesignSystem.shared.spacer.md)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-        default:
+        } else {
             list
         }
     }
@@ -132,15 +93,26 @@ private struct AccountsListContentView: View {
         !accounts.isEmpty || !searchText.isEmpty
     }
 
+    private var showsEmptyState: Bool {
+        !isLoading && accounts.isEmpty
+    }
+
+    private var showsProgress: Bool {
+        isLoading && !isRefreshing
+    }
+
     private var list: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 if showsSearchBar {
-                    AccountsSearchBarView(text: $searchText, isFocused: $isSearchFocused)
+                    AccountsSearchBarView(text: $searchText, isFocused: $isSearchFocused, configuration: configuration)
                 }
-                if case let .emptyResults(stateConfiguration) = state {
+                if showsEmptyState {
                     StateConfigurationView(
-                        configuration: stateConfiguration,
+                        configuration: AccountsList.Error.noAccounts.stateViewConfiguration(
+                            configuration: configuration,
+                            primaryAction: onRetry
+                        ),
                         appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.neutralSubtle)),
                         accessibilityIdentifier: Self.stateViewIdentifier
                     )
@@ -153,145 +125,26 @@ private struct AccountsListContentView: View {
         }
         .scrollIndicators(.hidden)
         .scrollDismissesKeyboard(.immediately)
+        .accessibilityIdentifier(Self.scrollViewIdentifier)
         .refreshable { await onRefresh() }
         .overlay { if showsProgress { CustomProgressView() } }
     }
 
-    private var showsProgress: Bool {
-        state.isLoading && !isRefreshing
-    }
-
+    /// The rows form a single rounded card.
     private var rows: some View {
-        ForEach(Array(accounts.enumerated()), id: \.offset) { index, account in
-            Button {
-                guard !showsProgress, let id = account.id else { return }
-                onSelect(id)
-                isSearchFocused = false
-            } label: {
-                AccountsListRowView(
-                    account: account,
-                    position: .position(forRow: index, count: accounts.count)
-                )
+        LazyVStack(spacing: 0) {
+            ForEach(Array(accounts.enumerated()), id: \.offset) { _, account in
+                Button {
+                    guard !showsProgress, let id = account.id else { return }
+                    onSelect(id)
+                    isSearchFocused = false
+                } label: {
+                    AccountsListRowView(account: account, configuration: configuration)
+                }
+                .buttonStyle(.plain)
+                .allowsHitTesting(!showsProgress)
             }
-            .buttonStyle(.plain)
-            .allowsHitTesting(!showsProgress)
         }
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.shared.cornerRadius.large))
     }
 }
-
-// MARK: - Previews
-
-#if DEBUG
-private enum AccountsListPreviewData {
-
-    static let accounts: [AccountUIModel] = [
-        AccountUIModel(
-            id: "1",
-            name: "Main account",
-            balance: Currency(amount: "1250.50", currencyCode: "EUR"),
-            state: "Active",
-            iconName: AccountIconInfo(
-                icon: UIImage(systemName: "creditcard") ?? UIImage(),
-                backgroundColor: Theme.colors.background.brandSubtle
-            )
-        ),
-        AccountUIModel(
-            id: "2",
-            name: "Savings",
-            balance: Currency(amount: "9800", currencyCode: "EUR"),
-            state: "Inactive",
-            iconName: AccountIconInfo(
-                icon: UIImage(systemName: "banknote") ?? UIImage(),
-                backgroundColor: Theme.colors.background.successSubtle
-            )
-        ),
-        AccountUIModel(
-            id: "3",
-            name: "Loan",
-            balance: Currency(amount: "-12000", currencyCode: "EUR"),
-            state: "Closed",
-            iconName: AccountIconInfo(
-                icon: UIImage(systemName: "percent") ?? UIImage(),
-                backgroundColor: Theme.colors.background.category2Subtle
-            )
-        )
-    ]
-
-    static func stateConfiguration(
-        icon: String,
-        title: String,
-        subtitle: String,
-        button: String? = nil
-    ) -> StateViewConfiguration {
-        GenericStateViewConfiguration(
-            iconName: icon,
-            title: title,
-            subtitle: subtitle,
-            firstButtonConfiguration: button.map { ButtonConfiguration(title: $0, action: {}) }
-        )
-    }
-}
-
-private struct AccountsListPreview: View {
-
-    let accounts: [AccountUIModel]
-    let state: AccountListScreenState
-    @State var searchText = ""
-
-    var body: some View {
-        NavigationStack {
-            AccountsListContentView(
-                accounts: accounts,
-                state: state,
-                searchText: $searchText,
-                isRefreshing: false,
-                onSelect: { _ in },
-                onRefresh: {}
-            )
-            .background(Color(Theme.colors.background.page).ignoresSafeArea())
-            .navigationTitle("Accounts")
-            .navigationBarTitleDisplayMode(.large)
-        }
-    }
-}
-
-#Preview("Loaded") {
-    Resolver.register { AccountsJourney.Configuration() }
-    return AccountsListPreview(accounts: AccountsListPreviewData.accounts, state: .loaded)
-}
-
-#Preview("Loading") {
-    Resolver.register { AccountsJourney.Configuration() }
-    return AccountsListPreview(accounts: [], state: .loading)
-}
-
-#Preview("No results") {
-    Resolver.register { AccountsJourney.Configuration() }
-    return AccountsListPreview(
-        accounts: [],
-        state: .emptyResults(
-            AccountsListPreviewData.stateConfiguration(
-                icon: DesignSystem.Assets.icStateViewNoWifi,
-                title: "No accounts",
-                subtitle: "There are no accounts to show."
-            )
-        ),
-        searchText: "xyz"
-    )
-}
-
-#Preview("Error") {
-    Resolver.register { AccountsJourney.Configuration() }
-    return AccountsListPreview(
-        accounts: [],
-        state: .hasError(
-            AccountsListPreviewData.stateConfiguration(
-                icon: DesignSystem.Assets.icStateViewLoadingFailed,
-                title: "Something went wrong",
-                subtitle: "We couldn't load your accounts.",
-                button: "Try again"
-            )
-        )
-    )
-}
-#endif

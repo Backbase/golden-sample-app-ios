@@ -8,8 +8,7 @@
 import BackbaseDesignSystem
 import Foundation
 
-/// The texts shown by `AccountsListRowView`. Same rules as the default
-/// `accountListRowProvider` used by the UIKit cell, expressed as plain `String`s.
+/// The texts shown by `AccountsListRowView`.
 struct AccountsListRowContent: Equatable {
 
     let name: String

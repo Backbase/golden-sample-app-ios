@@ -43,7 +43,7 @@ struct DashboardHelper {
     private func createTabHeaderViewController(_ navigationController: UINavigationController,
                                                _ userName: String,
                                                _ serviceAgreementName: String) -> UIViewController {
-        let accountsListViewController = createSwiftUIAccountsListViewController(navigationController)
+        let accountsListViewHostingController = createAccountsListViewHostingController(navigationController)
         let tab2ViewController = DemoViewController(title: Bundle.main.localize("dashboard.menu.tab2") ?? "")
         let tab3ViewController = DemoViewController(title: Bundle.main.localize("dashboard.menu.tab3") ?? "")
 
@@ -52,7 +52,7 @@ struct DashboardHelper {
         let header: TabHeaderViewController.Header = .userInformation(headerConfiguration)
 
         let tabHeaderViewControllerConfiguration = TabHeaderViewController.Configuration(header: header,
-                                                                                         viewControllers: [accountsListViewController,
+                                                                                         viewControllers: [accountsListViewHostingController,
                                                                                                            tab2ViewController,
                                                                                                            tab3ViewController])
 
@@ -62,11 +62,10 @@ struct DashboardHelper {
         return tabHeaderController
     }
 
-    /// The accountsListViewController, rendered by the SwiftUI `AccountsListView`.
     @MainActor
-    private func createSwiftUIAccountsListViewController(_ navigationController: UINavigationController) -> UIViewController {
-        let accountsListViewController = AccountsList.buildSwiftUI(navigationController: navigationController)
-        accountsListViewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
-        return accountsListViewController
+    private func createAccountsListViewHostingController(_ navigationController: UINavigationController) -> UIViewController {
+        let viewController = AccountsList.build(navigationController: navigationController)
+        viewController.title = Bundle.main.localize("accountsJourney.accountsList.labels.title") ?? ""
+        return viewController
     }
 }

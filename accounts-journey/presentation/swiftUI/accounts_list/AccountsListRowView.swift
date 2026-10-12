@@ -4,26 +4,21 @@
 //
 
 import BackbaseDesignSystem
-import Resolver
 import SwiftUI
 
-/// SwiftUI replacement of `AccountListItemTableCell`.
 struct AccountsListRowView: View {
 
     private let content: AccountsListRowContent
     private let iconInfo: AccountIconInfo?
     private let identifier: String?
-    private let position: CellPosition
 
     init(
         account: AccountUIModel,
-        position: CellPosition,
-        configuration: AccountsJourney.Configuration = Resolver.resolve()
+        configuration: AccountsJourney.Configuration
     ) {
         self.content = AccountsListRowContent(account: account, strings: configuration.accountsList.strings)
         self.iconInfo = account.iconName
         self.identifier = account.id
-        self.position = position
     }
 
     var body: some View {
@@ -48,15 +43,13 @@ struct AccountsListRowView: View {
         }
         .padding(DesignSystem.shared.spacer.md)
         .background(Color(Theme.colors.background.surface1))
-        .groupedRowCorners(position)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(identifier.map { "AccountsListRow_\($0)" } ?? "AccountsListRow")
     }
 
 }
 
-/// A single line of the row. Fonts and colours are the design system tokens used by the
-/// default `accountName`, `accountState` and `accountBalance` styles.
+/// A single line of the row, styled with design system tokens.
 private struct RowText: View {
 
     enum Role {
@@ -99,7 +92,7 @@ private struct RowText: View {
 
 #if DEBUG
 #Preview("Rows") {
-    Resolver.register { AccountsJourney.Configuration() }
+    let configuration = AccountsJourney.Configuration()
     let accounts = [
         AccountUIModel(
             id: "1",
@@ -133,13 +126,11 @@ private struct RowText: View {
         )
     ]
     return VStack(spacing: 0) {
-        ForEach(Array(accounts.enumerated()), id: \.offset) { index, account in
-            AccountsListRowView(
-                account: account,
-                position: .position(forRow: index, count: accounts.count)
-            )
+        ForEach(Array(accounts.enumerated()), id: \.offset) { _, account in
+            AccountsListRowView(account: account, configuration: configuration)
         }
     }
+    .clipShape(RoundedRectangle(cornerRadius: DesignSystem.shared.cornerRadius.large))
     .padding()
     .background(Color(Theme.colors.background.page))
 }

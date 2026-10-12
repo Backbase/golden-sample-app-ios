@@ -7,39 +7,38 @@
 
 import Foundation
 import BackbaseDesignSystem
-import Resolver
 import ArrangementsClient2Gen2
 
 extension ProductSummary {
 
-    func toMapUI() -> AccountSummaryUIModel {
+    func toMapUI(configuration: AccountsJourney.Configuration) -> AccountSummaryUIModel {
         
         var accountSummaryUIModel = AccountSummaryUIModel()
         if !customProductKinds.isEmpty {
             accountSummaryUIModel.customProducts =  customProductKinds.map {
-                $0.mapToUi()
+                $0.mapToUi(configuration: configuration)
             }
         }
         if let currentAccounts {
-            accountSummaryUIModel.currentAccounts = currentAccounts.mapToUi()
+            accountSummaryUIModel.currentAccounts = currentAccounts.mapToUi(configuration: configuration)
         }
         if let savingsAccounts {
-            accountSummaryUIModel.savingAccounts = savingsAccounts.mapToUi()
+            accountSummaryUIModel.savingAccounts = savingsAccounts.mapToUi(configuration: configuration)
         }
         if let termDeposits {
-            accountSummaryUIModel.termDeposits = termDeposits.mapToUi()
+            accountSummaryUIModel.termDeposits = termDeposits.mapToUi(configuration: configuration)
         }
         if let loans {
-            accountSummaryUIModel.loans = loans.mapToUi()
+            accountSummaryUIModel.loans = loans.mapToUi(configuration: configuration)
         }
         if let creditCards {
-            accountSummaryUIModel.creditCards = creditCards.mapToUi()
+            accountSummaryUIModel.creditCards = creditCards.mapToUi(configuration: configuration)
         }
         if let debitCards {
-            accountSummaryUIModel.debitCards = debitCards.mapToUi()
+            accountSummaryUIModel.debitCards = debitCards.mapToUi(configuration: configuration)
         }
         if let investmentAccounts {
-            accountSummaryUIModel.investmentAccounts = investmentAccounts.mapToUi()
+            accountSummaryUIModel.investmentAccounts = investmentAccounts.mapToUi(configuration: configuration)
         }
         
         return accountSummaryUIModel

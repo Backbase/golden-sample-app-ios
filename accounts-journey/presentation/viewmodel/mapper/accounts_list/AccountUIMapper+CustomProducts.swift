@@ -6,15 +6,13 @@
 //
 
 import Foundation
-import Resolver
 import ArrangementsClient2Gen2
 
 extension CustomProductKind {
-    func mapToUi() -> AccountsUIModel {
+    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsUIModel {
         
         var accountsUIModel = AccountsUIModel()
         if !products.isEmpty {
-            let config: AccountsJourney.Configuration = Resolver.resolve()
             accountsUIModel = AccountsUIModel(
                 header: config.accountsList.strings.generalAccountTitle(),
                 products: products.map {

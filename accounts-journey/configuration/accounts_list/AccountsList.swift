@@ -10,26 +10,19 @@ import SwiftUI
 import UIKit
 
 public struct AccountsList {
-    /// Main entry point to the AccountsList
-    /// - Returns: a UIViewController 
-    /// - Parameter navigationController: UINavigationController
-    public static func build(navigationController: UINavigationController) -> UIViewController {
-        let configuration: AccountsJourney.Configuration = Resolver.resolve()
-        let viewModel = AccountsListViewModel()
-        viewModel.didSelectProduct = configuration.accountsList.router.didSelectProduct(navigationController)
-        let viewController = AccountsListViewController(viewModel: viewModel)
-        return viewController
-    }
-
-    /// Entry point to the SwiftUI AccountsList. Same behaviour as ``build(navigationController:)``,
-    /// the screen is just rendered by `AccountsListView` instead of `AccountsListViewController`.
+    /// Main entry point to the AccountsList. This is the composition root: the use case and the tracker
+    /// are resolved here and handed to the view model.
     /// - Returns: a UIViewController hosting the SwiftUI screen
     /// - Parameter navigationController: UINavigationController
     @MainActor
-    public static func buildSwiftUI(navigationController: UINavigationController) -> UIViewController {
+    public static func build(navigationController: UINavigationController) -> UIViewController {
         let configuration: AccountsJourney.Configuration = Resolver.resolve()
-        let viewModel = AccountsListViewModel()
-        viewModel.didSelectProduct = configuration.accountsList.router.didSelectProduct(navigationController)
+        let viewModel = AccountsListViewModel(
+            useCase: Resolver.resolve(AccountsListUseCase.self),
+            configuration: configuration,
+            tracker: Resolver.optional(),
+            didSelectProduct: configuration.accountsList.router.didSelectProduct(navigationController)
+        )
         return UIHostingController(rootView: AccountsListView(viewModel: viewModel, configuration: configuration))
     }
 }
