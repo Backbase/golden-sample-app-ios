@@ -173,7 +173,10 @@ targets:
       testTargets:
         - name: SnapshotTests
           randomExecutionOrder: true
-    type: bundle.ui-testing
+    # A unit test bundle, not a UI testing one: Xcode aliases the `Testing` module away in UI testing
+    # bundles, which fails to build against swift-snapshot-testing 1.18+ (it imports `Testing`).
+    # The screens are rendered in process, so no host app is needed.
+    type: bundle.unit-test
     platform: iOS
     deploymentTarget:
       iOS: *deploymentTarget
@@ -182,8 +185,6 @@ targets:
     codeSign: false
     dependencies:
       - package: SnapshotTesting
-      - target: GoldenSampleApp
-        link: true
       - target: AccountsJourney
         link: true
     sources:

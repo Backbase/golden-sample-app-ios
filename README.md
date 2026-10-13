@@ -59,6 +59,18 @@ The project includes a test plan; however, Xcodegen cannot automatically include
 - Select "Edit the scheme."
 - Choose the corresponding test plan.
 - Modify details as necessary.
+
+#### Running snapshot tests
+The `SnapshotTests` scheme renders the accounts list and the account details in each of their states
+(loaded, loading, error, ...) and compares them with the reference images in `Tests/SnapshotTests/__Snapshots__`.
+Without the test plan only the `English` configuration (light and dark mode) runs; the test plan adds the
+right to left one. Record the reference images on the iPhone 16 Pro, iOS 18.5 simulator and review them before committing:
+```bash
+TEST_RUNNER_SNAPSHOT_TESTING_RECORD=all \
+  xcodebuild test -workspace ios-golden-sample-app.xcworkspace -scheme SnapshotTests \
+  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
+```
+Use `TEST_RUNNER_TestPlanLanguage=ar` to record the right to left images.
   
 #### Running UITests
 Unlike L2 tests, L3 UI Tests require a live environment to run successfully. Please follow the steps below to configure your test environment properly.
