@@ -8,18 +8,15 @@ import Observation
 
 /// Abstraction the SwiftUI account details screen depends on.
 ///
-/// The screen is described by plain observable properties (`content`, `isLoading`, `error`) and is
+/// The screen is described by a single observable `state` and is
 /// driven by `async` methods, so SwiftUI can call them straight from `.task` and wait for them to finish.
 @MainActor
 protocol AccountDetailsViewModeling: AnyObject, Observable {
     // MARK: - State
 
-    /// What the screen shows for the loaded account: formatted and localised, `nil` while loading and after a failure.
-    var content: AccountDetailsContent? { get }
-    /// `true` until the first load has finished, and while any later load is in flight.
-    var isLoading: Bool { get }
-    /// Set when the last load failed.
-    var error: AccountDetails.Error? { get }
+    /// What the screen shows: loading until the first load has finished and while any later load is in
+    /// flight, then either the formatted and localised account or the error of the last load.
+    var state: ViewState<AccountDetailsContent> { get }
 
     // MARK: - API
 

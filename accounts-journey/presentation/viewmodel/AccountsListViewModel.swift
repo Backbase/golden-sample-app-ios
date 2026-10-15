@@ -6,6 +6,7 @@
 //
 
 import ArrangementsClient2Gen2
+import BackbaseDesignSystem
 import BackbaseObservability
 import ClientCommonGen2
 import Foundation
@@ -13,29 +14,26 @@ import Observation
 
 /// Drives the SwiftUI accounts list.
 ///
-/// The screen is described by plain observable properties (`rows`, `isLoading`, `error`,
-/// `searchText`) and is driven by `async` methods, so SwiftUI can call them straight from
-/// `.task` and `.refreshable` and wait for them to finish.
+/// The screen is described by an observable `state` and the `searchText`, and is driven by `async`
+/// methods, so SwiftUI can call them straight from `.task` and `.refreshable` and wait for them to finish.
 @MainActor
 @Observable
 final class AccountsListViewModel: AccountsListViewModeling {
 
     // MARK: - State
 
-    /// Accounts matching the last submitted search, in display order. What `rows` are mapped from.
+    /// Accounts matching the last submitted search, in display order. What the content is mapped from.
     private(set) var accounts = [AccountData]()
-    /// What the list shows for `accounts`: formatted and localised, in the same order.
-    private(set) var rows = [AccountsListRowContent]()
-    /// `true` until the first load has finished, and while any later load is in flight.
-    private(set) var isLoading = true
-    /// Set when the last load failed. The accounts are cleared in that case.
-    private(set) var error: AccountsList.Error?
+    /// What the screen shows: loading until the first load has finished, then either the formatted and
+    /// localised accounts or the error of the last load. Later loads keep showing the accounts, see
+    /// ``AccountsListContent/isReloading``.
+    private(set) var state: ViewState<AccountsListContent> = .loading
     /// The text of the search field. Call ``submitSearch(debounce:)`` when it changes.
     var searchText = ""
 
     /// The search has been performed and there is nothing to show.
     var isEmpty: Bool {
-        !isLoading && error == nil && rows.isEmpty
+        state.data?.isEmpty ?? false
     }
 
     // MARK: - Dependencies
@@ -44,6 +42,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
     @ObservationIgnored private let configuration: AccountsJourney.Configuration
     @ObservationIgnored private let tracker: BackbaseObservability.Tracker?
     @ObservationIgnored private let contentMapper: AccountsListContentMapper
+    @ObservationIgnored private let errorMapper: AccountsListErrorConfigurationMapper
 
     // MARK: - Private
 
@@ -61,16 +60,20 @@ final class AccountsListViewModel: AccountsListViewModeling {
     ///   - tracker: Receives the analytics events. `nil` disables tracking.
     ///   - contentMapper: Formats and localises the accounts for the screen. Defaults to a mapper
     ///     using the strings of `configuration`.
+    ///   - errorMapper: Builds what the error state shows. Defaults to a mapper using the strings and
+    ///     the design of `configuration`.
     init(
         model: AccountsListModeling,
         configuration: AccountsJourney.Configuration,
         tracker: BackbaseObservability.Tracker? = nil,
-        contentMapper: AccountsListContentMapper? = nil
+        contentMapper: AccountsListContentMapper? = nil,
+        errorMapper: AccountsListErrorConfigurationMapper? = nil
     ) {
         self.model = model
         self.configuration = configuration
         self.tracker = tracker
         self.contentMapper = contentMapper ?? AccountsListContentMapper(strings: configuration.accountsList.strings)
+        self.errorMapper = errorMapper ?? AccountsListErrorConfigurationMapper(journeyConfiguration: configuration)
     }
 
     // MARK: - Methods
@@ -120,26 +123,32 @@ final class AccountsListViewModel: AccountsListViewModeling {
         latestLoadID += 1
         let loadID = latestLoadID
         submittedQuery = query
-        error = nil
-        isLoading = true
+        // Accounts that are on screen stay there while the new ones load. Anything else, which is
+        // the first load or the one after a failure, shows the spinner.
+        if case let .loaded(content) = state {
+            state = .loaded(AccountsListContent(rows: content.rows, isReloading: true))
+        } else {
+            state = .loading
+        }
 
         let result = await model.fetchAccountSummary()
 
-        // A newer load is in flight, and owns `isLoading` and the results.
+        // A newer load is in flight, and owns the state.
         guard loadID == latestLoadID else { return }
-        isLoading = false
 
         switch result {
         case let .success(accountsSummaryResponse):
             let summary = accountsSummaryResponse.toMapUI(configuration: configuration)
             accounts = Self.filter(AccountsListOrdering.orderedAccounts(from: summary), by: query)
-            rows = contentMapper.rows(for: accounts)
+            state = .loaded(AccountsListContent(rows: contentMapper.rows(for: accounts)))
         case let .failure(errorResponse):
             // Don't keep showing accounts from a previous load once it has failed. The error
             // replaces the list, and with it the search field, so the search is cleared too.
             accounts = []
-            rows = []
-            error = .loadingFailure(errorResponse)
+            // The retry button reloads the unfiltered accounts.
+            state = .error(errorMapper.stateViewConfiguration(for: .loadingFailure(errorResponse)) { [weak self] in
+                Task { await self?.refresh() }
+            })
             searchText = ""
             submittedQuery = ""
         }

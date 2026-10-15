@@ -39,35 +39,32 @@ enum AccountDetailsPreviewData {
 
 struct AccountDetailsPreview: View {
 
-    var content: AccountDetailsContent?
-    var isLoading = false
-    var error: AccountDetails.Error?
+    var state: ViewState<AccountDetailsContent>
 
     var body: some View {
         NavigationStack {
-            AccountDetailsContentView(
-                configuration: AccountsJourney.Configuration(),
-                content: content,
-                isLoading: isLoading,
-                error: error,
-                onRetry: {}
-            )
-            .background(Color(Theme.colors.background.page).ignoresSafeArea())
-            .navigationTitle("Account details")
-            .navigationBarTitleDisplayMode(.inline)
+            AccountDetailsContentView(state: state)
+                .background(Color(Theme.colors.background.page).ignoresSafeArea())
+                .navigationTitle("Account details")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 #Preview("Loaded") {
-    AccountDetailsPreview(content: AccountDetailsPreviewData.content)
+    AccountDetailsPreview(state: .loaded(AccountDetailsPreviewData.content))
 }
 
 #Preview("Loading") {
-    AccountDetailsPreview(isLoading: true)
+    AccountDetailsPreview(state: .loading)
 }
 
 #Preview("Error") {
-    AccountDetailsPreview(error: .loadingFailure())
+    AccountDetailsPreview(
+        state: .error(
+            AccountDetailsErrorConfigurationMapper(journeyConfiguration: AccountsJourney.Configuration())
+                .stateViewConfiguration(for: .loadingFailure(), retry: {})
+        )
+    )
 }
 #endif

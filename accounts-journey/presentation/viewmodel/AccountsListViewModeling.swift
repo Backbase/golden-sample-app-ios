@@ -8,19 +8,16 @@ import Observation
 
 /// Abstraction the SwiftUI accounts list depends on.
 ///
-/// The screen is described by plain observable properties (`rows`, `isLoading`, `error`,
-/// `searchText`) and is driven by `async` methods, so SwiftUI can call them straight from
-/// `.task` and `.refreshable` and wait for them to finish.
+/// The screen is described by an observable `state` and the `searchText`, and is driven by `async`
+/// methods, so SwiftUI can call them straight from `.task` and `.refreshable` and wait for them to finish.
 @MainActor
 protocol AccountsListViewModeling: AnyObject, Observable {
     // MARK: - State
 
-    /// What the list shows for the accounts matching the last submitted search, in display order.
-    var rows: [AccountsListRowContent] { get }
-    /// `true` until the first load has finished, and while any later load is in flight.
-    var isLoading: Bool { get }
-    /// Set when the last load failed. The accounts are cleared in that case.
-    var error: AccountsList.Error? { get }
+    /// What the screen shows: loading until the first load has finished, then either the formatted and
+    /// localised accounts or the error of the last load. Later loads keep showing the accounts, see
+    /// ``AccountsListContent/isReloading``.
+    var state: ViewState<AccountsListContent> { get }
     /// The text of the search field. Call ``submitSearch(debounce:)`` when it changes.
     var searchText: String { get set }
 

@@ -118,3 +118,21 @@ final class TrackerSpy: NSObject, Tracker {
     func subscribe<T>(subscriber: AnyHashable, eventClass: T.Type, completion: @escaping (T) -> Void) {}
     func unsubscribe(subscriber: AnyHashable) {}
 }
+
+/// Answers only when told to, so that a test can look at the screen while a load is in flight.
+@MainActor
+final class DeferredAccountsListModel: AccountsListModeling {
+
+    private var continuations = [CheckedContinuation<Result<ProductSummary, ErrorResponse>, Never>]()
+    var requestCount: Int { continuations.count }
+
+    func fetchAccountSummary() async -> Result<ProductSummary, ErrorResponse> {
+        await withCheckedContinuation { continuations.append($0) }
+    }
+
+    func complete(request index: Int, with result: Result<ProductSummary, ErrorResponse>) {
+        continuations[index].resume(returning: result)
+    }
+
+    func navigateToDetails(ofAccountWithID id: String) {}
+}

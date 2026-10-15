@@ -49,41 +49,28 @@ struct AccountDetailsViewModelTests {
     func initialState_isLoading() throws {
         let (viewModel, model) = try makeViewModel()
 
-        #expect(viewModel.isLoading)
-        #expect(viewModel.details == nil)
-        #expect(viewModel.error == nil)
+        #expect(viewModel.state.isLoading)
         #expect(model.fetchCount == 0)
     }
 
     @Test
-    func loadedDetails_areExposedAsAccountDetailsData() async throws {
+    func loadedAccount_isExposedAsLoadedContent() async throws {
         let (viewModel, model) = try makeViewModel()
 
         await viewModel.loadIfNeeded()
 
         #expect(model.fetchCount == 1)
-        #expect(!viewModel.isLoading)
-        #expect(viewModel.error == nil)
-        let details = try #require(viewModel.details)
-        #expect(details.id == "arrangement-1")
-        #expect(details.displayName == "John Doe")
-        #expect(details.BBAN == "NL91ABNA0417164300")
-        #expect(details.availableBalance == 3207.61)
-        #expect(details.creditLimit == 1055.5)
-        #expect(details.accountState == "Active")
+        #expect(!viewModel.state.isLoading)
+        #expect(viewModel.state.errorConfiguration == nil)
+        let content = try #require(viewModel.state.data)
+        #expect(content.header.title == "Current Account")
+        #expect(content.header.subtitle == "NL91ABNA0417164300")
     }
 
     // MARK: Content
 
     @Test
-    func initialState_hasNoContent() throws {
-        let (viewModel, _) = try makeViewModel()
-
-        #expect(viewModel.content == nil)
-    }
-
-    @Test
-    func content_isTheMappersOutputForTheLoadedDetails() async throws {
+    func content_isTheMappersOutputForTheLoadedAccount() async throws {
         let mapper = AccountDetailsContentMapper(
             strings: AccountsJourney.Configuration().accountDetails.strings,
             formatAmount: { amount, currency in "\(amount) \(currency)!" }
@@ -92,21 +79,7 @@ struct AccountDetailsViewModelTests {
 
         await viewModel.loadIfNeeded()
 
-        let details = try #require(viewModel.details)
-        #expect(viewModel.content == mapper.content(for: details))
-        #expect(viewModel.content?.header.balance == "3207.61 EUR!")
-    }
-
-    @Test
-    func failedReload_clearsTheContent() async throws {
-        let (viewModel, model) = try makeViewModel()
-        await viewModel.loadIfNeeded()
-        #expect(viewModel.content != nil)
-
-        model.result = failure
-        await viewModel.load()
-
-        #expect(viewModel.content == nil)
+        #expect(viewModel.state.data?.header.balance == "3207.61 EUR!")
     }
 
     @Test
@@ -119,45 +92,70 @@ struct AccountDetailsViewModelTests {
         #expect(model.fetchCount == 1)
     }
 
+    // MARK: Failure
+
     @Test
-    func failedLoad_exposesTheError_andHasNoDetails() async {
+    func failedLoad_exposesTheError_andNoContent() async {
         let (viewModel, _) = makeViewModel(result: failure)
 
         await viewModel.loadIfNeeded()
 
-        #expect(viewModel.details == nil)
-        #expect(!viewModel.isLoading)
-        guard case .loadingFailure = viewModel.error else {
-            Issue.record("Expected a loading failure, got \(String(describing: viewModel.error))")
-            return
-        }
+        #expect(viewModel.state.data == nil)
+        #expect(!viewModel.state.isLoading)
+        #expect(viewModel.state.errorConfiguration != nil)
+    }
+
+    @Test
+    func errorTexts_comeFromTheJourneyConfiguration() async {
+        let (viewModel, _) = makeViewModel(result: failure)
+        let expected = AccountsJourney.Configuration().accountDetails.strings.errorTitle(.loadingFailure())()
+
+        await viewModel.loadIfNeeded()
+
+        #expect(viewModel.state.errorConfiguration?.title == expected)
+    }
+
+    @Test
+    func errorState_isTheErrorMappersOutput() async {
+        var configuration = AccountsJourney.Configuration()
+        configuration.accountDetails.strings.errorTitle = { _ in "Mapped title" }
+        let viewModel = AccountDetailsViewModel(
+            model: StubAccountDetailsModel(result: failure),
+            configuration: configuration,
+            errorMapper: AccountDetailsErrorConfigurationMapper(journeyConfiguration: configuration)
+        )
+
+        await viewModel.loadIfNeeded()
+
+        #expect(viewModel.state.errorConfiguration?.title == "Mapped title")
     }
 
     @Test
     func retry_recoversFromAnError() async throws {
         let (viewModel, model) = makeViewModel(result: failure)
         await viewModel.loadIfNeeded()
-        #expect(viewModel.error != nil)
+        let retry = try #require(viewModel.state.errorConfiguration?.firstButtonConfiguration)
 
         model.result = .success(try .fixture())
-        await viewModel.load()
+        retry.action()
+        await wait { viewModel.state.data != nil }
 
         #expect(model.fetchCount == 2)
-        #expect(viewModel.error == nil)
-        #expect(viewModel.details != nil)
+        #expect(viewModel.state.data != nil)
+        #expect(viewModel.state.errorConfiguration == nil)
     }
 
     @Test
-    func failedReload_clearsTheDetails() async throws {
+    func failedReload_replacesTheContentWithTheError() async throws {
         let (viewModel, model) = try makeViewModel()
         await viewModel.loadIfNeeded()
-        #expect(viewModel.details != nil)
+        #expect(viewModel.state.data != nil)
 
         model.result = failure
         await viewModel.load()
 
-        #expect(viewModel.details == nil)
-        #expect(viewModel.error != nil)
+        #expect(viewModel.state.data == nil)
+        #expect(viewModel.state.errorConfiguration != nil)
     }
 
     // MARK: Overlapping loads
@@ -169,14 +167,13 @@ struct AccountDetailsViewModelTests {
 
         let load = Task { await viewModel.load() }
         await wait { model.requestCount == 1 }
-        #expect(viewModel.isLoading)
-        #expect(viewModel.details == nil)
+        #expect(viewModel.state.isLoading)
 
         model.complete(request: 0, with: .success(try .fixture()))
         await load.value
 
-        #expect(!viewModel.isLoading)
-        #expect(viewModel.details != nil)
+        #expect(!viewModel.state.isLoading)
+        #expect(viewModel.state.data != nil)
     }
 
     @Test
@@ -194,9 +191,8 @@ struct AccountDetailsViewModelTests {
         model.complete(request: 0, with: failure)
         await first.value
 
-        #expect(viewModel.error == nil)
-        #expect(viewModel.details != nil)
-        #expect(!viewModel.isLoading)
+        #expect(viewModel.state.errorConfiguration == nil)
+        #expect(viewModel.state.data != nil)
     }
 
     // MARK: Tracking
@@ -228,16 +224,56 @@ struct AccountDetailsViewModelTests {
 
         viewModel.screenDidAppear()
 
-        #expect(viewModel.isLoading)
+        #expect(viewModel.state.isLoading)
+    }
+}
+
+// MARK: - ViewState
+
+@Suite("ViewState")
+struct ViewStateTests {
+
+    private let errorConfiguration = AccountDetailsErrorConfigurationMapper(journeyConfiguration: AccountsJourney.Configuration())
+        .stateViewConfiguration(for: .invalidResponse) {}
+
+    @Test
+    func loading_hasNeitherDataNorError() {
+        let state = ViewState<Int>.loading
+
+        #expect(state.isLoading)
+        #expect(state.data == nil)
+        #expect(state.errorConfiguration == nil)
+    }
+
+    @Test
+    func loaded_exposesItsData() {
+        let state = ViewState<Int>.loaded(42)
+
+        #expect(!state.isLoading)
+        #expect(state.data == 42)
+        #expect(state.errorConfiguration == nil)
+    }
+
+    @Test
+    func error_exposesItsConfiguration() {
+        let state = ViewState<Int>.error(errorConfiguration)
+
+        #expect(!state.isLoading)
+        #expect(state.data == nil)
+        #expect(state.errorConfiguration?.title == errorConfiguration.title)
     }
 }
 
 // MARK: - Error state
 
-@Suite("AccountDetails.Error state view configuration")
-struct AccountDetailsErrorStateViewConfigurationTests {
+@Suite("AccountDetailsErrorConfigurationMapper")
+struct AccountDetailsErrorConfigurationMapperTests {
 
     private let journeyConfiguration = AccountsJourney.Configuration()
+
+    private func mapper(_ configuration: AccountsJourney.Configuration) -> AccountDetailsErrorConfigurationMapper {
+        AccountDetailsErrorConfigurationMapper(journeyConfiguration: configuration)
+    }
 
     @Test("Errors can be retried", arguments: [
         AccountDetails.Error.loadingFailure(),
@@ -247,7 +283,7 @@ struct AccountDetailsErrorStateViewConfigurationTests {
     func error_offersToRetry(error: AccountDetails.Error) throws {
         var retries = 0
 
-        let configuration = error.stateViewConfiguration(using: journeyConfiguration) { retries += 1 }
+        let configuration = mapper(journeyConfiguration).stateViewConfiguration(for: error) { retries += 1 }
 
         let button = try #require(configuration.firstButtonConfiguration)
         button.action()
@@ -259,7 +295,7 @@ struct AccountDetailsErrorStateViewConfigurationTests {
         var journeyConfiguration = AccountsJourney.Configuration()
         journeyConfiguration.accountDetails.strings.errorTitle = { _ in "Custom title" }
 
-        let configuration = AccountDetails.Error.loadingFailure().stateViewConfiguration(using: journeyConfiguration) {}
+        let configuration = mapper(journeyConfiguration).stateViewConfiguration(for: .loadingFailure()) {}
 
         #expect(configuration.title == "Custom title")
     }
@@ -289,9 +325,9 @@ struct AccountDetailsViewTests {
 
         let window = show(viewModel)
         defer { window.isHidden = true }
-        await wait { !viewModel.isLoading }
+        await wait { !viewModel.state.isLoading }
 
-        #expect(viewModel.details?.id == "arrangement-1")
+        #expect(viewModel.state.data != nil)
         #expect(model.fetchCount == 1)
     }
 

@@ -49,18 +49,14 @@ enum AccountsListPreviewData {
 
 struct AccountsListPreview: View {
 
-    let rows: [AccountsListRowContent]
-    var isLoading = false
-    var error: AccountsList.Error?
+    let state: ViewState<AccountsListContent>
     @State var searchText = ""
 
     var body: some View {
         NavigationStack {
             AccountsListContentView(
                 configuration: AccountsJourney.Configuration(),
-                rows: rows,
-                isLoading: isLoading,
-                error: error,
+                state: state,
                 searchText: $searchText,
                 isRefreshing: false,
                 onSelect: { _ in },
@@ -75,18 +71,23 @@ struct AccountsListPreview: View {
 }
 
 #Preview("Loaded") {
-    AccountsListPreview(rows: AccountsListPreviewData.rows)
+    AccountsListPreview(state: .loaded(AccountsListContent(rows: AccountsListPreviewData.rows)))
 }
 
 #Preview("Loading") {
-    AccountsListPreview(rows: [], isLoading: true)
+    AccountsListPreview(state: .loading)
 }
 
 #Preview("No results") {
-    AccountsListPreview(rows: [], searchText: "xyz")
+    AccountsListPreview(state: .loaded(AccountsListContent(rows: [])), searchText: "xyz")
 }
 
 #Preview("Error") {
-    AccountsListPreview(rows: [], error: .loadingFailure())
+    AccountsListPreview(
+        state: .error(
+            AccountsListErrorConfigurationMapper(journeyConfiguration: AccountsJourney.Configuration())
+                .stateViewConfiguration(for: .loadingFailure(), retry: {})
+        )
+    )
 }
 #endif

@@ -9,26 +9,15 @@ import SwiftUI
 /// The screen for a given state. It knows nothing about the view model, which keeps it previewable.
 struct AccountDetailsContentView: View {
 
-    let configuration: AccountsJourney.Configuration
-    let content: AccountDetailsContent?
-    let isLoading: Bool
-    let error: AccountDetails.Error?
-    let onRetry: () -> Void
+    let state: ViewState<AccountDetailsContent>
 
     var body: some View {
-        if let error {
-            StateConfigurationView(
-                configuration: error.stateViewConfiguration(using: configuration, primaryAction: onRetry),
-                appearance: EmblemAppearance.appearance(forBackground: Theme.colors.background.dangerSubtle),
-                accessibilityIdentifier: "AccountDetailsStateView"
-            )
-            .padding(.horizontal, DesignSystem.shared.spacer.md)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if let content {
+        ViewStateContainer(
+            state: state,
+            errorAppearance: EmblemAppearance.appearance(forBackground: Theme.colors.background.dangerSubtle),
+            errorAccessibilityIdentifier: "AccountDetailsStateView"
+        ) { content in
             AccountDetailsLoadedView(content: content)
-        } else if isLoading {
-            CustomProgressView()
-                .padding(.horizontal, DesignSystem.shared.spacer.md)
         }
     }
 }

@@ -8,16 +8,16 @@ import UIKit
 
 // MARK: - Error state
 
-@Suite("AccountsList.Error state view configuration")
-struct AccountsListErrorStateViewConfigurationTests {
+@Suite("AccountsListErrorConfigurationMapper")
+struct AccountsListErrorConfigurationMapperTests {
 
-    private let journeyConfiguration = AccountsJourney.Configuration()
+    private let mapper = AccountsListErrorConfigurationMapper(journeyConfiguration: AccountsJourney.Configuration())
 
     @Test
     func loadingFailure_offersToRetry() throws {
         var retries = 0
 
-        let configuration = AccountsList.Error.loadingFailure().stateViewConfiguration(using: journeyConfiguration) { retries += 1 }
+        let configuration = mapper.stateViewConfiguration(for: .loadingFailure()) { retries += 1 }
 
         let button = try #require(configuration.firstButtonConfiguration)
         button.action()
@@ -26,7 +26,7 @@ struct AccountsListErrorStateViewConfigurationTests {
 
     @Test
     func noAccounts_hasNoAction() {
-        let configuration = AccountsList.Error.noAccounts.stateViewConfiguration(using: journeyConfiguration) {}
+        let configuration = mapper.stateViewConfiguration(for: .noAccounts) {}
 
         #expect(configuration.firstButtonConfiguration == nil)
     }
@@ -64,7 +64,7 @@ struct AccountsListViewTests {
 
         let window = show(viewModel)
         defer { window.isHidden = true }
-        await wait { !viewModel.isLoading }
+        await wait { !viewModel.state.isLoading }
 
         #expect(viewModel.accounts.map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
         #expect(model.fetchCount == 1)
@@ -76,7 +76,7 @@ struct AccountsListViewTests {
         let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
         let window = show(viewModel)
         defer { window.isHidden = true }
-        await wait { !viewModel.isLoading }
+        await wait { !viewModel.state.isLoading }
 
         viewModel.searchText = "loan"
         // Typing is debounced, nothing has been requested yet.

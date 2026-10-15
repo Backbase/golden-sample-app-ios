@@ -10,13 +10,12 @@ import SwiftUI
 struct AccountsListContentView: View {
 
     let configuration: AccountsJourney.Configuration
-    let rows: [AccountsListRowContent]
-    let isLoading: Bool
-    let error: AccountsList.Error?
+    let state: ViewState<AccountsListContent>
     @Binding var searchText: String
     let isRefreshing: Bool
     let onSelect: (String) -> Void
     let onRefresh: () async -> Void
+    /// What the empty state's button runs. The error state has its own retry, in its configuration.
     let onRetry: () -> Void
 
     private static let stateViewIdentifier = "AccountsListStateView"
@@ -26,51 +25,42 @@ struct AccountsListContentView: View {
     @FocusState private var isSearchFocused: Bool
 
     var body: some View {
-        if let error {
-            StateConfigurationView(
-                configuration: error.stateViewConfiguration(using: configuration, primaryAction: onRetry),
-                appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.dangerSubtle)),
-                accessibilityIdentifier: Self.stateViewIdentifier
-            )
-            .padding(.horizontal, DesignSystem.shared.spacer.md)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else {
-            list
+        ViewStateContainer(
+            state: state,
+            errorAppearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.dangerSubtle)),
+            errorAccessibilityIdentifier: Self.stateViewIdentifier
+        ) { content in
+            list(for: content)
         }
     }
 
     /// Hidden until there is something to search, and kept while a search has no results so
     /// the query can still be edited.
-    private var showsSearchBar: Bool {
-        !rows.isEmpty || !searchText.isEmpty
+    private func showsSearchBar(for content: AccountsListContent) -> Bool {
+        !content.rows.isEmpty || !searchText.isEmpty
     }
 
-    private var showsEmptyState: Bool {
-        !isLoading && rows.isEmpty
+    /// The pull to refresh indicator is the progress of a pull to refresh.
+    private func showsProgress(for content: AccountsListContent) -> Bool {
+        content.isReloading && !isRefreshing
     }
 
-    private var showsProgress: Bool {
-        isLoading && !isRefreshing
-    }
-
-    private var list: some View {
+    private func list(for content: AccountsListContent) -> some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                if showsSearchBar {
+                if showsSearchBar(for: content) {
                     AccountsSearchBarView(text: $searchText, isFocused: $isSearchFocused, configuration: configuration)
                 }
-                if showsEmptyState {
+                if content.isEmpty {
                     StateConfigurationView(
-                        configuration: AccountsList.Error.noAccounts.stateViewConfiguration(
-                            using: configuration,
-                            primaryAction: onRetry
-                        ),
+                        configuration: AccountsListErrorConfigurationMapper(journeyConfiguration: configuration)
+                            .stateViewConfiguration(for: .noAccounts, retry: onRetry),
                         appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.neutralSubtle)),
                         accessibilityIdentifier: Self.stateViewIdentifier
                     )
                     .padding(.top, DesignSystem.shared.sizer.xl)
                 } else {
-                    rowsCard
+                    rowsCard(for: content)
                 }
             }
             .padding(DesignSystem.shared.spacer.md)
@@ -79,13 +69,14 @@ struct AccountsListContentView: View {
         .scrollDismissesKeyboard(.immediately)
         .accessibilityIdentifier(Self.scrollViewIdentifier)
         .refreshable { await onRefresh() }
-        .overlay { if showsProgress { CustomProgressView() } }
+        .overlay { if showsProgress(for: content) { CustomProgressView() } }
     }
 
     /// The rows form a single rounded card.
-    private var rowsCard: some View {
-        LazyVStack(spacing: 0) {
-            ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+    private func rowsCard(for content: AccountsListContent) -> some View {
+        let showsProgress = showsProgress(for: content)
+        return LazyVStack(spacing: 0) {
+            ForEach(Array(content.rows.enumerated()), id: \.offset) { _, row in
                 Button {
                     guard !showsProgress, let id = row.id else { return }
                     onSelect(id)

@@ -26,9 +26,7 @@ struct AccountsListView<ViewModel: AccountsListViewModeling>: View {
     var body: some View {
         AccountsListContentView(
             configuration: configuration,
-            rows: viewModel.rows,
-            isLoading: viewModel.isLoading,
-            error: viewModel.error,
+            state: viewModel.state,
             searchText: $viewModel.searchText,
             isRefreshing: isPullRefreshing,
             onSelect: viewModel.select(accountID:),

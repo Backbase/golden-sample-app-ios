@@ -5,6 +5,15 @@ import Observation
 import Testing
 @testable import AccountsJourney
 
+/// Lets the main actor run until `condition` holds.
+@MainActor
+private func wait(timeout: Duration = .seconds(5), until condition: () -> Bool) async {
+    let deadline = ContinuousClock.now + timeout
+    while !condition(), ContinuousClock.now < deadline {
+        try? await Task.sleep(for: .milliseconds(20))
+    }
+}
+
 // MARK: - View model
 
 @Suite("AccountsListViewModel")
@@ -46,10 +55,8 @@ struct AccountsListViewModelSwiftUITests {
     func initialState_isLoading() throws {
         let (viewModel, _) = try makeViewModel()
 
-        #expect(viewModel.isLoading)
+        #expect(viewModel.state.isLoading)
         #expect(viewModel.accounts.isEmpty)
-        #expect(viewModel.rows.isEmpty)
-        #expect(viewModel.error == nil)
         #expect(!viewModel.isEmpty)
     }
 
@@ -60,8 +67,9 @@ struct AccountsListViewModelSwiftUITests {
         await viewModel.loadAccountsIfNeeded()
 
         #expect(viewModel.accounts.map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
-        #expect(!viewModel.isLoading)
-        #expect(viewModel.error == nil)
+        #expect(!viewModel.state.isLoading)
+        #expect(viewModel.state.errorConfiguration == nil)
+        #expect(viewModel.state.data?.isReloading == false)
         #expect(!viewModel.isEmpty)
     }
 
@@ -75,8 +83,8 @@ struct AccountsListViewModelSwiftUITests {
 
         await viewModel.loadAccountsIfNeeded()
 
-        #expect(viewModel.rows == mapper.rows(for: viewModel.accounts))
-        #expect(viewModel.rows.map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
+        #expect(viewModel.state.data?.rows == mapper.rows(for: viewModel.accounts))
+        #expect(viewModel.state.data?.rows.map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
     }
 
     @Test
@@ -99,13 +107,126 @@ struct AccountsListViewModelSwiftUITests {
         await viewModel.refresh()
 
         #expect(viewModel.accounts.isEmpty)
-        #expect(viewModel.rows.isEmpty)
-        #expect(!viewModel.isLoading)
+        #expect(viewModel.state.data == nil)
+        #expect(!viewModel.state.isLoading)
         #expect(!viewModel.isEmpty)
-        guard case .loadingFailure = viewModel.error else {
-            Issue.record("Expected a loading failure, got \(String(describing: viewModel.error))")
-            return
-        }
+        #expect(viewModel.state.errorConfiguration != nil)
+    }
+
+    @Test
+    func errorTexts_comeFromTheJourneyConfiguration() async {
+        let (viewModel, _) = makeViewModel(result: Self.failure)
+        let expected = AccountsJourney.Configuration().accountsList.strings.errorTitle(.loadingFailure())()
+
+        await viewModel.refresh()
+
+        #expect(viewModel.state.errorConfiguration?.title == expected)
+    }
+
+    @Test
+    func errorState_isTheErrorMappersOutput() async {
+        var configuration = AccountsJourney.Configuration()
+        configuration.accountsList.strings.errorTitle = { _ in "Mapped title" }
+        let viewModel = AccountsListViewModel(
+            model: StubAccountsListModel(result: Self.failure),
+            configuration: configuration,
+            errorMapper: AccountsListErrorConfigurationMapper(journeyConfiguration: configuration)
+        )
+
+        await viewModel.refresh()
+
+        #expect(viewModel.state.errorConfiguration?.title == "Mapped title")
+    }
+
+    @Test
+    func retry_recoversFromAnError() async throws {
+        let (viewModel, model) = makeViewModel(result: Self.failure)
+        await viewModel.refresh()
+        let retry = try #require(viewModel.state.errorConfiguration?.firstButtonConfiguration)
+
+        model.result = .success(try ProductSummary.fixture())
+        retry.action()
+        await wait { viewModel.state.data != nil }
+
+        #expect(model.fetchCount == 2)
+        #expect(viewModel.state.data?.rows.count == 4)
+        #expect(viewModel.state.errorConfiguration == nil)
+    }
+
+    // MARK: Reloading
+
+    @Test
+    func firstLoad_showsTheSpinner_untilTheModelAnswers() async throws {
+        let model = DeferredAccountsListModel()
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
+
+        let load = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 1 }
+        #expect(viewModel.state.isLoading)
+
+        model.complete(request: 0, with: .success(try ProductSummary.fixture()))
+        await load.value
+
+        #expect(viewModel.state.data?.rows.count == 4)
+    }
+
+    @Test
+    func reload_keepsTheRowsOnScreen_untilTheModelAnswers() async throws {
+        let model = DeferredAccountsListModel()
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
+        let first = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 1 }
+        model.complete(request: 0, with: .success(try ProductSummary.fixture()))
+        await first.value
+
+        let reload = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 2 }
+
+        #expect(viewModel.state.data?.rows.count == 4)
+        #expect(viewModel.state.data?.isReloading == true)
+        #expect(!viewModel.isEmpty)
+
+        model.complete(request: 1, with: .success(try ProductSummary.fixture()))
+        await reload.value
+
+        #expect(viewModel.state.data?.isReloading == false)
+    }
+
+    @Test
+    func retryAfterAnError_showsTheSpinner() async throws {
+        let model = DeferredAccountsListModel()
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
+        let first = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 1 }
+        model.complete(request: 0, with: Self.failure)
+        await first.value
+        #expect(viewModel.state.errorConfiguration != nil)
+
+        let retry = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 2 }
+
+        #expect(viewModel.state.isLoading)
+        model.complete(request: 1, with: .success(try ProductSummary.fixture()))
+        await retry.value
+    }
+
+    @Test
+    func answerOfASupersededLoad_isDropped() async throws {
+        let model = DeferredAccountsListModel()
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
+        let first = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 1 }
+        let second = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 2 }
+
+        model.complete(request: 1, with: .success(try ProductSummary.fixture()))
+        await second.value
+        // The first load answers last, with an error that must not replace the newer result.
+        model.complete(request: 0, with: Self.failure)
+        await first.value
+
+        #expect(viewModel.state.errorConfiguration == nil)
+        #expect(viewModel.state.data?.rows.count == 4)
     }
 
     // MARK: Refresh
@@ -118,21 +239,21 @@ struct AccountsListViewModelSwiftUITests {
         await viewModel.refresh()
 
         #expect(model.fetchCount == 1)
-        #expect(!viewModel.isLoading)
-        #expect(viewModel.error != nil)
+        #expect(!viewModel.state.isLoading)
+        #expect(viewModel.state.errorConfiguration != nil)
     }
 
     @Test
     func refresh_recoversFromAnError_andClearsTheSearch() async throws {
         let (viewModel, model) = makeViewModel(result: Self.failure)
         await viewModel.refresh()
-        #expect(viewModel.error != nil)
+        #expect(viewModel.state.errorConfiguration != nil)
 
         model.result = .success(try ProductSummary.fixture())
         viewModel.searchText = "loan"
         await viewModel.refresh()
 
-        #expect(viewModel.error == nil)
+        #expect(viewModel.state.errorConfiguration == nil)
         #expect(viewModel.searchText == "")
         #expect(viewModel.accounts.count == 4)
     }
@@ -235,7 +356,7 @@ struct AccountsListViewModelSwiftUITests {
         await viewModel.submitSearch(debounce: .zero)
 
         #expect(viewModel.searchText == "")
-        #expect(viewModel.error != nil)
+        #expect(viewModel.state.errorConfiguration != nil)
     }
 
     // MARK: Routing and tracking
@@ -266,9 +387,9 @@ struct AccountsListViewModelSwiftUITests {
     func stateChanges_areObservedBySwiftUI() async throws {
         let (viewModel, _) = try makeViewModel()
 
-        await confirmation("the rows change is observed") { changed in
+        await confirmation("the state change is observed") { changed in
             withObservationTracking {
-                _ = viewModel.rows
+                _ = viewModel.state
             } onChange: {
                 changed()
             }
