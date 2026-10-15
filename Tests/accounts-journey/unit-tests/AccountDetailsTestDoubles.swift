@@ -5,7 +5,7 @@ import Foundation
 
 // Test doubles and fixtures shared by the account details tests.
 
-extension AccountDetailsUIModel {
+extension AccountDetailsData {
 
     static func fixture(
         displayName: String = "John Doe",
@@ -16,8 +16,8 @@ extension AccountDetailsUIModel {
         productKindName: String = "Current Account",
         accountState: String? = "Active",
         iconName: AccountIconInfo? = nil
-    ) -> AccountDetailsUIModel {
-        AccountDetailsUIModel(
+    ) -> AccountDetailsData {
+        AccountDetailsData(
             id: "1",
             name: "Main account",
             displayName: displayName,

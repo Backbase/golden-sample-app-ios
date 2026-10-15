@@ -1,5 +1,5 @@
 //
-//  AccountUiModel.swift
+//  AccountData.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 26/10/2023.
@@ -8,7 +8,7 @@
 import UIKit
 import BackbaseDesignSystem
 
-public struct AccountUIModel {
+public struct AccountData {
     /// Unique id
     let id: String?
     /// Account name

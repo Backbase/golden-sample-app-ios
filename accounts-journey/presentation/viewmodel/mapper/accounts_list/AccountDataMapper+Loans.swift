@@ -1,5 +1,5 @@
 //
-//  AccountUIMapper+Loans.swift
+//  AccountDataMapper+Loans.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 17/11/2023.
@@ -9,12 +9,12 @@ import Foundation
 import ArrangementsClient2Gen2
 
 extension LoanProductKinds {
-    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsUIModel? {
+    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsData? {
         if !products.isEmpty {
-            return AccountsUIModel(
+            return AccountsData(
                 header: config.accountsList.strings.loanAccountTitle(),
                 products: products.map {
-                    return AccountUIModel(
+                    return AccountData(
                         id: $0.id,
                         name: $0.name,
                         balance: Currency(

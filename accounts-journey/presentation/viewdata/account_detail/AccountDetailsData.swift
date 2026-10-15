@@ -1,5 +1,5 @@
 //
-//  AccountDetailsUIModel.swift
+//  AccountDetailsData.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 29/11/2023.
@@ -7,8 +7,9 @@
 
 import Foundation
 
-/// UI Model for Account Details
-public struct AccountDetailsUIModel {
+/// The loaded account, normalised but not formatted: no missing values, amounts as numbers.
+/// `AccountDetailsContentMapper` turns it into the texts the screen shows.
+public struct AccountDetailsData {
     /// Unique id
     let id: String
     /// Account name

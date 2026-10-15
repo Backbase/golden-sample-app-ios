@@ -21,13 +21,15 @@ struct AccountsListViewModelSwiftUITests {
 
     private func makeViewModel(
         result: Result<ProductSummary, ErrorResponse>,
-        tracker: Tracker? = nil
+        tracker: Tracker? = nil,
+        contentMapper: AccountsListContentMapper? = nil
     ) -> (viewModel: AccountsListViewModel, model: StubAccountsListModel) {
         let model = StubAccountsListModel(result: result)
         let viewModel = AccountsListViewModel(
             model: model,
             configuration: AccountsJourney.Configuration(),
-            tracker: tracker
+            tracker: tracker,
+            contentMapper: contentMapper
         )
         return (viewModel, model)
     }
@@ -46,12 +48,13 @@ struct AccountsListViewModelSwiftUITests {
 
         #expect(viewModel.isLoading)
         #expect(viewModel.accounts.isEmpty)
+        #expect(viewModel.rows.isEmpty)
         #expect(viewModel.error == nil)
         #expect(!viewModel.isEmpty)
     }
 
     @Test
-    func loadedAccounts_areExposedAsUIModels() async throws {
+    func loadedAccounts_areExposedAsAccountData() async throws {
         let (viewModel, _) = try makeViewModel()
 
         await viewModel.loadAccountsIfNeeded()
@@ -60,6 +63,20 @@ struct AccountsListViewModelSwiftUITests {
         #expect(!viewModel.isLoading)
         #expect(viewModel.error == nil)
         #expect(!viewModel.isEmpty)
+    }
+
+    @Test
+    func rows_areTheMappersOutputForTheLoadedAccounts() async throws {
+        let mapper = AccountsListContentMapper(
+            strings: AccountsJourney.Configuration().accountsList.strings,
+            formatAmount: { "\($0.amount) \($0.currencyCode)!" }
+        )
+        let (viewModel, _) = makeViewModel(result: .success(try ProductSummary.fixture()), contentMapper: mapper)
+
+        await viewModel.loadAccountsIfNeeded()
+
+        #expect(viewModel.rows == mapper.rows(for: viewModel.accounts))
+        #expect(viewModel.rows.map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
     }
 
     @Test
@@ -82,6 +99,7 @@ struct AccountsListViewModelSwiftUITests {
         await viewModel.refresh()
 
         #expect(viewModel.accounts.isEmpty)
+        #expect(viewModel.rows.isEmpty)
         #expect(!viewModel.isLoading)
         #expect(!viewModel.isEmpty)
         guard case .loadingFailure = viewModel.error else {
@@ -157,6 +175,26 @@ struct AccountsListViewModelSwiftUITests {
         #expect(viewModel.isEmpty == searchCase.expectedIDs.isEmpty)
     }
 
+    @Test("filter keeps the accounts whose name contains the query", arguments: [
+        SearchCase(name: "ignores case and surrounding whitespace", query: "  SAV ", expectedIDs: ["savings"]),
+        // "a" is in "Main", "Savings" and "Car loan", not in "Custom"; the unnamed account never matches.
+        SearchCase(name: "skips accounts without a name", query: "a", expectedIDs: ["current", "savings", "loan"]),
+        SearchCase(name: "is empty when nothing matches", query: "xyz", expectedIDs: []),
+        SearchCase(name: "keeps everything for an empty query", query: "", expectedIDs: ["current", "savings", "loan", "unnamed", "custom"]),
+        SearchCase(name: "keeps everything for a blank query", query: "   ", expectedIDs: ["current", "savings", "loan", "unnamed", "custom"])
+    ])
+    private func filter_matchesTheName(_ searchCase: SearchCase) {
+        let accounts = [
+            AccountData(id: "current", name: "Main"),
+            AccountData(id: "savings", name: "Savings"),
+            AccountData(id: "loan", name: "Car loan"),
+            AccountData(id: "unnamed", name: nil),
+            AccountData(id: "custom", name: "Custom")
+        ]
+
+        #expect(AccountsListViewModel.filter(accounts, by: searchCase.query).map(\.id) == searchCase.expectedIDs)
+    }
+
     @Test
     func submitSearch_doesNotReloadTheSameQuery() async throws {
         let (viewModel, model) = try makeViewModel()
@@ -228,9 +266,9 @@ struct AccountsListViewModelSwiftUITests {
     func stateChanges_areObservedBySwiftUI() async throws {
         let (viewModel, _) = try makeViewModel()
 
-        await confirmation("the accounts change is observed") { changed in
+        await confirmation("the rows change is observed") { changed in
             withObservationTracking {
-                _ = viewModel.accounts
+                _ = viewModel.rows
             } onChange: {
                 changed()
             }

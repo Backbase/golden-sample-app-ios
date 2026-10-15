@@ -26,13 +26,15 @@ struct AccountDetailsViewModelTests {
 
     private func makeViewModel(
         result: Result<AccountArrangementItem, ErrorResponse>,
-        tracker: Tracker? = nil
+        tracker: Tracker? = nil,
+        contentMapper: AccountDetailsContentMapper? = nil
     ) -> (viewModel: AccountDetailsViewModel, model: StubAccountDetailsModel) {
         let model = StubAccountDetailsModel(result: result)
         let viewModel = AccountDetailsViewModel(
             model: model,
             configuration: AccountsJourney.Configuration(),
-            tracker: tracker
+            tracker: tracker,
+            contentMapper: contentMapper
         )
         return (viewModel, model)
     }
@@ -54,7 +56,7 @@ struct AccountDetailsViewModelTests {
     }
 
     @Test
-    func loadedDetails_areExposedAsAUIModel() async throws {
+    func loadedDetails_areExposedAsAccountDetailsData() async throws {
         let (viewModel, model) = try makeViewModel()
 
         await viewModel.loadIfNeeded()
@@ -69,6 +71,42 @@ struct AccountDetailsViewModelTests {
         #expect(details.availableBalance == 3207.61)
         #expect(details.creditLimit == 1055.5)
         #expect(details.accountState == "Active")
+    }
+
+    // MARK: Content
+
+    @Test
+    func initialState_hasNoContent() throws {
+        let (viewModel, _) = try makeViewModel()
+
+        #expect(viewModel.content == nil)
+    }
+
+    @Test
+    func content_isTheMappersOutputForTheLoadedDetails() async throws {
+        let mapper = AccountDetailsContentMapper(
+            strings: AccountsJourney.Configuration().accountDetails.strings,
+            formatAmount: { amount, currency in "\(amount) \(currency)!" }
+        )
+        let (viewModel, _) = makeViewModel(result: .success(try .fixture()), contentMapper: mapper)
+
+        await viewModel.loadIfNeeded()
+
+        let details = try #require(viewModel.details)
+        #expect(viewModel.content == mapper.content(for: details))
+        #expect(viewModel.content?.header.balance == "3207.61 EUR!")
+    }
+
+    @Test
+    func failedReload_clearsTheContent() async throws {
+        let (viewModel, model) = try makeViewModel()
+        await viewModel.loadIfNeeded()
+        #expect(viewModel.content != nil)
+
+        model.result = failure
+        await viewModel.load()
+
+        #expect(viewModel.content == nil)
     }
 
     @Test

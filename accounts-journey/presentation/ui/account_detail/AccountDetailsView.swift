@@ -24,7 +24,7 @@ struct AccountDetailsView<ViewModel: AccountDetailsViewModeling>: View {
     var body: some View {
         AccountDetailsContentView(
             configuration: configuration,
-            details: viewModel.details,
+            content: viewModel.content,
             isLoading: viewModel.isLoading,
             error: viewModel.error,
             onRetry: { Task { await viewModel.load() } }
@@ -43,7 +43,7 @@ struct AccountDetailsView<ViewModel: AccountDetailsViewModeling>: View {
 struct AccountDetailsContentView: View {
 
     let configuration: AccountsJourney.Configuration
-    let details: AccountDetailsUIModel?
+    let content: AccountDetailsContent?
     let isLoading: Bool
     let error: AccountDetails.Error?
     let onRetry: () -> Void
@@ -57,8 +57,8 @@ struct AccountDetailsContentView: View {
             )
             .padding(.horizontal, DesignSystem.shared.spacer.md)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if let details {
-            AccountDetailsLoadedView(details: details, strings: configuration.accountDetails.strings)
+        } else if let content {
+            AccountDetailsLoadedView(content: content)
         } else if isLoading {
             CustomProgressView()
                 .padding(.horizontal, DesignSystem.shared.spacer.md)
@@ -66,19 +66,18 @@ struct AccountDetailsContentView: View {
     }
 }
 
-/// The header followed by the details, general and status sections.
+/// The header followed by the sections.
 struct AccountDetailsLoadedView: View {
 
-    let details: AccountDetailsUIModel
-    let strings: AccountDetails.Strings
+    let content: AccountDetailsContent
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                AccountDetailsHeaderView(content: AccountDetailsHeaderContent(details: details, strings: strings))
-                AccountDetailsSectionView(content: .details(for: details, strings: strings))
-                AccountDetailsSectionView(content: .general(for: details, strings: strings))
-                AccountDetailsSectionView(content: .status(for: details, strings: strings))
+                AccountDetailsHeaderView(content: content.header)
+                ForEach(Array(content.sections.enumerated()), id: \.offset) { _, section in
+                    AccountDetailsSectionView(content: section)
+                }
             }
             .padding(.top, DesignSystem.shared.spacer.sm)
             .padding(.bottom, DesignSystem.shared.spacer.md)

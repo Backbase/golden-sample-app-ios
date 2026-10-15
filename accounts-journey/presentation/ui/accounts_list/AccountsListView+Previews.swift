@@ -11,8 +11,8 @@ import SwiftUI
 #if DEBUG
 enum AccountsListPreviewData {
 
-    static let accounts: [AccountUIModel] = [
-        AccountUIModel(
+    static let accounts: [AccountData] = [
+        AccountData(
             id: "1",
             name: "Main account",
             balance: Currency(amount: "1250.50", currencyCode: "EUR"),
@@ -22,7 +22,7 @@ enum AccountsListPreviewData {
                 backgroundColor: Theme.colors.background.brandSubtle
             )
         ),
-        AccountUIModel(
+        AccountData(
             id: "2",
             name: "Savings",
             balance: Currency(amount: "9800", currencyCode: "EUR"),
@@ -32,7 +32,7 @@ enum AccountsListPreviewData {
                 backgroundColor: Theme.colors.background.successSubtle
             )
         ),
-        AccountUIModel(
+        AccountData(
             id: "3",
             name: "Loan",
             balance: Currency(amount: "-12000", currencyCode: "EUR"),
@@ -43,11 +43,13 @@ enum AccountsListPreviewData {
             )
         )
     ]
+
+    static let rows = AccountsListContentMapper(strings: AccountsList.Strings()).rows(for: accounts)
 }
 
 struct AccountsListPreview: View {
 
-    let accounts: [AccountUIModel]
+    let rows: [AccountsListRowContent]
     var isLoading = false
     var error: AccountsList.Error?
     @State var searchText = ""
@@ -56,7 +58,7 @@ struct AccountsListPreview: View {
         NavigationStack {
             AccountsListContentView(
                 configuration: AccountsJourney.Configuration(),
-                accounts: accounts,
+                rows: rows,
                 isLoading: isLoading,
                 error: error,
                 searchText: $searchText,
@@ -73,18 +75,18 @@ struct AccountsListPreview: View {
 }
 
 #Preview("Loaded") {
-    AccountsListPreview(accounts: AccountsListPreviewData.accounts)
+    AccountsListPreview(rows: AccountsListPreviewData.rows)
 }
 
 #Preview("Loading") {
-    AccountsListPreview(accounts: [], isLoading: true)
+    AccountsListPreview(rows: [], isLoading: true)
 }
 
 #Preview("No results") {
-    AccountsListPreview(accounts: [], searchText: "xyz")
+    AccountsListPreview(rows: [], searchText: "xyz")
 }
 
 #Preview("Error") {
-    AccountsListPreview(accounts: [], error: .loadingFailure())
+    AccountsListPreview(rows: [], error: .loadingFailure())
 }
 #endif

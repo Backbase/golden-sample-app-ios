@@ -26,7 +26,7 @@ struct AccountsListView<ViewModel: AccountsListViewModeling>: View {
     var body: some View {
         AccountsListContentView(
             configuration: configuration,
-            accounts: viewModel.accounts,
+            rows: viewModel.rows,
             isLoading: viewModel.isLoading,
             error: viewModel.error,
             searchText: $viewModel.searchText,
@@ -58,7 +58,7 @@ struct AccountsListView<ViewModel: AccountsListViewModeling>: View {
 struct AccountsListContentView: View {
 
     let configuration: AccountsJourney.Configuration
-    let accounts: [AccountUIModel]
+    let rows: [AccountsListRowContent]
     let isLoading: Bool
     let error: AccountsList.Error?
     @Binding var searchText: String
@@ -90,11 +90,11 @@ struct AccountsListContentView: View {
     /// Hidden until there is something to search, and kept while a search has no results so
     /// the query can still be edited.
     private var showsSearchBar: Bool {
-        !accounts.isEmpty || !searchText.isEmpty
+        !rows.isEmpty || !searchText.isEmpty
     }
 
     private var showsEmptyState: Bool {
-        !isLoading && accounts.isEmpty
+        !isLoading && rows.isEmpty
     }
 
     private var showsProgress: Bool {
@@ -118,7 +118,7 @@ struct AccountsListContentView: View {
                     )
                     .padding(.top, DesignSystem.shared.sizer.xl)
                 } else {
-                    rows
+                    rowsCard
                 }
             }
             .padding(DesignSystem.shared.spacer.md)
@@ -131,15 +131,15 @@ struct AccountsListContentView: View {
     }
 
     /// The rows form a single rounded card.
-    private var rows: some View {
+    private var rowsCard: some View {
         LazyVStack(spacing: 0) {
-            ForEach(Array(accounts.enumerated()), id: \.offset) { _, account in
+            ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
                 Button {
-                    guard !showsProgress, let id = account.id else { return }
+                    guard !showsProgress, let id = row.id else { return }
                     onSelect(id)
                     isSearchFocused = false
                 } label: {
-                    AccountsListRowView(account: account, configuration: configuration)
+                    AccountsListRowView(content: row)
                 }
                 .buttonStyle(.plain)
                 .allowsHitTesting(!showsProgress)

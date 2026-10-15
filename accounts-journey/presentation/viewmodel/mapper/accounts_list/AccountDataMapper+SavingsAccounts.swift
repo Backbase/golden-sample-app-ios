@@ -1,5 +1,5 @@
 //
-//  AccountUIMapper+SavingsAccounts.swift
+//  AccountDataMapper+SavingsAccounts.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 17/11/2023.
@@ -9,12 +9,12 @@ import Foundation
 import ArrangementsClient2Gen2
 
 extension SavingsAccountProductKinds {
-    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsUIModel? {
+    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsData? {
         if !products.isEmpty {
-            return AccountsUIModel(
+            return AccountsData(
                 header: config.accountsList.strings.savingsAccountTitle(),
                 products: products.map {
-                    return AccountUIModel(
+                    return AccountData(
                         id: $0.id,
                         name: $0.name,
                         balance: Currency(

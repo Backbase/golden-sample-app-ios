@@ -11,7 +11,7 @@ import SwiftUI
 #if DEBUG
 enum AccountDetailsPreviewData {
 
-    static let details = AccountDetailsUIModel(
+    static let details = AccountDetailsData(
         id: "1",
         name: "Main account",
         displayName: "John Doe",
@@ -33,11 +33,13 @@ enum AccountDetailsPreviewData {
             backgroundColor: Theme.colors.background.brandSubtle
         )
     )
+
+    static let content = AccountDetailsContentMapper(strings: AccountDetails.Strings()).content(for: details)
 }
 
 struct AccountDetailsPreview: View {
 
-    var details: AccountDetailsUIModel?
+    var content: AccountDetailsContent?
     var isLoading = false
     var error: AccountDetails.Error?
 
@@ -45,7 +47,7 @@ struct AccountDetailsPreview: View {
         NavigationStack {
             AccountDetailsContentView(
                 configuration: AccountsJourney.Configuration(),
-                details: details,
+                content: content,
                 isLoading: isLoading,
                 error: error,
                 onRetry: {}
@@ -58,7 +60,7 @@ struct AccountDetailsPreview: View {
 }
 
 #Preview("Loaded") {
-    AccountDetailsPreview(details: AccountDetailsPreviewData.details)
+    AccountDetailsPreview(content: AccountDetailsPreviewData.content)
 }
 
 #Preview("Loading") {

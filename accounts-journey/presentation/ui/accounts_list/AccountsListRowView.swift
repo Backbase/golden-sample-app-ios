@@ -9,21 +9,14 @@ import SwiftUI
 struct AccountsListRowView: View {
 
     private let content: AccountsListRowContent
-    private let iconInfo: AccountIconInfo?
-    private let identifier: String?
 
-    init(
-        account: AccountUIModel,
-        configuration: AccountsJourney.Configuration
-    ) {
-        self.content = AccountsListRowContent(account: account, strings: configuration.accountsList.strings)
-        self.iconInfo = account.iconName
-        self.identifier = account.id
+    init(content: AccountsListRowContent) {
+        self.content = content
     }
 
     var body: some View {
         HStack(alignment: .top, spacing: DesignSystem.shared.sizer.sm) {
-            if let iconInfo {
+            if let iconInfo = content.icon {
                 BB.Emblem(
                     icon: Image(uiImage: iconInfo.icon),
                     appearance: EmblemAppearance.appearance(for: iconInfo.backgroundColor.map(Color.init(uiColor:))),
@@ -44,7 +37,7 @@ struct AccountsListRowView: View {
         .padding(DesignSystem.shared.spacer.md)
         .background(Color(Theme.colors.background.surface1))
         .accessibilityElement(children: .combine)
-        .accessibilityIdentifier(identifier.map { "AccountsListRow_\($0)" } ?? "AccountsListRow")
+        .accessibilityIdentifier(content.id.map { "AccountsListRow_\($0)" } ?? "AccountsListRow")
     }
 
 }
@@ -92,9 +85,8 @@ private struct RowText: View {
 
 #if DEBUG
 #Preview("Rows") {
-    let configuration = AccountsJourney.Configuration()
-    let accounts = [
-        AccountUIModel(
+    let rows = AccountsListContentMapper(strings: AccountsList.Strings()).rows(for: [
+        AccountData(
             id: "1",
             name: "Main account",
             balance: Currency(amount: "1250.50", currencyCode: "EUR"),
@@ -104,7 +96,7 @@ private struct RowText: View {
                 backgroundColor: Theme.colors.background.brandSubtle
             )
         ),
-        AccountUIModel(
+        AccountData(
             id: "2",
             name: "Savings",
             balance: Currency(amount: "9800", currencyCode: "EUR"),
@@ -114,7 +106,7 @@ private struct RowText: View {
                 backgroundColor: Theme.colors.background.successSubtle
             )
         ),
-        AccountUIModel(
+        AccountData(
             id: "3",
             name: "Loan",
             balance: Currency(amount: "-12000", currencyCode: "EUR"),
@@ -124,10 +116,10 @@ private struct RowText: View {
                 backgroundColor: Theme.colors.background.category2Subtle
             )
         )
-    ]
+    ])
     return VStack(spacing: 0) {
-        ForEach(Array(accounts.enumerated()), id: \.offset) { _, account in
-            AccountsListRowView(account: account, configuration: configuration)
+        ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+            AccountsListRowView(content: row)
         }
     }
     .clipShape(RoundedRectangle(cornerRadius: DesignSystem.shared.cornerRadius.large))

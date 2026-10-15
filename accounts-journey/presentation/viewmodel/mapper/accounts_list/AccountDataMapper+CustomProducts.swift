@@ -1,5 +1,5 @@
 //
-//  AccountUIMapper+CustomProducts.swift
+//  AccountDataMapper+CustomProducts.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 17/11/2023.
@@ -9,14 +9,14 @@ import Foundation
 import ArrangementsClient2Gen2
 
 extension CustomProductKind {
-    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsUIModel {
+    func mapToUi(configuration config: AccountsJourney.Configuration) -> AccountsData {
         
-        var accountsUIModel = AccountsUIModel()
+        var accountsData = AccountsData()
         if !products.isEmpty {
-            accountsUIModel = AccountsUIModel(
+            accountsData = AccountsData(
                 header: config.accountsList.strings.generalAccountTitle(),
                 products: products.map {
-                    AccountUIModel(
+                    AccountData(
                         id: $0.id,
                         name: $0.name,
                         balance: Currency(
@@ -29,6 +29,6 @@ extension CustomProductKind {
                     )
                 })
         }
-        return accountsUIModel
+        return accountsData
     }
 }

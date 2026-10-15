@@ -4,57 +4,53 @@ import Testing
 import UIKit
 @testable import AccountsJourney
 
-// MARK: - Account summary
+// MARK: - Account ordering
 
-@Suite("AccountSummaryUIModel")
-struct AccountSummaryUIModelTests {
+@Suite("AccountsListOrdering")
+struct AccountsListOrderingTests {
 
-    private func account(_ id: String, _ name: String?) -> AccountUIModel {
-        AccountUIModel(id: id, name: name)
+    private func account(_ id: String, _ name: String? = nil) -> AccountData {
+        AccountData(id: id, name: name)
     }
 
-    private var summary: AccountSummaryUIModel {
-        AccountSummaryUIModel(
-            customProducts: [AccountsUIModel(products: [account("custom", "Custom")])],
-            currentAccounts: AccountsUIModel(products: [account("current", "Main")]),
-            savingAccounts: AccountsUIModel(products: [account("savings", "Savings")]),
-            loans: AccountsUIModel(products: [account("loan", "Car loan"), account("unnamed", nil)])
+    @Test
+    func orderedAccounts_keepsTheKindOrder_andPutsCustomProductsLast() {
+        let summary = AccountSummaryData(
+            customProducts: [AccountsData(products: [account("custom")])],
+            currentAccounts: AccountsData(products: [account("current")]),
+            savingAccounts: AccountsData(products: [account("savings")]),
+            termDeposits: AccountsData(products: [account("deposit")]),
+            loans: AccountsData(products: [account("loan"), account("unnamed")]),
+            creditCards: AccountsData(products: [account("credit")]),
+            debitCards: AccountsData(products: [account("debit")]),
+            investmentAccounts: AccountsData(products: [account("investment")])
         )
-    }
 
-    private struct SearchCase: CustomTestStringConvertible, Sendable {
-        let name: String
-        let query: String
-        let expectedIDs: [String]
-
-        var testDescription: String { name }
+        #expect(AccountsListOrdering.orderedAccounts(from: summary).map(\.id) == [
+            "current", "savings", "deposit", "loan", "unnamed", "credit", "debit", "investment", "custom"
+        ])
     }
 
     @Test
-    func generateList_keepsTheKindOrder_andPutsCustomProductsLast() {
-        #expect(summary.generateList().map(\.id) == ["current", "savings", "loan", "unnamed", "custom"])
-    }
+    func orderedAccounts_keepsEveryCustomProductKind_inOrder() {
+        let summary = AccountSummaryData(customProducts: [
+            AccountsData(products: [account("first")]),
+            AccountsData(products: [account("second"), account("third")])
+        ])
 
-    @Test("generateList filters by name", arguments: [
-        SearchCase(name: "ignores case and surrounding whitespace", query: "  SAV ", expectedIDs: ["savings"]),
-        // "a" is in "Main", "Savings" and "Car loan", not in "Custom"; the unnamed account never matches.
-        SearchCase(name: "skips accounts without a name", query: "a", expectedIDs: ["current", "savings", "loan"]),
-        SearchCase(name: "is empty when nothing matches", query: "xyz", expectedIDs: [])
-    ])
-    private func generateList_filtersByName(_ searchCase: SearchCase) {
-        #expect(summary.generateList(query: searchCase.query).map(\.id) == searchCase.expectedIDs)
+        #expect(AccountsListOrdering.orderedAccounts(from: summary).map(\.id) == ["first", "second", "third"])
     }
 
     @Test
-    func generateList_isEmpty_forAnEmptySummary() {
-        #expect(AccountSummaryUIModel().generateList().isEmpty)
+    func orderedAccounts_isEmpty_forAnEmptySummary() {
+        #expect(AccountsListOrdering.orderedAccounts(from: AccountSummaryData()).isEmpty)
     }
 }
 
 // MARK: - Product summary mapping
 
 @Suite("ProductSummary mapping")
-struct ProductSummaryUIMapperTests {
+struct ProductSummaryDataMapperTests {
 
     private let configuration = AccountsJourney.Configuration()
 
@@ -100,14 +96,14 @@ struct ProductSummaryUIMapperTests {
 
         #expect(summary.currentAccounts == nil)
         #expect(summary.customProducts?.first?.products.isEmpty == true)
-        #expect(summary.generateList().isEmpty)
+        #expect(AccountsListOrdering.orderedAccounts(from: summary).isEmpty)
     }
 
     @Test
-    func generateList_keepsTheKindOrder_ofTheMappedSummary() throws {
+    func orderedAccounts_keepsTheKindOrder_ofTheMappedSummary() throws {
         let summary = try ProductSummary.fixture().toMapUI(configuration: configuration)
 
-        #expect(summary.generateList().map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
+        #expect(AccountsListOrdering.orderedAccounts(from: summary).map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
     }
 
     @Test

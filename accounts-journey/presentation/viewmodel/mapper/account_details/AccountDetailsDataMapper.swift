@@ -1,5 +1,5 @@
 //
-//  AccountDetailUIMapper.swift
+//  AccountDetailsDataMapper.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 29/11/2023.
@@ -9,8 +9,8 @@ import Foundation
 import ArrangementsClient2Gen2
 
 extension AccountArrangementItem {
-    func toMapUI(configuration: AccountsJourney.Configuration) -> AccountDetailsUIModel {
-        return AccountDetailsUIModel(
+    func toMapUI(configuration: AccountsJourney.Configuration) -> AccountDetailsData {
+        return AccountDetailsData(
             id: id,
             name: name ?? "",
             displayName: displayName ?? "",

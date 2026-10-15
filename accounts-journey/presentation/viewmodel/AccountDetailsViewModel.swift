@@ -13,7 +13,7 @@ import Observation
 
 /// Drives the SwiftUI account details.
 ///
-/// The screen is described by plain observable properties (`details`, `isLoading`, `error`) and is
+/// The screen is described by plain observable properties (`content`, `isLoading`, `error`) and is
 /// driven by `async` methods, so SwiftUI can call them straight from `.task` and wait for them to finish.
 @MainActor
 @Observable
@@ -21,8 +21,10 @@ final class AccountDetailsViewModel: AccountDetailsViewModeling {
 
     // MARK: - State
 
-    /// The loaded account, `nil` while loading and after a failure.
-    private(set) var details: AccountDetailsUIModel?
+    /// The loaded account, `nil` while loading and after a failure. What `content` is mapped from.
+    private(set) var details: AccountDetailsData?
+    /// What the screen shows for `details`: formatted and localised, `nil` whenever `details` is.
+    private(set) var content: AccountDetailsContent?
     /// `true` until the first load has finished, and while any later load is in flight.
     private(set) var isLoading = true
     /// Set when the last load failed.
@@ -33,6 +35,7 @@ final class AccountDetailsViewModel: AccountDetailsViewModeling {
     @ObservationIgnored private let model: AccountDetailsModeling
     @ObservationIgnored private let configuration: AccountsJourney.Configuration
     @ObservationIgnored private let tracker: BackbaseObservability.Tracker?
+    @ObservationIgnored private let contentMapper: AccountDetailsContentMapper
 
     // MARK: - Private
 
@@ -46,14 +49,18 @@ final class AccountDetailsViewModel: AccountDetailsViewModeling {
     ///   - model: Provides the account to show.
     ///   - configuration: Provides the strings and icons the account is mapped with.
     ///   - tracker: Receives the analytics events. `nil` disables tracking.
+    ///   - contentMapper: Formats and localises the account for the screen. Defaults to a mapper
+    ///     using the strings of `configuration`.
     init(
         model: AccountDetailsModeling,
         configuration: AccountsJourney.Configuration,
-        tracker: BackbaseObservability.Tracker? = nil
+        tracker: BackbaseObservability.Tracker? = nil,
+        contentMapper: AccountDetailsContentMapper? = nil
     ) {
         self.model = model
         self.configuration = configuration
         self.tracker = tracker
+        self.contentMapper = contentMapper ?? AccountDetailsContentMapper(strings: configuration.accountDetails.strings)
     }
 
     // MARK: - Methods
@@ -86,9 +93,12 @@ final class AccountDetailsViewModel: AccountDetailsViewModeling {
 
         switch result {
         case let .success(accountDetailsResponse):
-            details = accountDetailsResponse.toMapUI(configuration: configuration)
+            let details = accountDetailsResponse.toMapUI(configuration: configuration)
+            self.details = details
+            content = contentMapper.content(for: details)
         case let .failure(errorResponse):
             details = nil
+            content = nil
             error = .loadingFailure(errorResponse)
         }
     }
