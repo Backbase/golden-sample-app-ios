@@ -17,7 +17,7 @@ struct AccountsListErrorStateViewConfigurationTests {
     func loadingFailure_offersToRetry() throws {
         var retries = 0
 
-        let configuration = AccountsList.Error.loadingFailure().stateViewConfiguration(configuration: journeyConfiguration) { retries += 1 }
+        let configuration = AccountsList.Error.loadingFailure().stateViewConfiguration(using: journeyConfiguration) { retries += 1 }
 
         let button = try #require(configuration.firstButtonConfiguration)
         button.action()
@@ -26,7 +26,7 @@ struct AccountsListErrorStateViewConfigurationTests {
 
     @Test
     func noAccounts_hasNoAction() {
-        let configuration = AccountsList.Error.noAccounts.stateViewConfiguration(configuration: journeyConfiguration) {}
+        let configuration = AccountsList.Error.noAccounts.stateViewConfiguration(using: journeyConfiguration) {}
 
         #expect(configuration.firstButtonConfiguration == nil)
     }

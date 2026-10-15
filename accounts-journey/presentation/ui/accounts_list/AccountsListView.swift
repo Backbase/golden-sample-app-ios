@@ -76,7 +76,7 @@ struct AccountsListContentView: View {
     var body: some View {
         if let error {
             StateConfigurationView(
-                configuration: error.stateViewConfiguration(configuration: configuration, primaryAction: onRetry),
+                configuration: error.stateViewConfiguration(using: configuration, primaryAction: onRetry),
                 appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.dangerSubtle)),
                 accessibilityIdentifier: Self.stateViewIdentifier
             )
@@ -110,7 +110,7 @@ struct AccountsListContentView: View {
                 if showsEmptyState {
                     StateConfigurationView(
                         configuration: AccountsList.Error.noAccounts.stateViewConfiguration(
-                            configuration: configuration,
+                            using: configuration,
                             primaryAction: onRetry
                         ),
                         appearance: EmblemAppearance.appearance(for: Color(Theme.colors.background.neutralSubtle)),

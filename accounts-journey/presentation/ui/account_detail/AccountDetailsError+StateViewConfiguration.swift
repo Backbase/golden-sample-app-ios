@@ -11,10 +11,10 @@ extension AccountDetails.Error {
     /// What `StateConfigurationView` shows for this error. `primaryAction` is only used
     /// when the error has an action button, i.e. when it can be retried.
     func stateViewConfiguration(
-        configuration: AccountsJourney.Configuration,
+        using journeyConfiguration: AccountsJourney.Configuration,
         primaryAction: @escaping () -> Void
     ) -> StateViewConfiguration {
-        let accountDetails = configuration.accountDetails
+        let accountDetails = journeyConfiguration.accountDetails
         let retryTitle = accountDetails.strings.errorRetryButtonTitle(self)?()
         return GenericStateViewConfiguration(
             iconName: accountDetails.design.errorIconName(self),

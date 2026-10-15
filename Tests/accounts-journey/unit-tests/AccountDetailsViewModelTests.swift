@@ -247,7 +247,7 @@ struct AccountDetailsErrorStateViewConfigurationTests {
     func error_offersToRetry(error: AccountDetails.Error) throws {
         var retries = 0
 
-        let configuration = error.stateViewConfiguration(configuration: journeyConfiguration) { retries += 1 }
+        let configuration = error.stateViewConfiguration(using: journeyConfiguration) { retries += 1 }
 
         let button = try #require(configuration.firstButtonConfiguration)
         button.action()
@@ -259,7 +259,7 @@ struct AccountDetailsErrorStateViewConfigurationTests {
         var journeyConfiguration = AccountsJourney.Configuration()
         journeyConfiguration.accountDetails.strings.errorTitle = { _ in "Custom title" }
 
-        let configuration = AccountDetails.Error.loadingFailure().stateViewConfiguration(configuration: journeyConfiguration) {}
+        let configuration = AccountDetails.Error.loadingFailure().stateViewConfiguration(using: journeyConfiguration) {}
 
         #expect(configuration.title == "Custom title")
     }

@@ -51,7 +51,7 @@ struct AccountDetailsContentView: View {
     var body: some View {
         if let error {
             StateConfigurationView(
-                configuration: error.stateViewConfiguration(configuration: configuration, primaryAction: onRetry),
+                configuration: error.stateViewConfiguration(using: configuration, primaryAction: onRetry),
                 appearance: EmblemAppearance.appearance(forBackground: Theme.colors.background.dangerSubtle),
                 accessibilityIdentifier: "AccountDetailsStateView"
             )
