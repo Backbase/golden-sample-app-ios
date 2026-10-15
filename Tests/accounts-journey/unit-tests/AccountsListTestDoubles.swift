@@ -52,15 +52,52 @@ final class StubAccountsListUseCase: AccountsListUseCase {
     }
 }
 
-final class DelayedFailingUseCase: AccountsListUseCase {
+/// The model the view model talks to in its tests: it answers with a canned result and records the
+/// navigation, without any use case or router behind it.
+@MainActor
+final class StubAccountsListModel: AccountsListModeling {
 
-    private(set) var callCount = 0
+    var result: Result<ProductSummary, ErrorResponse>
+    private(set) var fetchCount = 0
+    private(set) var navigatedAccountIDs = [String]()
 
-    func getAccountSummary(_ completion: @escaping (Result<ProductSummary, ErrorResponse>) -> Void) {
-        callCount += 1
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            completion(.failure(.error(500, nil, AccountsList.Error.invalidResponse)))
-        }
+    init(result: Result<ProductSummary, ErrorResponse>) {
+        self.result = result
+    }
+
+    func fetchAccountSummary() async -> Result<ProductSummary, ErrorResponse> {
+        fetchCount += 1
+        return result
+    }
+
+    func navigateToDetails(ofAccountWithID id: String) {
+        navigatedAccountIDs.append(id)
+    }
+}
+
+/// A model that takes a moment to fail, so that the caller really has to wait for it.
+@MainActor
+final class DelayedFailingAccountsListModel: AccountsListModeling {
+
+    private(set) var fetchCount = 0
+
+    func fetchAccountSummary() async -> Result<ProductSummary, ErrorResponse> {
+        fetchCount += 1
+        try? await Task.sleep(for: .milliseconds(50))
+        return .failure(.error(500, nil, AccountsList.Error.invalidResponse))
+    }
+
+    func navigateToDetails(ofAccountWithID id: String) {}
+}
+
+/// Records the navigation the model asks for.
+@MainActor
+final class AccountsListRoutingSpy: AccountsListRouting {
+
+    private(set) var navigatedAccountIDs = [String]()
+
+    func navigateToDetails(ofAccountWithID id: String) {
+        navigatedAccountIDs.append(id)
     }
 }
 

@@ -18,7 +18,7 @@ import Observation
 /// `.task` and `.refreshable` and wait for them to finish.
 @MainActor
 @Observable
-final class AccountsListViewModel {
+final class AccountsListViewModel: AccountsListViewModeling {
 
     // MARK: - State
 
@@ -38,10 +38,9 @@ final class AccountsListViewModel {
 
     // MARK: - Dependencies
 
-    @ObservationIgnored private let useCase: AccountsListUseCase
+    @ObservationIgnored private let model: AccountsListModeling
     @ObservationIgnored private let configuration: AccountsJourney.Configuration
     @ObservationIgnored private let tracker: BackbaseObservability.Tracker?
-    @ObservationIgnored private let didSelectProduct: (String) -> Void
 
     // MARK: - Private
 
@@ -54,26 +53,23 @@ final class AccountsListViewModel {
     // MARK: - Init
 
     /// - Parameters:
-    ///   - useCase: Loads the accounts.
+    ///   - model: Provides the accounts and navigates to the one the user selects.
     ///   - configuration: Provides the strings and icons the accounts are mapped with.
     ///   - tracker: Receives the analytics events. `nil` disables tracking.
-    ///   - didSelectProduct: Routes to the product with the given id.
     init(
-        useCase: AccountsListUseCase,
+        model: AccountsListModeling,
         configuration: AccountsJourney.Configuration,
-        tracker: BackbaseObservability.Tracker? = nil,
-        didSelectProduct: @escaping (String) -> Void = { _ in }
+        tracker: BackbaseObservability.Tracker? = nil
     ) {
-        self.useCase = useCase
+        self.model = model
         self.configuration = configuration
         self.tracker = tracker
-        self.didSelectProduct = didSelectProduct
     }
 
     // MARK: - Methods
 
     func select(accountID: String) {
-        didSelectProduct(accountID)
+        model.navigateToDetails(ofAccountWithID: accountID)
     }
 
     /// To be called every time the screen appears.
@@ -120,7 +116,7 @@ final class AccountsListViewModel {
         error = nil
         isLoading = true
 
-        let result = await fetchAccountSummary()
+        let result = await model.fetchAccountSummary()
 
         // A newer load is in flight, and owns `isLoading` and the results.
         guard loadID == latestLoadID else { return }
@@ -138,13 +134,6 @@ final class AccountsListViewModel {
             error = .loadingFailure(errorResponse)
             searchText = ""
             submittedQuery = ""
-        }
-    }
-
-    private func fetchAccountSummary() async -> Result<ProductSummary, ErrorResponse> {
-        let useCase = useCase
-        return await withCheckedContinuation { continuation in
-            useCase.getAccountSummary { continuation.resume(returning: $0) }
         }
     }
 }

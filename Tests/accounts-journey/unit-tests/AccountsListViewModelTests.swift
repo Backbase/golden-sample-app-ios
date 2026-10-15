@@ -21,20 +21,18 @@ struct AccountsListViewModelSwiftUITests {
 
     private func makeViewModel(
         result: Result<ProductSummary, ErrorResponse>,
-        tracker: Tracker? = nil,
-        didSelectProduct: @escaping (String) -> Void = { _ in }
-    ) -> (viewModel: AccountsListViewModel, useCase: StubAccountsListUseCase) {
-        let useCase = StubAccountsListUseCase(result: result)
+        tracker: Tracker? = nil
+    ) -> (viewModel: AccountsListViewModel, model: StubAccountsListModel) {
+        let model = StubAccountsListModel(result: result)
         let viewModel = AccountsListViewModel(
-            useCase: useCase,
+            model: model,
             configuration: AccountsJourney.Configuration(),
-            tracker: tracker,
-            didSelectProduct: didSelectProduct
+            tracker: tracker
         )
-        return (viewModel, useCase)
+        return (viewModel, model)
     }
 
-    private func makeViewModel(tracker: Tracker? = nil) throws -> (viewModel: AccountsListViewModel, useCase: StubAccountsListUseCase) {
+    private func makeViewModel(tracker: Tracker? = nil) throws -> (viewModel: AccountsListViewModel, model: StubAccountsListModel) {
         makeViewModel(result: .success(try ProductSummary.fixture()), tracker: tracker)
     }
 
@@ -66,21 +64,21 @@ struct AccountsListViewModelSwiftUITests {
 
     @Test
     func loadAccountsIfNeeded_loadsOnlyOnce() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
 
         await viewModel.loadAccountsIfNeeded()
         await viewModel.loadAccountsIfNeeded()
 
-        #expect(useCase.callCount == 1)
+        #expect(model.fetchCount == 1)
     }
 
     @Test
     func failedLoad_exposesTheError_andClearsTheAccounts() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
         await viewModel.loadAccountsIfNeeded()
         #expect(!viewModel.accounts.isEmpty)
 
-        useCase.result = Self.failure
+        model.result = Self.failure
         await viewModel.refresh()
 
         #expect(viewModel.accounts.isEmpty)
@@ -96,23 +94,23 @@ struct AccountsListViewModelSwiftUITests {
 
     @Test
     func refresh_returnsOnlyOnceTheReloadHasFinished() async {
-        let useCase = DelayedFailingUseCase()
-        let viewModel = AccountsListViewModel(useCase: useCase, configuration: AccountsJourney.Configuration())
+        let model = DelayedFailingAccountsListModel()
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
 
         await viewModel.refresh()
 
-        #expect(useCase.callCount == 1)
+        #expect(model.fetchCount == 1)
         #expect(!viewModel.isLoading)
         #expect(viewModel.error != nil)
     }
 
     @Test
     func refresh_recoversFromAnError_andClearsTheSearch() async throws {
-        let (viewModel, useCase) = makeViewModel(result: Self.failure)
+        let (viewModel, model) = makeViewModel(result: Self.failure)
         await viewModel.refresh()
         #expect(viewModel.error != nil)
 
-        useCase.result = .success(try ProductSummary.fixture())
+        model.result = .success(try ProductSummary.fixture())
         viewModel.searchText = "loan"
         await viewModel.refresh()
 
@@ -134,12 +132,12 @@ struct AccountsListViewModelSwiftUITests {
     @Test
     func pullToRefresh_tracksTheUserAction_andReloads() async throws {
         let tracker = TrackerSpy()
-        let (viewModel, useCase) = try makeViewModel(tracker: tracker)
+        let (viewModel, model) = try makeViewModel(tracker: tracker)
 
         await viewModel.pullToRefresh()
 
         #expect(tracker.userActionNames == ["refresh_accounts"])
-        #expect(useCase.callCount == 1)
+        #expect(model.fetchCount == 1)
         #expect(viewModel.accounts.count == 4)
     }
 
@@ -161,34 +159,34 @@ struct AccountsListViewModelSwiftUITests {
 
     @Test
     func submitSearch_doesNotReloadTheSameQuery() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
 
         viewModel.searchText = "loan"
         await viewModel.submitSearch(debounce: .zero)
         await viewModel.submitSearch(debounce: .zero)
 
-        #expect(useCase.callCount == 1)
+        #expect(model.fetchCount == 1)
     }
 
     @Test
     func submitSearch_doesNothing_whenTheTextWasNeverChanged() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
 
         await viewModel.submitSearch(debounce: .zero)
 
-        #expect(useCase.callCount == 0)
+        #expect(model.fetchCount == 0)
     }
 
     @Test
     func submitSearch_isCancelledWhileDebouncing() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
         viewModel.searchText = "loan"
 
         let search = Task { await viewModel.submitSearch(debounce: .seconds(30)) }
         search.cancel()
         await search.value
 
-        #expect(useCase.callCount == 0)
+        #expect(model.fetchCount == 0)
     }
 
     @Test
@@ -205,16 +203,12 @@ struct AccountsListViewModelSwiftUITests {
     // MARK: Routing and tracking
 
     @Test
-    func select_routesToTheProduct() throws {
-        var routedIDs = [String]()
-        let (viewModel, _) = makeViewModel(
-            result: .success(try ProductSummary.fixture()),
-            didSelectProduct: { routedIDs.append($0) }
-        )
+    func select_asksTheModelToNavigateToTheProduct() throws {
+        let (viewModel, model) = try makeViewModel()
 
         viewModel.select(accountID: "loan-1")
 
-        #expect(routedIDs == ["loan-1"])
+        #expect(model.navigatedAccountIDs == ["loan-1"])
     }
 
     @Test

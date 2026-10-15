@@ -29,23 +29,31 @@ struct AccountsListBuildTests {
 
         let viewController = AccountsList.build(navigationController: UINavigationController())
 
-        #expect(viewController is UIHostingController<AccountsListView>)
+        #expect(viewController is UIHostingController<AccountsListView<AccountsListViewModel>>)
     }
 
     @Test
-    func build_asksTheRouterForTheSelectionHandler_ofTheGivenNavigationController() {
+    func build_routesTheSelection_throughTheConfiguredRouter_ofTheGivenNavigationController() throws {
         var configuration = AccountsJourney.Configuration()
-        var routedNavigationController: UINavigationController?
+        var routed: (navigationController: UINavigationController, id: String)?
         configuration.accountsList.router = AccountsList.Router(didSelectProduct: { navigationController in
-            routedNavigationController = navigationController
-            return { _ in }
+            { id in routed = (navigationController, id) }
         })
         register(configuration)
         defer { register() }
         let navigationController = UINavigationController()
 
-        _ = AccountsList.build(navigationController: navigationController)
+        let viewController = AccountsList.build(navigationController: navigationController)
+        let hostingController = try #require(viewController as? UIHostingController<AccountsListView<AccountsListViewModel>>)
+        try viewModel(of: hostingController.rootView).select(accountID: "loan-1")
 
-        #expect(routedNavigationController === navigationController)
+        #expect(routed?.navigationController === navigationController)
+        #expect(routed?.id == "loan-1")
+    }
+
+    /// The view keeps its view model private, so it is read back by reflection.
+    private func viewModel(of view: AccountsListView<AccountsListViewModel>) throws -> AccountsListViewModel {
+        let child = try #require(Mirror(reflecting: view).children.first { $0.label == "_viewModel" })
+        return try #require((child.value as? Bindable<AccountsListViewModel>)?.wrappedValue)
     }
 }

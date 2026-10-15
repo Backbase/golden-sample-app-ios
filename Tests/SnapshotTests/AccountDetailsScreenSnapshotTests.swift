@@ -36,11 +36,11 @@ final class AccountDetailsScreenSnapshotTests: ScreenSnapshotTestCase {
 
     /// Builds the screen and loads it before it is rendered.
     private func screen(_ behaviour: MockAccountDetailsUseCase.Behaviour) async -> UIViewController {
-        let viewModel = AccountDetailsViewModel(
+        let model = AccountDetailsModel(
             arrangementId: "arrangement-id",
-            useCase: MockAccountDetailsUseCase(behaviour),
-            configuration: journeyConfiguration
+            useCase: MockAccountDetailsUseCase(behaviour)
         )
+        let viewModel = AccountDetailsViewModel(model: model, configuration: journeyConfiguration)
         // A load that never completes would suspend the test, so only the others are awaited.
         if case .neverCompletes = behaviour {
             // The screen starts loading: nothing to arrange.

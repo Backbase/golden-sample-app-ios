@@ -63,10 +63,11 @@ final class AccountsListScreenSnapshotTests: ScreenSnapshotTestCase {
         _ behaviour: MockAccountsListUseCase.Behaviour,
         arranging arrange: (AccountsListViewModel) async -> Void = { _ in }
     ) async -> UIViewController {
-        let viewModel = AccountsListViewModel(
+        let model = AccountsListModel(
             useCase: MockAccountsListUseCase(behaviour),
-            configuration: journeyConfiguration
+            routing: StubAccountsListRouting()
         )
+        let viewModel = AccountsListViewModel(model: model, configuration: journeyConfiguration)
         // A load that never completes would suspend the test, so only the others are awaited.
         if case .neverCompletes = behaviour {
             // The screen starts loading: nothing to arrange.

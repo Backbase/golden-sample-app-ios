@@ -26,20 +26,18 @@ struct AccountDetailsViewModelTests {
 
     private func makeViewModel(
         result: Result<AccountArrangementItem, ErrorResponse>,
-        arrangementId: String = "arrangement-1",
         tracker: Tracker? = nil
-    ) -> (viewModel: AccountDetailsViewModel, useCase: StubAccountDetailsUseCase) {
-        let useCase = StubAccountDetailsUseCase(result: result)
+    ) -> (viewModel: AccountDetailsViewModel, model: StubAccountDetailsModel) {
+        let model = StubAccountDetailsModel(result: result)
         let viewModel = AccountDetailsViewModel(
-            arrangementId: arrangementId,
-            useCase: useCase,
+            model: model,
             configuration: AccountsJourney.Configuration(),
             tracker: tracker
         )
-        return (viewModel, useCase)
+        return (viewModel, model)
     }
 
-    private func makeViewModel(tracker: Tracker? = nil) throws -> (viewModel: AccountDetailsViewModel, useCase: StubAccountDetailsUseCase) {
+    private func makeViewModel(tracker: Tracker? = nil) throws -> (viewModel: AccountDetailsViewModel, model: StubAccountDetailsModel) {
         makeViewModel(result: .success(try .fixture()), tracker: tracker)
     }
 
@@ -47,21 +45,21 @@ struct AccountDetailsViewModelTests {
 
     @Test
     func initialState_isLoading() throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
 
         #expect(viewModel.isLoading)
         #expect(viewModel.details == nil)
         #expect(viewModel.error == nil)
-        #expect(useCase.requestedIds.isEmpty)
+        #expect(model.fetchCount == 0)
     }
 
     @Test
     func loadedDetails_areExposedAsAUIModel() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
 
         await viewModel.loadIfNeeded()
 
-        #expect(useCase.requestedIds == ["arrangement-1"])
+        #expect(model.fetchCount == 1)
         #expect(!viewModel.isLoading)
         #expect(viewModel.error == nil)
         let details = try #require(viewModel.details)
@@ -75,21 +73,12 @@ struct AccountDetailsViewModelTests {
 
     @Test
     func loadIfNeeded_loadsOnlyOnce() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
 
         await viewModel.loadIfNeeded()
         await viewModel.loadIfNeeded()
 
-        #expect(useCase.requestedIds.count == 1)
-    }
-
-    @Test
-    func load_requestsTheAccountOfTheViewModel() async throws {
-        let (viewModel, useCase) = makeViewModel(result: .success(try .fixture()), arrangementId: "other-arrangement")
-
-        await viewModel.load()
-
-        #expect(useCase.requestedIds == ["other-arrangement"])
+        #expect(model.fetchCount == 1)
     }
 
     @Test
@@ -108,25 +97,25 @@ struct AccountDetailsViewModelTests {
 
     @Test
     func retry_recoversFromAnError() async throws {
-        let (viewModel, useCase) = makeViewModel(result: failure)
+        let (viewModel, model) = makeViewModel(result: failure)
         await viewModel.loadIfNeeded()
         #expect(viewModel.error != nil)
 
-        useCase.result = .success(try .fixture())
+        model.result = .success(try .fixture())
         await viewModel.load()
 
-        #expect(useCase.requestedIds == ["arrangement-1", "arrangement-1"])
+        #expect(model.fetchCount == 2)
         #expect(viewModel.error == nil)
         #expect(viewModel.details != nil)
     }
 
     @Test
     func failedReload_clearsTheDetails() async throws {
-        let (viewModel, useCase) = try makeViewModel()
+        let (viewModel, model) = try makeViewModel()
         await viewModel.loadIfNeeded()
         #expect(viewModel.details != nil)
 
-        useCase.result = failure
+        model.result = failure
         await viewModel.load()
 
         #expect(viewModel.details == nil)
@@ -136,20 +125,16 @@ struct AccountDetailsViewModelTests {
     // MARK: Overlapping loads
 
     @Test
-    func isLoading_untilTheUseCaseAnswers() async throws {
-        let useCase = DeferredAccountDetailsUseCase()
-        let viewModel = AccountDetailsViewModel(
-            arrangementId: "arrangement-1",
-            useCase: useCase,
-            configuration: AccountsJourney.Configuration()
-        )
+    func isLoading_untilTheModelAnswers() async throws {
+        let model = DeferredAccountDetailsModel()
+        let viewModel = AccountDetailsViewModel(model: model, configuration: AccountsJourney.Configuration())
 
         let load = Task { await viewModel.load() }
-        await wait { useCase.requestCount == 1 }
+        await wait { model.requestCount == 1 }
         #expect(viewModel.isLoading)
         #expect(viewModel.details == nil)
 
-        useCase.complete(request: 0, with: .success(try .fixture()))
+        model.complete(request: 0, with: .success(try .fixture()))
         await load.value
 
         #expect(!viewModel.isLoading)
@@ -158,21 +143,17 @@ struct AccountDetailsViewModelTests {
 
     @Test
     func answerOfASupersededLoad_isDropped() async throws {
-        let useCase = DeferredAccountDetailsUseCase()
-        let viewModel = AccountDetailsViewModel(
-            arrangementId: "arrangement-1",
-            useCase: useCase,
-            configuration: AccountsJourney.Configuration()
-        )
+        let model = DeferredAccountDetailsModel()
+        let viewModel = AccountDetailsViewModel(model: model, configuration: AccountsJourney.Configuration())
         let first = Task { await viewModel.load() }
-        await wait { useCase.requestCount == 1 }
+        await wait { model.requestCount == 1 }
         let second = Task { await viewModel.load() }
-        await wait { useCase.requestCount == 2 }
+        await wait { model.requestCount == 2 }
 
-        useCase.complete(request: 1, with: .success(try .fixture()))
+        model.complete(request: 1, with: .success(try .fixture()))
         await second.value
         // The first load answers last, with an error that must not replace the newer result.
-        useCase.complete(request: 0, with: failure)
+        model.complete(request: 0, with: failure)
         await first.value
 
         #expect(viewModel.error == nil)
@@ -265,28 +246,23 @@ struct AccountDetailsViewTests {
 
     @Test
     func appearing_loadsTheAccount() async throws {
-        let useCase = StubAccountDetailsUseCase(result: .success(try .fixture()))
-        let viewModel = AccountDetailsViewModel(
-            arrangementId: "arrangement-1",
-            useCase: useCase,
-            configuration: AccountsJourney.Configuration()
-        )
+        let model = StubAccountDetailsModel(result: .success(try .fixture()))
+        let viewModel = AccountDetailsViewModel(model: model, configuration: AccountsJourney.Configuration())
 
         let window = show(viewModel)
         defer { window.isHidden = true }
         await wait { !viewModel.isLoading }
 
         #expect(viewModel.details?.id == "arrangement-1")
-        #expect(useCase.requestedIds == ["arrangement-1"])
+        #expect(model.fetchCount == 1)
     }
 
     @Test
     func appearing_tracksTheScreenView() async throws {
         let tracker = TrackerSpy()
-        let useCase = StubAccountDetailsUseCase(result: .success(try .fixture()))
+        let model = StubAccountDetailsModel(result: .success(try .fixture()))
         let viewModel = AccountDetailsViewModel(
-            arrangementId: "arrangement-1",
-            useCase: useCase,
+            model: model,
             configuration: AccountsJourney.Configuration(),
             tracker: tracker
         )
@@ -320,7 +296,7 @@ struct AccountDetailsBuildTests {
 
         let viewController = AccountDetails.build(navigationController: UINavigationController(), arrangementId: "1")
 
-        #expect(viewController is UIHostingController<AccountDetailsView>)
+        #expect(viewController is UIHostingController<AccountDetailsView<AccountDetailsViewModel>>)
     }
 
     @Test
@@ -332,6 +308,6 @@ struct AccountDetailsBuildTests {
         configuration.accountsList.router.didSelectProduct(navigationController)("arrangement-1")
 
         #expect(navigationController.viewControllers.count == 1)
-        #expect(navigationController.topViewController is UIHostingController<AccountDetailsView>)
+        #expect(navigationController.topViewController is UIHostingController<AccountDetailsView<AccountDetailsViewModel>>)
     }
 }

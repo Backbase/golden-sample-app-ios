@@ -68,6 +68,39 @@ final class StubAccountDetailsUseCase: AccountDetailsUseCase {
     }
 }
 
+/// The model the view model talks to in its tests: it answers with a canned result, without any use case behind it.
+@MainActor
+final class StubAccountDetailsModel: AccountDetailsModeling {
+
+    var result: Result<AccountArrangementItem, ErrorResponse>
+    private(set) var fetchCount = 0
+
+    init(result: Result<AccountArrangementItem, ErrorResponse>) {
+        self.result = result
+    }
+
+    func fetchAccountDetail() async -> Result<AccountArrangementItem, ErrorResponse> {
+        fetchCount += 1
+        return result
+    }
+}
+
+/// Answers only when told to, so that loads can overlap.
+@MainActor
+final class DeferredAccountDetailsModel: AccountDetailsModeling {
+
+    private var continuations = [CheckedContinuation<Result<AccountArrangementItem, ErrorResponse>, Never>]()
+    var requestCount: Int { continuations.count }
+
+    func fetchAccountDetail() async -> Result<AccountArrangementItem, ErrorResponse> {
+        await withCheckedContinuation { continuations.append($0) }
+    }
+
+    func complete(request index: Int, with result: Result<AccountArrangementItem, ErrorResponse>) {
+        continuations[index].resume(returning: result)
+    }
+}
+
 /// Answers only when told to, so that loads can overlap.
 final class DeferredAccountDetailsUseCase: AccountDetailsUseCase {
 

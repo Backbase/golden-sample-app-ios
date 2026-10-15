@@ -8,13 +8,13 @@ import SwiftUI
 
 /// The account details. The view model is driven by SwiftUI itself: the load by `.task`,
 /// the retry by the error state's button.
-struct AccountDetailsView: View {
+struct AccountDetailsView<ViewModel: AccountDetailsViewModeling>: View {
 
-    private let viewModel: AccountDetailsViewModel
+    private let viewModel: ViewModel
     private let configuration: AccountsJourney.Configuration
 
     init(
-        viewModel: AccountDetailsViewModel,
+        viewModel: ViewModel,
         configuration: AccountsJourney.Configuration
     ) {
         self.viewModel = viewModel

@@ -1,5 +1,5 @@
 //
-//  AccountListRouter.swift
+//  AccountsListRouter+Configuration.swift
 //  AccountsJourney
 //
 //  Created by Backbase R&D B.V. on 29/11/2023.

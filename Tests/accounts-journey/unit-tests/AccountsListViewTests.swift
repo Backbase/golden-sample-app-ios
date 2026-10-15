@@ -59,39 +59,39 @@ struct AccountsListViewTests {
 
     @Test
     func appearing_loadsTheAccounts() async throws {
-        let useCase = StubAccountsListUseCase(result: .success(try ProductSummary.fixture()))
-        let viewModel = AccountsListViewModel(useCase: useCase, configuration: AccountsJourney.Configuration())
+        let model = StubAccountsListModel(result: .success(try ProductSummary.fixture()))
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
 
         let window = show(viewModel)
         defer { window.isHidden = true }
         await wait { !viewModel.isLoading }
 
         #expect(viewModel.accounts.map(\.id) == ["current-1", "savings-1", "loan-1", "custom-1"])
-        #expect(useCase.callCount == 1)
+        #expect(model.fetchCount == 1)
     }
 
     @Test
     func changingTheSearchText_filtersTheAccounts_afterTheDebounce() async throws {
-        let useCase = StubAccountsListUseCase(result: .success(try ProductSummary.fixture()))
-        let viewModel = AccountsListViewModel(useCase: useCase, configuration: AccountsJourney.Configuration())
+        let model = StubAccountsListModel(result: .success(try ProductSummary.fixture()))
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
         let window = show(viewModel)
         defer { window.isHidden = true }
         await wait { !viewModel.isLoading }
 
         viewModel.searchText = "loan"
         // Typing is debounced, nothing has been requested yet.
-        #expect(useCase.callCount == 1)
+        #expect(model.fetchCount == 1)
         await wait { viewModel.accounts.count == 1 }
 
         #expect(viewModel.accounts.map(\.id) == ["loan-1"])
-        #expect(useCase.callCount == 2)
+        #expect(model.fetchCount == 2)
     }
 
     @Test
     func appearing_tracksTheScreenView() async throws {
         let tracker = TrackerSpy()
-        let useCase = StubAccountsListUseCase(result: .success(try ProductSummary.fixture()))
-        let viewModel = AccountsListViewModel(useCase: useCase, configuration: AccountsJourney.Configuration(), tracker: tracker)
+        let model = StubAccountsListModel(result: .success(try ProductSummary.fixture()))
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration(), tracker: tracker)
 
         let window = show(viewModel)
         defer { window.isHidden = true }

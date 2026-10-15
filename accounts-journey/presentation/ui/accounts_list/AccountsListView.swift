@@ -8,15 +8,15 @@ import SwiftUI
 
 /// The accounts list. The view model is driven by SwiftUI itself: the first load by `.task`,
 /// the search by `.task(id:)` as the search text changes and the reload by `.refreshable`.
-struct AccountsListView: View {
+struct AccountsListView<ViewModel: AccountsListViewModeling>: View {
 
-    @Bindable private var viewModel: AccountsListViewModel
+    @Bindable private var viewModel: ViewModel
     private let configuration: AccountsJourney.Configuration
 
     @State private var isPullRefreshing = false
 
     init(
-        viewModel: AccountsListViewModel,
+        viewModel: ViewModel,
         configuration: AccountsJourney.Configuration
     ) {
         self.viewModel = viewModel
