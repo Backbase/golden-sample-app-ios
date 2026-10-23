@@ -19,6 +19,15 @@ The minimal sample that includes all the required Backbase SDKs to get started t
 \
 LTS 26.03
 
+## [sample/cs/accounts-journey-swift-ui](https://github.com/Backbase/golden-sample-app-ios/tree/sample/cs/accounts-journey-swift-ui)
+SwiftUI implementation of the Golden Sample custom Accounts Journey: accounts list (search, pull-to-refresh, empty/error/loading) and account details, with unit and snapshot tests. Requires iOS 17 (`AccountsJourney` deployment target).
+\
+**Maintainer**: Mobile-Foundation
+\
+**Status**: Maintained
+\
+LTS 26.03
+
 ## [sample/devs/O11Y](https://github.com/Backbase/golden-sample-app-ios/tree/sample/devs/O11Y)
 An implementation of Backbase Observability that makes it easy to add 3rd party tracking libraries to your project.
 \
