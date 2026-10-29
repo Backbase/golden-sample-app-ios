@@ -75,7 +75,7 @@ struct AccountDetailsContentMapper {
             title: strings.generalSectionTitle().uppercased(),
             rows: [
                 AccountDetailsRowContent(title: strings.accountTypeTitle(), subtitle: details.productKindName),
-                AccountDetailsRowContent(title: strings.accountNameTitle(), subtitle: details.productKindName)
+                AccountDetailsRowContent(title: strings.accountNameTitle(), subtitle: details.name)
             ]
         )
     }
