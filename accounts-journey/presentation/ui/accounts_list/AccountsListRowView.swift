@@ -35,7 +35,6 @@ struct AccountsListRowView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(DesignSystem.shared.spacer.md)
-        .background(Color(Theme.colors.background.surface1))
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(content.id.map { "AccountsListRow_\($0)" } ?? "AccountsListRow")
     }
@@ -120,6 +119,7 @@ private struct RowText: View {
     return VStack(spacing: 0) {
         ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
             AccountsListRowView(content: row)
+                .background(Color(Theme.colors.background.surface1))
         }
     }
     .clipShape(RoundedRectangle(cornerRadius: DesignSystem.shared.cornerRadius.large))

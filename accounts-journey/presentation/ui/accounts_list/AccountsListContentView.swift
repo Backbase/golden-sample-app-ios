@@ -84,7 +84,7 @@ struct AccountsListContentView: View {
                 } label: {
                     AccountsListRowView(content: row)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(AccountsListRowButtonStyle())
                 .allowsHitTesting(!showsProgress)
             }
         }
