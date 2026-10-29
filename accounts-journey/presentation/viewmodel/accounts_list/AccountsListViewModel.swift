@@ -24,6 +24,9 @@ final class AccountsListViewModel: AccountsListViewModeling {
 
     /// Accounts matching the last submitted search, in display order. What the content is mapped from.
     private(set) var accounts = [AccountData]()
+    /// Full unfiltered accounts from the last network fetch. Used to filter locally on search, avoiding
+    /// redundant network calls for every keystroke.
+    @ObservationIgnored private var allAccounts = [AccountData]()
     /// What the screen shows: loading until the first load has finished, then either the formatted and
     /// localised accounts or the error of the last load. Later loads keep showing the accounts, see
     /// ``AccountsListContent/isReloading``.
@@ -110,11 +113,20 @@ final class AccountsListViewModel: AccountsListViewModeling {
     /// Loads the accounts matching ``searchText``, once the user has stopped typing for `debounce`.
     ///
     /// Meant for `.task(id: searchText)`: SwiftUI cancels it on every keystroke, which ends the wait.
+    /// If accounts have already been fetched, the search is resolved locally from `allAccounts` to
+    /// avoid redundant network requests on every keystroke.
     func submitSearch(debounce: Duration = .milliseconds(500)) async {
         guard searchText != submittedQuery else { return }
         try? await Task.sleep(for: debounce)
         guard !Task.isCancelled, searchText != submittedQuery else { return }
-        await load(query: searchText)
+        // Apply local filtering when accounts are already on screen — no network call needed.
+        if case .loaded = state, !allAccounts.isEmpty {
+            submittedQuery = searchText
+            accounts = Self.filter(allAccounts, by: searchText)
+            state = .loaded(AccountsListContent(rows: contentMapper.rows(for: accounts)))
+        } else {
+            await load(query: searchText)
+        }
     }
 
     // MARK: - Private
@@ -139,12 +151,14 @@ final class AccountsListViewModel: AccountsListViewModeling {
         switch result {
         case let .success(accountsSummaryResponse):
             let summary = accountsSummaryResponse.toMapUI(configuration: configuration)
-            accounts = Self.filter(AccountsListOrdering.orderedAccounts(from: summary), by: query)
+            allAccounts = AccountsListOrdering.orderedAccounts(from: summary)
+            accounts = Self.filter(allAccounts, by: query)
             state = .loaded(AccountsListContent(rows: contentMapper.rows(for: accounts)))
         case let .failure(errorResponse):
             // Don't keep showing accounts from a previous load once it has failed. The error
             // replaces the list, and with it the search field, so the search is cleared too.
             accounts = []
+            allAccounts = []
             // The retry button reloads the unfiltered accounts.
             state = .error(errorMapper.stateViewConfiguration(for: .loadingFailure(errorResponse)) { [weak self] in
                 Task { await self?.refresh() }
