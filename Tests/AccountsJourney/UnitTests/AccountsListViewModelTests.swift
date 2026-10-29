@@ -328,6 +328,20 @@ struct AccountsListViewModelSwiftUITests {
     }
 
     @Test
+    func submitSearch_filtersLocally_withoutRefetchingAfterInitialLoad() async throws {
+        let (viewModel, model) = try makeViewModel()
+
+        await viewModel.loadAccountsIfNeeded()
+        #expect(model.fetchCount == 1)
+
+        viewModel.searchText = "loan"
+        await viewModel.submitSearch(debounce: .zero)
+
+        #expect(model.fetchCount == 1)
+        #expect(viewModel.accounts.map(\.id) == ["loan-1"])
+    }
+
+    @Test
     func submitSearch_doesNothing_whenTheTextWasNeverChanged() async throws {
         let (viewModel, model) = try makeViewModel()
 

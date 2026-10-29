@@ -47,7 +47,7 @@ extension AccountsJourneyUITests {
             )
             .assertRowIsDisplayed(
                 title: AccountDetailsTestData.accountNameTitle,
-                value: AccountDetailsTestData.defaultProductKind
+                value: AccountsListTestData.defaultAccountName
             )
             // Status section
             .assertSectionTitleIsDisplayed(AccountDetailsTestData.statusSectionTitle)

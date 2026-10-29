@@ -56,12 +56,12 @@ struct AccountDetailsContentMapperTests {
     }
 
     @Test
-    func generalSection_showsTheProductKindNameAsTypeAndName() {
+    func generalSection_showsTheProductKindAsType_andTheArrangementNameAsName() {
         let section = makeMapper().sections(for: .fixture(productKindName: "Savings"))[1]
 
         #expect(section.rows == [
             AccountDetailsRowContent(title: strings.accountTypeTitle(), subtitle: "Savings"),
-            AccountDetailsRowContent(title: strings.accountNameTitle(), subtitle: "Savings")
+            AccountDetailsRowContent(title: strings.accountNameTitle(), subtitle: "Main account")
         ])
     }
 

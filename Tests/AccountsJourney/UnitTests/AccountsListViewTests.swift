@@ -79,12 +79,12 @@ struct AccountsListViewTests {
         await wait { !viewModel.state.isLoading }
 
         viewModel.searchText = "loan"
-        // Typing is debounced, nothing has been requested yet.
+        // Initial load only; search is filtered locally from cached accounts.
         #expect(model.fetchCount == 1)
         await wait { viewModel.accounts.count == 1 }
 
         #expect(viewModel.accounts.map(\.id) == ["loan-1"])
-        #expect(model.fetchCount == 2)
+        #expect(model.fetchCount == 1)
     }
 
     @Test
