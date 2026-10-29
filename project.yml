@@ -12,7 +12,7 @@ targets:
     deploymentTarget:
       iOS: *deploymentTarget
     info:
-      path: accounts-journey/Info.plist
+      path: AccountsJourney/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
     settings:
@@ -21,11 +21,11 @@ targets:
         MARKETING_VERSION: 0.0.1
         BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
     sources:
-      - path: accounts-journey
+      - path: AccountsJourney
         excludes:
           - Info.plist
         createIntermediateGroups: true
-      - path: assets
+      - path: Assets
         createIntermediateGroups: true
     scheme:
       testTargets:
@@ -42,7 +42,7 @@ targets:
     deploymentTarget:
       iOS: *deploymentTarget
     info:
-      path: appCommon/Info.plist
+      path: AppCommon/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
     settings:
@@ -51,7 +51,7 @@ targets:
         MARKETING_VERSION: 0.0.1
         BUILD_LIBRARY_FOR_DISTRIBUTION: $(inherited)
     sources:
-      - path: appCommon
+      - path: AppCommon
         excludes:
           - Info.plist
         createIntermediateGroups: true
@@ -73,16 +73,16 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.backbase.ebpsandbox.retailus
         MARKETING_VERSION: 0.0.1
     info:
-      path: app/Info.plist
+      path: App/Info.plist
       properties:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleName: GoldenSampleApp
         UILaunchStoryboardName: LaunchScreen
     sources:
-      - path: app
+      - path: App
         excludes: Info.plist
         createIntermediateGroups: true
-      - path: assets
+      - path: Assets
         createIntermediateGroups: true
     dependencies:
       - target: AccountsJourney
@@ -102,7 +102,7 @@ targets:
     deploymentTarget:
       iOS: *deploymentTarget
     info:
-      path: Tests/all-tests/Info.plist
+      path: Tests/AllTests/Info.plist
     codeSign: false
     settings:
       base:
@@ -128,13 +128,13 @@ targets:
     deploymentTarget:
       iOS: *deploymentTarget
     info:
-      path: Tests/accounts-journey/unit-tests/Info.plist
+      path: Tests/AccountsJourney/UnitTests/Info.plist
     codeSign: false
     dependencies:
       - target: AccountsJourney
         link: true
     sources:
-      - path: Tests/accounts-journey/unit-tests
+      - path: Tests/AccountsJourney/UnitTests
         excludes: Info.plist
         createIntermediateGroups: true
 
@@ -144,12 +144,12 @@ targets:
     type: bundle.ui-testing
     platform: iOS
     info:
-      path: appUITests/Info.plist
+      path: AppUITests/Info.plist
     codeSign: false
     deploymentTarget:
       iOS: *deploymentTarget
     sources:
-      - path: appUITests
+      - path: AppUITests
         excludes: Info.plist
     dependencies:
       - target: GoldenSampleApp
@@ -160,7 +160,7 @@ targets:
       testTargets:
         - GoldenSampleUITests
       testPlans:
-        - path: appUITests/TestPlans/L3.xctestplan
+        - path: AppUITests/TestPlans/L3.xctestplan
           defaultPlan: true
     settings:
       base:
