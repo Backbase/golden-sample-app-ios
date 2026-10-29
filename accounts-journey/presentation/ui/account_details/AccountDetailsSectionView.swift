@@ -32,14 +32,14 @@ struct AccountDetailsSectionView: View {
     }
 
     private var card: some View {
-        VStack(alignment: .leading, spacing: DesignSystem.shared.spacer.md) {
-            ForEach(Array(content.rows.enumerated()), id: \.offset) { _, row in
-                AccountDetailsRowView(content: row)
+        BB.Card {
+            VStack(alignment: .leading, spacing: DesignSystem.shared.spacer.md) {
+                ForEach(Array(content.rows.enumerated()), id: \.offset) { _, row in
+                    AccountDetailsRowView(content: row)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(DesignSystem.shared.spacer.md)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .cardViewStyle()
         .padding(.horizontal, DesignSystem.shared.spacer.md)
     }
 }
