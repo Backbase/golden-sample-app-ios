@@ -36,9 +36,7 @@ final class AccountDetailsViewModel: AccountDetailsViewModeling {
 
     // MARK: - Private
 
-    @ObservationIgnored private var hasLoaded = false
-    /// Identifies the latest load, so the answer of a superseded one can be dropped.
-    @ObservationIgnored private var latestLoadID = 0
+    @ObservationIgnored private let loadCoordinator = LoadCoordinator()
 
     // MARK: - Init
 
@@ -73,22 +71,19 @@ final class AccountDetailsViewModel: AccountDetailsViewModeling {
 
     /// Loads the account the first time it is called, and does nothing afterwards.
     func loadIfNeeded() async {
-        guard !hasLoaded else { return }
-        hasLoaded = true
+        guard loadCoordinator.beginFirstLoad() else { return }
         await load()
     }
 
     /// Loads the account, whether it has been loaded before or not. Also what the retry button runs.
     func load() async {
-        hasLoaded = true
-        latestLoadID += 1
-        let loadID = latestLoadID
+        let loadToken = loadCoordinator.beginLoad()
         state = .loading
 
         let result = await model.fetchAccountDetail()
 
         // A newer load is in flight, and owns the state.
-        guard loadID == latestLoadID else { return }
+        guard loadCoordinator.isCurrent(loadToken) else { return }
 
         switch result {
         case let .success(accountDetailsResponse):

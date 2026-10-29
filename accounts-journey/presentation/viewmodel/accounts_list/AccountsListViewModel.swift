@@ -51,9 +51,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
 
     /// The query of the latest load, so the same search is not performed twice.
     @ObservationIgnored private var submittedQuery = ""
-    @ObservationIgnored private var hasLoaded = false
-    /// Identifies the latest load, so the answer of a superseded one can be dropped.
-    @ObservationIgnored private var latestLoadID = 0
+    @ObservationIgnored private let loadCoordinator = LoadCoordinator()
 
     // MARK: - Init
 
@@ -92,8 +90,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
 
     /// Loads the accounts the first time it is called, and does nothing afterwards.
     func loadAccountsIfNeeded() async {
-        guard !hasLoaded else { return }
-        hasLoaded = true
+        guard loadCoordinator.beginFirstLoad() else { return }
         await load(query: "")
     }
 
@@ -132,8 +129,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
     // MARK: - Private
 
     private func load(query: String) async {
-        latestLoadID += 1
-        let loadID = latestLoadID
+        let loadToken = loadCoordinator.beginLoad()
         submittedQuery = query
         // Accounts that are on screen stay there while the new ones load. Anything else, which is
         // the first load or the one after a failure, shows the spinner.
@@ -146,7 +142,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
         let result = await model.fetchAccountSummary()
 
         // A newer load is in flight, and owns the state.
-        guard loadID == latestLoadID else { return }
+        guard loadCoordinator.isCurrent(loadToken) else { return }
 
         switch result {
         case let .success(accountsSummaryResponse):
