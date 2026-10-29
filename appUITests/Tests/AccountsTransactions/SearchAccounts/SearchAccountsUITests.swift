@@ -9,6 +9,8 @@ extension AccountsJourneyUITests {
         AccountsListScreen(app)
             .searchAccount(query: AccountsListTestData.defaultAccountName)
             .assertAccountIsDisplayed(name: AccountsListTestData.defaultAccountName, accountNumber: AccountsListTestData.defaultAccountNumber)
+            // The search filters the list, accounts that do not match the query are gone.
+            .assertAccountIsNotDisplayed(name: AccountsListTestData.otherAccountName)
     }
     
     func test_account_empty_search_results_displayed_for_non_existent_account() {
