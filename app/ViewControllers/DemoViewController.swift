@@ -25,9 +25,10 @@ final class DemoViewController: UIViewController {
         NSLayoutConstraint.activate([
             stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-        view.backgroundColor = DesignSystem.shared.colors.surfacePrimary.default
+        view.backgroundColor = Theme.colors.background.surface1
+
     }
 
     private func getStateView() -> StateView {
@@ -36,7 +37,8 @@ final class DemoViewController: UIViewController {
                                                    subtitle: Bundle.main.localize("demoViewController.stateViewSubtitle") ?? "",
                                                    animationView: nil,
                                                    firstButtonConfiguration: nil,
-                                                   secondButtonConfiguration: nil)
+                                                   secondButtonConfiguration: nil,
+                                                   thirdButtonConfiguration: nil)
         let params = StateViewInitParams(configuration: config, bundles: .main)
         return StateView(params: params)
     }

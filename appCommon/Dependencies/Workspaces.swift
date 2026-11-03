@@ -14,7 +14,7 @@ import RetailFeatureFilterUseCase
 import IdentityAuthenticationJourney
 import RetailFeatureFilterAccessControlEntitlementsUseCase
 import BusinessWorkspacesJourneyWorkspacesUseCase2
-import AccessControlClient3Gen2
+import AccessControlApiV3
 import RetailMoreJourney
 import BackbaseDesignSystem
 

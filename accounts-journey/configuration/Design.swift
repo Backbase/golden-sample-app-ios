@@ -20,62 +20,62 @@ extension AccountsJourney {
                 return AccountIconInfo(
                     icon: UIImage.named("Card", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.accent.lightest.light,
+                        light: Theme.colors.background.brandSubtle,
                         dark: darkIconBackgroundColor)
                 )
             case .current:
                 return AccountIconInfo(
                     icon: UIImage.named("Current", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.primary.lightest,
+                        light: Theme.colors.background.brandSubtle,
                         dark: darkIconBackgroundColor)
                 )
             case .debitCard:
                 return AccountIconInfo(
                     icon: UIImage.named("DebitCard", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.accent.lightest.light,
+                        light: Theme.colors.background.brandSubtle,
                         dark: darkIconBackgroundColor)
                 )
             case .investment:
                 return AccountIconInfo(
                     icon: UIImage.named("Investment", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.charts.five.lightest.light,
+                        light: Theme.colors.background.category5Subtle,
                         dark: darkIconBackgroundColor)
                 )
             case .loan:
                 return AccountIconInfo(
                     icon: UIImage.named("Loan", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.charts.two.lightest.light,
+                        light: Theme.colors.background.category2Subtle,
                         dark: darkIconBackgroundColor)
                 )
             case .savings:
                 return AccountIconInfo(
                     icon: UIImage.named("Savings", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.success.lightest,
+                        light: Theme.colors.background.successSubtle,
                         dark: darkIconBackgroundColor)
                 )
             case .termDeposit:
                 return AccountIconInfo(
                     icon: UIImage.named("TermDeposits", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.success.lightest,
+                        light: Theme.colors.background.successSubtle,
                         dark: darkIconBackgroundColor)
                 )
             case .general:
                 return AccountIconInfo(
                     icon: UIImage.named("General", in: .accountsJourney),
                     backgroundColor: UIColor(
-                        light: DesignSystem.shared.colors.primary.lightest,
+                        light: Theme.colors.background.brandSubtle,
                         dark: darkIconBackgroundColor)
                 )
             }
         }
         
         /// a dark icon background color
-        public static let darkIconBackgroundColor: UIColor = DesignSystem.shared.colors.surfaceSecondary.default
+        public static let darkIconBackgroundColor: UIColor = Theme.colors.background.surface2
     }
 }
