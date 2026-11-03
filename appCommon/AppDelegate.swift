@@ -56,6 +56,14 @@ open class AppDelegate<Router: AppRouter>: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
         
+        #if DEBUG
+        // Xcode Previews launch the whole app as the preview host, but there is no real
+        // window or session there. Skip the app flow, otherwise the setup below crashes.
+        if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+            return true
+        }
+        #endif
+        
         let window = createWindow()
         self.window = window
         

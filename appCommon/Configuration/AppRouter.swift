@@ -48,6 +48,7 @@ open class AppRouter {
     ///
     /// - Parameter window: The `UIWindow` object associated with the application.
     ///
+    @MainActor
     func didStartApp(window: UIWindow) {
         window.rootViewController = navigationController
         let authenticationUseCase = Resolver.resolve(AuthenticationUseCase.self)

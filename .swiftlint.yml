@@ -5,10 +5,9 @@ disabled_rules:
   - opening_brace
   - nesting
 included:
-  - accounts-journey
-  - accounts-use-case
-  - app
-  - appUITests
+  - AccountsJourney
+  - App
+  - AppUITests
 excluded:
   - Pods
   - .build
