@@ -229,6 +229,31 @@ struct AccountsListViewModelSwiftUITests {
         #expect(viewModel.state.data?.rows.count == 4)
     }
 
+    @Test
+    func searchTypedDuringARefresh_isAppliedWhenTheRefreshFinishes() async throws {
+        let model = DeferredAccountsListModel()
+        let viewModel = AccountsListViewModel(model: model, configuration: AccountsJourney.Configuration())
+        let first = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 1 }
+        model.complete(request: 0, with: .success(try ProductSummary.fixture()))
+        await first.value
+
+        let refresh = Task { await viewModel.refresh() }
+        await wait { model.requestCount == 2 }
+        // The search is resolved locally while the refresh is still in flight.
+        viewModel.searchText = "loan"
+        await viewModel.submitSearch(debounce: .zero)
+        #expect(viewModel.accounts.map(\.id) == ["loan-1"])
+
+        model.complete(request: 1, with: .success(try ProductSummary.fixture()))
+        await refresh.value
+
+        // The refresh must not replace the filtered results with the unfiltered list.
+        #expect(viewModel.accounts.map(\.id) == ["loan-1"])
+        #expect(viewModel.state.data?.rows.map(\.id) == ["loan-1"])
+        #expect(viewModel.searchText == "loan")
+    }
+
     // MARK: Refresh
 
     @Test

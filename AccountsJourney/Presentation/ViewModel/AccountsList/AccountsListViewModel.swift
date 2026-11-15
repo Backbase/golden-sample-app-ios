@@ -91,7 +91,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
     /// Loads the accounts the first time it is called, and does nothing afterwards.
     func loadAccountsIfNeeded() async {
         guard loadCoordinator.beginFirstLoad() else { return }
-        await load(query: "")
+        await load()
     }
 
     /// The user pulled to refresh: tracks it, then reloads like ``refresh()``.
@@ -104,7 +104,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
     /// which is what `refreshable` needs to know when to dismiss the pull to refresh indicator.
     func refresh() async {
         searchText = ""
-        await load(query: "")
+        await load()
     }
 
     /// Loads the accounts matching ``searchText``, once the user has stopped typing for `debounce`.
@@ -118,19 +118,21 @@ final class AccountsListViewModel: AccountsListViewModeling {
         guard !Task.isCancelled, searchText != submittedQuery else { return }
         // Apply local filtering when accounts are already on screen — no network call needed.
         if case .loaded = state, !allAccounts.isEmpty {
-            submittedQuery = searchText
-            accounts = Self.filter(allAccounts, by: searchText)
-            state = .loaded(AccountsListContent(rows: contentMapper.rows(for: accounts)))
+            showSearchResults()
         } else {
-            await load(query: searchText)
+            await load()
         }
     }
 
     // MARK: - Private
 
-    private func load(query: String) async {
+    /// Loads the accounts and filters them by ``searchText``.
+    ///
+    /// The search text is read again once the request has finished, not when the load started: the user
+    /// may have typed while the request was in flight, and that search was applied locally with no load of its own.
+    private func load() async {
         let loadToken = loadCoordinator.beginLoad()
-        submittedQuery = query
+        submittedQuery = searchText
         // Accounts that are on screen stay there while the new ones load. Anything else, which is
         // the first load or the one after a failure, shows the spinner.
         if case let .loaded(content) = state {
@@ -148,8 +150,7 @@ final class AccountsListViewModel: AccountsListViewModeling {
         case let .success(accountsSummaryResponse):
             let summary = accountsSummaryResponse.toMapUI(configuration: configuration)
             allAccounts = AccountsListOrdering.orderedAccounts(from: summary)
-            accounts = Self.filter(allAccounts, by: query)
-            state = .loaded(AccountsListContent(rows: contentMapper.rows(for: accounts)))
+            showSearchResults()
         case let .failure(errorResponse):
             // Don't keep showing accounts from a previous load once it has failed. The error
             // replaces the list, and with it the search field, so the search is cleared too.
@@ -162,6 +163,13 @@ final class AccountsListViewModel: AccountsListViewModeling {
             searchText = ""
             submittedQuery = ""
         }
+    }
+
+    /// Shows ``allAccounts`` filtered by the current ``searchText``.
+    private func showSearchResults() {
+        submittedQuery = searchText
+        accounts = Self.filter(allAccounts, by: searchText)
+        state = .loaded(AccountsListContent(rows: contentMapper.rows(for: accounts)))
     }
 
     // MARK: - Search
