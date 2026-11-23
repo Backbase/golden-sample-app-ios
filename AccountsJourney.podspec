@@ -8,13 +8,13 @@ Pod::Spec.new do |s|
     s.author = 'Backbase B.V.'
   
     s.platform = :ios
-    s.ios.deployment_target = '15.0'
+    s.ios.deployment_target = '17.0'
   
     # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
     s.source = { git: 'https://github.com/backbase/golden-sample-app-ios.git' }
   
-    s.source_files = 'accounts-journey/**/*'
-    s.exclude_files = 'accounts-journey/Info.plist'
+    s.source_files = 'AccountsJourney/**/*'
+    s.exclude_files = 'AccountsJourney/Info.plist'
     
     # ――― Assets ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
     s.ios.resource_bundle = { "AccountsJourneyAssets" => ["assets/*.xcassets", "assets/*.lproj/*.strings", "assets/*.lproj/*.stringsdict", "assets/*.xcstrings"]}

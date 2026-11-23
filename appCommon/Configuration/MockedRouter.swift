@@ -13,6 +13,7 @@ import AccountsJourney
 class MockedAppRouter: AppRouter {
     private var navigationController = NavigationController()
 
+    @MainActor
     override func didStartApp(window: UIWindow) {
         let vc = AccountsList.build(navigationController: self.navigationController)
         navigationController.viewControllers = [vc]

@@ -1,0 +1,66 @@
+{
+    "currentAccounts": {
+        "products": [
+            {
+                "id": "current-1",
+                "name": "Main account",
+                "displayName": "Main account",
+                "bookedBalance": "1250.50",
+                "availableBalance": "1250.50",
+                "currency": "EUR",
+                "BBAN": "NL91ABNA0417164300",
+                "visible": true,
+                "state": { "state": "Active" },
+                "debitCardsItems": []
+            }
+        ]
+    },
+    "savingsAccounts": {
+        "products": [
+            {
+                "id": "savings-1",
+                "name": "Holiday savings",
+                "displayName": "Holiday savings",
+                "bookedBalance": "9800",
+                "currency": "EUR",
+                "IBAN": "NL02ABNA0123456789",
+                "visible": true,
+                "state": { "state": "Active" },
+                "debitCardsItems": []
+            }
+        ]
+    },
+    "loans": {
+        "products": [
+            {
+                "id": "loan-1",
+                "name": "Car loan",
+                "displayName": "Car loan",
+                "bookedBalance": "-12000",
+                "currency": "EUR",
+                "BBAN": "NL44RABO0123456789",
+                "visible": false,
+                "state": { "state": "Closed" },
+                "debitCardsItems": []
+            }
+        ]
+    },
+    "customProductKinds": [
+        {
+            "name": "Other",
+            "products": [
+                {
+                    "id": "custom-1",
+                    "name": "Gold bars",
+                    "displayName": "Gold bars",
+                    "bookedBalance": "5",
+                    "currency": "USD",
+                    "productKindName": "Precious",
+                    "visible": true,
+                    "state": { "state": "Inactive" },
+                    "debitCardsItems": []
+                }
+            ]
+        }
+    ]
+}

@@ -30,15 +30,16 @@ class BaseScreen {
     // MARK: METHODS - ACTION
     @discardableResult
     func tapBack() -> Self {
-        navigationBar.tap()
+        expect(element: navigationBarButton, status: .hittable).tap()
         return self
     }
 
     // MARK: METHODS - ASSERTION
     @discardableResult
     func assertTitleIsDisplayed(contains title: String, timeout: TimeInterval = Timeouts.defaultTimeout) -> Self {
-        expect(element: navigationBar, status: .exist)
-        expect(element: navigationBarTitleLabel, status: .exist)
+        expect(element: navigationBar, status: .exist, timeout: timeout)
+        let titleLabel = navigationBar.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", title)).firstMatch
+        expect(element: titleLabel, status: .exist, timeout: timeout)
         return self
     }
     
